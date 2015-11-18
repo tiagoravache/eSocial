@@ -1,0 +1,187 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{C8B2AD73-8E57-4239-AF20-CEA45EC6AECF}</ProjectGuid>
+			<MainSource>ACBre_Social.dpk</MainSource>
+			<Config Condition="'$(Config)'==''">Debug</Config>
+			<DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+			<ProjectVersion>12.0</ProjectVersion>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_1)'!=''">
+			<Cfg_1>true</Cfg_1>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_2)'!=''">
+			<Cfg_2>true</Cfg_2>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Base)'!=''">
+			<DCC_UnitAlias>WinTypes=Windows;WinProcs=Windows;$(DCC_UnitAlias)</DCC_UnitAlias>
+			<DCC_DependencyCheckOutputName>C:\Documents and Settings\All Users\Documentos\RAD Studio\7.0\Bpl\ACBre_Social.bpl</DCC_DependencyCheckOutputName>
+			<DCC_Description>ACBr - eSocial - (http://www.projetoacbr.com.br/)</DCC_Description>
+			<DesignOnlyPackage>false</DesignOnlyPackage>
+			<GenDll>true</GenDll>
+			<DCC_OutputNeverBuildDcps>true</DCC_OutputNeverBuildDcps>
+			<GenPackage>true</GenPackage>
+			<DCC_ImageBase>00400000</DCC_ImageBase>
+			<DCC_Platform>x86</DCC_Platform>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_1)'!=''">
+			<DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
+			<DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+			<DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+			<DCC_DebugInformation>false</DCC_DebugInformation>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_2)'!=''">
+			<DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+		</PropertyGroup>
+		<ItemGroup>
+			<DelphiCompile Include="ACBre_Social.dpk">
+				<MainSource>MainSource</MainSource>
+			</DelphiCompile>
+			<DCCReference Include="vcl.dcp"/>
+			<DCCReference Include="rtl.dcp"/>
+			<DCCReference Include="designide.dcp"/>
+			<DCCReference Include="dbrtl.dcp"/>
+			<DCCReference Include="xmlrtl.dcp"/>
+			<DCCReference Include="inet.dcp"/>
+			<DCCReference Include="soaprtl.dcp"/>
+			<DCCReference Include="ACBr_DFeComum.dcp"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\ACBreSocial.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\ACBreSocialUtil.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\ACBreSocialReg.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\ACBreSocialGerador.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\ACBreSocialEventos.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\ACBreSocialConsts.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\ACBreSocialConfiguracoes.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_Periodicos.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_NaoPeriodicos.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_Iniciais.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_Conversao.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_Common.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_Tabelas.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1000.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1005.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1010.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1020.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1030.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1040.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1050.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1060.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1070.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1080.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1200.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1202.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1210.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1220.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1250.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1260.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1270.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1280.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1298.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1299.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1300.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S2100.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S2190.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S2200.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S2205.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S2206.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S2210.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S2220.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S2230.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S2240.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\esocial_S2241.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S2250.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S2298.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S2299.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S2300.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S2305.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S2399.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S3000.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S4000.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S4999.pas"/>
+			<BuildConfiguration Include="Base">
+				<Key>Base</Key>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Debug">
+				<Key>Cfg_2</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Release">
+				<Key>Cfg_1</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+		</ItemGroup>
+		<Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
+		<ProjectExtensions>
+			<Borland.Personality>Delphi.Personality.12</Borland.Personality>
+			<Borland.ProjectType>Package</Borland.ProjectType>
+			<BorlandProject>
+				<Delphi.Personality>
+					<Source>
+						<Source Name="MainSource">ACBre_Social.dpk</Source>
+					</Source>
+					<Parameters>
+						<Parameters Name="UseLauncher">False</Parameters>
+						<Parameters Name="LoadAllSymbols">True</Parameters>
+						<Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
+					</Parameters>
+					<VersionInfo>
+						<VersionInfo Name="IncludeVerInfo">True</VersionInfo>
+						<VersionInfo Name="AutoIncBuild">False</VersionInfo>
+						<VersionInfo Name="MajorVer">1</VersionInfo>
+						<VersionInfo Name="MinorVer">0</VersionInfo>
+						<VersionInfo Name="Release">0</VersionInfo>
+						<VersionInfo Name="Build">0</VersionInfo>
+						<VersionInfo Name="Debug">False</VersionInfo>
+						<VersionInfo Name="PreRelease">False</VersionInfo>
+						<VersionInfo Name="Special">False</VersionInfo>
+						<VersionInfo Name="Private">False</VersionInfo>
+						<VersionInfo Name="DLL">False</VersionInfo>
+						<VersionInfo Name="Locale">1046</VersionInfo>
+						<VersionInfo Name="CodePage">1252</VersionInfo>
+					</VersionInfo>
+					<VersionInfoKeys>
+						<VersionInfoKeys Name="CompanyName"/>
+						<VersionInfoKeys Name="FileDescription"/>
+						<VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys>
+						<VersionInfoKeys Name="InternalName"/>
+						<VersionInfoKeys Name="LegalCopyright"/>
+						<VersionInfoKeys Name="LegalTrademarks"/>
+						<VersionInfoKeys Name="OriginalFilename"/>
+						<VersionInfoKeys Name="ProductName"/>
+						<VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
+						<VersionInfoKeys Name="Comments"/>
+					</VersionInfoKeys>
+					<Excluded_Packages>
+						<Excluded_Packages Name="C:\Acbr\Lib\Delphi\LibD14\ACBr_Comum.bpl">ACBr - Biblioteca Comum, EAD, AAC  - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+						<Excluded_Packages Name="C:\Acbr\Lib\Delphi\LibD14\ACBr_TCP.bpl">ACBr - Socket, CEP, TCP, IBGE, CNIEE, Suframa, Download, FTP, HTTP, NFPws, IBPTax, CNPJ, CPF, Cotação, E-mail - (http://www.projectoacbr.com.br/)</Excluded_Packages>
+						<Excluded_Packages Name="C:\Acbr\Lib\Delphi\LibD14\ACBr_Diversos.bpl">ACBr - Calculadora, Extenso, Validador, Troco, CMC7, Fala, BarCode, EnterTab, GIF, QrCode, InStore, CargaBal - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+						<Excluded_Packages Name="C:\Acbr\Lib\Delphi\LibD14\ACBr_OpenSSL.bpl">ACBr - OpenSSL através do LibXMLSec - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+						<Excluded_Packages Name="C:\Documents and Settings\All Users\Documentos\RAD Studio\7.0\Bpl\ACBreSocial.bpl">(untitled)</Excluded_Packages>
+						<Excluded_Packages Name="C:\ACBr\Lib\Delphi\LibD14\ACBrComum.bpl">File C:\ACBr\Lib\Delphi\LibD14\ACBrComum.bpl not found</Excluded_Packages>
+						<Excluded_Packages Name="C:\ACBr\Lib\Delphi\LibD14\ACBrDiversos.bpl">File C:\ACBr\Lib\Delphi\LibD14\ACBrDiversos.bpl not found</Excluded_Packages>
+						<Excluded_Packages Name="C:\ACBr\Lib\Delphi\LibD14\ACBrSerial.bpl">File C:\ACBr\Lib\Delphi\LibD14\ACBrSerial.bpl not found</Excluded_Packages>
+						<Excluded_Packages Name="C:\ACBr\Lib\Delphi\LibD14\ACBrTCP.bpl">File C:\ACBr\Lib\Delphi\LibD14\ACBrTCP.bpl not found</Excluded_Packages>
+						<Excluded_Packages Name="C:\ACBr\Lib\Delphi\LibD14\ACBrOpenSSL.bpl">File C:\ACBr\Lib\Delphi\LibD14\ACBrOpenSSL.bpl not found</Excluded_Packages>
+						<Excluded_Packages Name="C:\ACBr\Lib\Delphi\LibD14\ACBr_NFe2.bpl">File C:\ACBr\Lib\Delphi\LibD14\ACBr_NFe2.bpl not found</Excluded_Packages>
+						<Excluded_Packages Name="C:\ACBr\Lib\Delphi\LibD14\ACBrNFeDanfeESCPOS.bpl">File C:\ACBr\Lib\Delphi\LibD14\ACBrNFeDanfeESCPOS.bpl not found</Excluded_Packages>
+						<Excluded_Packages Name="C:\ACBr\Lib\Delphi\LibD14\ACBr_SAT_Extrato_ESCPOS.bpl">File C:\ACBr\Lib\Delphi\LibD14\ACBr_SAT_Extrato_ESCPOS.bpl not found</Excluded_Packages>
+						<Excluded_Packages Name="C:\ACBr\Lib\Delphi\LibD14\ACBrNFeDanfeFRpkg.bpl">File C:\ACBr\Lib\Delphi\LibD14\ACBrNFeDanfeFRpkg.bpl not found</Excluded_Packages>
+						<Excluded_Packages Name="C:\ACBr\Lib\Delphi\LibD14\ACBrCTeDacteFRpkg.bpl">File C:\ACBr\Lib\Delphi\LibD14\ACBrCTeDacteFRpkg.bpl not found</Excluded_Packages>
+						<Excluded_Packages Name="C:\ACBr\Lib\Delphi\LibD14\ACBrNFSeDanfseFRpkg.bpl">File C:\ACBr\Lib\Delphi\LibD14\ACBrNFSeDanfseFRpkg.bpl not found</Excluded_Packages>
+						<Excluded_Packages Name="C:\ACBr\Lib\Delphi\LibD14\ACBr_BoletoFC_FR.bpl">File C:\ACBr\Lib\Delphi\LibD14\ACBr_BoletoFC_FR.bpl not found</Excluded_Packages>
+						<Excluded_Packages Name="C:\ACBr\Lib\Delphi\LibD14\ACBrMDFeDAMDFEFRpkg.bpl">File C:\ACBr\Lib\Delphi\LibD14\ACBrMDFeDAMDFEFRpkg.bpl not found</Excluded_Packages>
+						<Excluded_Packages Name="C:\ACBr\Lib\Delphi\LibD14\ACBrGNREGuiaFRpkg.bpl">File C:\ACBr\Lib\Delphi\LibD14\ACBrGNREGuiaFRpkg.bpl not found</Excluded_Packages>
+						<Excluded_Packages Name="$(BDS)\bin\dcloffice2k140.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+						<Excluded_Packages Name="$(BDS)\bin\dclofficexp140.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+					</Excluded_Packages>
+				</Delphi.Personality>
+			</BorlandProject>
+			<ProjectFileVersion>12</ProjectFileVersion>
+		</ProjectExtensions>
+	</Project>
