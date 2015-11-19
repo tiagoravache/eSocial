@@ -963,14 +963,16 @@ begin
           IndResBr := tpNao;
           tpPgto := tpPgtoResc2299;
           //-OS GRUPOS ABAIXO SÃO OPCIONAIS
-          //grupo detPgtoFl
-          detPgtoFl.perRef  := '052015';
-          detPgtoFl.vlrPgto := 12365.43;
-          detPgtoFl.ideRecPgto := 1;
+          //grupo detPgtoFl agora é um collection
+          //INCLUIR FOR AQUI
+          detPgtoFl.Items[0].perRef  := '052015';
+          detPgtoFl.Items[0].vlrPgto := 12365.43;
+          detPgtoFl.Items[0].ideRecPgto := 1;
           //grupo detPgtoResc OBRIGATÓRIO se tpPgto=2
-          detPgtoResc.vlrPgto := 12365.43;
-          detPgtoResc.ideRecPgto := 1;
-          detPgtoResc.nrRecArq := 'A.00.NNNNNNNNNNNNNNNNNNN';
+          //INCLUIR FOR AQUI
+          detPgtoResc.Items[0].vlrPgto := 12365.43;
+          detPgtoResc.Items[0].ideRecPgto := 1;
+          detPgtoResc.Items[0].nrRecArq := 'A.00.NNNNNNNNNNNNNNNNNNN';
           //grupo idePgtoExt
           IdePgtoExt.idePais.codPais := '116';
           IdePgtoExt.idePais.indNIF := infBeneficiaNIF;
