@@ -22,7 +22,7 @@ type
   TeSocialWebService = class(TDFeWebService)
   private
   protected
-    FPStatus: TStatusACBreSocial//Checar se o eSocial terá um status como na NFe
+    FPStatus: TStatusACBreSocial//Fazer um enumerador
     FPLayout: TLayOut;
     FPConfiguracoeseSocial: TConfiguracoeseSocial;
 
@@ -126,7 +126,7 @@ type
 
   { TeSocialEnvEvento }// usar para o WS EnviarLoteEventos
 
-  TNFeEnvEvento = class(TNFeWebService)
+  TeSocialEnvEvento = class(TeSocialWebService)
   private
     FidLote: integer;
     Fversao: String;

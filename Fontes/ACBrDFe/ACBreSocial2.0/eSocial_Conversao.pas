@@ -71,6 +71,9 @@ type
                              TsEvtTabFuncao, TsEvtTabHorTur, TsEvtTabLotacao, TsEvtTabOperPort,
                              TsEvtTabProcesso, TsEvtTabRubrica, TsEvtTSVAltContratual,
                              TsEvtTSVInicio, TsEvtTSVTermino);
+  TLayOut                 = (LayEnvLoteEventos, LayRetEnvLoteEventos, LayConsResultProcessamento, LayRetConsResultProcessamento);
+
+  TStatusACBreSocial      = (stIdle, stEnvLoteEventos, stRetEnvLoteEventos, stConsResultProcessamento, stRetConsResultProcessamento );
 
 
   TTipoEvento             = (teS1000, teS1005, teS1010, teS1020, teS1030, teS1040, teS1050,
