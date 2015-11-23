@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils,
   ACBrDFe, ACBrDFeWebService,
-  pcnNFe,//pcneSocial?
+  pcnNFe,
   pcnRetConsReciNFe, pcnRetConsCad, pcnAuxiliar, pcnConversao, eSocial_Conversao,
   pcnProcNFe, pcnRetCancNFe, pcnEnvEventoNFe, pcnRetEnvEventoNFe,
   pcnRetConsSitNFe, pcnConsNFeDest, pcnRetConsNFeDest, pcnDownloadNFe,
@@ -44,7 +44,7 @@ type
 
   { TNFeRecibo }//Checar como será o recibo, para caso necessário usar esta classe...
 
-  TNFeRecibo = class(TNFeWebService)
+  TNFeRecibo = class(TeSocialWebService)
   private
     FRecibo: String;
     Fversao: String;
@@ -121,7 +121,7 @@ type
     property ReteSocialDFe: String read FReteSocialDFe;
 
     property protNFe: TProcNFe read FprotNFe;
-    property procEventoeSocial: TRetEventoeSocialCollection read FprocEventoNFe;
+    property procEventoeSocial: TRetEventoeSocialCollection read FprocEventoeSocial;
   end;
 
   { TeSocialEnvEvento }// usar para o WS EnviarLoteEventos
@@ -192,8 +192,6 @@ type
   TWebServices = class
   private
     FACBreSocial: TACBrDFe;
-    FStatusServico: TNFeStatusServico;
-    FEnviar: TNFeRecepcao;
     FRetorno: TNFeRetRecepcao;
     FRecibo: TNFeRecibo;
     FConsulta: TNFeConsulta;
@@ -211,7 +209,6 @@ type
       Ano, Modelo, Serie, NumeroInicial, NumeroFinal: integer);
 
     property ACBreSocial: TACBrDFe read FACBreSocial write FACBreSocial;
-    property StatusServico: TNFeStatusServico read FStatusServico write FStatusServico;
     property Enviar: TNFeRecepcao read FEnviar write FEnviar;
     property Retorno: TNFeRetRecepcao read FRetorno write FRetorno;
     property Recibo: TNFeRecibo read FRecibo write FRecibo;
@@ -224,7 +221,7 @@ implementation
 
 uses
   StrUtils, Math,
-  ACBrUtil, ACBreSocial,
+  ACBrUtil, ACBreSocial, ACBreSocialConfiguracoes,
   pcnGerador, pcnConsStatServ, pcnRetConsStatServ,
   pcnConsSitNFe, pcnInutNFe, pcnRetInutNFe, pcnConsReciNFe,
   pcnConsCad, pcnLeitor;
@@ -235,7 +232,7 @@ constructor TeSocialWebService.Create(AOwner: TACBrDFe);
 begin
   inherited Create(AOwner);
 
-  FPConfiguracoeseSocial := TConfiguracoeseSocail(FPConfiguracoes);
+  FPConfiguracoeseSocial := TConfiguracoeseSocial(FPConfiguracoes);
   FPLayout := LayNfeStatusServico;//checar o layout
   FPStatus := stIdle;
 end;
@@ -253,7 +250,7 @@ end;
 
 function TeSocialWebService.ExtrairModeloChaveAcesso(AChaveeSocial: String): String;
 begin
-  AChaveNFE := OnlyNumber(AChaveeSocial);
+  AChaveeSocial := OnlyNumber(AChaveeSocial);
   if ValidarChave(AChaveeSocial) then
     Result := copy(AChaveeSocial, 21, 2)// checar esses valores no copy
   else
@@ -272,7 +269,7 @@ begin
   FPVersaoServico := '';
   FPURL := '';
 
-  TACBreSocail(FPDFeOwner).LerServicoDeParams(FPLayout, Versao, FPURL);
+  TACBreSocial(FPDFeOwner).LerServicoDeParams(FPLayout, Versao, FPURL);
   FPVersaoServico := FloatToString(Versao, '.', '0.00');
 end;
 
@@ -292,116 +289,6 @@ begin
   { Sobrescrever apenas se necessário }
 
   TACBreSocial(FPDFeOwner).SetStatus(stIdle);
-end;
-
-{ TNFeStatusServico }
-
-constructor TNFeStatusServico.Create(AOwner: TACBrDFe);
-begin
-  inherited Create(AOwner);
-
-  FPStatus := stNFeStatusServico;
-  FPLayout := LayNfeStatusServico;
-  FPArqEnv := 'ped-sta';
-  FPArqResp := 'sta';
-end;
-
-procedure TNFeStatusServico.DefinirServicoEAction;
-begin
-  if (FPConfiguracoesNFe.Geral.ModeloDF = moNFe) and
-     (FPConfiguracoesNFe.Geral.VersaoDF = ve310) and
-     (FPConfiguracoesNFe.WebServices.UFCodigo = 29) then
-  begin
-    FPServico := GetUrlWsd + 'NfeStatusServico';
-    FPSoapAction := FPServico + '/NfeStatusServicoNF';
-  end
-  else
-  begin
-    FPServico := GetUrlWsd + 'NfeStatusServico2';
-    FPSoapAction := FPServico;
-  end;
-end;
-
-procedure TNFeStatusServico.DefinirDadosMsg;
-var
-  ConsStatServ: TConsStatServ;
-begin
-  ConsStatServ := TConsStatServ.Create;
-  try
-    ConsStatServ.TpAmb := FPConfiguracoesNFe.WebServices.Ambiente;
-    ConsStatServ.CUF := FPConfiguracoesNFe.WebServices.UFCodigo;
-
-    ConsStatServ.Versao := FPVersaoServico;
-    ConsStatServ.GerarXML;
-
-    // Atribuindo o XML para propriedade interna //
-    FPDadosMsg := ConsStatServ.Gerador.ArquivoFormatoXML;
-  finally
-    ConsStatServ.Free;
-  end;
-end;
-
-function TNFeStatusServico.TratarResposta: Boolean;
-var
-  NFeRetorno: TRetConsStatServ;
-begin
-  FPRetWS := SeparaDados(FPRetornoWS, 'nfeStatusServicoNF2Result');
-  if FPRetWS = '' then
-    FPRetWS := SeparaDados(FPRetornoWS, 'NfeStatusServicoNFResult');
-
-  NFeRetorno := TRetConsStatServ.Create;
-  try
-    NFeRetorno.Leitor.Arquivo := FPRetWS;
-    NFeRetorno.LerXml;
-
-    Fversao := NFeRetorno.versao;
-    FtpAmb := NFeRetorno.tpAmb;
-    FverAplic := NFeRetorno.verAplic;
-    FcStat := NFeRetorno.cStat;
-    FxMotivo := NFeRetorno.xMotivo;
-    FcUF := NFeRetorno.cUF;
-    FdhRecbto := NFeRetorno.dhRecbto;
-    FTMed := NFeRetorno.TMed;
-    FdhRetorno := NFeRetorno.dhRetorno;
-    FxObs := NFeRetorno.xObs;
-    FPMsg := FxMotivo + LineBreak + FxObs;
-
-    if FPConfiguracoesNFe.WebServices.AjustaAguardaConsultaRet then
-      FPConfiguracoesNFe.WebServices.AguardarConsultaRet := FTMed * 1000;
-
-    Result := (FcStat = 107);
-
-  finally
-    NFeRetorno.Free;
-  end;
-end;
-
-function TNFeStatusServico.GerarMsgLog: String;
-begin
-  {(*}
-  Result := Format(ACBrStr('Versão Layout: %s ' + LineBreak +
-                           'Ambiente: %s' + LineBreak +
-                           'Versão Aplicativo: %s ' + LineBreak +
-                           'Status Código: %s' + LineBreak +
-                           'Status Descrição: %s' + LineBreak +
-                           'UF: %s' + LineBreak +
-                           'Recebimento: %s' + LineBreak +
-                           'Tempo Médio: %s' + LineBreak +
-                           'Retorno: %s' + LineBreak +
-                           'Observação: %s' + LineBreak),
-                   [Fversao, TpAmbToStr(FtpAmb), FverAplic, IntToStr(FcStat),
-                    FxMotivo, CodigoParaUF(FcUF),
-                    IfThen(FdhRecbto = 0, '', FormatDateTimeBr(FdhRecbto)),
-                    IntToStr(FTMed),
-                    IfThen(FdhRetorno = 0, '', FormatDateTimeBr(FdhRetorno)),
-                    FxObs]);
-  {*)}
-end;
-
-function TNFeStatusServico.GerarMsgErro(E: Exception): String;
-begin
-  Result := ACBrStr('WebService Consulta Status serviço:' + LineBreak +
-                    '- Inativo ou Inoperante tente novamente.');
 end;
 
 { TNFeRecepcao }
@@ -2823,9 +2710,9 @@ begin
                                                         Data);
 end;
 
-{ TNFeEnvioWebService }
+{ TeSocialEnvioWebService }
 
-constructor TNFeEnvioWebService.Create(AOwner: TACBrDFe);
+constructor TeSocialEnvioWebService.Create(AOwner: TACBrDFe);
 begin
   inherited Create(AOwner);
 
@@ -2833,27 +2720,27 @@ begin
   FVersao := '';
 end;
 
-destructor TNFeEnvioWebService.Destroy;
+destructor TeSocialEnvioWebService.Destroy;
 begin
   inherited Destroy;
 end;
 
-function TNFeEnvioWebService.Executar: Boolean;
+function TeSocialEnvioWebService.Executar: Boolean;
 begin
   Result := inherited Executar;
 end;
 
-procedure TNFeEnvioWebService.DefinirURL;
+procedure TeSocialEnvioWebService.DefinirURL;
 begin
   FPURL := FPURLEnvio;
 end;
 
-procedure TNFeEnvioWebService.DefinirServicoEAction;
+procedure TeSocialEnvioWebService.DefinirServicoEAction;
 begin
   FPServico := FPSoapAction;
 end;
 
-procedure TNFeEnvioWebService.DefinirDadosMsg;
+procedure TeSocialEnvioWebService.DefinirDadosMsg;
 var
   LeitorXML: TLeitor;
 begin
@@ -2869,19 +2756,19 @@ begin
   FPDadosMsg := FXMLEnvio;
 end;
 
-function TNFeEnvioWebService.TratarResposta: Boolean;
+function TeSocialEnvioWebService.TratarResposta: Boolean;
 begin
   FPRetWS := SeparaDados(FPRetornoWS, 'soap:Body');
   Result := True;
 end;
 
-function TNFeEnvioWebService.GerarMsgErro(E: Exception): String;
+function TeSocialEnvioWebService.GerarMsgErro(E: Exception): String;
 begin
   Result := ACBrStr('WebService: '+FPServico + LineBreak +
                     '- Inativo ou Inoperante tente novamente.');
 end;
 
-function TNFeEnvioWebService.GerarVersaoDadosSoap: String;
+function TeSocialEnvioWebService.GerarVersaoDadosSoap: String;
 begin
   Result := '<versaoDados>' + FVersao + '</versaoDados>';
 end;
