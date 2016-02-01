@@ -49,17 +49,20 @@ interface
 uses
   Classes, SysUtils, Dialogs, StrUtils, eSocial_Common,
   ACBreSocialConfiguracoes, ACBrDFeUtil, ACBreSocialGerador, ACBrUtil,
-  pcnConversao, pcnAuxiliar, pcnLeitor, synautil, eSocial_Conversao;
+  pcnConversao, pcnAuxiliar, pcnLeitor, pcnGerador, synautil, eSocial_Conversao;
 
 
 type
   TItemLoteEventos = class(TCollectionItem)
   private
+    FACBreSocial : TComponent;
+    FNomeArq : String;
     FEvento : TTipoEvento;
     FXML : AnsiString;
     FLeitor : TLeitor;
   public
-
+    constructor Create(AOwner: TComponent);
+    property NomeArq : String read FNomeArq write FNomeArq;
   end;
 
 
@@ -67,17 +70,23 @@ type
   private
     FACBreSocial : TComponent;
     FIdeEmpregador : TIdeEmpregador;
-    FIdeTransmissor : TIdeEmpregador;//Ambos tem apenas tpInsc e nrInsc como atributos.
+    FIdeTransmissor : TIdeTransmissor;
+    FGerador : TGerador;
     function GetItem(Index: integer): TItemLoteEventos;
     procedure SetItem(Index: integer; const Value: TItemLoteEventos);
   public
     constructor Create(AOwner: TComponent);
     function Add : TItemLoteEventos;
-    property Items[Index: Integer] : TItemLoteEventos read GetItem write SetItem;
+
     function LoadFromFile(CaminhoArquivo: String): Boolean;
     function LoadFromStream(AStream: TStringStream): Boolean;
     function LoadFromString(AXMLString: String): Boolean;
     procedure GerarXML();
+
+    property Items[Index: Integer] : TItemLoteEventos read GetItem write SetItem;
+    property IdeEmpregador : TIdeEmpregador read FIdeEmpregador write FIdeEmpregador;
+    property IdeTransmissor : TIdeTransmissor read FIdeTransmissor write FIdeTransmissor;
+
   end;
 
 implementation
@@ -95,6 +104,12 @@ begin
   FACBreSocial    := AOwner;
   FIdeEmpregador  := TIdeEmpregador.Create;
   FIdeTransmissor := TIdeEmpregador.Create;
+  FGerador        := TGerador.Create;
+end;
+
+procedure TLoteEventos.GerarXML;
+begin
+  FGerador.wGrupo();
 end;
 
 function TLoteEventos.GetItem(Index: integer): TItemLoteEventos;
@@ -183,6 +198,13 @@ end;
 procedure TLoteEventos.SetItem(Index: integer; const Value: TItemLoteEventos);
 begin
   inherited SetItem(Index, Value);
+end;
+
+{ TItemLoteEventos }
+
+constructor TItemLoteEventos.Create(AOwner: TComponent);
+begin
+  FACBreSocial := AOwner;
 end;
 
 end.

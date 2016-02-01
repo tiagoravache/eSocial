@@ -77,6 +77,7 @@ type
   THorarioCollectionItem = class;
   THorContratual = class;
   TIdeEmpregador = class;
+  TIdeTransmissor = class(TIdeEmpregador);
   TIdeEvento = class;
   TIdePeriodo = class;
   TIdeTomadorServ = class;
