@@ -48,7 +48,8 @@ interface
 
 uses
   Classes, SysUtils, ACBrDFe, ACBrDFeException,
-  ACBrDFeConfiguracoes, pcnConversao, ACBreSocialEventos, ACBreSocialConfiguracoes, ACBrUtil;
+  ACBrDFeConfiguracoes, pcnConversao, ACBreSocialLoteEventos,
+  ACBreSocialEventos, ACBreSocialConfiguracoes, ACBreSocialWebServices, ACBrUtil;
 
 const
   ACBRESOCIAL_VERSAO = '2.1.0';
@@ -59,7 +60,8 @@ type
   TACBreSocial = class(TACBrDFe)
   private
     FEventos: TEventos;
-    FWebServices: TWebServicesConf;
+    FLoteEventos : TLoteEventos;
+    FWebServices: TWebServices;
     function GetConfiguracoes: TConfiguracoeseSocial;
     procedure SetConfiguracoes(AValue: TConfiguracoeseSocial);
   protected
@@ -69,7 +71,7 @@ type
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
 
-    function EnviarEvento(idLote: integer): Boolean;
+    function EnviarEventos(Lote: TLoteEventos): Boolean;
     function NomeServicoToNomeSchema(const NomeServico: String): String; override;
 
     property WebServices: TWebServicesConf read FWebServices write FWebServices;
@@ -89,6 +91,7 @@ begin
   inherited;
   FEventos := TEventos.Create(Self);
   FWebServices := TWebServicesConf.Create(Self);
+  FLoteEventos := TLoteEventos(Self);
 end;
 
 function TACBreSocial.CreateConfiguracoes: TConfiguracoes;
@@ -103,8 +106,9 @@ begin
   inherited;
 end;
 
-function TACBreSocial.EnviarEvento(idLote: integer): Boolean;
+function TACBreSocial.EnviarEventos(Lote: TLoteEventos): Boolean;
 begin
+  Lote := FLoteEventos;
   //A implementar
   Result := False;
 end;

@@ -19,6 +19,21 @@ type
 
   { TeSocialWebService }
 
+  {
+   Serão necessárias classes para os WS EnvioLote e ConsultaLoteEventos e seus respectivos retornos RetEnvioLote e RetProcLote
+   (este possui um xsd específico para o retorno de cada evento RetEvento).
+
+   Arquivos xsd vs. classe a ser construída:
+
+   - TEnvioLote -> EnvioLoteEventos-v1_0_0.xsd;
+   - TConsultaLoteEventos -> ConsultaLoteEventos-v1_0_0.xsd;
+   - TRetEnvioLote -> RetornoEnvioLoteEventos-v1_0_0.xsd;
+   - TRetProcLote -> RetornoProcessamentoLote-v1_0_0.xsd;
+   - TRetEvento -> retornoEvento-v1_0_0.xsd;
+
+   As Orientações para estas classes estão no Manual de Orientação do Desenvolvedor do e-Social v1.1 Item 5.
+  }
+
   TeSocialWebService = class(TDFeWebService)
   private
   protected

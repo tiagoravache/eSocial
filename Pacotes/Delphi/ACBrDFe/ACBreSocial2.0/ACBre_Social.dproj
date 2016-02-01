@@ -104,6 +104,8 @@
 			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S3000.pas"/>
 			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S4000.pas"/>
 			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S4999.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\ACBreSocialWebServices.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\ACBreSocialLoteEventos.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>
