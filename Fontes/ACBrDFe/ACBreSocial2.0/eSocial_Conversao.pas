@@ -5,32 +5,32 @@
 {                                                                              }
 { Direitos Autorais Reservados (c) 2008 Wemerson Souto                         }
 {                                       Daniel Simoes de Almeida               }
-{                                       AndrÈ Ferreira de Moraes               }
+{                                       Andr√© Ferreira de Moraes               }
 {                                                                              }
 { Colaboradores nesse arquivo:                                                 }
 {                                                                              }
-{  VocÍ pode obter a ˙ltima vers„o desse arquivo na pagina do Projeto ACBr     }
+{  Voc√™ pode obter a √∫ltima vers√£o desse arquivo na pagina do Projeto ACBr     }
 { Componentes localizado em http://www.sourceforge.net/projects/acbr           }
 {                                                                              }
 {                                                                              }
-{  Esta biblioteca È software livre; vocÍ pode redistribuÌ-la e/ou modific·-la }
-{ sob os termos da LicenÁa P˙blica Geral Menor do GNU conforme publicada pela  }
-{ Free Software Foundation; tanto a vers„o 2.1 da LicenÁa, ou (a seu critÈrio) }
-{ qualquer vers„o posterior.                                                   }
+{  Esta biblioteca √© software livre; voc√™ pode redistribu√≠-la e/ou modific√°-la }
+{ sob os termos da Licen√ßa P√∫blica Geral Menor do GNU conforme publicada pela  }
+{ Free Software Foundation; tanto a vers√£o 2.1 da Licen√ßa, ou (a seu crit√©rio) }
+{ qualquer vers√£o posterior.                                                   }
 {                                                                              }
-{  Esta biblioteca È distribuÌda na expectativa de que seja ˙til, porÈm, SEM   }
-{ NENHUMA GARANTIA; nem mesmo a garantia implÌcita de COMERCIABILIDADE OU      }
-{ ADEQUA«√O A UMA FINALIDADE ESPECÕFICA. Consulte a LicenÁa P˙blica Geral Menor}
-{ do GNU para mais detalhes. (Arquivo LICEN«A.TXT ou LICENSE.TXT)              }
+{  Esta biblioteca √© distribu√≠da na expectativa de que seja √∫til, por√©m, SEM   }
+{ NENHUMA GARANTIA; nem mesmo a garantia impl√≠cita de COMERCIABILIDADE OU      }
+{ ADEQUA√á√ÉO A UMA FINALIDADE ESPEC√çFICA. Consulte a Licen√ßa P√∫blica Geral Menor}
+{ do GNU para mais detalhes. (Arquivo LICEN√áA.TXT ou LICENSE.TXT)              }
 {                                                                              }
-{  VocÍ deve ter recebido uma cÛpia da LicenÁa P˙blica Geral Menor do GNU junto}
-{ com esta biblioteca; se n„o, escreva para a Free Software Foundation, Inc.,  }
-{ no endereÁo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
-{ VocÍ tambÈm pode obter uma copia da licenÁa em:                              }
+{  Voc√™ deve ter recebido uma c√≥pia da Licen√ßa P√∫blica Geral Menor do GNU junto}
+{ com esta biblioteca; se n√£o, escreva para a Free Software Foundation, Inc.,  }
+{ no endere√ßo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
+{ Voc√™ tamb√©m pode obter uma copia da licen√ßa em:                              }
 { http://www.opensource.org/licenses/lgpl-license.php                          }
 {                                                                              }
-{ Daniel Simıes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
-{              PraÁa Anita Costa, 34 - TatuÌ - SP - 18270-410                  }
+{ Daniel Sim√µes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
+{              Pra√ßa Anita Costa, 34 - Tatu√≠ - SP - 18270-410                  }
 {                                                                              }
 {******************************************************************************}
 
@@ -38,7 +38,9 @@
 |* Historico
 |*
 |* 27/10/2015: Jean Carlo Cantu, Tiago Ravache
-|*  - DoaÁ„o do componente para o Projeto ACBr
+|*  - Doa√ß√£o do componente para o Projeto ACBr
+|* 29/02/2015: Guilherme Costa
+|*  - Adicionado algumas convers√µes
 ******************************************************************************}
 {$I ACBr.inc}
 
@@ -165,10 +167,10 @@ type
   tpExtDecisao            = (edContribPatronais, edContribPatronaisSegurados );
 
   tpTpInscEstab           = (tpI1, tpI3, tpI4, tpVazio ); // Vazio para seguir regra do manual
-                                                          // ValidaÁ„o: O campo n„o deve ser preenchido se {tpLotacao} for
-                                                          // igual a [07,10,90]. Nos demais casos, observar conte˙do
+                                                          // Valida√ß√£o: O campo n√£o deve ser preenchido se {tpLotacao} for
+                                                          // igual a [07,10,90]. Nos demais casos, observar conte√∫do
                                                           // exigido para o campo {nrInscEstab}, conforme tabela de tipos
-                                                          // de lotaÁ„o.
+                                                          // de lota√ß√£o.
 
   tpTpIntervalo           = (tinHorarioFixo, tinHorarioVariavel);
 
@@ -349,7 +351,7 @@ type
                              iaAquiProducaoProdutorRuralPessoaJurEntPAA);
 
   tpIndComerc             = (icComProdPorProdRuralPFInclusiveSegEspEfetuadaDirVarejoConsFinal, icComProdPorProdRuralPFSegEspVendasPJOuIntermPF,
-                             icComProdMercadoExterno);
+                             icComProdPorPFSegEspEntProgAquiAliPAA, icComProdMercadoExterno);
 
   tpTpPgto                = (tpPgtoFl, tpPgtoResc2299, tpPgtoResc2399, tpPgtoFlRPPS);//tpPgto numeral 0 CORRIGIR!!!!!!
 
@@ -693,7 +695,9 @@ type
 
   function eStpOpcConsultToStr(const t: tpOpcConsult): string;
   function eSStrTotpOpcConsult(var ok: Boolean; const s: string): tpOpcConsult;
-
+  
+  function eStpNivelEstagioToStr(const t: tpNivelEstagio): string;
+  function eSStrTotpNivelEstagio(var ok: Boolean; const s: string): tpNivelEstagio;
 
 implementation
 
@@ -1105,11 +1109,11 @@ end;
 
 function eSIndComercStr(const t: tpIndComerc ): string;
 begin
-  result := EnumeradoToStr2(t,[ '1', '2', '9' ] );
+  result := EnumeradoToStr2(t,[ '2', '3', '8', '9' ] );
 end;
 function eSStrToIndComerc(var ok: boolean; const s: string): tpIndComerc;
 begin
-  result := tpIndComerc( StrToEnumerado2(ok , s,[ '1', '2', '9' ] ));
+  result := tpIndComerc( StrToEnumerado2(ok , s,[ '2', '3', '8', '9' ] ));
 end;
 
 function eSIndCooperativaToStr(const t:TpIndCoop ): string;
@@ -1745,6 +1749,16 @@ end;
 function eSStrTotpTpPgto(var ok:Boolean; const s: string): tpTpPgto;
 begin
   Result := tpTpPgto(StrToEnumerado2(ok, s, ['1', '2', '3', '5']));
+end;
+
+function eStpNivelEstagioToStr(const t: tpNivelEstagio): string;
+begin
+  Result := EnumeradoToStr2(t, TGenericosString1_4);
+end;
+
+function eSStrTotpNivelEstagio(var ok: Boolean; const s: string): tpNivelEstagio;
+begin
+  Result := tpNivelEstagio(StrToEnumerado2(ok, s, TGenericosString1_4));
 end;
 
 end.
