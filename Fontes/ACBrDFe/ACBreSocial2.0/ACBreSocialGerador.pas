@@ -5,32 +5,32 @@
 {                                                                              }
 { Direitos Autorais Reservados (c) 2008 Wemerson Souto                         }
 {                                       Daniel Simoes de Almeida               }
-{                                       AndrÈ Ferreira de Moraes               }
+{                                       Andr√© Ferreira de Moraes               }
 {                                                                              }
 { Colaboradores nesse arquivo:                                                 }
 {                                                                              }
-{  VocÍ pode obter a ˙ltima vers„o desse arquivo na pagina do Projeto ACBr     }
+{  Voc√™ pode obter a √∫ltima vers√£o desse arquivo na pagina do Projeto ACBr     }
 { Componentes localizado em http://www.sourceforge.net/projects/acbr           }
 {                                                                              }
 {                                                                              }
-{  Esta biblioteca È software livre; vocÍ pode redistribuÌ-la e/ou modific·-la }
-{ sob os termos da LicenÁa P˙blica Geral Menor do GNU conforme publicada pela  }
-{ Free Software Foundation; tanto a vers„o 2.1 da LicenÁa, ou (a seu critÈrio) }
-{ qualquer vers„o posterior.                                                   }
+{  Esta biblioteca √© software livre; voc√™ pode redistribu√≠-la e/ou modific√°-la }
+{ sob os termos da Licen√ßa P√∫blica Geral Menor do GNU conforme publicada pela  }
+{ Free Software Foundation; tanto a vers√£o 2.1 da Licen√ßa, ou (a seu crit√©rio) }
+{ qualquer vers√£o posterior.                                                   }
 {                                                                              }
-{  Esta biblioteca È distribuÌda na expectativa de que seja ˙til, porÈm, SEM   }
-{ NENHUMA GARANTIA; nem mesmo a garantia implÌcita de COMERCIABILIDADE OU      }
-{ ADEQUA«√O A UMA FINALIDADE ESPECÕFICA. Consulte a LicenÁa P˙blica Geral Menor}
-{ do GNU para mais detalhes. (Arquivo LICEN«A.TXT ou LICENSE.TXT)              }
+{  Esta biblioteca √© distribu√≠da na expectativa de que seja √∫til, por√©m, SEM   }
+{ NENHUMA GARANTIA; nem mesmo a garantia impl√≠cita de COMERCIABILIDADE OU      }
+{ ADEQUA√á√ÉO A UMA FINALIDADE ESPEC√çFICA. Consulte a Licen√ßa P√∫blica Geral Menor}
+{ do GNU para mais detalhes. (Arquivo LICEN√áA.TXT ou LICENSE.TXT)              }
 {                                                                              }
-{  VocÍ deve ter recebido uma cÛpia da LicenÁa P˙blica Geral Menor do GNU junto}
-{ com esta biblioteca; se n„o, escreva para a Free Software Foundation, Inc.,  }
-{ no endereÁo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
-{ VocÍ tambÈm pode obter uma copia da licenÁa em:                              }
+{  Voc√™ deve ter recebido uma c√≥pia da Licen√ßa P√∫blica Geral Menor do GNU junto}
+{ com esta biblioteca; se n√£o, escreva para a Free Software Foundation, Inc.,  }
+{ no endere√ßo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
+{ Voc√™ tamb√©m pode obter uma copia da licen√ßa em:                              }
 { http://www.opensource.org/licenses/lgpl-license.php                          }
 {                                                                              }
-{ Daniel Simıes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
-{              PraÁa Anita Costa, 34 - TatuÌ - SP - 18270-410                  }
+{ Daniel Sim√µes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
+{              Pra√ßa Anita Costa, 34 - Tatu√≠ - SP - 18270-410                  }
 {                                                                              }
 {******************************************************************************}
 
@@ -38,7 +38,9 @@
 |* Historico
 |*
 |* 27/10/2015: Jean Carlo Cantu, Tiago Ravache
-|*  - DoaÁ„o do componente para o Projeto ACBr
+|*  - Doa√ß√£o do componente para o Projeto ACBr
+|* 29/02/2016: Guilherme Costa
+|*  - Atribuindo o namespace ao URI para valida√ß√£o dos XSD
 ******************************************************************************}
 {$I ACBr.inc}
 
@@ -212,7 +214,7 @@ begin
 
   ArqXML := XMLEvento;
 
-  // XML j· deve estar em UTF8, para poder ser assinado //
+  // XML j√° deve estar em UTF8, para poder ser assinado //
   ArqXML := ConverteXMLtoUTF8(ArqXML);
   FXMLOriginal := ArqXML;
 
@@ -222,7 +224,7 @@ begin
     FXMLAssinado := XMLAss;
     FXMLOriginal := XMLAss;
 
-    // Remove header, pois podem existir v·rias Notas no XML //
+    // Remove header, pois podem existir v√°rias Notas no XML //
     //TODO: Verificar se precisa
     //XMLAss := StringReplace(XMLAss, '<' + ENCODING_UTF8_STD + '>', '', [rfReplaceAll]);
     //XMLAss := StringReplace(XMLAss, '<' + XML_V01 + '>', '', [rfReplaceAll]);
@@ -230,7 +232,7 @@ begin
     {AVALIAR TRECHO ABAIXO!!!!
     Leitor := TLeitor.Create;
     try
-      leitor.Grupo := XMLAss;   N√O EXISTEM AS PROPRIEDADES ABAIXO NAS CLASSES DOS EVENTOS DO ESOCIAL
+      leitor.Grupo := XMLAss;   N√ÉO EXISTEM AS PROPRIEDADES ABAIXO NAS CLASSES DOS EVENTOS DO ESOCIAL
       NFe.signature.URI := Leitor.rAtributo('Reference URI=');
       NFe.signature.DigestValue := Leitor.rCampo(tcStr, 'DigestValue');
       NFe.signature.SignatureValue := Leitor.rCampo(tcStr, 'SignatureValue');
@@ -318,7 +320,7 @@ begin
     EhValido := SSL.Validar(AXML, Configuracoes.Arquivos.PathSchemas+Evento+'.xsd', Erro);
     if not EhValido then
     begin
-      FErroValidacao := ACBrStr('Falha na validaÁ„o dos dados do evento: ') +
+      FErroValidacao := ACBrStr('Falha na valida√ß√£o dos dados do evento: ') +
         Evento + sLineBreak + FAlertas ;
       FErroValidacaoCompleto := FErroValidacao + sLineBreak + Erro;
 
@@ -331,8 +333,9 @@ end;
 
 procedure TeSocialEvento.GerarCabecalho(Namespace: String);
 begin
+  TACBreSocial(FACBreSocial).SSL.NameSpaceURI := 'http://www.esocial.gov.br/schema/evt/'+Namespace+'/v02_01_00';
   Gerador.wGrupo(ENCODING_UTF8, '', False);
-  Gerador.wGrupo('eSocial xmlns="'+Namespace+'"');
+  Gerador.wGrupo('eSocial xmlns="'+TACBreSocial(FACBreSocial).SSL.NameSpaceURI+'"');
 end;
 
 function TeSocialEvento.GerarChaveEsocial(const emissao: TDateTime;
@@ -340,7 +343,7 @@ function TeSocialEvento.GerarChaveEsocial(const emissao: TDateTime;
 var
   nAno, nMes, nDia, nHora, nMin, nSeg, nMSeg: Word;
 begin
-  // Se o usuario informar 0; o cÛdigo numerico sera gerado de maneira aleatÛria //
+  // Se o usuario informar 0; o c√≥digo numerico sera gerado de maneira aleat√≥ria //
   if sequencial = 0 then
     sequencial := Random(99999);
 
@@ -441,7 +444,7 @@ begin
       Gerador.wCampo(tcStr, '', 'depIRRF  ', 0, 0, 0, eSSimNaoToStr(pDependente.Items[i].DepIRRF));
       Gerador.wCampo(tcStr, '', 'depSF  ', 0, 0, 0, eSSimNaoToStr(pDependente.Items[i].DepSF));
 
-//      if (eSSimNaoToStr(pDependente.Items[i].DepRPPS) <> '') then             --REMOVIDO NA VERS√O 2.1
+//      if (eSSimNaoToStr(pDependente.Items[i].DepRPPS) <> '') then             --REMOVIDO NA VERS√ÉO 2.1
 //        Gerador.wCampo(tcStr, '', 'depRPPS  ', 0, 0, 0, eSSimNaoToStr(pDependente.Items[i].DepRPPS));
     Gerador.wGrupo('/dependente');
   end;
