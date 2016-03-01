@@ -5,32 +5,32 @@
 {                                                                              }
 { Direitos Autorais Reservados (c) 2008 Wemerson Souto                         }
 {                                       Daniel Simoes de Almeida               }
-{                                       AndrÈ Ferreira de Moraes               }
+{                                       Andr√© Ferreira de Moraes               }
 {                                                                              }
 { Colaboradores nesse arquivo:                                                 }
 {                                                                              }
-{  VocÍ pode obter a ˙ltima vers„o desse arquivo na pagina do Projeto ACBr     }
+{  Voc√™ pode obter a √∫ltima vers√£o desse arquivo na pagina do Projeto ACBr     }
 { Componentes localizado em http://www.sourceforge.net/projects/acbr           }
 {                                                                              }
 {                                                                              }
-{  Esta biblioteca È software livre; vocÍ pode redistribuÌ-la e/ou modific·-la }
-{ sob os termos da LicenÁa P˙blica Geral Menor do GNU conforme publicada pela  }
-{ Free Software Foundation; tanto a vers„o 2.1 da LicenÁa, ou (a seu critÈrio) }
-{ qualquer vers„o posterior.                                                   }
+{  Esta biblioteca √© software livre; voc√™ pode redistribu√≠-la e/ou modific√°-la }
+{ sob os termos da Licen√ßa P√∫blica Geral Menor do GNU conforme publicada pela  }
+{ Free Software Foundation; tanto a vers√£o 2.1 da Licen√ßa, ou (a seu crit√©rio) }
+{ qualquer vers√£o posterior.                                                   }
 {                                                                              }
-{  Esta biblioteca È distribuÌda na expectativa de que seja ˙til, porÈm, SEM   }
-{ NENHUMA GARANTIA; nem mesmo a garantia implÌcita de COMERCIABILIDADE OU      }
-{ ADEQUA«√O A UMA FINALIDADE ESPECÕFICA. Consulte a LicenÁa P˙blica Geral Menor}
-{ do GNU para mais detalhes. (Arquivo LICEN«A.TXT ou LICENSE.TXT)              }
+{  Esta biblioteca √© distribu√≠da na expectativa de que seja √∫til, por√©m, SEM   }
+{ NENHUMA GARANTIA; nem mesmo a garantia impl√≠cita de COMERCIABILIDADE OU      }
+{ ADEQUA√á√ÉO A UMA FINALIDADE ESPEC√çFICA. Consulte a Licen√ßa P√∫blica Geral Menor}
+{ do GNU para mais detalhes. (Arquivo LICEN√áA.TXT ou LICENSE.TXT)              }
 {                                                                              }
-{  VocÍ deve ter recebido uma cÛpia da LicenÁa P˙blica Geral Menor do GNU junto}
-{ com esta biblioteca; se n„o, escreva para a Free Software Foundation, Inc.,  }
-{ no endereÁo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
-{ VocÍ tambÈm pode obter uma copia da licenÁa em:                              }
+{  Voc√™ deve ter recebido uma c√≥pia da Licen√ßa P√∫blica Geral Menor do GNU junto}
+{ com esta biblioteca; se n√£o, escreva para a Free Software Foundation, Inc.,  }
+{ no endere√ßo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
+{ Voc√™ tamb√©m pode obter uma copia da licen√ßa em:                              }
 { http://www.opensource.org/licenses/lgpl-license.php                          }
 {                                                                              }
-{ Daniel Simıes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
-{              PraÁa Anita Costa, 34 - TatuÌ - SP - 18270-410                  }
+{ Daniel Sim√µes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
+{              Pra√ßa Anita Costa, 34 - Tatu√≠ - SP - 18270-410                  }
 {                                                                              }
 {******************************************************************************}
 
@@ -38,7 +38,9 @@
 |* Historico
 |*
 |* 27/10/2015: Jean Carlo Cantu, Tiago Ravache
-|*  - DoaÁ„o do componente para o Projeto ACBr
+|*  - Doa√ß√£o do componente para o Projeto ACBr
+|* 01/03/2016: Guilherme Costa
+|*  - Altera√ß√µes para valida√ß√£o com o XSD
 ******************************************************************************}
 {$I ACBr.inc}
 
@@ -80,7 +82,8 @@ type
   TIdeEvento = class;
   TIdePeriodo = class;
   TIdeTomadorServ = class;
-  TIdeTrabSubstituido = class;
+  TIdeTrabSubstituidoCollection = class;
+  TIdeTrabSubstituidoCollectionItem = class;
   TIdeVinculo = class;
   TInfoAtivDesemp = class;
   TInfoDeficiencia = class;
@@ -118,9 +121,11 @@ type
   TInfoRegimeTrab = class;
   TAfastamento = class;
   TDesligamento = class;
-  TInfoAmb = class;
+  TInfoAmbCollection = class;
+  TInfoAmbItem = class;
   TInfoAtiv = class;
-  TFatRisco = class;
+  TFatRiscoCollection = class;
+  TFatRiscoItem = class;
   TcargoFuncao = class;
   TinfoEstagiario = class;
   TinstEnsino = class;
@@ -149,7 +154,7 @@ type
   TeSocial = class(TPersistent)
   private
     FId: string;
-//    FVersao: string; - removido na vers„o 2.1
+//    FVersao: string; - removido na vers√£o 2.1
   published
     property Id: string read FId write FId;
 //    property versao: string read FVersao write FVersao;
@@ -328,7 +333,7 @@ type
     FcpfDep: string;
     FdepIRRF: tpSimNao;
     FdepSF: tpSimNao;
-   // FDepRPPS: tpSimNao;--removido na vers„o 2.1
+   // FDepRPPS: tpSimNao;--removido na vers√£o 2.1
   published
     constructor create; reintroduce;
     property tpDep: tpTpDep read FtpDep write FtpDep;
@@ -337,7 +342,7 @@ type
     property cpfDep: string read FcpfDep write FcpfDep;
     property depIRRF: tpSimNao read FdepIRRF write FdepIRRF;
     property depSF: tpSimNao read FdepSF write FdepSF;
-  //  property DepRPPS: tpSimNao read FDepRPPS write FDepRPPS; removido na vers„o 2.1
+  //  property DepRPPS: tpSimNao read FDepRPPS write FDepRPPS; removido na vers√£o 2.1
   end;
 
   TDescAtividadeCollection = class(TCollection)
@@ -571,11 +576,22 @@ type
     property NrInsc: string read FNrInsc write FNrInsc;
   end;
 
-  TIdeTrabSubstituido = class
+  TIdeTrabSubstituidoCollection = class(TCollection)
+  private
+    function GetItem(Index: Integer): TIdeTrabSubstituidoCollectionItem;
+    procedure SetItem(Index: Integer; Value: TIdeTrabSubstituidoCollectionItem);
+  public
+    constructor Create(AOwner: TPersistent);
+    function Add: TIdeTrabSubstituidoCollectionItem;
+    property Items[Index: Integer]: TIdeTrabSubstituidoCollectionItem read GetItem write SetItem; default;
+  end;
+
+  TIdeTrabSubstituidoCollectionItem = class(TCollectionItem)
   private
     FCpfTrabSubst:  string;
     FMatricTrabSubst: string;
   public
+    constructor create; reintroduce;
     property CpfTrabSubst:  string read FCpfTrabSubst write FCpfTrabSubst;
     property MatricTrabSubst: string read FMatricTrabSubst write FMatricTrabSubst;
   end;
@@ -635,7 +651,7 @@ type
 
   TLocalTrabDom = class
   private
-    FTpLograd: integer;
+    FTpLograd: String;
     FDscLograd: string;
     FNrLograd: string;
     FComplemento: string;
@@ -644,7 +660,7 @@ type
     FCodMunic: integer;
     FUf: tpuf;
   public
-    property TpLograd: integer read FTpLograd write FTpLograd;
+    property TpLograd: String read FTpLograd write FTpLograd;
     property DscLograd: string read FDscLograd write FDscLograd;
     property NrLograd: string read FNrLograd write FNrLograd;
     property Complemento: string read FComplemento write FComplemento;
@@ -782,6 +798,7 @@ type
     FRacaCor: integer;
     FEstCiv: integer;
     FGrauInstr: integer;
+    FIndPriEmpr: tpSimNao;
 
     FNascimento: TNascimento;
     FDocumentos: TDocumentos;
@@ -802,6 +819,7 @@ type
     property RacaCor: integer read FRacaCor write FRacaCor;
     property EstCiv: integer read FEstCiv write FEstCiv;
     property GrauInstr: integer read FGrauInstr write FGrauInstr;
+    property IndPriEmpr: tpSimNao read FIndPriEmpr write FIndPriEmpr;
     property Nascimento: TNascimento read FNascimento write FNascimento;
     property Documentos: TDocumentos read FDocumentos write FDocumentos;
     property Endereco: TEndereco read FEndereco write FEndereco;
@@ -825,19 +843,19 @@ type
     property FilhosBr: string read FFilhosBr write FFilhosBr;
   end;
 
-  TTrabTemporario = class
+  TTrabTemporario = class(TPersistent)
   private
     FmtvContrat: tpMtvContrat;
 
     FIdeTomadorServ: TIdeTomadorServ;
-    FIdeTrabSubstituido: TIdeTrabSubstituido;
+    FIdeTrabSubstituido: TIdeTrabSubstituidoCollection;
   public
     constructor Create;
     destructor Destroy; override;
 
     property MtvContrat: tpMtvContrat read FmtvContrat write FmtvContrat;
     property IdeTomadorServ: TIdeTomadorServ read FIdeTomadorServ write FIdeTomadorServ;
-    property IdeTrabSubstituido: TIdeTrabSubstituido read FIdeTrabSubstituido write FIdeTrabSubstituido;
+    property IdeTrabSubstituido: TIdeTrabSubstituidoCollection read FIdeTrabSubstituido write FIdeTrabSubstituido;
   end;
 
 
@@ -1112,23 +1130,32 @@ type
       property infoSimples : TinfoSimples read FinfoSimples write FinfoSimples;
   end;
 
-  TInfoAmb = class(TPersistent)
+  TInfoAmbCollection = class(TCollection)
+    private
+      function GetItem(Index: Integer): TInfoAmbItem;
+      procedure SetItem(Index: Integer; Value: TInfoAmbItem);
+   public
+     constructor create; reintroduce;
+     function Add: TInfoAmbItem;
+     property Items[Index: Integer]: TInfoAmbItem read GetItem write SetItem;
+  end;
+
+  TInfoAmbItem = class(TCollectionItem)
     private
       FcodAmb : String;
       FInfoAtiv: TInfoAtiv;
-      FFatRisco: TFatRisco;
+      FFatRisco: TFatRiscoCollection;
       FEPI : TEpiCollection;
 
       procedure setInfoAtiv(const Value: TInfoAtiv);
-      procedure setFatRisco(const Value: TFatRisco);
+      procedure setFatRisco(const Value: TFatRiscoCollection);
       procedure setEPI(const Value: TEpiCollection);
     public
-      constructor create;
-      destructor  Destroy; override;
+      constructor create; reintroduce;
 
       property codAmb : String read FcodAmb write FcodAmb;
       property InfoAtiv : TInfoAtiv read FInfoAtiv write setInfoAtiv;
-      property FatRisco : TFatRisco read FFatRisco write setFatRisco;
+      property FatRisco : TFatRiscoCollection read FFatRisco write setFatRisco;
       property EPI : TEpiCollection read FEPI write setEPI;
   end;
 
@@ -1139,13 +1166,26 @@ type
       property dscAtivDes : String read FdscAtivDes write FdscAtivDes;
   end;
 
-  TFatRisco = class(TPersistent)
+  TFatRiscoCollection = class(TCollection)
+    private
+      function GetItem(Index: Integer): TFatRiscoItem;
+      procedure SetItem(Index: Integer; Value: TFatRiscoItem);
+   public
+     constructor create; reintroduce;
+
+     function Add: TFatRiscoItem;
+     property Items[Index: Integer]: TFatRiscoItem read GetItem write SetItem;
+  end;
+
+  TFatRiscoItem = class(TCollectionItem)
     private
       FcodFatRis : String;
       FintConc : String;
       FtecMedicao : String;
       FutilizEPI : Integer;
     public
+      constructor create; reintroduce;
+
       property codFatRis: String read FcodFatRis write FcodFatRis;
       property intConc : String read FintConc write FintConc;
       property tecMedicao: String read FtecMedicao write FtecMedicao;
@@ -1293,13 +1333,13 @@ type
     private
       FcodRubr : String;
       FideTabRubr: String;
-      FqtdRubr: Integer;
+      FqtdRubr: Double;
       FvrUnit: Double;
       FvrRubr: Double;
     public
       property codRubr: String read FcodRubr write FcodRubr;
       property ideTabRubr: String read FideTabRubr write FideTabRubr;
-      property qtdRubr: Integer read FqtdRubr write FqtdRubr;
+      property qtdRubr: Double read FqtdRubr write FqtdRubr;
       property vrUnit: Double read FvrUnit write FvrUnit;
       property vrRubr: DOuble read FvrRubr write FvrRubr;
   end;
@@ -1326,10 +1366,13 @@ type
   private
     FtpProc : tpTpProc;
     FtpTrib : tpTpTributo;
-    FnrProcJud: string;//em S1250 o campo È nrProcJUD e em S1260 È apenas nrProc - deixado nrProcJud para reutilizaÁ„o da classe
+    FnrProcJud: string;//em S1250 o campo √© nrProcJUD e em S1260 √© apenas nrProc - deixado nrProcJud para reutiliza√ß√£o da classe
     FvrCPNRet: Double;
     FvrRatNRet: Double;
     FvrSenarNRet: Double;
+    FvrCPSusp: Double;
+    FvrRatSusp: Double;
+    FvrSenarSusp: Double;    
   public
     property tpProc: tpTpProc read FtpProc write FtpProc;
     property tpTrib: tpTpTributo read FtpTrib write FtpTrib;
@@ -1337,6 +1380,9 @@ type
     property vrCPNRet: Double read FvrCPNRet write FvrCPNRet;
     property vrRatNRet: Double read FvrRatNRet write FvrRatNRet;
     property vrSenarNRet: Double read FvrSenarNRet write FvrSenarNRet;
+    property vrCPSusp: Double read FvrCPSusp write FvrCPSusp;
+    property vrRatSusp: Double read FvrRatSusp write FvrRatSusp;
+    property vrSenarSusp: Double read FvrSenarSusp write FvrSenarSusp;    
   end;
 
   TPensaoAlimCollection = class(TCollection)
@@ -1557,11 +1603,35 @@ begin
   inherited;
 end;
 
+{TIdeTrabSubstituidoCollection}
+function TIdeTrabSubstituidoCollection.Add: TIdeTrabSubstituidoCollectionItem;
+begin
+  Result := TIdeTrabSubstituidoCollectionItem(inherited Add);
+  Result.Create;
+end;
+
+constructor TIdeTrabSubstituidoCollection.Create(AOwner: TPersistent);
+begin
+  inherited Create(TIdeTrabSubstituidoCollectionItem);
+end;
+
+function TIdeTrabSubstituidoCollection.GetItem(Index: Integer): TIdeTrabSubstituidoCollectionItem;
+begin
+  Result := TIdeTrabSubstituidoCollectionItem(inherited GetItem(Index));
+end;
+
+procedure TIdeTrabSubstituidoCollection.SetItem(Index: Integer;
+  Value: TIdeTrabSubstituidoCollectionItem);
+begin
+  inherited SetItem(Index, Value);
+end;
+
 { TTrabTemporario }
 constructor TTrabTemporario.Create;
 begin
+  inherited;
   FIdeTomadorServ:= TIdeTomadorServ.Create;
-  FIdeTrabSubstituido:= TIdeTrabSubstituido.Create;
+  FIdeTrabSubstituido:= TIdeTrabSubstituidoCollection.Create(self);
 end;
 
 destructor TTrabTemporario.Destroy;
@@ -1774,6 +1844,11 @@ constructor TDependenteCollectionItem.create;
 begin
 end;
 
+{ TIdeTrabSubstituidoCollectionItem }
+constructor TIdeTrabSubstituidoCollectionItem.create;
+begin
+end;
+
 { THorarioCollectionItem }
 constructor THorarioCollectionItem.create;
 begin
@@ -1831,33 +1906,78 @@ begin
   inherited;
 end;
 
-{ TInfoAmb }
+{ TFatRiscoCollection }
 
-constructor TInfoAmb.create;
+function TFatRiscoCollection.Add: TFatRiscoItem;
 begin
-  inherited;
+  Result := TFatRiscoItem(inherited Add);
+  Result.Create;
+end;
+
+constructor TFatRiscoCollection.create;
+begin
+  inherited Create(TFatRiscoItem);
+end;
+
+function TFatRiscoCollection.GetItem(Index: Integer): TFatRiscoItem;
+begin
+  Result := TFatRiscoItem(inherited GetItem(index));
+end;
+
+procedure TFatRiscoCollection.SetItem(Index: Integer; Value: TFatRiscoItem);
+begin
+  inherited SetItem(Index, Value);
+end;
+
+{ TFatRiscoItem }
+
+constructor TFatRiscoItem.create;
+begin
+end;
+
+{ TInfoAmbCollection }
+
+function TInfoAmbCollection.Add: TInfoAmbItem;
+begin
+  Result := TInfoAmbItem(inherited Add);
+  Result.Create;
+end;
+
+constructor TInfoAmbCollection.create;
+begin
+  inherited Create(TInfoAmbItem);
+end;
+
+function TInfoAmbCollection.GetItem(Index: Integer): TInfoAmbItem;
+begin
+  Result := TInfoAmbItem(inherited GetItem(index));
+end;
+
+procedure TInfoAmbCollection.SetItem(Index: Integer; Value: TInfoAmbItem);
+begin
+  inherited SetItem(Index, Value);
+end;
+
+{ TInfoAmbItem }
+
+constructor TInfoAmbItem.create;
+begin
   FInfoAtiv := TInfoAtiv.Create;
-  FFatRisco := TFatRisco.Create;
+  FFatRisco := TFatRiscoCollection.Create;
   FEPI      := TEpiCollection.Create(Self);
 end;
 
-destructor TInfoAmb.destroy;
-begin
-  FInfoAtiv.Free;
-  FFatRisco.Free
-end;
-
-procedure TInfoAmb.setEPI(const Value: TEpiCollection);
+procedure TInfoAmbItem.setEPI(const Value: TEpiCollection);
 begin
   FEPI.Assign(Value);
 end;
 
-procedure TInfoAmb.setFatRisco(const Value: TFatRisco);
+procedure TInfoAmbItem.setFatRisco(const Value: TFatRiscoCollection);
 begin
   FFAtRisco.Assign(Value);
 end;
 
-procedure TInfoAmb.setInfoAtiv(const Value: TInfoAtiv);
+procedure TInfoAmbItem.setInfoAtiv(const Value: TInfoAtiv);
 begin
   FInfoAtiv.Assign(Value);
 end;
@@ -2108,7 +2228,6 @@ end;
 constructor TInfoSaudeColet.create;
 begin
   FDetOper := TDetOperCollection.create;
-  FDetOper.Add;
 end;
 
 destructor TInfoSaudeColet.destroy;
