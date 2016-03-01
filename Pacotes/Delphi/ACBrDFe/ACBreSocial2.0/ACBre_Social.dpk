@@ -134,6 +134,7 @@ contains
   eSocial_S4000 in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S4000.pas',
   eSocial_S4999 in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S4999.pas',
   ACBreSocialWebServices in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\ACBreSocialWebServices.pas',
-  ACBreSocialLoteEventos in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\ACBreSocialLoteEventos.pas';
+  ACBreSocialLoteEventos in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\ACBreSocialLoteEventos.pas',
+  wsEnviarLoteEventos in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\wsEnviarLoteEventos.pas';
 
 end.

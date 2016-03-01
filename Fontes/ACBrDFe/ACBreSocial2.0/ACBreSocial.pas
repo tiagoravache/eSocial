@@ -48,8 +48,8 @@ interface
 
 uses
   Classes, SysUtils, ACBrDFe, ACBrDFeException,
-  ACBrDFeConfiguracoes, pcnConversao, ACBreSocialLoteEventos,
-  ACBreSocialEventos, ACBreSocialConfiguracoes, ACBreSocialWebServices, ACBrUtil;
+  ACBrDFeConfiguracoes, pcnConversao, ACBreSocialLoteEventos, eSocial_Conversao,
+  ACBreSocialEventos, ACBreSocialConfiguracoes, ACBreSocialWebServices, ACBrUtil, wsEnviarLoteEventos;
 
 const
   ACBRESOCIAL_VERSAO = '2.1.0';
@@ -61,7 +61,7 @@ type
   private
     FEventos: TEventos;
     FLoteEventos : TLoteEventos;
-    FWebServices: TWebServices;
+    FWebServices: TeSocialWebService;
     function GetConfiguracoes: TConfiguracoeseSocial;
     procedure SetConfiguracoes(AValue: TConfiguracoeseSocial);
   protected
@@ -73,6 +73,9 @@ type
 
     function EnviarEventos(Lote: TLoteEventos): Boolean;
     function NomeServicoToNomeSchema(const NomeServico: String): String; override;
+
+    procedure LerServicoDeParams(LayOutServico: TLayOut;
+      var Versao: Double; var URL: String);
 
     property WebServices: TWebServicesConf read FWebServices write FWebServices;
     property Eventos: TEventos read FEventos write FEventos;
@@ -107,10 +110,10 @@ begin
 end;
 
 function TACBreSocial.EnviarEventos(Lote: TLoteEventos): Boolean;
+
 begin
-  Lote := FLoteEventos;
-  //A implementar
-  Result := False;
+  Lote   := FLoteEventos;
+  Result := ServicoEnviarLoteEventos(GetServicoEnviarLoteEventos).EnviarLoteEventos(Lote);
 end;
 
 function TACBreSocial.GetAbout: String;
@@ -121,6 +124,18 @@ end;
 function TACBreSocial.GetConfiguracoes: TConfiguracoeseSocial;
 begin
   Result := TConfiguracoeseSocial(FPConfiguracoes);
+end;
+
+procedure TACBreSocial.LerServicoDeParams(LayOutServico: TLayOut; var Versao: Double; var URL: String);
+var
+  AUF: String;
+begin
+  AUF := Configuracoes.WebServices.UF;
+  Versao := StrToFloat(ACBRESOCIAL_VERSAO);
+  URL := '';
+  LerServicoDeParams(GetNomeModeloDFe, AUF,
+    Configuracoes.WebServices.Ambiente, LayOutToServico(LayOutServico),
+    Versao, URL);
 end;
 
 function TACBreSocial.NomeServicoToNomeSchema(const NomeServico: String): String;

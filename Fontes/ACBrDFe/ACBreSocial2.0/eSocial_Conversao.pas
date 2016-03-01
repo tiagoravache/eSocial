@@ -83,7 +83,7 @@ type
                              teS2230, teS2240, teS2241, teS2250, teS2298, teS2299, teS2300,
                              teS2305, teS2399, teS3000, teS4000, teS4999);
 
-  TpTpAmb                 = (taProducao );
+  TpTpAmb                 = (taProducao, taTestes );
 
   tpSimNao                = (tpSim, tpNao);
 

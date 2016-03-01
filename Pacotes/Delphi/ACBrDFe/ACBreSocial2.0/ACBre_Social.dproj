@@ -106,6 +106,7 @@
 			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S4999.pas"/>
 			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\ACBreSocialWebServices.pas"/>
 			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\ACBreSocialLoteEventos.pas"/>
+			<DCCReference Include="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\wsEnviarLoteEventos.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>
