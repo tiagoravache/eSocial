@@ -5,32 +5,32 @@
 {                                                                              }
 { Direitos Autorais Reservados (c) 2008 Wemerson Souto                         }
 {                                       Daniel Simoes de Almeida               }
-{                                       André Ferreira de Moraes               }
+{                                       AndrÃ© Ferreira de Moraes               }
 {                                                                              }
 { Colaboradores nesse arquivo:                                                 }
 {                                                                              }
-{  Você pode obter a última versão desse arquivo na pagina do Projeto ACBr     }
+{  VocÃª pode obter a Ãºltima versÃ£o desse arquivo na pagina do Projeto ACBr     }
 { Componentes localizado em http://www.sourceforge.net/projects/acbr           }
 {                                                                              }
 {                                                                              }
-{  Esta biblioteca é software livre; você pode redistribuí-la e/ou modificá-la }
-{ sob os termos da Licença Pública Geral Menor do GNU conforme publicada pela  }
-{ Free Software Foundation; tanto a versão 2.1 da Licença, ou (a seu critério) }
-{ qualquer versão posterior.                                                   }
+{  Esta biblioteca Ã© software livre; vocÃª pode redistribuÃ­-la e/ou modificÃ¡-la }
+{ sob os termos da LicenÃ§a PÃºblica Geral Menor do GNU conforme publicada pela  }
+{ Free Software Foundation; tanto a versÃ£o 2.1 da LicenÃ§a, ou (a seu critÃ©rio) }
+{ qualquer versÃ£o posterior.                                                   }
 {                                                                              }
-{  Esta biblioteca é distribuída na expectativa de que seja útil, porém, SEM   }
-{ NENHUMA GARANTIA; nem mesmo a garantia implícita de COMERCIABILIDADE OU      }
-{ ADEQUAÇÃO A UMA FINALIDADE ESPECÍFICA. Consulte a Licença Pública Geral Menor}
-{ do GNU para mais detalhes. (Arquivo LICENÇA.TXT ou LICENSE.TXT)              }
+{  Esta biblioteca Ã© distribuÃ­da na expectativa de que seja Ãºtil, porÃ©m, SEM   }
+{ NENHUMA GARANTIA; nem mesmo a garantia implÃ­cita de COMERCIABILIDADE OU      }
+{ ADEQUAÃ‡ÃƒO A UMA FINALIDADE ESPECÃFICA. Consulte a LicenÃ§a PÃºblica Geral Menor}
+{ do GNU para mais detalhes. (Arquivo LICENÃ‡A.TXT ou LICENSE.TXT)              }
 {                                                                              }
-{  Você deve ter recebido uma cópia da Licença Pública Geral Menor do GNU junto}
-{ com esta biblioteca; se não, escreva para a Free Software Foundation, Inc.,  }
-{ no endereço 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
-{ Você também pode obter uma copia da licença em:                              }
+{  VocÃª deve ter recebido uma cÃ³pia da LicenÃ§a PÃºblica Geral Menor do GNU junto}
+{ com esta biblioteca; se nÃ£o, escreva para a Free Software Foundation, Inc.,  }
+{ no endereÃ§o 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
+{ VocÃª tambÃ©m pode obter uma copia da licenÃ§a em:                              }
 { http://www.opensource.org/licenses/lgpl-license.php                          }
 {                                                                              }
-{ Daniel Simões de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
-{              Praça Anita Costa, 34 - Tatuí - SP - 18270-410                  }
+{ Daniel SimÃµes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
+{              PraÃ§a Anita Costa, 34 - TatuÃ­ - SP - 18270-410                  }
 {                                                                              }
 {******************************************************************************}
 
@@ -38,7 +38,9 @@
 |* Historico
 |*
 |* 27/10/2015: Jean Carlo Cantu, Tiago Ravache
-|*  - Doação do componente para o Projeto ACBr
+|*  - DoaÃ§Ã£o do componente para o Projeto ACBr
+|* 01/03/2016: Guilherme Costa
+|*  - AlteraÃ§Ãµes para validaÃ§Ã£o com o XSD
 ******************************************************************************}
 {$I ACBr.inc}
 
@@ -104,8 +106,8 @@ type
     procedure GerarIniAposentEsp(objIniApoEsp: TiniAposentEsp);
     procedure GerarAltAposentEsp(objAltApoEsp: TaltAposentEsp);
     procedure GerarFimAposentEsp(objFimApoEsp: TfimAposentEsp);
-    procedure GerarInfoAmb(Sender: TInsPerApo; objInfoAmb: TInfoAmb);
-    procedure GerarFatRisco(objFatRisco: TFatRisco);
+    procedure GerarInfoAmb(Sender: TInsPerApo; objInfoAmb: TInfoAmbCollection);
+    procedure GerarFatRisco(objFatRisco: TFatRiscoCollection);
   public
     constructor Create(AACBreSocial: TObject);overload;
     destructor  Destroy; override;
@@ -122,8 +124,8 @@ type
   TInsPerApo = class(TPersistent)
     private
       FDtCondicao : TDateTime;
-      FInfoAmb : TInfoAmb;
-      procedure setInfoAmb(const Value: TInfoAmb);
+      FInfoAmb : TInfoAmbCollection;
+      procedure setInfoAmb(const Value: TInfoAmbCollection);
     public
       constructor Create;
       destructor  Destroy; override;
@@ -132,19 +134,19 @@ type
   TiniInsalPeric = class(TInsPerApo)
     public
       property DtiniCondicao : TDateTime read FDtCondicao write FDtCondicao;
-      property InfoAmb : TInfoAmb read FInfoAmb write setInfoAmb;
+      property InfoAmb : TInfoAmbCollection read FInfoAmb write setInfoAmb;
   end;
 
   TaltInsalPeric = class(TInsPerApo)
     public
       property DtaltCondicao : TDateTime read FDtCondicao write FDtCondicao;
-      property InfoAmb : TInfoAmb read FInfoAmb write setInfoAmb;
+      property InfoAmb : TInfoAmbCollection read FInfoAmb write setInfoAmb;
   end;
 
   TfimInsalPeric = class(TInsPerApo)
     public
       property DtfimCondicao : TDateTime read FDtCondicao write FDtCondicao;
-      property InfoAmb : TInfoAmb read FInfoAmb write setInfoAmb;
+      property InfoAmb : TInfoAmbCollection read FInfoAmb write setInfoAmb;
   end;
 
   TInsalPeric = class(TPersistent)
@@ -164,19 +166,19 @@ type
   TiniAposentEsp = class(TInsPerApo)
     public
       property DtiniCondicao : TDateTime read FDtCondicao write FDtCondicao;
-      property InfoAmb : TInfoAmb read FInfoAmb write setInfoAmb;
+      property InfoAmb : TInfoAmbCollection read FInfoAmb write setInfoAmb;
   end;
 
   TaltAposentEsp = class(TInsPerApo)
     public
       property DtaltCondicao : TDateTime read FDtCondicao write FDtCondicao;
-      property InfoAmb : TInfoAmb read FInfoAmb write setInfoAmb;
+      property InfoAmb : TInfoAmbCollection read FInfoAmb write setInfoAmb;
   end;
 
   TfimAposentEsp = class(TInsPerApo)
     public
       property DtfimCondicao : TDateTime read FDtCondicao write FDtCondicao;
-      property InfoAmb : TInfoAmb read FInfoAmb write setInfoAmb;
+      property InfoAmb : TInfoAmbCollection read FInfoAmb write setInfoAmb;
   end;
 
   TAposentEsp = class(TPersistent)
@@ -222,7 +224,7 @@ end;
 constructor TInsPerApo.create;
 begin
   inherited;
-  FInfoAmb := TInfoAmb.create;
+  FInfoAmb := TInfoAmbCollection.create;
 end;
 
 destructor TInsPerApo.destroy;
@@ -231,7 +233,7 @@ begin
   inherited;
 end;
 
-procedure TInsPerApo.setInfoAmb(const Value: TInfoAmb);
+procedure TInsPerApo.setInfoAmb(const Value: TInfoAmbCollection);
 begin
   FInfoAmb.Assign(Value);
 end;
@@ -313,19 +315,27 @@ end;
 procedure TEvtInsApo.GerarAposentEsp(objAposentEsp: TAposentEsp);
 begin
   Gerador.wGrupo('aposentEsp');
-    GerariniAposentEsp(objAposentEsp.iniAposentEsp);
-    GeraraltAposentEsp(objAposentEsp.altAposentEsp);
-    GerarfimAposentEsp(objAposentEsp.fimAposentEsp);
+    if objAposentEsp.iniAposentEsp.DtiniCondicao > 0 then
+      GerariniAposentEsp(objAposentEsp.iniAposentEsp);
+    if objAposentEsp.altAposentEsp.DtaltCondicao > 0 then  
+      GeraraltAposentEsp(objAposentEsp.altAposentEsp);
+    if objAposentEsp.fimAposentEsp.DtfimCondicao > 0 then  
+      GerarfimAposentEsp(objAposentEsp.fimAposentEsp);
   Gerador.wGrupo('/aposentEsp');
 end;
 
-procedure TEvtInsApo.GerarFatRisco(objFatRisco: TFatRisco);
+procedure TEvtInsApo.GerarFatRisco(objFatRisco: TFatRiscoCollection);
+var
+  i: Integer;
 begin
-  Gerador.wGrupo('fatRisco');
-    Gerador.wCampo(tcStr, '', 'codFatRis', 0,0,0, objFatRisco.codFatRis);
-    Gerador.wCampo(tcStr, '', 'intConc', 0,0,0, objFatRisco.intConc);
-    Gerador.wCampo(tcStr, '', 'tecMedicao', 0,0,0, objFatRisco.tecMedicao);
-  Gerador.wGrupo('/fatRisco');
+  for I := 0 to objFatRisco.count - 1 do
+  begin
+    Gerador.wGrupo('fatRisco');
+      Gerador.wCampo(tcStr, '', 'codFatRis', 0,0,0, objFatRisco.items[i].codFatRis);
+      Gerador.wCampo(tcStr, '', 'intConc', 0,0,0, objFatRisco.items[i].intConc);
+      Gerador.wCampo(tcStr, '', 'tecMedicao', 0,0,0, objFatRisco.items[i].tecMedicao);
+    Gerador.wGrupo('/fatRisco');
+  end;
 end;
 
 procedure TEvtInsApo.GerarFimAposentEsp(objFimApoEsp: TfimAposentEsp);
@@ -344,13 +354,18 @@ begin
   Gerador.wGrupo('/fimInsalPeric');
 end;
 
-procedure TEvtInsApo.GerarInfoAmb(Sender: TInsPerApo; objInfoAmb: TInfoAmb);
+procedure TEvtInsApo.GerarInfoAmb(Sender: TInsPerApo; objInfoAmb: TInfoAmbCollection);
+var
+  i: Integer;
 begin
-  Gerador.wGrupo('infoAmb');
-    Gerador.wCampo(tcStr, '', 'codAmb', 0,0,0, objInfoAmb.codAmb);
-    if (not ((Sender is TfimAposentEsp) or (Sender is TfimInsalPeric))) then
-      GerarFatRisco(objInfoAmb.FatRisco);
-  Gerador.wGrupo('/infoAmb');
+  for i := 0 to objInfoAmb.count - 1 do
+  begin
+    Gerador.wGrupo('infoAmb');
+      Gerador.wCampo(tcStr, '', 'codAmb', 0,0,0, objInfoAmb.items[i].codAmb);
+      if (not ((Sender is TfimAposentEsp) or (Sender is TfimInsalPeric))) then
+        GerarFatRisco(objInfoAmb.items[i].FatRisco);
+    Gerador.wGrupo('/infoAmb');
+  end;
 end;
 
 procedure TEvtInsApo.GerarIniAposentEsp(objIniApoEsp: TiniAposentEsp);
@@ -372,16 +387,19 @@ end;
 procedure TEvtInsApo.GerarInsalPeric(objInsalPeric: TInsalPeric);
 begin
   Gerador.wGrupo('insalPeric');
-    GerariniInsalPeric(objInsalPeric.iniInsalPeric);
-    GeraraltInsalPeric(objInsalPeric.altInsalPeric);
-    GerarfimInsalPeric(objInsalPeric.fimInsalPeric);
+    if objInsalPeric.iniInsalPeric.DtiniCondicao > 0 then
+      GerariniInsalPeric(objInsalPeric.iniInsalPeric);
+    if objInsalPeric.altInsalPeric.DtaltCondicao > 0 then  
+      GeraraltInsalPeric(objInsalPeric.altInsalPeric);
+    if objInsalPeric.fimInsalPeric.DtfimCondicao > 0 then  
+      GerarfimInsalPeric(objInsalPeric.fimInsalPeric);
   Gerador.wGrupo('/insalPeric');
 end;
 
 function TEvtInsApo.GerarXML: boolean;
 begin
   try
-    GerarCabecalho('');
+    GerarCabecalho('evtInsPerApo');
       Gerador.wGrupo('evtInsApo Id="'+GerarChaveEsocial(now, self.ideEmpregador.NrInsc, 0)+'"');//versao="'+Self.versao+'"
         //gerarIdVersao(self);
         gerarIdeEvento2(self.IdeEvento);
@@ -395,7 +413,7 @@ begin
     GerarRodape;
 
     XML := Assinar(Gerador.ArquivoFormatoXML, 'evtInsApo');
-    Validar('evtInsApo');
+    Validar('evtInsPerApo');
   except on e:exception do
     raise Exception.Create(e.Message);
   end;
