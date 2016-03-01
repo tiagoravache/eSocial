@@ -5,32 +5,32 @@
 {                                                                              }
 { Direitos Autorais Reservados (c) 2008 Wemerson Souto                         }
 {                                       Daniel Simoes de Almeida               }
-{                                       André Ferreira de Moraes               }
+{                                       AndrÃ© Ferreira de Moraes               }
 {                                                                              }
 { Colaboradores nesse arquivo:                                                 }
 {                                                                              }
-{  Você pode obter a última versão desse arquivo na pagina do Projeto ACBr     }
+{  VocÃª pode obter a Ãºltima versÃ£o desse arquivo na pagina do Projeto ACBr     }
 { Componentes localizado em http://www.sourceforge.net/projects/acbr           }
 {                                                                              }
 {                                                                              }
-{  Esta biblioteca é software livre; você pode redistribuí-la e/ou modificá-la }
-{ sob os termos da Licença Pública Geral Menor do GNU conforme publicada pela  }
-{ Free Software Foundation; tanto a versão 2.1 da Licença, ou (a seu critério) }
-{ qualquer versão posterior.                                                   }
+{  Esta biblioteca Ã© software livre; vocÃª pode redistribuÃ­-la e/ou modificÃ¡-la }
+{ sob os termos da LicenÃ§a PÃºblica Geral Menor do GNU conforme publicada pela  }
+{ Free Software Foundation; tanto a versÃ£o 2.1 da LicenÃ§a, ou (a seu critÃ©rio) }
+{ qualquer versÃ£o posterior.                                                   }
 {                                                                              }
-{  Esta biblioteca é distribuída na expectativa de que seja útil, porém, SEM   }
-{ NENHUMA GARANTIA; nem mesmo a garantia implícita de COMERCIABILIDADE OU      }
-{ ADEQUAÇÃO A UMA FINALIDADE ESPECÍFICA. Consulte a Licença Pública Geral Menor}
-{ do GNU para mais detalhes. (Arquivo LICENÇA.TXT ou LICENSE.TXT)              }
+{  Esta biblioteca Ã© distribuÃ­da na expectativa de que seja Ãºtil, porÃ©m, SEM   }
+{ NENHUMA GARANTIA; nem mesmo a garantia implÃ­cita de COMERCIABILIDADE OU      }
+{ ADEQUAÃ‡ÃƒO A UMA FINALIDADE ESPECÃFICA. Consulte a LicenÃ§a PÃºblica Geral Menor}
+{ do GNU para mais detalhes. (Arquivo LICENÃ‡A.TXT ou LICENSE.TXT)              }
 {                                                                              }
-{  Você deve ter recebido uma cópia da Licença Pública Geral Menor do GNU junto}
-{ com esta biblioteca; se não, escreva para a Free Software Foundation, Inc.,  }
-{ no endereço 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
-{ Você também pode obter uma copia da licença em:                              }
+{  VocÃª deve ter recebido uma cÃ³pia da LicenÃ§a PÃºblica Geral Menor do GNU junto}
+{ com esta biblioteca; se nÃ£o, escreva para a Free Software Foundation, Inc.,  }
+{ no endereÃ§o 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
+{ VocÃª tambÃ©m pode obter uma copia da licenÃ§a em:                              }
 { http://www.opensource.org/licenses/lgpl-license.php                          }
 {                                                                              }
-{ Daniel Simões de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
-{              Praça Anita Costa, 34 - Tatuí - SP - 18270-410                  }
+{ Daniel SimÃµes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
+{              PraÃ§a Anita Costa, 34 - TatuÃ­ - SP - 18270-410                  }
 {                                                                              }
 {******************************************************************************}
 
@@ -38,7 +38,9 @@
 |* Historico
 |*
 |* 27/10/2015: Jean Carlo Cantu, Tiago Ravache
-|*  - Doação do componente para o Projeto ACBr
+|*  - DoaÃ§Ã£o do componente para o Projeto ACBr
+|* 01/03/2016: Guilherme Costa
+|*  - AlteraÃ§Ãµes para validaÃ§Ã£o com o XSD
 ******************************************************************************}
 {$I ACBr.inc}
 
@@ -95,8 +97,8 @@ type
     procedure GerariniExpRisco(objiniExpRisco: TiniExpRisco);
     procedure GeraraltExpRisco(objaltExpRisco: TaltExpRisco);
     procedure GerarfimExpRisco(objfimExpRisco: TfimExpRisco);
-    procedure GerarInfoAmb(objInfoAmb : TinfoAmb);
-    procedure GerarFatRisco(objFatRisco: TFatRisco);
+    procedure GerarInfoAmb(objInfoAmb : TinfoAmbCollection);
+    procedure GerarFatRisco(objFatRisco: TFatRiscoCollection);
     procedure GerarEPI(objEPI: TEpiCollectionItem);
   public
     constructor Create(AACBreSocial: TObject);overload;
@@ -127,15 +129,15 @@ type
   TExpRisco = class(TPersistent)
     private
       FdtCondicao : TDateTime;
-      FInfoAmb : TInfoAmb;
+      FInfoAmb : TInfoAmbCollection;
 
-      procedure SetInfoAmb(const Value: TInfoAmb);
+      procedure SetInfoAmb(const Value: TInfoAmbCollection);
     public
       constructor Create;
       destructor  Destroy;
 
       property dtCondicao : TDateTime read FdtCondicao write FdtCondicao;
-      property InfoAmb : TInfoAmb read FInfoAmb write SetInfoAmb;
+      property InfoAmb : TInfoAmbCollection read FInfoAmb write SetInfoAmb;
   end;
 
   TiniExpRisco = class(TExpRisco);
@@ -144,14 +146,14 @@ type
 
   TfimExpRisco = class
     private
-      FinfoAmb: TinfoAmb;
+      FinfoAmb: TInfoAmbCollection;
       FdtFimCondicao: TDateTime;
-      procedure SetinfoAmb(const Value: TinfoAmb);
+      procedure SetinfoAmb(const Value: TInfoAmbCollection);
     public
       constructor create;
       destructor  destroy; override;
       property dtFimCondicao : TDateTime read FdtFimCondicao write FdtFimCondicao;
-      property infoAmb : TinfoAmb read FinfoAmb write SetinfoAmb;
+      property infoAmb : TInfoAmbCollection read FinfoAmb write SetinfoAmb;
   end;
 
 implementation
@@ -229,60 +231,75 @@ procedure TEvtExpRisco.GerarEPI(objEPI: TEpiCollectionItem);
 begin
   Gerador.wGrupo('epi');
     Gerador.wCampo(tcStr, '', 'caEPI', 0,0,0, objEPI.caEPI);
-    Gerador.wCampo(tcStr, '', 'medProtecao', 0,0,0, objEPI.medProtecao);
-    Gerador.wCampo(tcStr, '', 'condFuncto', 0,0,0, objEPI.condFuncto);
-    Gerador.wCampo(tcStr, '', 'przValid', 0,0,0, objEPI.przValid);
-    Gerador.wCampo(tcStr, '', 'periodicTroca', 0,0,0, objEPI.periodicTroca);
-    Gerador.wCampo(tcStr, '', 'higienizacao', 0,0,0, objEPI.higienizacao);
+    Gerador.wCampo(tcStr, '', 'eficaciaEpi', 0,0,0, eSSimNaoToStr(objEPI.eficaciaEpi));
+    Gerador.wCampo(tcStr, '', 'medProtecao', 0,0,0, eSSimNaoToStr(objEPI.medProtecao));
+    Gerador.wCampo(tcStr, '', 'condFuncto', 0,0,0, eSSimNaoToStr(objEPI.condFuncto));
+    Gerador.wCampo(tcStr, '', 'przValid', 0,0,0, eSSimNaoToStr(objEPI.przValid));
+    Gerador.wCampo(tcStr, '', 'periodicTroca', 0,0,0, eSSimNaoToStr(objEPI.periodicTroca));
+    Gerador.wCampo(tcStr, '', 'higienizacao', 0,0,0, eSSimNaoToStr(objEPI.higienizacao));
   Gerador.wGrupo('/epi');
 end;
 
-procedure TEvtExpRisco.GerarFatRisco(objFatRisco: TFatRisco);
+procedure TEvtExpRisco.GerarFatRisco(objFatRisco: TFatRiscoCollection);
+var
+  i: Integer;
 begin
-  Gerador.wGrupo('fatRisco');
-    Gerador.wCampo(tcStr, '', 'codFatRis', 0,0,0, objFatRisco.codFatRis);
-    Gerador.wCampo(tcStr, '', 'intConc', 0,0,0, objFatRisco.intConc);
-    Gerador.wCampo(tcStr, '', 'tecMedicao', 0,0,0, objFatRisco.tecMedicao);
-    Gerador.wCampo(tcStr, '', 'utilizEPI', 0,0,0, objFatRisco.utilizEPI);
-  Gerador.wGrupo('/fatRisco');
+  for I := 0 to objFatRisco.Count - 1 do
+  begin
+    Gerador.wGrupo('fatRisco');
+      Gerador.wCampo(tcStr, '', 'codFatRis', 0,0,0, objFatRisco.Items[i].codFatRis);
+      Gerador.wCampo(tcStr, '', 'intConc', 0,0,0, objFatRisco.Items[i].intConc);
+      Gerador.wCampo(tcStr, '', 'tecMedicao', 0,0,0, objFatRisco.Items[i].tecMedicao);
+      Gerador.wCampo(tcStr, '', 'utilizEPI', 0,0,0, objFatRisco.Items[i].utilizEPI);
+    Gerador.wGrupo('/fatRisco');
+  end;
 end;
 
 procedure TEvtExpRisco.GerarfimExpRisco(objfimExpRisco: TfimExpRisco);
+var
+  i: Integer;
 begin
   //Gerado a parte pois pede menos campos que os demais grupos do layout.
   Gerador.wGrupo('fimExpRisco');
     Gerador.wCampo(tcDat, '', 'dtFimCondicao', 0,0,0, objfimExpRisco.dtFimCondicao);
-    Gerador.wGrupo('infoAmb');
-      Gerador.wCampo(tcStr, '', 'codAmb', 0,0,0, objfimExpRisco.InfoAmb.codAmb);
-      Gerador.wGrupo('infoAtiv');
-       Gerador.wCampo(tcStr, '', 'dscAtivDes', 0,0,0, objfimExpRisco.InfoAmb.InfoAtiv.dscAtivDes);
-      Gerador.wGrupo('/infoAtiv');
-    Gerador.wGrupo('/infoAmb');
+    for I := 0 to objfimExpRisco.infoAmb.Count - 1 do
+    begin
+      Gerador.wGrupo('infoAmb');
+        Gerador.wCampo(tcStr, '', 'codAmb', 0,0,0, objfimExpRisco.InfoAmb.items[i].codAmb);
+        Gerador.wGrupo('infoAtiv');
+         Gerador.wCampo(tcStr, '', 'dscAtivDes', 0,0,0, objfimExpRisco.InfoAmb.items[i].InfoAtiv.dscAtivDes);
+        Gerador.wGrupo('/infoAtiv');
+      Gerador.wGrupo('/infoAmb');
+    end;
   Gerador.wGrupo('/fimExpRisco');
 end;
 
-procedure TEvtExpRisco.GerarInfoAmb(objInfoAmb: TinfoAmb);
+procedure TEvtExpRisco.GerarInfoAmb(objInfoAmb: TinfoAmbCollection);
 var
-  i : integer;
+  j, i : integer;
 begin
-  Gerador.wGrupo('infoAmb');
-    Gerador.wCampo(tcStr, '', 'codAmb', 0,0,0, objInfoAmb.codAmb);
-    Gerador.wGrupo('infoAtiv');
-      Gerador.wCampo(tcStr, '', 'dscAtivDes', 0,0,0, objInfoAmb.InfoAtiv.dscAtivDes);
-    Gerador.wGrupo('/infoAtiv');
-    GerarFatRisco(objInfoAmb.FatRisco);
-    for i := 0 to objInfoAmb.EPI.Count -1 do
-      GerarEPI(objInfoAmb.EPI.Items[i]);
-  Gerador.wGrupo('/infoAmb');
+  for j := 0 to objInfoAmb.Count - 1 do
+  begin
+    Gerador.wGrupo('infoAmb');
+      Gerador.wCampo(tcStr, '', 'codAmb', 0,0,0, objInfoAmb.items[j].codAmb);
+      Gerador.wGrupo('infoAtiv');
+        Gerador.wCampo(tcStr, '', 'dscAtivDes', 0,0,0, objInfoAmb.items[j].InfoAtiv.dscAtivDes);
+      Gerador.wGrupo('/infoAtiv');
+      GerarFatRisco(objInfoAmb.items[j].FatRisco);
+      for i := 0 to objInfoAmb.items[j].EPI.Count -1 do
+        GerarEPI(objInfoAmb.items[j].EPI.Items[i]);
+    Gerador.wGrupo('/infoAmb');
+  end;
 end;
 
 procedure TEvtExpRisco.GerarInfoExpRisco(objInfoExpRisco: TInfoExpRisco);
 begin
   Gerador.wGrupo('infoExpRisco');
-    GerariniExpRisco(objInfoExpRisco.iniExpRisco);
-    if Assigned(objInfoExpRisco.altExpRisco) then
+    if (objInfoExpRisco.iniExpRisco.dtCondicao > 0) then
+      GerariniExpRisco(objInfoExpRisco.iniExpRisco);
+    if (objInfoExpRisco.altExpRisco.dtCondicao > 0) then
       GeraraltExpRisco(objInfoExpRisco.altExpRisco);
-    if Assigned(objInfoExpRisco.fimExpRisco) then
+    if (objInfoExpRisco.fimExpRisco.dtFimCondicao > 0) then
       GerarfimExpRisco(objInfoExpRisco.fimExpRisco);
   Gerador.wGrupo('/infoExpRisco');
 end;
@@ -298,7 +315,7 @@ end;
 function TEvtExpRisco.GerarXML: boolean;
 begin
   try
-    GerarCabecalho('');
+    GerarCabecalho('evtExpRisco');
       Gerador.wGrupo('evtExpRisco Id="'+GerarChaveEsocial(now, self.ideEmpregador.NrInsc, 0)+'"');//versao="'+Self.versao+'"';
         //gerarIdVersao(self);
         gerarIdeEvento2(self.IdeEvento);
@@ -322,7 +339,7 @@ end;
 constructor TExpRisco.create;
 begin
   inherited;
-  FInfoAmb := TInfoAmb.Create;
+  FInfoAmb := TInfoAmbCollection.Create;
 end;
 
 destructor TExpRisco.destroy;
@@ -331,7 +348,7 @@ begin
   inherited;
 end;
 
-procedure TExpRisco.SetInfoAmb(const Value: TInfoAmb);
+procedure TExpRisco.SetInfoAmb(const Value: TInfoAmbCollection);
 begin
   FInfoAmb.Assign(Value);
 end;
@@ -341,7 +358,7 @@ end;
 constructor TfimExpRisco.create;
 begin
   inherited;
-  FinfoAmb := TInfoAmb.Create;
+  FinfoAmb := TInfoAmbCollection.Create;
 end;
 
 destructor TfimExpRisco.destroy;
@@ -350,7 +367,7 @@ begin
   inherited;
 end;
 
-procedure TfimExpRisco.SetinfoAmb(const Value: TinfoAmb);
+procedure TfimExpRisco.SetinfoAmb(const Value: TInfoAmbCollection);
 begin
   FinfoAmb := Value;
 end;
