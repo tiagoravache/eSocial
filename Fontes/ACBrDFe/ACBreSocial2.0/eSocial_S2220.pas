@@ -5,32 +5,32 @@
 {                                                                              }
 { Direitos Autorais Reservados (c) 2008 Wemerson Souto                         }
 {                                       Daniel Simoes de Almeida               }
-{                                       AndrÈ Ferreira de Moraes               }
+{                                       Andr√© Ferreira de Moraes               }
 {                                                                              }
 { Colaboradores nesse arquivo:                                                 }
 {                                                                              }
-{  VocÍ pode obter a ˙ltima vers„o desse arquivo na pagina do Projeto ACBr     }
+{  Voc√™ pode obter a √∫ltima vers√£o desse arquivo na pagina do Projeto ACBr     }
 { Componentes localizado em http://www.sourceforge.net/projects/acbr           }
 {                                                                              }
 {                                                                              }
-{  Esta biblioteca È software livre; vocÍ pode redistribuÌ-la e/ou modific·-la }
-{ sob os termos da LicenÁa P˙blica Geral Menor do GNU conforme publicada pela  }
-{ Free Software Foundation; tanto a vers„o 2.1 da LicenÁa, ou (a seu critÈrio) }
-{ qualquer vers„o posterior.                                                   }
+{  Esta biblioteca √© software livre; voc√™ pode redistribu√≠-la e/ou modific√°-la }
+{ sob os termos da Licen√ßa P√∫blica Geral Menor do GNU conforme publicada pela  }
+{ Free Software Foundation; tanto a vers√£o 2.1 da Licen√ßa, ou (a seu crit√©rio) }
+{ qualquer vers√£o posterior.                                                   }
 {                                                                              }
-{  Esta biblioteca È distribuÌda na expectativa de que seja ˙til, porÈm, SEM   }
-{ NENHUMA GARANTIA; nem mesmo a garantia implÌcita de COMERCIABILIDADE OU      }
-{ ADEQUA«√O A UMA FINALIDADE ESPECÕFICA. Consulte a LicenÁa P˙blica Geral Menor}
-{ do GNU para mais detalhes. (Arquivo LICEN«A.TXT ou LICENSE.TXT)              }
+{  Esta biblioteca √© distribu√≠da na expectativa de que seja √∫til, por√©m, SEM   }
+{ NENHUMA GARANTIA; nem mesmo a garantia impl√≠cita de COMERCIABILIDADE OU      }
+{ ADEQUA√á√ÉO A UMA FINALIDADE ESPEC√çFICA. Consulte a Licen√ßa P√∫blica Geral Menor}
+{ do GNU para mais detalhes. (Arquivo LICEN√áA.TXT ou LICENSE.TXT)              }
 {                                                                              }
-{  VocÍ deve ter recebido uma cÛpia da LicenÁa P˙blica Geral Menor do GNU junto}
-{ com esta biblioteca; se n„o, escreva para a Free Software Foundation, Inc.,  }
-{ no endereÁo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
-{ VocÍ tambÈm pode obter uma copia da licenÁa em:                              }
+{  Voc√™ deve ter recebido uma c√≥pia da Licen√ßa P√∫blica Geral Menor do GNU junto}
+{ com esta biblioteca; se n√£o, escreva para a Free Software Foundation, Inc.,  }
+{ no endere√ßo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
+{ Voc√™ tamb√©m pode obter uma copia da licen√ßa em:                              }
 { http://www.opensource.org/licenses/lgpl-license.php                          }
 {                                                                              }
-{ Daniel Simıes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
-{              PraÁa Anita Costa, 34 - TatuÌ - SP - 18270-410                  }
+{ Daniel Sim√µes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
+{              Pra√ßa Anita Costa, 34 - Tatu√≠ - SP - 18270-410                  }
 {                                                                              }
 {******************************************************************************}
 
@@ -38,7 +38,9 @@
 |* Historico
 |*
 |* 27/10/2015: Jean Carlo Cantu, Tiago Ravache
-|*  - DoaÁ„o do componente para o Projeto ACBr
+|*  - Doa√ß√£o do componente para o Projeto ACBr
+|* 01/03/2016: Guilherme Costa
+|*  - Altera√ß√µes para valida√ß√£o com o XSD
 ******************************************************************************}
 {$I ACBr.inc}
 
@@ -214,7 +216,7 @@ type
   TIdeServSaude = class
   private
     FCodCNES: string;
-//    FFrmCtt: string; removido na vers„o 2.1
+    FFrmCtt: string;
     FEmail: string;
     FMedico: TMedico;
   public
@@ -222,7 +224,7 @@ type
     destructor destroy; override;
   published
     property CodCNES: string read FCodCNES write FCodCNES;
-//    property FrmCtt: string read FFrmCtt write FFrmCtt; -- removido na vers„o 2.1
+    property FrmCtt: string read FFrmCtt write FFrmCtt;
     property Email: string read FEmail write FEmail;
     property Medico: TMedico read FMedico write FMedico;
   end;
@@ -240,14 +242,12 @@ type
   TMedico = class
   private
     FNmMed: string;
-    FFrmCtt: string;
     FCRM: TCRM;
   public
     constructor create;
     destructor destroy; override;
   public
     property NmMed: string read FNmMed write FNmMed;
-    property FrmCtt: string read FFrmCtt write FFrmCtt;
     property CRM: TCRM read FCRM write FCRM;
   end;
 
@@ -398,14 +398,14 @@ end;
 
 procedure TEvtASO.gerarAso;
 begin
-  Gerador.wGrupo('ASO');
+  Gerador.wGrupo('aso');
     Gerador.wCampo(tcDat, '', 'dtAso', 0, 0, 0, self.Aso.DtAso);
     Gerador.wCampo(tcStr, '', 'tpAso', 0, 0, 0, eSTpAsoToStr(self.Aso.tpAso));
     Gerador.wCampo(tcStr, '', 'resAso', 0, 0, 0, eSResAsoToStr(self.Aso.ResAso));
     gerarExame;
     gerarMonitBiolog;
     gerarIdeServSaude;
-  Gerador.wGrupo('/ASO');
+  Gerador.wGrupo('/aso');
 end;
 
 procedure TEvtASO.gerarCRM;
@@ -437,7 +437,7 @@ begin
     if (self.Aso.IdeServSaude.CodCNES <> '') then
       Gerador.wCampo(tcStr, '', 'codCNES  ', 0, 0, 0, self.Aso.IdeServSaude.CodCNES);
 
-   // Gerador.wCampo(tcStr, '', 'frmCtt  ', 0, 0, 0, self.Aso.IdeServSaude.FrmCtt);- removido na vers„o 2.1
+    Gerador.wCampo(tcStr, '', 'frmCtt  ', 0, 0, 0, self.Aso.IdeServSaude.FrmCtt);- removido na vers√£o 2.1
 
     if (self.Aso.IdeServSaude.Email <> '') then
       Gerador.wCampo(tcStr, '', 'email  ', 0, 0, 0, self.Aso.IdeServSaude.Email);
@@ -456,10 +456,10 @@ end;
 
 procedure TEvtASO.gerarMonitBiolog;
 begin
-  Gerador.wGrupo('monitBiologica');
+  Gerador.wGrupo('monitBiolog');
     gerarResultMonit;
     gerarRespMonit;
-  Gerador.wGrupo('/monitBiologica');
+  Gerador.wGrupo('/monitBiolog');
 end;
 
 procedure TEvtASO.gerarRespMonit;
@@ -499,18 +499,18 @@ end;
 function TEvtASO.GerarXML: boolean;
 begin
   try
-    GerarCabecalho('');
-      Gerador.wGrupo('evtASO Id="'+GerarChaveEsocial(now, self.ideEmpregador.NrInsc, 0)+'"');
+    GerarCabecalho('evtMonit');
+      Gerador.wGrupo('evtMonit Id="'+GerarChaveEsocial(now, self.ideEmpregador.NrInsc, 0)+'"');
         //gerarIdVersao(self);
         gerarIdeEvento2(self.IdeEvento);
         gerarIdeEmpregador(self.IdeEmpregador);
         gerarIdeVinculo(self.IdeVinculo);
         gerarAso;
-      Gerador.wGrupo('/evtASO');
+      Gerador.wGrupo('/evtMonit');
     GerarRodape;
 
-    XML := Assinar(Gerador.ArquivoFormatoXML, 'evtASO');
-    Validar('evtASO');
+    XML := Assinar(Gerador.ArquivoFormatoXML, 'evtMonit');
+    Validar('evtMonit');
   except on e:exception do
     raise Exception.Create(e.Message);
   end;
