@@ -5,32 +5,32 @@
 {                                                                              }
 { Direitos Autorais Reservados (c) 2008 Wemerson Souto                         }
 {                                       Daniel Simoes de Almeida               }
-{                                       AndrÈ Ferreira de Moraes               }
+{                                       Andr√© Ferreira de Moraes               }
 {                                                                              }
 { Colaboradores nesse arquivo:                                                 }
 {                                                                              }
-{  VocÍ pode obter a ˙ltima vers„o desse arquivo na pagina do Projeto ACBr     }
+{  Voc√™ pode obter a √∫ltima vers√£o desse arquivo na pagina do Projeto ACBr     }
 { Componentes localizado em http://www.sourceforge.net/projects/acbr           }
 {                                                                              }
 {                                                                              }
-{  Esta biblioteca È software livre; vocÍ pode redistribuÌ-la e/ou modific·-la }
-{ sob os termos da LicenÁa P˙blica Geral Menor do GNU conforme publicada pela  }
-{ Free Software Foundation; tanto a vers„o 2.1 da LicenÁa, ou (a seu critÈrio) }
-{ qualquer vers„o posterior.                                                   }
+{  Esta biblioteca √© software livre; voc√™ pode redistribu√≠-la e/ou modific√°-la }
+{ sob os termos da Licen√ßa P√∫blica Geral Menor do GNU conforme publicada pela  }
+{ Free Software Foundation; tanto a vers√£o 2.1 da Licen√ßa, ou (a seu crit√©rio) }
+{ qualquer vers√£o posterior.                                                   }
 {                                                                              }
-{  Esta biblioteca È distribuÌda na expectativa de que seja ˙til, porÈm, SEM   }
-{ NENHUMA GARANTIA; nem mesmo a garantia implÌcita de COMERCIABILIDADE OU      }
-{ ADEQUA«√O A UMA FINALIDADE ESPECÕFICA. Consulte a LicenÁa P˙blica Geral Menor}
-{ do GNU para mais detalhes. (Arquivo LICEN«A.TXT ou LICENSE.TXT)              }
+{  Esta biblioteca √© distribu√≠da na expectativa de que seja √∫til, por√©m, SEM   }
+{ NENHUMA GARANTIA; nem mesmo a garantia impl√≠cita de COMERCIABILIDADE OU      }
+{ ADEQUA√á√ÉO A UMA FINALIDADE ESPEC√çFICA. Consulte a Licen√ßa P√∫blica Geral Menor}
+{ do GNU para mais detalhes. (Arquivo LICEN√áA.TXT ou LICENSE.TXT)              }
 {                                                                              }
-{  VocÍ deve ter recebido uma cÛpia da LicenÁa P˙blica Geral Menor do GNU junto}
-{ com esta biblioteca; se n„o, escreva para a Free Software Foundation, Inc.,  }
-{ no endereÁo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
-{ VocÍ tambÈm pode obter uma copia da licenÁa em:                              }
+{  Voc√™ deve ter recebido uma c√≥pia da Licen√ßa P√∫blica Geral Menor do GNU junto}
+{ com esta biblioteca; se n√£o, escreva para a Free Software Foundation, Inc.,  }
+{ no endere√ßo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
+{ Voc√™ tamb√©m pode obter uma copia da licen√ßa em:                              }
 { http://www.opensource.org/licenses/lgpl-license.php                          }
 {                                                                              }
-{ Daniel Simıes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
-{              PraÁa Anita Costa, 34 - TatuÌ - SP - 18270-410                  }
+{ Daniel Sim√µes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
+{              Pra√ßa Anita Costa, 34 - Tatu√≠ - SP - 18270-410                  }
 {                                                                              }
 {******************************************************************************}
 
@@ -38,7 +38,9 @@
 |* Historico
 |*
 |* 27/10/2015: Jean Carlo Cantu, Tiago Ravache
-|*  - DoaÁ„o do componente para o Projeto ACBr
+|*  - Doa√ß√£o do componente para o Projeto ACBr
+|* 01/03/2016: Guilherme Costa
+|*  - Altera√ß√µes para valida√ß√£o com o XSD
 ******************************************************************************}
 {$I ACBr.inc}
 
@@ -93,7 +95,7 @@ type
     FIdeEmpregador: TIdeEmpregador;
     FInfoComProd: TInfoComProd;
 
-    {Geradores especÌficos da classe}
+    {Geradores espec√≠ficos da classe}
     procedure GerarInfoComProd();
     procedure GerarIdeEstabel();
     procedure GerarTpComerc(pTpComerc: TTpComercColecao);
@@ -124,14 +126,12 @@ type
   private
     FnrInscEstabRural: string;
     FTpComerc: TTpComercColecao;
-    FInfoProcJud: TInfoProcJudCollection;
   public
     constructor create;
     destructor Destroy; override;
 
     property nrInscEstabRural: string read FnrInscEstabRural write FnrInscEstabRural;
     property TpComerc: TTpComercColecao read FTpComerc write FTpComerc;
-    property InfoProcJud: TInfoProcJudCollection read FInfoProcJud write FInfoProcJud;
   end;
 
   TTpComercColecao = class(TCollection)
@@ -149,6 +149,7 @@ type
     FindComerc: tpIndComerc;
     FvrTotCom: Double;
     FIdeAdquir: TIdeAdquirColecao;
+    FInfoProcJud: TInfoProcJudCollection;
   public
     constructor create; reintroduce;
     destructor Destroy; override;
@@ -156,6 +157,7 @@ type
     property indComerc: tpIndComerc read FindComerc write FindComerc;
     property vrTotCom: double read FvrTotCom write FvrTotCom;
     property IdeAdquir: TIdeAdquirColecao read FIdeAdquir write FIdeAdquir;
+    property InfoProcJud: TInfoProcJudCollection read FInfoProcJud write FInfoProcJud;
   end;
 
   TIdeAdquirColecao = class(TCollection)
@@ -251,9 +253,7 @@ procedure TEvtComProd.GerarIdeEstabel;
 begin
   Gerador.wGrupo('ideEstabel');
     Gerador.wCampo(tcStr, '', 'nrInscEstabRural', 0, 0, 0, InfoComProd.IdeEstabel.nrInscEstabRural);
-
     GerarTpComerc(InfoComProd.IdeEstabel.TpComerc);
-    GerarInfoProcJud(InfoComProd.IdeEstabel.InfoProcJud);
   Gerador.wGrupo('/ideEstabel');
 end;
 
@@ -267,7 +267,7 @@ begin
       Gerador.wCampo(tcStr, '', 'tpInsc',  0, 0, 0, eSTpInscricaoToStr(pIdeAdquir.Items[i].tpInsc));
       Gerador.wCampo(tcStr, '', 'nrInsc',  0, 0, 0, pIdeAdquir.Items[i].nrInsc);
       Gerador.wCampo(tcDe2, '', 'vrComerc',    0, 0, 0, pIdeAdquir.Items[i].vrComerc);
-     // Gerador.wCampo(tcDe2, '', 'vrRetPR',  0, 0, 0, pIdeAdquir.Items[i].vrRetPR); -- removido na vers„o 2.1
+     // Gerador.wCampo(tcDe2, '', 'vrRetPR',  0, 0, 0, pIdeAdquir.Items[i].vrRetPR); -- removido na vers√£o 2.1
     Gerador.wGrupo('/ideAdquir');
   end;
 end;
@@ -281,6 +281,9 @@ begin
       Gerador.wGrupo('infoProcJud');
         Gerador.wCampo(tcStr, '', 'tpProc', 0,0,0, pInfoProcJud.Items[i].tpProc);
         Gerador.wCampo(tcStr, '', 'nrProc',   0, 0, 0, pInfoProcJud.Items[i].nrProcJud);
+        Gerador.wCampo(tcDe2, '', 'vrCPSusp',   0, 0, 0, pInfoProcJud.Items[i].vrCPSusp);
+        Gerador.wCampo(tcDe2, '', 'vrRatSusp',   0, 0, 0, pInfoProcJud.Items[i].vrRatSusp);
+        Gerador.wCampo(tcDe2, '', 'vrSenarSusp',   0, 0, 0, pInfoProcJud.Items[i].vrSenarSusp);        
       Gerador.wGrupo('/infoProcJud');
     end;
 end;
@@ -296,6 +299,7 @@ begin
       Gerador.wCampo(tcDe2, '', 'vrTotCom', 0, 0, 0, pTpComerc.Items[iTpComerc].vrTotCom);
 
       GerarIdeAdquir(pTpComerc.Items[iTpComerc].IdeAdquir);
+      GerarInfoProcJud(pTpComerc.Items[iTpComerc].InfoProcJud);
     Gerador.wGrupo('/tpComerc');
   end;
 end;
@@ -303,7 +307,7 @@ end;
 function TEvtComProd.GerarXML: boolean;
 begin
   try
-    GerarCabecalho('');
+    GerarCabecalho('evtComProd');
       Gerador.wGrupo('evtComProd Id="'+GerarChaveEsocial(now, self.ideEmpregador.NrInsc, 0)+'"');
         gerarIdeEvento3(self.IdeEvento);
         gerarIdeEmpregador(self.IdeEmpregador);
@@ -359,11 +363,13 @@ end;
 constructor TTpComercItem.create;
 begin
   FIdeAdquir := TIdeAdquirColecao.Create(self);
+  FInfoProcJud := TInfoProcJudCollection.Create(self);
 end;
 
 destructor TTpComercItem.destroy;
 begin
   FIdeAdquir.Free;
+  FInfoProcJud.Free;
   inherited;
 end;
 
@@ -395,13 +401,11 @@ constructor TIdeEstabel.create;
 begin
   inherited;
   FTpComerc := TTpComercColecao.Create(self);
-  FInfoProcJud := TInfoProcJudCollection.Create(self);
 end;
 
 destructor TIdeEstabel.destroy;
 begin
   FTpComerc.Free;
-  FInfoProcJud.Free;
   inherited;
 end;
 
