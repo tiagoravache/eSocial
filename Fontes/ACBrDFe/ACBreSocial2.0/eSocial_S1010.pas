@@ -5,32 +5,32 @@
 {                                                                              }
 { Direitos Autorais Reservados (c) 2008 Wemerson Souto                         }
 {                                       Daniel Simoes de Almeida               }
-{                                       AndrÈ Ferreira de Moraes               }
+{                                       Andr√© Ferreira de Moraes               }
 {                                                                              }
 { Colaboradores nesse arquivo:                                                 }
 {                                                                              }
-{  VocÍ pode obter a ˙ltima vers„o desse arquivo na pagina do Projeto ACBr     }
+{  Voc√™ pode obter a √∫ltima vers√£o desse arquivo na pagina do Projeto ACBr     }
 { Componentes localizado em http://www.sourceforge.net/projects/acbr           }
 {                                                                              }
 {                                                                              }
-{  Esta biblioteca È software livre; vocÍ pode redistribuÌ-la e/ou modific·-la }
-{ sob os termos da LicenÁa P˙blica Geral Menor do GNU conforme publicada pela  }
-{ Free Software Foundation; tanto a vers„o 2.1 da LicenÁa, ou (a seu critÈrio) }
-{ qualquer vers„o posterior.                                                   }
+{  Esta biblioteca √© software livre; voc√™ pode redistribu√≠-la e/ou modific√°-la }
+{ sob os termos da Licen√ßa P√∫blica Geral Menor do GNU conforme publicada pela  }
+{ Free Software Foundation; tanto a vers√£o 2.1 da Licen√ßa, ou (a seu crit√©rio) }
+{ qualquer vers√£o posterior.                                                   }
 {                                                                              }
-{  Esta biblioteca È distribuÌda na expectativa de que seja ˙til, porÈm, SEM   }
-{ NENHUMA GARANTIA; nem mesmo a garantia implÌcita de COMERCIABILIDADE OU      }
-{ ADEQUA«√O A UMA FINALIDADE ESPECÕFICA. Consulte a LicenÁa P˙blica Geral Menor}
-{ do GNU para mais detalhes. (Arquivo LICEN«A.TXT ou LICENSE.TXT)              }
+{  Esta biblioteca √© distribu√≠da na expectativa de que seja √∫til, por√©m, SEM   }
+{ NENHUMA GARANTIA; nem mesmo a garantia impl√≠cita de COMERCIABILIDADE OU      }
+{ ADEQUA√á√ÉO A UMA FINALIDADE ESPEC√çFICA. Consulte a Licen√ßa P√∫blica Geral Menor}
+{ do GNU para mais detalhes. (Arquivo LICEN√áA.TXT ou LICENSE.TXT)              }
 {                                                                              }
-{  VocÍ deve ter recebido uma cÛpia da LicenÁa P˙blica Geral Menor do GNU junto}
-{ com esta biblioteca; se n„o, escreva para a Free Software Foundation, Inc.,  }
-{ no endereÁo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
-{ VocÍ tambÈm pode obter uma copia da licenÁa em:                              }
+{  Voc√™ deve ter recebido uma c√≥pia da Licen√ßa P√∫blica Geral Menor do GNU junto}
+{ com esta biblioteca; se n√£o, escreva para a Free Software Foundation, Inc.,  }
+{ no endere√ßo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
+{ Voc√™ tamb√©m pode obter uma copia da licen√ßa em:                              }
 { http://www.opensource.org/licenses/lgpl-license.php                          }
 {                                                                              }
-{ Daniel Simıes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
-{              PraÁa Anita Costa, 34 - TatuÌ - SP - 18270-410                  }
+{ Daniel Sim√µes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
+{              Pra√ßa Anita Costa, 34 - Tatu√≠ - SP - 18270-410                  }
 {                                                                              }
 {******************************************************************************}
 
@@ -38,7 +38,9 @@
 |* Historico
 |*
 |* 27/10/2015: Jean Carlo Cantu, Tiago Ravache
-|*  - DoaÁ„o do componente para o Projeto ACBr
+|*  - Doa√ß√£o do componente para o Projeto ACBr
+|* 29/02/2015: Guilherme Costa
+|*  - n√£o estava sendo gerada a tag "tpProc"
 ******************************************************************************}
 {$I ACBr.inc}
 
@@ -93,7 +95,7 @@ type
     FIdeEvento: TIdeEvento;
     FInfoRubrica: TInfoRubrica;
 
-    {Geradores especÌficos da classe}
+    {Geradores espec√≠ficos da classe}
     procedure gerarIdeRubrica();
     procedure gerarDadosRubrica();
     procedure gerarIdeProcessoCP();
@@ -142,7 +144,7 @@ type
     FRepDSR: tpSimNao;
     FRep13: tpSimNao;
     FRepFerias: tpSimNao;
-    FRepAviso: tpSimNao; //repResc na vers„o 2.0 alterado na 2.1 para repAviso
+    FRepAviso: tpSimNao; //repResc na vers√£o 2.0 alterado na 2.1 para repAviso
     FFatorRubr: double;
     FObservacao: string;          
     FIdeProcessoCP: TIdeProcessoCP;
@@ -319,6 +321,7 @@ begin
   if (InfoRubrica.DadosRubrica.ideProcessoCPInst()) then
   begin
     Gerador.wGrupo('ideProcessoCP');
+      Gerador.wCampo(tcStr, '', 'tpProc', 0, 0, 0, eSTpProcessoToStr(InfoRubrica.DadosRubrica.IdeProcessoCP.tpProc));
       Gerador.wCampo(tcStr, '', 'nrProc', 0, 0, 0, InfoRubrica.DadosRubrica.IdeProcessoCP.nrProc);
       Gerador.wCampo(tcStr, '', 'extDecisao', 0, 0, 0, eSExtDecisaoToStr(InfoRubrica.DadosRubrica.IdeProcessoCP.extDecisao));
     Gerador.wGrupo('/ideProcessoCP');
@@ -370,7 +373,7 @@ end;
 function TEvtTabRubrica.GerarXML: boolean;
 begin
   try
-    gerarCabecalho('');
+    gerarCabecalho('evtTabRubrica');
       Gerador.wGrupo('evtTabRubrica Id="'+ GerarChaveEsocial(now, self.ideEmpregador.NrInsc, 0) +'"');
         //gerarIdVersao(self);
         gerarIdeEvento(self.IdeEvento);

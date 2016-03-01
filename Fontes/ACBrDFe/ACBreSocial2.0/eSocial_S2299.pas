@@ -5,32 +5,32 @@
 {                                                                              }
 { Direitos Autorais Reservados (c) 2008 Wemerson Souto                         }
 {                                       Daniel Simoes de Almeida               }
-{                                       AndrÈ Ferreira de Moraes               }
+{                                       Andr√© Ferreira de Moraes               }
 {                                                                              }
 { Colaboradores nesse arquivo:                                                 }
 {                                                                              }
-{  VocÍ pode obter a ˙ltima vers„o desse arquivo na pagina do Projeto ACBr     }
+{  Voc√™ pode obter a √∫ltima vers√£o desse arquivo na pagina do Projeto ACBr     }
 { Componentes localizado em http://www.sourceforge.net/projects/acbr           }
 {                                                                              }
 {                                                                              }
-{  Esta biblioteca È software livre; vocÍ pode redistribuÌ-la e/ou modific·-la }
-{ sob os termos da LicenÁa P˙blica Geral Menor do GNU conforme publicada pela  }
-{ Free Software Foundation; tanto a vers„o 2.1 da LicenÁa, ou (a seu critÈrio) }
-{ qualquer vers„o posterior.                                                   }
+{  Esta biblioteca √© software livre; voc√™ pode redistribu√≠-la e/ou modific√°-la }
+{ sob os termos da Licen√ßa P√∫blica Geral Menor do GNU conforme publicada pela  }
+{ Free Software Foundation; tanto a vers√£o 2.1 da Licen√ßa, ou (a seu crit√©rio) }
+{ qualquer vers√£o posterior.                                                   }
 {                                                                              }
-{  Esta biblioteca È distribuÌda na expectativa de que seja ˙til, porÈm, SEM   }
-{ NENHUMA GARANTIA; nem mesmo a garantia implÌcita de COMERCIABILIDADE OU      }
-{ ADEQUA«√O A UMA FINALIDADE ESPECÕFICA. Consulte a LicenÁa P˙blica Geral Menor}
-{ do GNU para mais detalhes. (Arquivo LICEN«A.TXT ou LICENSE.TXT)              }
+{  Esta biblioteca √© distribu√≠da na expectativa de que seja √∫til, por√©m, SEM   }
+{ NENHUMA GARANTIA; nem mesmo a garantia impl√≠cita de COMERCIABILIDADE OU      }
+{ ADEQUA√á√ÉO A UMA FINALIDADE ESPEC√çFICA. Consulte a Licen√ßa P√∫blica Geral Menor}
+{ do GNU para mais detalhes. (Arquivo LICEN√áA.TXT ou LICENSE.TXT)              }
 {                                                                              }
-{  VocÍ deve ter recebido uma cÛpia da LicenÁa P˙blica Geral Menor do GNU junto}
-{ com esta biblioteca; se n„o, escreva para a Free Software Foundation, Inc.,  }
-{ no endereÁo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
-{ VocÍ tambÈm pode obter uma copia da licenÁa em:                              }
+{  Voc√™ deve ter recebido uma c√≥pia da Licen√ßa P√∫blica Geral Menor do GNU junto}
+{ com esta biblioteca; se n√£o, escreva para a Free Software Foundation, Inc.,  }
+{ no endere√ßo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
+{ Voc√™ tamb√©m pode obter uma copia da licen√ßa em:                              }
 { http://www.opensource.org/licenses/lgpl-license.php                          }
 {                                                                              }
-{ Daniel Simıes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
-{              PraÁa Anita Costa, 34 - TatuÌ - SP - 18270-410                  }
+{ Daniel Sim√µes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
+{              Pra√ßa Anita Costa, 34 - Tatu√≠ - SP - 18270-410                  }
 {                                                                              }
 {******************************************************************************}
 
@@ -38,7 +38,9 @@
 |* Historico
 |*
 |* 27/10/2015: Jean Carlo Cantu, Tiago Ravache
-|*  - DoaÁ„o do componente para o Projeto ACBr
+|*  - Doa√ß√£o do componente para o Projeto ACBr
+|* 01/03/2016: Guilherme Costa
+|*  - Altera√ß√µes para valida√ß√£o com o XSD
 ******************************************************************************}
 {$I ACBr.inc}
 
@@ -116,6 +118,7 @@ type
       FdtDeslig: TDateTime;
       FindPagtoAPI : tpSimNao;
       FdtProjFimAPI : TDateTime;
+      FpercAliment: Double;
       FnrCertObito : String;
       FnrProcTrab : String;
       FObservacao : String;
@@ -131,6 +134,7 @@ type
       property dtDeslig: TDateTime read FdtDeslig write FdtDeslig;
       property indPagtoAPI : tpSimNao read FindPagtoAPI write FindPagtoAPI;
       property dtProjFimAPI : TDateTime read FdtProjFimAPI write FdtProjFimAPI;
+      property percAliment : Double read FpercAliment write FpercAliment;
       property nrCertObito : String read FnrCertObito write FnrCertObito;
       property nrProcTrab : String read FnrProcTrab write FnrProcTrab;
       property Observacao : String read FObservacao write FObservacao;
@@ -192,7 +196,7 @@ begin
       Gerador.wGrupo('detVerbas');
         Gerador.wCampo(tcStr, '', 'codRubr', 0,0,0, obj.Items[i].codRubr);
         Gerador.wCampo(tcStr, '', 'ideTabRubr', 0,0,0, obj.Items[i].ideTabRubr);
-        Gerador.wCampo(tcStr, '', 'qtdRubr', 0,0,0, obj.Items[i].qtdRubr);
+        Gerador.wCampo(tcDe2, '', 'qtdRubr', 0,0,0, obj.Items[i].qtdRubr);
         Gerador.wCampo(tcDe2, '', 'vrUnit', 0,0,0, obj.Items[i].vrUnit);
         Gerador.wCampo(tcDe2, '', 'vrRubr', 0,0,0, obj.Items[i].vrRubr);
       Gerador.wGrupo('/detVerbas');
@@ -225,11 +229,11 @@ end;
 
 procedure TEvtDeslig.GerarInfoASO(obj: TInfoASO);
 begin
-  Gerador.wGrupo('InfoASO');
+  Gerador.wGrupo('infoASO');
     Gerador.wCampo(tcDat, '', 'dtAsoDem', 0,0,0, obj.DtAso);
     Gerador.wCampo(tcStr, '', 'nrCRM', 0,0,0, obj.NrCRM);
     Gerador.wCampo(tcStr, '', 'ufCRM', 0,0,0, obj.UfCRM);
-  Gerador.wGrupo('/InfoASO');
+  Gerador.wGrupo('/infoASO');
 end;
 
 procedure TEvtDeslig.GerarInfoDeslig(obj: TInfoDeslig);
@@ -237,9 +241,10 @@ begin
   Gerador.wGrupo('infoDeslig');
     Gerador.wCampo(tcStr, '', 'mtvDeslig', 0,0,0, obj.mtvDeslig);
     Gerador.wCampo(tcDat, '', 'dtDeslig', 0,0,0, obj.dtDeslig);
-    Gerador.wCampo(tcStr, '', 'indPagtoAPI', 0,0,0, obj.indPagtoAPI);
+    Gerador.wCampo(tcStr, '', 'indPagtoAPI', 0,0,0, eSSimNaoToStr(obj.indPagtoAPI));
     if (obj.indPagtoAPI=tpSim) then
       Gerador.wCampo(tcDat, '', 'dtProjFimAPI', 0,0,0, obj.dtProjFimAPI);
+    Gerador.wCampo(tcDe2, '', 'percAliment', 0, 0, 0, obj.percAliment);  
     if ((obj.mtvDeslig='09') or (obj.mtvDeslig='10')) then
       Gerador.wCampo(tcStr, '', 'nrCertObito', 0,0,0, obj.nrCertObito);
     if (obj.mtvDeslig='17') then
@@ -265,10 +270,10 @@ var
 begin
   for i := 0 to obj.Count - 1 do
     begin
-      Gerador.wGrupo('procJutTrab');
+      Gerador.wGrupo('procJudTrab');
         Gerador.wCampo(tcStr, '', 'tpTrib', 0,0,0, obj.Items[i].tpTrib);
         Gerador.wCampo(tcDe2, '', 'nrProcJud', 0,0,0, obj.items[i].nrProcJud);
-      Gerador.wGrupo('/procJutTrab');
+      Gerador.wGrupo('/procJudTrab');
     end;
 end;
 
@@ -311,7 +316,7 @@ end;
 function TEvtDeslig.GerarXML: boolean;
 begin
   try
-    GerarCabecalho('');
+    GerarCabecalho('evtDeslig');
       Gerador.wGrupo('evtDeslig Id="'+GerarChaveEsocial(now, self.ideEmpregador.NrInsc, 0)+'"');//versao="'+Self.versao+'"
         //gerarIdVersao(self);
         gerarIdeEvento2(self.IdeEvento);

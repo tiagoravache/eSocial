@@ -5,32 +5,32 @@
 {                                                                              }
 { Direitos Autorais Reservados (c) 2008 Wemerson Souto                         }
 {                                       Daniel Simoes de Almeida               }
-{                                       AndrÈ Ferreira de Moraes               }
+{                                       Andr√© Ferreira de Moraes               }
 {                                                                              }
 { Colaboradores nesse arquivo:                                                 }
 {                                                                              }
-{  VocÍ pode obter a ˙ltima vers„o desse arquivo na pagina do Projeto ACBr     }
+{  Voc√™ pode obter a √∫ltima vers√£o desse arquivo na pagina do Projeto ACBr     }
 { Componentes localizado em http://www.sourceforge.net/projects/acbr           }
 {                                                                              }
 {                                                                              }
-{  Esta biblioteca È software livre; vocÍ pode redistribuÌ-la e/ou modific·-la }
-{ sob os termos da LicenÁa P˙blica Geral Menor do GNU conforme publicada pela  }
-{ Free Software Foundation; tanto a vers„o 2.1 da LicenÁa, ou (a seu critÈrio) }
-{ qualquer vers„o posterior.                                                   }
+{  Esta biblioteca √© software livre; voc√™ pode redistribu√≠-la e/ou modific√°-la }
+{ sob os termos da Licen√ßa P√∫blica Geral Menor do GNU conforme publicada pela  }
+{ Free Software Foundation; tanto a vers√£o 2.1 da Licen√ßa, ou (a seu crit√©rio) }
+{ qualquer vers√£o posterior.                                                   }
 {                                                                              }
-{  Esta biblioteca È distribuÌda na expectativa de que seja ˙til, porÈm, SEM   }
-{ NENHUMA GARANTIA; nem mesmo a garantia implÌcita de COMERCIABILIDADE OU      }
-{ ADEQUA«√O A UMA FINALIDADE ESPECÕFICA. Consulte a LicenÁa P˙blica Geral Menor}
-{ do GNU para mais detalhes. (Arquivo LICEN«A.TXT ou LICENSE.TXT)              }
+{  Esta biblioteca √© distribu√≠da na expectativa de que seja √∫til, por√©m, SEM   }
+{ NENHUMA GARANTIA; nem mesmo a garantia impl√≠cita de COMERCIABILIDADE OU      }
+{ ADEQUA√á√ÉO A UMA FINALIDADE ESPEC√çFICA. Consulte a Licen√ßa P√∫blica Geral Menor}
+{ do GNU para mais detalhes. (Arquivo LICEN√áA.TXT ou LICENSE.TXT)              }
 {                                                                              }
-{  VocÍ deve ter recebido uma cÛpia da LicenÁa P˙blica Geral Menor do GNU junto}
-{ com esta biblioteca; se n„o, escreva para a Free Software Foundation, Inc.,  }
-{ no endereÁo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
-{ VocÍ tambÈm pode obter uma copia da licenÁa em:                              }
+{  Voc√™ deve ter recebido uma c√≥pia da Licen√ßa P√∫blica Geral Menor do GNU junto}
+{ com esta biblioteca; se n√£o, escreva para a Free Software Foundation, Inc.,  }
+{ no endere√ßo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
+{ Voc√™ tamb√©m pode obter uma copia da licen√ßa em:                              }
 { http://www.opensource.org/licenses/lgpl-license.php                          }
 {                                                                              }
-{ Daniel Simıes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
-{              PraÁa Anita Costa, 34 - TatuÌ - SP - 18270-410                  }
+{ Daniel Sim√µes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
+{              Pra√ßa Anita Costa, 34 - Tatu√≠ - SP - 18270-410                  }
 {                                                                              }
 {******************************************************************************}
 
@@ -38,7 +38,9 @@
 |* Historico
 |*
 |* 27/10/2015: Jean Carlo Cantu, Tiago Ravache
-|*  - DoaÁ„o do componente para o Projeto ACBr
+|*  - Doa√ß√£o do componente para o Projeto ACBr
+|* 01/03/2016: Guilherme Costa
+|*  - Altera√ß√µes para valida√ß√£o com o XSD
 ******************************************************************************}
 {$I ACBr.inc}
 
@@ -114,9 +116,10 @@ type
     FInfoPerAnt: TInfoPerAnt;
     function getInfoPerAnt: TInfoPerAnt;
     function getInfoPerApur: TInfoPerApur;
-    {Geradores especÌficos desta classe}
+    {Geradores espec√≠ficos desta classe}
 
     procedure GerarIdeEstabLot(objIdeEstabLot: TIdeEstabLotCollection; nomeRemunPer: string = 'remunPerApur');
+    procedure GerarIdeEstabLot2(objIdeEstabLot: TIdeEstabLotCollection; nomeRemunPer: string = 'remunPerAnt');
     procedure GerarRemunPer(objRemunPer: TRemunPerCollection; nomeRemunPer: string = 'remunPerApur');
     procedure GerarIdePeriodo(objIdePeriodo: TIdePeriodoCollection);
     procedure GerarRecPgtos1(objRecPgtosCollection: TeS1200RecPgtos1Collection);
@@ -426,7 +429,6 @@ end;
 constructor TRemunPerCollectionItem.create;
 begin
   FItensRemun := TItensRemunCollection.Create;
-  FItensRemun.Add;
   FInfoSaudeColet := nil;
   FInfoAgNocivo := nil;
   FPensaoAlim := TPensaoAlimCollection.create;
@@ -494,9 +496,7 @@ end;
 constructor TIdeEstabLotCollectionItem.create;
 begin
   FRemunPerApur := TRemunPerCollection.create;
-  FRemunPerApur.Add;
   FRemunPerAnt := TRemunPerCollection.create;
-  FRemunPerAnt.Add;
 end;
 
 destructor TIdeEstabLotCollectionItem.destroy;
@@ -534,7 +534,6 @@ end;
 constructor TIdePeriodoCollectionItem.create;
 begin
   FIdeEstabLot := TIdeEstabLotCollection.create;
-  FIdeEstabLot.Add;
 end;
 
 destructor TIdePeriodoCollectionItem.destroy;
@@ -572,7 +571,6 @@ constructor TeS1200RecPgtos1CollectionItem.create;
 begin
   inherited create;
   FIdeEstabLot := TIdeEstabLotCollection.create;
-  FIdeEstabLot.Add;
 end;
 
 destructor TeS1200RecPgtos1CollectionItem.destroy;
@@ -610,7 +608,6 @@ constructor TeS1200RecPgtos2CollectionItem.create;
 begin
   inherited create;
   FIdePeriodo := TIdePeriodoCollection.create;
-  FIdePeriodo.Add;
 end;
 
 destructor TeS1200RecPgtos2CollectionItem.destroy;
@@ -647,7 +644,6 @@ end;
 constructor TIdeADCCollectionItem.create;
 begin
   FRecPgtos := TeS1200RecPgtos2Collection.create;
-  FRecPgtos.Add;
 end;
 
 destructor TIdeADCCollectionItem.destroy;
@@ -684,7 +680,6 @@ constructor TInfoPerAnt.create;
 begin
   inherited;
   FIdeADC := TIdeADCCollection.create;
-  FIdeADC.add;
 end;
 
 destructor TInfoPerAnt.destroy;
@@ -698,7 +693,6 @@ constructor TInfoPerApur.create;
 begin
   inherited;
   FRecPgtos := TeS1200RecPgtos1Collection.create;
-  FRecPgtos.Add;
 end;
 
 destructor TInfoPerApur.destroy;
@@ -831,10 +825,25 @@ begin
   for iIdeEstabLot := 0 to objIdeEstabLot.Count - 1 do
   begin
     Gerador.wGrupo('ideEstabLot');
-      Gerador.wCampo(tcInt, '', 'tpInsc', 0, 0, 0, objIdeEstabLot.Items[iIdeEstabLot].tpInsc);
+      Gerador.wCampo(tcInt, '', 'tpInsc', 0, 0, 0, eSTpInscricaoToStr(objIdeEstabLot.Items[iIdeEstabLot].tpInsc));
       Gerador.wCampo(tcStr, '', 'nrInsc', 0, 0, 0, objIdeEstabLot.Items[iIdeEstabLot].nrInsc);
       Gerador.wCampo(tcStr, '', 'codLotacao', 0, 0, 0, objIdeEstabLot.Items[iIdeEstabLot].codLotacao);
       GerarRemunPer(objIdeEstabLot.Items[iIdeEstabLot].remunPerApur, nomeRemunPer);
+    Gerador.wGrupo('/ideEstabLot');
+  end;
+end;
+
+procedure TEvtRemun.GerarIdeEstabLot2(objIdeEstabLot: TIdeEstabLotCollection; nomeRemunPer: string = 'remunPerAnt');
+var
+  iIdeEstabLot: Integer;
+begin
+  for iIdeEstabLot := 0 to objIdeEstabLot.Count - 1 do
+  begin
+    Gerador.wGrupo('ideEstabLot');
+      Gerador.wCampo(tcInt, '', 'tpInsc', 0, 0, 0, eSTpInscricaoToStr(objIdeEstabLot.Items[iIdeEstabLot].tpInsc));
+      Gerador.wCampo(tcStr, '', 'nrInsc', 0, 0, 0, objIdeEstabLot.Items[iIdeEstabLot].nrInsc);
+      Gerador.wCampo(tcStr, '', 'codLotacao', 0, 0, 0, objIdeEstabLot.Items[iIdeEstabLot].codLotacao);
+      GerarRemunPer(objIdeEstabLot.Items[iIdeEstabLot].remunPerAnt, nomeRemunPer);
     Gerador.wGrupo('/ideEstabLot');
   end;
 end;
@@ -847,7 +856,7 @@ begin
   begin
     Gerador.wGrupo('idePeriodo');
       Gerador.wCampo(tcStr, '', 'perRef', 0, 0, 0, objIdePeriodo.Items[iIdePeriodo].perRef);
-      GerarIdeEstabLot(objIdePeriodo.Items[iIdePeriodo].ideEstabLot, 'remunPerAnt');
+      GerarIdeEstabLot2(objIdePeriodo.Items[iIdePeriodo].ideEstabLot, 'remunPerAnt');
     Gerador.wGrupo('/idePeriodo');
   end;
 end;
@@ -857,8 +866,8 @@ begin
   Gerador.wGrupo('ideTrabalhador');
     Gerador.wCampo(tcStr, '', 'cpfTrab', 0, 0, 0, ideTrabalhador.cpfTrab);
     Gerador.wCampo(tcStr, '', 'nisTrab', 0, 0, 0, ideTrabalhador.nisTrab);
-    Gerador.wCampo(tcInt, '', 'qtdDepSF', 0, 0, 0, ideTrabalhador.qtdDepSF);
-    Gerador.wCampo(tcInt, '', 'qtdDepIRRF', 0, 0, 0, ideTrabalhador.qtdDepIRRF);
+    Gerador.wCampo(tcInt, '', 'qtdDepSF', 0, 0, 1, ideTrabalhador.qtdDepSF);
+    Gerador.wCampo(tcInt, '', 'qtdDepIRRF', 0, 0, 1, ideTrabalhador.qtdDepIRRF);
     if (ideTrabalhador.infoMVInst()) then
       GerarInfoMV();
     if (ideTrabalhador.infoComplemInst()) then
@@ -908,6 +917,7 @@ begin
   begin
     Gerador.wGrupo('recPgtos');
       Gerador.wCampo(tcInt, '', 'ideRecPgto', 0, 0, 0, objRecPgtosCollection.Items[iRecPqtos1].ideRecPgto);
+      Gerador.wCampo(tcDe2, '', 'vrRec', 0,0,0, objRecPgtosCollection.Items[iRecPqtos1].vrRec);
       GerarIdeEstabLot(objRecPgtosCollection.Items[iRecPqtos1].ideEstabLot, 'remunPerApur');
     Gerador.wGrupo('/recPgtos');
   end;
@@ -950,7 +960,7 @@ begin
     Gerador.wGrupo(nomeRemunPer);
       Gerador.wCampo(tcStr, '', 'matricula', 0, 0, 0, objRemunPer.Items[iRemunPer].matricula);
       Gerador.wCampo(tcInt, '', 'codCateg', 0, 0, 0, objRemunPer.Items[iRemunPer].codCateg);
-      //indSimples deixou de ser obrigatÛrio ocorre 0-1 vzs;
+      //indSimples deixou de ser obrigat√≥rio ocorre 0-1 vzs;
       Gerador.wCampo(tcStr, '', 'indSimples', 0, 0, 0, eSIndSimplesToStr(objRemunPer.Items[iRemunPer].indSimples));
       GerarItensRemun(objRemunPer.Items[iRemunPer].itensRemun, 'itensRemun');
       if (nomeRemunPer = 'remunPerApur') then
@@ -968,7 +978,7 @@ end;
 function TEvtRemun.GerarXML: boolean;
 begin
   try
-    GerarCabecalho('');
+    GerarCabecalho('evtRemun');
       Gerador.wGrupo('evtRemun Id="'+ GerarChaveEsocial(now, self.ideEmpregador.NrInsc, 0) +'"');
         GerarIdeEvento3(Self.IdeEvento);
         GerarIdeEmpregador(Self.ideEmpregador);
@@ -1036,7 +1046,6 @@ function TS1200Collection.Add: TS1200CollectionItem;
 begin
   Result := TS1200CollectionItem(inherited Add);
   Result.Create(TComponent(Self.Owner));
-  Showmessage(Self.Owner.ClassName);
 end;
 
 function TS1200Collection.GetItem(Index: Integer): TS1200CollectionItem;

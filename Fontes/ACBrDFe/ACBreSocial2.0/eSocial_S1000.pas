@@ -5,32 +5,32 @@
 {                                                                              }
 { Direitos Autorais Reservados (c) 2008 Wemerson Souto                         }
 {                                       Daniel Simoes de Almeida               }
-{                                       AndrÈ Ferreira de Moraes               }
+{                                       Andr√© Ferreira de Moraes               }
 {                                                                              }
 { Colaboradores nesse arquivo:                                                 }
 {                                                                              }
-{  VocÍ pode obter a ˙ltima vers„o desse arquivo na pagina do Projeto ACBr     }
+{  Voc√™ pode obter a √∫ltima vers√£o desse arquivo na pagina do Projeto ACBr     }
 { Componentes localizado em http://www.sourceforge.net/projects/acbr           }
 {                                                                              }
 {                                                                              }
-{  Esta biblioteca È software livre; vocÍ pode redistribuÌ-la e/ou modific·-la }
-{ sob os termos da LicenÁa P˙blica Geral Menor do GNU conforme publicada pela  }
-{ Free Software Foundation; tanto a vers„o 2.1 da LicenÁa, ou (a seu critÈrio) }
-{ qualquer vers„o posterior.                                                   }
+{  Esta biblioteca √© software livre; voc√™ pode redistribu√≠-la e/ou modific√°-la }
+{ sob os termos da Licen√ßa P√∫blica Geral Menor do GNU conforme publicada pela  }
+{ Free Software Foundation; tanto a vers√£o 2.1 da Licen√ßa, ou (a seu crit√©rio) }
+{ qualquer vers√£o posterior.                                                   }
 {                                                                              }
-{  Esta biblioteca È distribuÌda na expectativa de que seja ˙til, porÈm, SEM   }
-{ NENHUMA GARANTIA; nem mesmo a garantia implÌcita de COMERCIABILIDADE OU      }
-{ ADEQUA«√O A UMA FINALIDADE ESPECÕFICA. Consulte a LicenÁa P˙blica Geral Menor}
-{ do GNU para mais detalhes. (Arquivo LICEN«A.TXT ou LICENSE.TXT)              }
+{  Esta biblioteca √© distribu√≠da na expectativa de que seja √∫til, por√©m, SEM   }
+{ NENHUMA GARANTIA; nem mesmo a garantia impl√≠cita de COMERCIABILIDADE OU      }
+{ ADEQUA√á√ÉO A UMA FINALIDADE ESPEC√çFICA. Consulte a Licen√ßa P√∫blica Geral Menor}
+{ do GNU para mais detalhes. (Arquivo LICEN√áA.TXT ou LICENSE.TXT)              }
 {                                                                              }
-{  VocÍ deve ter recebido uma cÛpia da LicenÁa P˙blica Geral Menor do GNU junto}
-{ com esta biblioteca; se n„o, escreva para a Free Software Foundation, Inc.,  }
-{ no endereÁo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
-{ VocÍ tambÈm pode obter uma copia da licenÁa em:                              }
+{  Voc√™ deve ter recebido uma c√≥pia da Licen√ßa P√∫blica Geral Menor do GNU junto}
+{ com esta biblioteca; se n√£o, escreva para a Free Software Foundation, Inc.,  }
+{ no endere√ßo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
+{ Voc√™ tamb√©m pode obter uma copia da licen√ßa em:                              }
 { http://www.opensource.org/licenses/lgpl-license.php                          }
 {                                                                              }
-{ Daniel Simıes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
-{              PraÁa Anita Costa, 34 - TatuÌ - SP - 18270-410                  }
+{ Daniel Sim√µes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
+{              Pra√ßa Anita Costa, 34 - Tatu√≠ - SP - 18270-410                  }
 {                                                                              }
 {******************************************************************************}
 
@@ -38,7 +38,9 @@
 |* Historico
 |*
 |* 27/10/2015: Jean Carlo Cantu, Tiago Ravache
-|*  - DoaÁ„o do componente para o Projeto ACBr
+|*  - Doa√ß√£o do componente para o Projeto ACBr
+|* 29/02/2016: Guilherme Costa
+|*  - Alterado os atributos que n√£o estavam de acordo com o leiaute/xsd
 ******************************************************************************}
 {$I ACBr.inc}
 
@@ -57,7 +59,7 @@ type
   TS1000CollectionItem = class;
   TevtInfoEmpregador = class;
 
-  {Classes especÌficas deste evento}
+  {Classes espec√≠ficas deste evento}
   TInfoEmpregador = class;
   TInfoCadastro = class;
   TDadosIsencao = class;
@@ -106,7 +108,7 @@ type
     FIdeEmpregador: TIdeEmpregador;
     FInfoEmpregador: TInfoEmpregador;
 
-    {Geradores especÌficos desta classe}
+    {Geradores espec√≠ficos desta classe}
     procedure GerarInfoCadastro();
     procedure GerarInfoFap();
     procedure GerarDadosIsencao();
@@ -155,8 +157,8 @@ type
   TInfoCadastro = class(TPersistent)
    private
     FNmRazao: string;
-    FClassTrib: integer;
-    FNatJurid: integer;
+    FClassTrib: string;
+    FNatJurid: string;
     FIndCoop: TpIndCoop;
     FIndConstr: TpIndConstr;
     FIndDesFolha: TpIndDesFolha;
@@ -183,8 +185,8 @@ type
     function infoFapInst(): Boolean;
 
     property NmRazao: string read FNmRazao write FNmRazao;
-    property ClassTrib: integer read FClassTrib write FClassTrib;
-    property NatJurid: integer read FNatJurid write FNatJurid;
+    property ClassTrib: string read FClassTrib write FClassTrib;
+    property NatJurid: string read FNatJurid write FNatJurid;
     property IndCoop: TpIndCoop read FIndCoop write FIndCoop;
     property IndConstr: TpIndConstr read FIndConstr write FIndConstr;
     property IndDesFolha: TpIndDesFolha read FIndDesFolha write FIndDesFolha;
@@ -531,7 +533,7 @@ begin
     Gerador.wCampo(tcStr, '', 'indOptRegEletron', 0, 0, 0, eSIndOptRegEletronicoToStr(Self.infoEmpregador.infoCadastro.IndOptRegEletron));
     Gerador.wCampo(tcStr, '', 'multTabRubricas', 0, 0, 0, eSSimNaoToStr(Self.infoEmpregador.infoCadastro.MultTabRubricas));
 
-    if (Self.infoEmpregador.infoCadastro.NatJurid = 85) then
+    if (Self.infoEmpregador.infoCadastro.ClassTrib = 85) then
       Gerador.wCampo(tcStr, '', 'nrSiafi', 0, 0, 0, Self.infoEmpregador.infoCadastro.NrSiafi);
 
     GerarInfoFap();
@@ -649,7 +651,7 @@ end;
 function TevtInfoEmpregador.GerarXML: boolean;
 begin
   try
-    GerarCabecalho('');
+    GerarCabecalho('evtInfoEmpregador');
       Gerador.wGrupo('evtInfoEmpregador Id="'+ GerarChaveEsocial(now, self.ideEmpregador.NrInsc, 0) +'"');
         GerarIdeEvento(Self.IdeEvento);
         GerarIdeEmpregador(Self.IdeEmpregador);

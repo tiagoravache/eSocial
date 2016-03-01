@@ -5,32 +5,32 @@
 {                                                                              }
 { Direitos Autorais Reservados (c) 2008 Wemerson Souto                         }
 {                                       Daniel Simoes de Almeida               }
-{                                       AndrÈ Ferreira de Moraes               }
+{                                       Andr√© Ferreira de Moraes               }
 {                                                                              }
 { Colaboradores nesse arquivo:                                                 }
 {                                                                              }
-{  VocÍ pode obter a ˙ltima vers„o desse arquivo na pagina do Projeto ACBr     }
+{  Voc√™ pode obter a √∫ltima vers√£o desse arquivo na pagina do Projeto ACBr     }
 { Componentes localizado em http://www.sourceforge.net/projects/acbr           }
 {                                                                              }
 {                                                                              }
-{  Esta biblioteca È software livre; vocÍ pode redistribuÌ-la e/ou modific·-la }
-{ sob os termos da LicenÁa P˙blica Geral Menor do GNU conforme publicada pela  }
-{ Free Software Foundation; tanto a vers„o 2.1 da LicenÁa, ou (a seu critÈrio) }
-{ qualquer vers„o posterior.                                                   }
+{  Esta biblioteca √© software livre; voc√™ pode redistribu√≠-la e/ou modific√°-la }
+{ sob os termos da Licen√ßa P√∫blica Geral Menor do GNU conforme publicada pela  }
+{ Free Software Foundation; tanto a vers√£o 2.1 da Licen√ßa, ou (a seu crit√©rio) }
+{ qualquer vers√£o posterior.                                                   }
 {                                                                              }
-{  Esta biblioteca È distribuÌda na expectativa de que seja ˙til, porÈm, SEM   }
-{ NENHUMA GARANTIA; nem mesmo a garantia implÌcita de COMERCIABILIDADE OU      }
-{ ADEQUA«√O A UMA FINALIDADE ESPECÕFICA. Consulte a LicenÁa P˙blica Geral Menor}
-{ do GNU para mais detalhes. (Arquivo LICEN«A.TXT ou LICENSE.TXT)              }
+{  Esta biblioteca √© distribu√≠da na expectativa de que seja √∫til, por√©m, SEM   }
+{ NENHUMA GARANTIA; nem mesmo a garantia impl√≠cita de COMERCIABILIDADE OU      }
+{ ADEQUA√á√ÉO A UMA FINALIDADE ESPEC√çFICA. Consulte a Licen√ßa P√∫blica Geral Menor}
+{ do GNU para mais detalhes. (Arquivo LICEN√áA.TXT ou LICENSE.TXT)              }
 {                                                                              }
-{  VocÍ deve ter recebido uma cÛpia da LicenÁa P˙blica Geral Menor do GNU junto}
-{ com esta biblioteca; se n„o, escreva para a Free Software Foundation, Inc.,  }
-{ no endereÁo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
-{ VocÍ tambÈm pode obter uma copia da licenÁa em:                              }
+{  Voc√™ deve ter recebido uma c√≥pia da Licen√ßa P√∫blica Geral Menor do GNU junto}
+{ com esta biblioteca; se n√£o, escreva para a Free Software Foundation, Inc.,  }
+{ no endere√ßo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
+{ Voc√™ tamb√©m pode obter uma copia da licen√ßa em:                              }
 { http://www.opensource.org/licenses/lgpl-license.php                          }
 {                                                                              }
-{ Daniel Simıes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
-{              PraÁa Anita Costa, 34 - TatuÌ - SP - 18270-410                  }
+{ Daniel Sim√µes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
+{              Pra√ßa Anita Costa, 34 - Tatu√≠ - SP - 18270-410                  }
 {                                                                              }
 {******************************************************************************}
 
@@ -38,7 +38,9 @@
 |* Historico
 |*
 |* 27/10/2015: Jean Carlo Cantu, Tiago Ravache
-|*  - DoaÁ„o do componente para o Projeto ACBr
+|*  - Doa√ß√£o do componente para o Projeto ACBr
+|* 01/03/2016: Guilherme Costa
+|*  - Altera√ß√µes para valida√ß√£o com o XSD
 ******************************************************************************}
 {$I ACBr.inc}
 
@@ -57,7 +59,6 @@ type
   TS2399CollectionItem = class;
   TEvtTSVTermino = class;
   TInfoTSVTermino = class;
-  TinfoCompl = class;
 
 
   TS2399Collection = class(TOwnedCollection)
@@ -92,7 +93,6 @@ type
       procedure GerarVerbasResc(obj: TVerbasResc);
       procedure GerarRecPgtos(obj: TRecPgtosCollection);
       procedure GerarQuarentena(obj: TQuarentena);
-      procedure GerarInfoComplementares(obj: TinfoCompl);
       procedure GerarIdeTrabSemVinc(obj: TIdeTrabSemVinc);
       procedure GerarIdeEstabLot(obj : TIdeEstabLotCollection);
       procedure GerarProcJudTrab(obj: TinfoProcJudCollection);
@@ -114,17 +114,6 @@ type
   TinfoTSVTermino = class(TPersistent)
     private
       FdtTerm : TDateTime;
-      FinfoComplementares: TinfoCompl;
-    public
-      constructor Create;
-      destructor  Destroy; override;
-
-      property dtTerm : TDateTime read FdtTerm write FdtTerm;
-      property infoComplementares : TinfoCompl read FinfoComplementares write FinfoComplementares;
-  end;
-
-  TinfoCompl = class(TPersistent)
-    private
       FmtvDesligTSV : string;
       FverbasResc : TVerbasResc;
       FrecPgtos : TRecPgtosCollection;
@@ -133,6 +122,7 @@ type
       constructor Create;
       destructor  Destroy; override;
 
+      property dtTerm : TDateTime read FdtTerm write FdtTerm;
       property mtvDesligTSV : string read FmtvDesligTSV write FmtvDesligTSV;
       property verbasResc : TVerbasResc read FverbasResc write FverbasResc;
       property recpgtos : TRecPgtosCollection read FrecPgtos write FrecPgtos;
@@ -249,15 +239,6 @@ begin
   Gerador.wGrupo('/infoAgNocivo');
 end;
 
-procedure TEvtTSVTermino.GerarInfoComplementares(obj: TinfoCompl);
-begin
-  Gerador.wGrupo('infoComplementares');
-    Gerador.wCampo(tcStr, '', 'mtvDesligTSV', 0,0,0, obj.mtvDesligTSV);
-    GerarVerbasResc(obj.verbasResc);
-    GerarQuarentena(obj.quarentena);
-  Gerador.wGrupo('/infoComplementares');
-end;
-
 procedure TEvtTSVTermino.GerarInfoSimples(obj: TinfoSimples);
 begin
   Gerador.wGrupo('infoSimples');
@@ -269,7 +250,9 @@ procedure TEvtTSVTermino.GerarInfoTSVTermino(obj: TInfoTSVTermino);
 begin
   Gerador.wGrupo('infoTSVTermino');
     Gerador.wCampo(tcDat, '', 'dtTerm', 0,0,0, obj.dtTerm);
-    GerarInfoComplementares(obj.infoComplementares);
+    Gerador.wCampo(tcStr, '', 'mtvDesligTSV', 0,0,0, obj.mtvDesligTSV);
+    GerarVerbasResc(obj.verbasResc);
+    GerarQuarentena(obj.quarentena);
   Gerador.wGrupo('/infoTSVTermino');
 end;
 
@@ -318,7 +301,7 @@ end;
 function TEvtTSVTermino.GerarXML: boolean;
 begin
   try
-  GerarCabecalho('');
+  GerarCabecalho('evtTSVTermino');
     Gerador.wGrupo('evtTSVTermino Id="'+GerarChaveEsocial(now, self.ideEmpregador.NrInsc, 0)+'"');//versao="'+Self.versao+'"
       //gerarIdVersao(self);
       gerarIdeEvento2(self.IdeEvento);
@@ -340,26 +323,12 @@ end;
 constructor TinfoTSVTermino.Create;
 begin
   inherited;
-  FinfoComplementares := TinfoCompl.Create;
-end;
-
-destructor TinfoTSVTermino.Destroy;
-begin
-  FinfoComplementares.Free;
-  inherited;
-end;
-
-{ TinfoCompl }
-
-constructor TinfoCompl.Create;
-begin
-  inherited;
   FverbasResc := TVerbasResc.Create;
   FrecPgtos   := TRecPgtosCollection.create;
   Fquarentena := TQuarentena.Create;
 end;
 
-destructor TinfoCompl.Destroy;
+destructor TinfoTSVTermino.Destroy;
 begin
   FverbasResc.Free;
   FrecPgtos.Free;
