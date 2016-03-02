@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, ACBrDFe, ACBrDFeWebService, pcnRetConsCad, pcnAuxiliar, pcnConversao, eSocial_Conversao, eSocial_Common,
-  pcnDistDFeInt, pcnRetDistDFeInt, ACBreSocialLoteEventos,  ACBreSocialEventos, ACBreSocialConfiguracoes;
+  pcnDistDFeInt, pcnRetDistDFeInt, ACBreSocialLoteEventos,  ACBreSocialEventos, ACBreSocialConfiguracoes, ACBrUtil;
 
 type
 
@@ -192,10 +192,13 @@ type
 
   TEnvioLote = class(TeSocialWebService)
   private
+    FVersao : String;
     FGrupo : Integer;
     FIdeEmpregador : TIdeEmpregador;
     FIdeTransmissor : TIdeTransmissor;
-    FEventos : TEventos;
+    FLote : TLoteEventos;
+    FPURLEnvio : String;
+    FXMLEnvio : String;
   protected
     procedure DefinirURL; override;
     procedure DefinirServicoEAction; override;
@@ -206,7 +209,7 @@ type
     function GerarMsgLog: String; override;
     function GerarPrefixoArquivo: String; override;
   public
-    constructor Create;
+    constructor Create(AOwner : TObject);
     destructor Destroy;
     procedure GerarXML;
   end;
@@ -217,9 +220,7 @@ type
   private
     FACBreSocial: TACBrDFe;
     FEnvioLote  : TEnvioLote;
-    FRetEnvLote : TRetEnvLote;
     FConsultaLote : TConsultaLote;
-    FRetProcLote : TRetProcLote;
   public
     constructor Create(AOwner: TACBrDFe); overload;
     destructor Destroy; override;
@@ -228,6 +229,8 @@ type
     function Envia(ALote: String; const ASincrono: Boolean = False): Boolean;
       overload;
     property ACBreSocial: TACBrDFe read FACBreSocial write FACBreSocial;
+    property EnvioLote : TEnvioLote read FEnvioLote write FEnvioLote;
+    property ConsultaLote : TConsultaLote read FConsultaLote write FConsultaLote;
   end;
 implementation
 
@@ -303,37 +306,37 @@ begin
   TACBreSocial(FPDFeOwner).SetStatus(stIdle);
 end;
 
-{ TeSocialEnvioWebService }
+{ TEnvioLote }
 
-constructor TeSocialEnvioWebService.Create(AOwner: TACBrDFe);
+constructor TEnvioLote.Create(AOwner: TACBrDFe);
 begin
   inherited Create(AOwner);
 
-  FPStatus := stEnvioWebService;
+  FPStatus := stIdle;
   FVersao := '';
 end;
 
-destructor TeSocialEnvioWebService.Destroy;
+destructor TEnvioLote.Destroy;
 begin
   inherited Destroy;
 end;
 
-function TeSocialEnvioWebService.Executar: Boolean;
+function TEnvioLote.Executar: Boolean;
 begin
   Result := inherited Executar;
 end;
 
-procedure TeSocialEnvioWebService.DefinirURL;
+procedure TEnvioLote.DefinirURL;
 begin
   FPURL := FPURLEnvio;
 end;
 
-procedure TeSocialEnvioWebService.DefinirServicoEAction;
+procedure TEnvioLote.DefinirServicoEAction;
 begin
   FPServico := FPSoapAction;
 end;
 
-procedure TeSocialEnvioWebService.DefinirDadosMsg;
+procedure TEnvioLote.DefinirDadosMsg;
 var
   LeitorXML: TLeitor;
 begin
@@ -349,19 +352,19 @@ begin
   FPDadosMsg := FXMLEnvio;
 end;
 
-function TeSocialEnvioWebService.TratarResposta: Boolean;
+function TEnvioLote.TratarResposta: Boolean;
 begin
   FPRetWS := SeparaDados(FPRetornoWS, 'soap:Body');
   Result := True;
 end;
 
-function TeSocialEnvioWebService.GerarMsgErro(E: Exception): String;
+function TEnvioLote.GerarMsgErro(E: Exception): String;
 begin
   Result := ACBrStr('WebService: '+FPServico + LineBreak +
                     '- Inativo ou Inoperante tente novamente.');
 end;
 
-function TeSocialEnvioWebService.GerarVersaoDadosSoap: String;
+function TEnvioLote.GerarVersaoDadosSoap: String;
 begin
   Result := '<versaoDados>' + FVersao + '</versaoDados>';
 end;
@@ -371,20 +374,14 @@ end;
 constructor TWebServices.Create(AOwner: TACBrDFe);
 begin
   FACBreSocial := TACBrDFe(AOwner);
-  FRetEnvLote := TRetEnvLote.Create(FACBreSocial);
-  FRecibo := TNFeRecibo.Create(FACBrNFe);
-  FConsulta := TNFeConsulta.Create(FACBrNFe);
+  FConsultaLote := TConsultaLote.Create(FACBreSocial);
   FEnvioLote := TEnvioLote.Create(FACBreSocial);
-  FEnvioWebService := TNFeEnvioWebService.Create(FACBrNFe);
 end;
 
 destructor TWebServices.Destroy;
 begin
-  FRetorno.Free;
-  FRecibo.Free;
-  FConsulta.Free;
+  FConsultaLote.Free;
   FEnvioLote.Free;
-  FEnvioWebService.Free;
 
   inherited Destroy;
 end;

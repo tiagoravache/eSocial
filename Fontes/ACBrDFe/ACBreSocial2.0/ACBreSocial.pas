@@ -62,6 +62,7 @@ type
     FEventos: TEventos;
     FLoteEventos : TLoteEventos;
     FWebServices: TeSocialWebService;
+    FStatus : TStatusACBreSocial;
     function GetConfiguracoes: TConfiguracoeseSocial;
     procedure SetConfiguracoes(AValue: TConfiguracoeseSocial);
   protected
@@ -76,9 +77,11 @@ type
 
     procedure LerServicoDeParams(LayOutServico: TLayOut;
       var Versao: Double; var URL: String);
+    procedure SetStatus(const stNewStatus: TStatusACBreSocial);
 
     property WebServices: TWebServicesConf read FWebServices write FWebServices;
     property Eventos: TEventos read FEventos write FEventos;
+    property Status: TStatusACBreSocial read FStatus;
 
   published
     property Configuracoes: TConfiguracoeseSocial read GetConfiguracoes write SetConfiguracoes;
@@ -152,6 +155,16 @@ end;
 procedure TACBreSocial.SetConfiguracoes(AValue: TConfiguracoeseSocial);
 begin
   FPConfiguracoes := AValue;
+end;
+
+procedure TACBreSocial.SetStatus(const stNewStatus: TStatusACBreSocial);
+begin
+  if stNewStatus <> FStatus then
+  begin
+    FStatus := stNewStatus;
+    if Assigned(OnStatusChange) then
+      OnStatusChange(Self);
+  end;
 end;
 
 end.
