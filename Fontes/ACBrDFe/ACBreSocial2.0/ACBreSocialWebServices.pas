@@ -235,8 +235,7 @@ type
 implementation
 
 uses
-  StrUtils, Math, ACBreSocial, pcnGerador,
-  pcnConsStatServ, pcnRetConsStatServ,pcnConsCad, pcnLeitor;
+  StrUtils, Math, ACBreSocial, pcnLeitor;
 
 { TeSocialWebService }
 

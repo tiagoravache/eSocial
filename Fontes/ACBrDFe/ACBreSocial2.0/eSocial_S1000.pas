@@ -534,7 +534,9 @@ begin
     Gerador.wCampo(tcStr, '', 'multTabRubricas', 0, 0, 0, eSSimNaoToStr(Self.infoEmpregador.infoCadastro.MultTabRubricas));
 
     if (Self.infoEmpregador.infoCadastro.ClassTrib = '85') then
-      Gerador.wCampo(tcStr, '', 'nrSiafi', 0, 0, 0, Self.infoEmpregador.infoCadastro.NrSiafi);
+      Gerador.wCampo(tcStr, '', 'nrSiafi', 0, 0, 0, Self.infoEmpregador.infoCadastro.NrSiafi)
+    else
+      Gerador.wCampo(tcStr, '', 'nrSiafi', 0, 0, 0, '000000');
 
     GerarInfoFap();
     GerarDadosIsencao();

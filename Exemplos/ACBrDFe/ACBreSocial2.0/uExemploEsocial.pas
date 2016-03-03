@@ -185,14 +185,14 @@ begin
       evtInfoEmpregador.InfoEmpregador.IdePeriodo.FimValid := '2099-12';
 
       evtInfoEmpregador.InfoEmpregador.InfoCadastro.NmRazao          := 'Empresa Teste';
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.ClassTrib        := 1;
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.NatJurid         := 1;
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.ClassTrib        := '01';
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.NatJurid         := '0001';
       evtInfoEmpregador.InfoEmpregador.InfoCadastro.IndCoop          := TpIndCoop(1);
       evtInfoEmpregador.InfoEmpregador.InfoCadastro.IndConstr        := TpIndConstr(2);
       evtInfoEmpregador.InfoEmpregador.InfoCadastro.IndDesFolha      := TpIndDesFolha(1);
       evtInfoEmpregador.InfoEmpregador.InfoCadastro.IndOptRegEletron := TpIndOptRegEletron(1);
       evtInfoEmpregador.InfoEmpregador.InfoCadastro.MultTabRubricas  := tpSimNao(1);
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.NrSiafi          := '0123456';
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.NrSiafi          := '123456';
 
       evtInfoEmpregador.InfoEmpregador.infoCadastro.InfoFap.fap                  := 0.500;
       evtInfoEmpregador.InfoEmpregador.infoCadastro.InfoFap.procAdmJudFap.tpProc := tpTpProc(1);
@@ -208,9 +208,9 @@ begin
       evtInfoEmpregador.InfoEmpregador.InfoCadastro.dadosIsencao.PagDou       := '111';
 
       evtInfoEmpregador.InfoEmpregador.InfoCadastro.Contato.NmCtt    := 'Contato 1';
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.Contato.CpfCtt   := '022222';
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.Contato.FoneFixo := '3333333';
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.Contato.FoneCel  := '999999';
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.Contato.CpfCtt   := '00000222220';
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.Contato.FoneFixo := '33333333';
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.Contato.FoneCel  := '99999999';
       evtInfoEmpregador.InfoEmpregador.InfoCadastro.Contato.email    := 'testecontato@testecontato.com';
 
       evtInfoEmpregador.InfoEmpregador.InfoCadastro.InfoOrgInternacional.IndAcordoIsenMulta := tpIndAcordoIsencaoMulta(1);
@@ -237,7 +237,7 @@ begin
         DescSegDif    := 'teste';
         Perc.PercSeg  := 1.5;
         Perc.PercEnte := 2.5;
-        perc.PercSeg  := 3.3;
+        perc.PercSupl  := 3.3;
       end;
 
       with evtInfoEmpregador.InfoEmpregador.InfoCadastro.infoRPPS.infEnteFed.limitesRem.Add do
@@ -1285,10 +1285,33 @@ begin
         vrRetPR  := 9999.99;
       end;
     end;
-    with EvtComProd.InfoComProd.IdeEstabel.InfoProcJud.Add do
+    with EvtComProd.InfoComProd.IdeEstabel do
       begin
-        tpProc := tpJudicial;
-        nrProcJud := '11111111111111';
+        nrInscEstabRural := '123654987';
+        with TpComerc.Add do
+          begin
+            indComerc := icComProdPorProdRuralPFInclusiveSegEspEfetuadaDirVarejoConsFinal;
+            vrTotCom := 123456.65;
+            with IdeAdquir.Add do
+              begin
+                tpInsc := tiCNPJ;
+                nrInsc := '12345678901';
+                vrComerc := 1234569.98;
+                vrRetPR := 123654.78;
+              end;
+            with InfoProcJud.Add do
+              begin
+                 tpProc := tpAdministrativo;
+                 tpTrib := tptIRRF;
+                 nrProcJud := '1236548796521';
+                 vrCPNRet := 123.65;
+                 vrRatNRet := 123.65;
+                 vrSenarNRet := 123.65;
+                 vrCPSusp := 123.65;
+                 vrRatSusp := 123.65;
+                 vrSenarSusp := 123.63;
+              end;
+          end;
       end;
 
   end;
@@ -1630,8 +1653,12 @@ begin
     EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.trabTemporario.IdeTomadorServ.TpInsc := 1;
     EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.trabTemporario.IdeTomadorServ.NrInsc := '564564656';
 
-    EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.trabTemporario.IdeTrabSubstituido.CpfTrabSubst    := '8978765756';
-    EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.trabTemporario.IdeTrabSubstituido.MatricTrabSubst := '599867888888888';
+    with EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.trabTemporario.IdeTrabSubstituido.Add do
+      begin
+        CpfTrabSubst := '12345678901';
+        MatricTrabSubst := '985236547';
+      end;
+
 
     EvtCadInicial.Vinculo.InfoRegimeTrab.InfoEstatutario.IndProvim   := tpIndProvim(ipNormal);
     EvtCadInicial.Vinculo.InfoRegimeTrab.InfoEstatutario.TpProv      := tpTpProv(tpNomeacaoCargoEfetivo);
@@ -1654,7 +1681,7 @@ begin
     EvtCadInicial.Vinculo.InfoContrato.LocalTrabalho.LocalTrabGeral.NrInsc   := '213546';
     EvtCadInicial.Vinculo.InfoContrato.LocalTrabalho.LocalTrabGeral.DescComp := 'Descricao logal geral teste';
 
-    EvtCadInicial.Vinculo.InfoContrato.LocalTrabalho.LocalTrabDom.TpLograd    := 123;
+    EvtCadInicial.Vinculo.InfoContrato.LocalTrabalho.LocalTrabDom.TpLograd    := '123';
     EvtCadInicial.Vinculo.InfoContrato.LocalTrabalho.LocalTrabDom.DscLograd   := 'LOCAL DOMESTICO';
     EvtCadInicial.Vinculo.InfoContrato.LocalTrabalho.LocalTrabDom.NrLograd    := '111';
     EvtCadInicial.Vinculo.InfoContrato.LocalTrabalho.LocalTrabDom.Complemento := 'Complemento';
@@ -1854,8 +1881,11 @@ begin
     EvtAdmissao.Vinculo.InfoRegimeTrab.InfoCeletista.trabTemporario.IdeTomadorServ.TpInsc := 1;
     EvtAdmissao.Vinculo.InfoRegimeTrab.InfoCeletista.trabTemporario.IdeTomadorServ.NrInsc := '564564656';
 
-    EvtAdmissao.Vinculo.InfoRegimeTrab.InfoCeletista.trabTemporario.IdeTrabSubstituido.CpfTrabSubst    := '8978765756';
-    EvtAdmissao.Vinculo.InfoRegimeTrab.InfoCeletista.trabTemporario.IdeTrabSubstituido.MatricTrabSubst := '599867888888888';
+    with EvtAdmissao.Vinculo.InfoRegimeTrab.InfoCeletista.trabTemporario.IdeTrabSubstituido.Add do
+      begin
+        CpfTrabSubst := '12345678901';
+        MatricTrabSubst := '65489779632';
+      end;
 
     EvtAdmissao.Vinculo.InfoRegimeTrab.InfoEstatutario.IndProvim   := tpIndProvim(ipNormal);
     EvtAdmissao.Vinculo.InfoRegimeTrab.InfoEstatutario.TpProv      := tpTpProv(tpNomeacaoCargoEfetivo);
@@ -1878,7 +1908,7 @@ begin
     EvtAdmissao.Vinculo.InfoContrato.LocalTrabalho.LocalTrabGeral.NrInsc   := '213546';
     EvtAdmissao.Vinculo.InfoContrato.LocalTrabalho.LocalTrabGeral.DescComp := 'Descricao local geral teste';
 
-    EvtAdmissao.Vinculo.InfoContrato.LocalTrabalho.LocalTrabDom.TpLograd    := 123;
+    EvtAdmissao.Vinculo.InfoContrato.LocalTrabalho.LocalTrabDom.TpLograd    := '123';
     EvtAdmissao.Vinculo.InfoContrato.LocalTrabalho.LocalTrabDom.DscLograd   := 'LOCAL DOMESTICO';
     EvtAdmissao.Vinculo.InfoContrato.LocalTrabalho.LocalTrabDom.NrLograd    := '111';
     EvtAdmissao.Vinculo.InfoContrato.LocalTrabalho.LocalTrabDom.Complemento := 'Complemento';
@@ -2086,7 +2116,7 @@ begin
       EvtAltContratual.AltContratual.infoContrato.LocalTrabalho.LocalTrabGeral.DescComp := 'Descrição complementar do local de trabalho.';
 
       //LocalTrabDom - exclusivo para trabalhador doméstico, indicando endereço onde exerce suas atividades
-      EvtAltContratual.AltContratual.infoContrato.LocalTrabalho.LocalTrabDom.TpLograd    := 001;
+      EvtAltContratual.AltContratual.infoContrato.LocalTrabalho.LocalTrabDom.TpLograd    := '001';
       EvtAltContratual.AltContratual.infoContrato.LocalTrabalho.LocalTrabDom.DscLograd   := 'Rua das Hortencias';
       EvtAltContratual.AltContratual.infoContrato.LocalTrabalho.LocalTrabDom.NrLograd    := '12';
       EvtAltContratual.AltContratual.infoContrato.LocalTrabalho.LocalTrabDom.Complemento := 'Fundos';
@@ -2189,13 +2219,13 @@ begin
       codAgntCausador := 3;
     end;
 
-    EvtCAT.Cat.Atestado.codCNES       := 1;
+    EvtCAT.Cat.Atestado.codCNES       := '1';
     EvtCAT.Cat.Atestado.dtAtendimento := now;
     EvtCAT.Cat.Atestado.hrAtendimento := '13:30';
     EvtCAT.Cat.Atestado.indInternacao := tpSimNao(tpSim);
     EvtCAT.Cat.Atestado.durTrat       := 5;
     EvtCAT.Cat.Atestado.indAfast      := tpSimNao(tpSim);
-    EvtCAT.Cat.Atestado.dscLesao      := 'Lesão Teste';
+    EvtCAT.Cat.Atestado.dscLesao      := 1;
     EvtCAT.Cat.Atestado.dscCompLesao  := 'Descricao complementar';
     EvtCAT.Cat.Atestado.diagProvavel  := 'Diagnostico teste';
     EvtCAT.Cat.Atestado.codCID        := '123';
@@ -2279,7 +2309,6 @@ begin
 //    EvtASO.Aso.IdeServSaude.FrmCtt           := 'Telefone: 32200000'; -- removido na versão 2.1
     EvtASO.Aso.IdeServSaude.Email            := 'teste@teste.com';
     EvtASO.Aso.IdeServSaude.Medico.NmMed     := 'MEDICO TESTE';
-    EvtASO.Aso.IdeServSaude.Medico.FrmCtt    := 'TELEFONE 2222-2454';
     EvtASO.Aso.IdeServSaude.Medico.CRM.NrCRM := '56446';
     EvtASO.Aso.IdeServSaude.Medico.CRM.UfCRM := tpuf(ufPR);
   end;
@@ -2360,53 +2389,66 @@ begin
 
       EvtExpRisco.infoExpRisco.iniExpRisco.dtCondicao := Date;
 
-      EvtExpRisco.infoExpRisco.iniExpRisco.InfoAmb.codAmb := '12121212';
-
-      EvtExpRisco.infoExpRisco.iniExpRisco.InfoAmb.InfoAtiv.dscAtivDes := 'Descrição das atividades desempenhadas';
-
-      EvtExpRisco.infoExpRisco.iniExpRisco.InfoAmb.FatRisco.codFatRis := '101010';
-      EvtExpRisco.infoExpRisco.iniExpRisco.InfoAmb.FatRisco.intConc := 'N/A';
-      EvtExpRisco.infoExpRisco.iniExpRisco.InfoAmb.FatRisco.tecMedicao := 'Técnica de medição';
-      EvtExpRisco.infoExpRisco.iniExpRisco.InfoAmb.FatRisco.utilizEPI := 0;
-
-      with EvtExpRisco.infoExpRisco.iniExpRisco.InfoAmb.EPI.Add do
+      with EvtExpRisco.infoExpRisco.iniExpRisco.InfoAmb.Add do
         begin
-          caEPI := 'cert123';
-          eficaciaEpi := tpSim;
-          medProtecao := tpSim;
-          condFuncto := tpSim;
-          przValid := tpSim;
-          periodicTroca := tpSim;
-          higienizacao := tpSim;
+          codAmb := '654';
+          InfoAtiv.dscAtivDes := 'dscAtivDes';
+          with FatRisco.Add do
+            begin
+              codFatRis := '123';
+              intConc := 'N/A';
+              tecMedicao := 'Técnica de medição';
+              utilizEPI := 0;
+            end;
+          with EPI.Add do
+            begin
+              caEPI := '321654';
+              eficaciaEpi := tpSim;
+              medProtecao := tpSim;
+              condFuncto := tpSim;
+              przValid := tpSim;
+              periodicTroca := tpSim;
+              higienizacao := tpSim;
+            end;
+
         end;
+
 
       //alteração das informações de condições de ambiente de trabalho, opcional
        EvtExpRisco.infoExpRisco.altExpRisco.dtCondicao := Date;
 
-      EvtExpRisco.infoExpRisco.altExpRisco.InfoAmb.codAmb := '12121212';
-
-      EvtExpRisco.infoExpRisco.altExpRisco.InfoAmb.InfoAtiv.dscAtivDes := 'Descrição das atividades desempenhadas';
-
-      EvtExpRisco.infoExpRisco.altExpRisco.InfoAmb.FatRisco.codFatRis := '101010';
-      EvtExpRisco.infoExpRisco.altExpRisco.InfoAmb.FatRisco.intConc := 'N/A';
-      EvtExpRisco.infoExpRisco.altExpRisco.InfoAmb.FatRisco.tecMedicao := 'Técnica de medição';
-      EvtExpRisco.infoExpRisco.altExpRisco.InfoAmb.FatRisco.utilizEPI := 0;
-
-      with EvtExpRisco.infoExpRisco.altExpRisco.InfoAmb.EPI.Add do
+          with EvtExpRisco.infoExpRisco.altExpRisco.InfoAmb.Add do
         begin
-          caEPI := 'cert123';
-          medProtecao := tpSim;
-          condFuncto := tpSim;
-          przValid := tpSim;
-          periodicTroca := tpSim;
-          higienizacao := tpSim;
+          codAmb := '654';
+          InfoAtiv.dscAtivDes := 'dscAtivDes';
+          with FatRisco.Add do
+            begin
+              codFatRis := '123';
+              intConc := 'N/A';
+              tecMedicao := 'Técnica de medição';
+              utilizEPI := 0;
+            end;
+          with EPI.Add do
+            begin
+              caEPI := '321654';
+              eficaciaEpi := tpSim;
+              medProtecao := tpSim;
+              condFuncto := tpSim;
+              przValid := tpSim;
+              periodicTroca := tpSim;
+              higienizacao := tpSim;
+            end;
+
         end;
 
       //fimExpRisco - opcional, informar quando o trabalhador não se sujeitar mais as condições de ambiente informadas anteriormente
       EvtExpRisco.infoExpRisco.fimExpRisco.dtFimCondicao := Date;
 
-      EvtExpRisco.infoExpRisco.fimExpRisco.infoAmb.codAmb := '12121212';
-      EvtExpRisco.infoExpRisco.fimExpRisco.infoAmb.InfoAtiv.dscAtivDes := 'Descrição das atividades exercidas';
+      with EvtExpRisco.infoExpRisco.fimExpRisco.infoAmb.Add do
+        begin
+          codAmb := '897654987';
+          InfoAtiv.dscAtivDes := 'Descrição das atividades exercidas';
+        end;
 
     end;
 end;
@@ -2433,17 +2475,31 @@ begin
 
       //InsalPeric - Informações de insalubridade e periculosidade
       EvtInsApo.InsalPeric.iniInsalPeric.DtiniCondicao := Date;
-      EvtInsApo.InsalPeric.iniInsalPeric.InfoAmb.codAmb := '123456';
-      EvtInsApo.InsalPeric.iniInsalPeric.InfoAmb.FatRisco.codFatRis := '22';
-      EvtInsApo.InsalPeric.iniInsalPeric.InfoAmb.FatRisco.intConc := 'N/A';
-      EvtInsApo.InsalPeric.iniInsalPeric.InfoAmb.FatRisco.tecMedicao := 'Técnica de Medição';
+      with EvtInsApo.InsalPeric.iniInsalPeric.InfoAmb.Add do
+        begin
+          codAmb := '654';
+          InfoAtiv.dscAtivDes := 'dscAtivDes';
+          with FatRisco.Add do
+            begin
+              codFatRis := '123';
+              intConc := 'N/A';
+              tecMedicao := 'Técnica de medição';
+            end;
+        end;
 
       //Opcional - usado para alterações nas condições de trabalho previamente informadas
       EvtInsApo.InsalPeric.altInsalPeric.DtaltCondicao := Date;
-      EvtInsApo.InsalPeric.altInsalPeric.InfoAmb.codAmb := '123456';
-      EvtInsApo.InsalPeric.altInsalPeric.InfoAmb.FatRisco.codFatRis := '22';
-      EvtInsApo.InsalPeric.altInsalPeric.InfoAmb.FatRisco.intConc := 'N/A';
-      EvtInsApo.InsalPeric.altInsalPeric.InfoAmb.FatRisco.tecMedicao := 'Técnica de Medição';
+      with EvtInsApo.InsalPeric.altInsalPeric.InfoAmb.Add do
+        begin
+          codAmb := '654';
+          InfoAtiv.dscAtivDes := 'dscAtivDes';
+          with FatRisco.Add do
+            begin
+              codFatRis := '123';
+              intConc := 'N/A';
+              tecMedicao := 'Técnica de medição';
+            end;
+        end;
 
       //Opcional - usado quando cessarem as condições de trabalho previamente informadas
 //      EvtInsApo.InsalPeric.fimInsalPeric.DtfimCondicao := Date;
@@ -2451,18 +2507,31 @@ begin
 
       //AposentEsp - Infomações de condições que ensejam aposentadoria especial
       EvtInsApo.AposentEsp.iniAposentEsp.DtiniCondicao := Date;
-      EvtInsApo.AposentEsp.iniAposentEsp.InfoAmb.codAmb := '654321';
-      EvtInsApo.AposentEsp.iniAposentEsp.InfoAmb.FatRisco.codFatRis := '23';
-      EvtInsApo.AposentEsp.iniAposentEsp.InfoAmb.FatRisco.intConc := 'N/A';
-      EvtInsApo.AposentEsp.iniAposentEsp.InfoAmb.FatRisco.tecMedicao := 'Técnica de Medição';
+      with EvtInsApo.AposentEsp.iniAposentEsp.InfoAmb.Add do
+        begin
+          codAmb := '654';
+          InfoAtiv.dscAtivDes := 'dscAtivDes';
+          with FatRisco.Add do
+            begin
+              codFatRis := '123';
+              intConc := 'N/A';
+              tecMedicao := 'Técnica de medição';
+            end;
+        end;
 
       //Opcional - usado para alterações nas condições de trabalho previamente informadas
       EvtInsApo.AposentEsp.altAposentEsp.DtaltCondicao := Date;
-      EvtInsApo.AposentEsp.altAposentEsp.InfoAmb.codAmb := '654321';
-      EvtInsApo.AposentEsp.altAposentEsp.InfoAmb.FatRisco.codFatRis := '23';
-      EvtInsApo.AposentEsp.altAposentEsp.InfoAmb.FatRisco.intConc := 'N/A';
-      EvtInsApo.AposentEsp.altAposentEsp.InfoAmb.FatRisco.tecMedicao := 'Técnica de Medição';
-
+      with EvtInsApo.AposentEsp.altAposentEsp.InfoAmb.Add do
+        begin
+          codAmb := '654';
+          InfoAtiv.dscAtivDes := 'dscAtivDes';
+          with FatRisco.Add do
+            begin
+              codFatRis := '123';
+              intConc := 'N/A';
+              tecMedicao := 'Técnica de medição';
+            end;
+        end;
       //Opcional - usado quando cessarem as condições de trabalho previamente informadas
 //      EvtInsApo.AposentEsp.fimAposentEsp.DtfimCondicao := Date;
 //      EvtInsApo.AposentEsp.fimAposentEsp.InfoAmb.codAmb := '654321';
@@ -2857,9 +2926,9 @@ begin
 
       EvtTSVTermino.InfoTSVTermino.dtTerm := Date;
 
-      EvtTSVTermino.InfoTSVTermino.infoComplementares.mtvDesligTSV := '02';
+      EvtTSVTermino.InfoTSVTermino.mtvDesligTSV := '02';
 
-      with EvtTSVTermino.InfoTSVTermino.infoComplementares.verbasResc.RecPgtos.Add do
+      with EvtTSVTermino.InfoTSVTermino.verbasResc.RecPgtos.Add do
         begin
           IdeRecPgto := 012345;
           vlrPgto := 1236.32;
@@ -2884,7 +2953,7 @@ begin
 
 
 
-      EvtTSVTermino.InfoTSVTermino.infoComplementares.quarentena.dtFimQuar := Date;
+      EvtTSVTermino.InfoTSVTermino.quarentena.dtFimQuar := Date;
     end;
 end;
 
