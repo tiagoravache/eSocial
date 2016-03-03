@@ -323,7 +323,7 @@ begin
       evtTabRubrica.infoRubrica.IdeRubrica.CodRubr    := '5445';
       evtTabRubrica.infoRubrica.IdeRubrica.ideTabRubr := '100000';
       evtTabRubrica.infoRubrica.IdeRubrica.iniValid   := '2015-05';
-      evtTabRubrica.infoRubrica.IdeRubrica.fimValid   := '2015-05';
+      evtTabRubrica.infoRubrica.IdeRubrica.fimValid   := '2015-06';
 
       evtTabRubrica.infoRubrica.DadosRubrica.dscRubr    := 'Teste de S-1010';
       evtTabRubrica.infoRubrica.DadosRubrica.natRubr    := 1022;
@@ -347,8 +347,11 @@ begin
       evtTabRubrica.infoRubrica.DadosRubrica.IdeProcessoFGTS.nrProc := '50740';
       evtTabRubrica.infoRubrica.DadosRubrica.IdeProcessoSIND.nrProc := '50';
 
-      evtTabRubrica.InfoRubrica.novaValidade.IniValid := '2015-05';
-      evtTabRubrica.InfoRubrica.novaValidade.FimValid := '2099-12';
+      if (EvtTabRubrica.ModoLancamento = mlAlteracao) then
+        begin
+          evtTabRubrica.InfoRubrica.novaValidade.IniValid := '2015-05';
+          evtTabRubrica.InfoRubrica.novaValidade.FimValid := '2099-12';
+        end;
     end;
   end;
 end;
