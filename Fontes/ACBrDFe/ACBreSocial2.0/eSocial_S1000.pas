@@ -157,7 +157,7 @@ type
   TInfoCadastro = class(TPersistent)
    private
     FNmRazao: string;
-    FClassTrib: Integer;
+    FClassTrib: String;
     FNatJurid: string;
     FIndCoop: TpIndCoop;
     FIndConstr: TpIndConstr;
@@ -185,7 +185,7 @@ type
     function infoFapInst(): Boolean;
 
     property NmRazao: string read FNmRazao write FNmRazao;
-    property ClassTrib: Integer read FClassTrib write FClassTrib;
+    property ClassTrib: String read FClassTrib write FClassTrib;
     property NatJurid: string read FNatJurid write FNatJurid;
     property IndCoop: TpIndCoop read FIndCoop write FIndCoop;
     property IndConstr: TpIndConstr read FIndConstr write FIndConstr;
@@ -533,7 +533,7 @@ begin
     Gerador.wCampo(tcStr, '', 'indOptRegEletron', 0, 0, 0, eSIndOptRegEletronicoToStr(Self.infoEmpregador.infoCadastro.IndOptRegEletron));
     Gerador.wCampo(tcStr, '', 'multTabRubricas', 0, 0, 0, eSSimNaoToStr(Self.infoEmpregador.infoCadastro.MultTabRubricas));
 
-    if (Self.infoEmpregador.infoCadastro.ClassTrib = 85) then
+    if (Self.infoEmpregador.infoCadastro.ClassTrib = '85') then
       Gerador.wCampo(tcStr, '', 'nrSiafi', 0, 0, 0, Self.infoEmpregador.infoCadastro.NrSiafi);
 
     GerarInfoFap();
