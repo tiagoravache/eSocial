@@ -5,8 +5,8 @@ unit ACBreSocialWebServices;
 interface
 
 uses
-  Classes, SysUtils, ACBrDFe, ACBrDFeWebService, pcnRetConsCad, pcnAuxiliar, pcnConversao, eSocial_Conversao, eSocial_Common,
-  pcnDistDFeInt, pcnRetDistDFeInt, ACBreSocialLoteEventos,  ACBreSocialEventos, ACBreSocialConfiguracoes, ACBrUtil;
+  Classes, SysUtils, ACBrDFe, ACBrDFeWebService, eSocial_Conversao, eSocial_Common,
+  ACBreSocialLoteEventos,  ACBreSocialEventos, ACBreSocialConfiguracoes, ACBrUtil;
 
 type
 
@@ -29,13 +29,14 @@ type
   end;
 
   { TOcorrencia }
-  TOcorrencia = class
+  TOcorrencia = class(TCollectionItem)
   private
     FCodigo : Integer;
     FDescricao : String;
     FTipo : Byte;
     FLocalizacao : String;
   public
+    constructor Create; reintroduce;
     property Codigo : Integer read FCodigo write FCodigo;
     property Descricao : String read FDescricao write FDescricao;
     property Tipo : Byte read FTipo write FTipo;
@@ -71,7 +72,7 @@ type
   private
    	FdhRecepcao : TDateTime;
   	FversaoAplicRecepcao : String;
-  	FProtocolo : String
+  	FProtocolo : String;
   public
     property dhRecepcao : TDateTime read FdhRecepcao write FdhRecepcao;
     property versaoAplicRecepcao : String read FversaoAplicRecepcao write FversaoAplicRecepcao;
@@ -94,12 +95,6 @@ type
 	  FIdeTransmissor : TIdeTransmissor;
 	  FStatusEnvLote : TStatusEnvLote;
 	  FDadosRecepcaoLote : TDadosRecepcaoLote;
-  protected
-    procedure DefinirServicoEAction; override;
-    procedure DefinirURL; override;
-    procedure DefinirDadosMsg; override;
-    function TratarResposta: Boolean; override;
-    function GerarMsgLog: String; override;
   public
     constructor Create(AOwner: TACBrDFe); override;
     destructor Destroy; override;
@@ -137,7 +132,7 @@ type
   	FHash : String;
   end;
 
-  TretEvento = class
+  TretEvento = class(TCollectionItem)
   private
   	FId : String;
   	FRecepcao : TRecepcao;
@@ -174,6 +169,7 @@ type
 
   TConsultaLote = class(TeSocialWebService)
   private
+    FACBreSocial : TACBrDFe;
     FProtocolo : String;
   protected
     procedure DefinirServicoEAction; override;
@@ -182,7 +178,7 @@ type
     function GerarMsgLog: String; override;
     function GerarPrefixoArquivo: String; override;
   public
-    constructor Create(OProtocolo : String);
+    constructor Create(AOwner : TACBrDFe);
     destructor Destroy;
     procedure GerarXML;
     property Protocolo: String read FProtocolo write FProtocolo;
@@ -208,10 +204,13 @@ type
     procedure SalvarResposta; override;
     function GerarMsgLog: String; override;
     function GerarPrefixoArquivo: String; override;
+    function GerarMsgErro(E: Exception): String;
+    function GerarVersaoDadosSoap: String;
   public
-    constructor Create(AOwner : TObject);
+    constructor Create(AOwner : TACBrDFe);
     destructor Destroy;
     procedure GerarXML;
+    function Executar : Boolean;
   end;
 
   { TWebServices }
@@ -232,13 +231,12 @@ type
     property EnvioLote : TEnvioLote read FEnvioLote write FEnvioLote;
     property ConsultaLote : TConsultaLote read FConsultaLote write FConsultaLote;
   end;
+
 implementation
 
 uses
-  StrUtils, Math,
-  ACBrUtil, ACBreSocial, ACBreSocialConfiguracoes,
-  pcnGerador, pcnConsStatServ, pcnRetConsStatServ,
-  pcnConsCad, pcnLeitor;
+  StrUtils, Math, ACBreSocial, pcnGerador,
+  pcnConsStatServ, pcnRetConsStatServ,pcnConsCad, pcnLeitor;
 
 { TeSocialWebService }
 
@@ -294,9 +292,15 @@ begin
   { Sobrescrever apenas se necessário }
 
   if EstaVazio(FPVersaoServico) then
-    FPVersaoServico := TACBreSocial(FPDFeOwner).LerVersaoDeParams(FPLayout);
+    FPVersaoServico := 'v2.1.0';//TACBreSocial(FPDFeOwner).LerVersaoDeParams(FPLayout);
 
   Result := '<versaoDados>' + FPVersaoServico + '</versaoDados>';
+end;
+
+procedure TeSocialWebService.InicializarServico;
+begin
+  inherited;
+//Implementar!
 end;
 
 procedure TeSocialWebService.FinalizarServico;
@@ -360,13 +364,40 @@ end;
 
 function TEnvioLote.GerarMsgErro(E: Exception): String;
 begin
-  Result := ACBrStr('WebService: '+FPServico + LineBreak +
+  Result := ACBrStr('WebService: '+FPServico + #13#10 +
                     '- Inativo ou Inoperante tente novamente.');
+end;
+
+function TEnvioLote.GerarMsgLog: String;
+begin
+//implementar!
+end;
+
+function TEnvioLote.GerarPrefixoArquivo: String;
+begin
+//implementar!
 end;
 
 function TEnvioLote.GerarVersaoDadosSoap: String;
 begin
   Result := '<versaoDados>' + FVersao + '</versaoDados>';
+end;
+
+procedure TEnvioLote.GerarXML;
+begin
+//implementar!
+end;
+
+procedure TEnvioLote.SalvarEnvio;
+begin
+  inherited;
+//implementar!
+end;
+
+procedure TEnvioLote.SalvarResposta;
+begin
+  inherited;
+//implementar!
 end;
 
 { TWebServices }
@@ -393,7 +424,7 @@ end;
 
 function TWebServices.Envia(ALote: String; const ASincrono: Boolean): Boolean;
 begin
-  FEnvioLote.FLote := ALote;
+  FEnvioLote.FLote.XML := ALote;
 
   if not EnvioLote.Executar then
     EnvioLote.GerarException( EnvioLote.Msg );
@@ -425,6 +456,120 @@ end;
 procedure TOcorrencias.SetItem(Index: Integer; Value: TOcorrencia);
 begin
   inherited SetItem(Index, Value);
+end;
+
+{ TOcorrencia }
+
+constructor TOcorrencia.Create;
+begin
+end;
+
+{ TRetEnvLote }
+
+constructor TRetEnvLote.Create(AOwner: TACBrDFe);
+begin
+  inherited;
+  FACBreSocial := AOwner;
+  FIdeEmpregador := TIdeEmpregador.Create;
+  FIdeTransmissor := TIdeTransmissor.Create;
+  FStatusEnvLote := TStatusEnvLote.Create;
+  FDadosRecepcaoLote := TDadosRecepcaoLote.Create;
+end;
+
+destructor TRetEnvLote.Destroy;
+begin
+  FIdeEmpregador.Free;
+  FIdeTransmissor.Free;
+  FStatusEnvLote.Free;
+  FDadosRecepcaoLote.Free;
+  inherited;
+end;
+
+{ TretEventos }
+
+function TretEventos.Add: TretEvento;
+begin
+  Result := TretEvento(inherited Add);
+  Result.Create(self);
+end;
+
+function TretEventos.GetItem(Index: Integer): TretEvento;
+begin
+   Result := TretEvento(inherited GetItem(Index));
+end;
+
+procedure TretEventos.SetItem(Index: Integer; Value: TretEvento);
+begin
+  inherited SetItem(Index, Value);
+end;
+
+{ TRetProcLote }
+
+constructor TRetProcLote.Create;
+begin
+  FIdeEmpregador := TIdeEmpregador.Create;
+  FIdeTransmissor := TIdeTransmissor.Create;
+  FStatus := TStatusProcLote.Create;
+  FdadosRecLote := TDadosRecepcaoLote.Create;
+  FdadosProcLote := TdadosProcLote.Create;
+end;
+
+destructor TRetProcLote.Destroy;
+begin
+  FIdeEmpregador.Free;
+  FIdeTransmissor.Free;
+  FStatus.Free;
+  FdadosRecLote.Free;
+  FdadosProcLote.Free;
+end;
+
+procedure TRetProcLote.LerXML;
+begin
+//Implementar
+end;
+
+{ TConsultaLote }
+
+constructor TConsultaLote.Create(AOwner: TACBrDFe);
+begin
+  FACBreSocial := AOwner;
+end;
+
+procedure TConsultaLote.DefinirDadosMsg;
+begin
+  inherited;
+
+end;
+
+procedure TConsultaLote.DefinirServicoEAction;
+begin
+  inherited;
+
+end;
+
+destructor TConsultaLote.Destroy;
+begin
+
+end;
+
+function TConsultaLote.GerarMsgLog: String;
+begin
+
+end;
+
+function TConsultaLote.GerarPrefixoArquivo: String;
+begin
+
+end;
+
+procedure TConsultaLote.GerarXML;
+begin
+
+end;
+
+function TConsultaLote.TratarResposta: Boolean;
+begin
+
 end;
 
 end.

@@ -72,6 +72,7 @@ type
     FIdeEmpregador : TIdeEmpregador;
     FIdeTransmissor : TIdeTransmissor;
     FGerador : TGerador;
+    FXML : String;
     function GetItem(Index: integer): TItemLoteEventos;
     procedure SetItem(Index: integer; const Value: TItemLoteEventos);
   public
@@ -86,6 +87,7 @@ type
     property Items[Index: Integer] : TItemLoteEventos read GetItem write SetItem;
     property IdeEmpregador : TIdeEmpregador read FIdeEmpregador write FIdeEmpregador;
     property IdeTransmissor : TIdeTransmissor read FIdeTransmissor write FIdeTransmissor;
+    property XML : String read FXML write FXML;
 
   end;
 
@@ -103,13 +105,13 @@ constructor TLoteEventos.Create(AOwner: TComponent);
 begin
   FACBreSocial    := AOwner;
   FIdeEmpregador  := TIdeEmpregador.Create;
-  FIdeTransmissor := TIdeEmpregador.Create;
+  FIdeTransmissor := TIdeTransmissor.Create;
   FGerador        := TGerador.Create;
 end;
 
 procedure TLoteEventos.GerarXML;
 begin
-  FGerador.wGrupo();
+  FGerador.wGrupo('');
 end;
 
 function TLoteEventos.GetItem(Index: integer): TItemLoteEventos;

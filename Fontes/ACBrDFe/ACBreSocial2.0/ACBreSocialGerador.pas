@@ -1,4 +1,4 @@
-{******************************************************************************}
+﻿{******************************************************************************}
 { Projeto: Componente ACBreSocial                                              }
 {  Biblioteca multiplataforma de componentes Delphi para envio dos eventos do  }
 { eSocial - http://www.esocial.gov.br/                                         }
@@ -115,14 +115,11 @@ type
     procedure GerarIdeEvento2(pEvt: TIdeEvento2; const GeraGrupo: boolean = True; GeraRetif: Boolean = True);
     procedure GerarIdeEvento3(pEvt: TIdeEvento3; IndRetif: Boolean=True);
     procedure GerarIdeEvento4(pEvt: TIdeEvento4);
-    procedure GerarIdePeriodo(
-      pIdePeriodo: TidePeriodo;
-      const GroupName: string = 'idePeriodo'
-    );
+    procedure GerarIdePeriodo(pIdePeriodo: TidePeriodo; const GroupName: string = 'idePeriodo');
     procedure GerarIdeEmpregador(pEmp: TIdeEmpregador; pNumTags: integer = 2);
     procedure GerarIdeTomadorServ(pIdeTomadorServ: TIdeTomadorServ);
     procedure GerarIdeTrabSubstituido(pIdeTrabSubstituido: TIdeTrabSubstituidoCollection);
-    procedure GerarIdVersao(pIdEsocial: TESocial);
+    procedure GerarIdVersao(pIdEsocial: TeSocial);
     procedure GerarIdeVinculo(pIdeVinculo: TIdeVinculo);
     procedure GerarInfoAtivDesemp(pInfoAtivDesemp: TInfoAtivDesemp);
     procedure GerarInfoDeficiencia(pInfoDeficiencia: TInfoDeficiencia);
@@ -309,7 +306,6 @@ begin
 end;
 
 procedure TeSocialEvento.Validar(Evento: String);
-<<<<<<< HEAD
 var
   Erro, AXML: String;
   EhValido: Boolean;
@@ -338,36 +334,6 @@ begin
   end;
 end;
 
-=======
-var
-  Erro, AXML: String;
-  EhValido: Boolean;
-begin
-  AXML := FXMLAssinado;
-
-  if EstaVazio(AXML) then
-  begin
-    Assinar(AXML, Evento);
-    AXML := FXMLAssinado;
-  end;
-
-  with TACBreSocial(FACBreSocial) do
-  begin
-    EhValido := SSL.Validar(AXML, Configuracoes.Arquivos.PathSchemas+Evento+'.xsd', Erro);
-    if not EhValido then
-    begin
-      FErroValidacao := ACBrStr('Falha na validaÃ§Ã£o dos dados do evento: ') +
-        Evento + sLineBreak + FAlertas ;
-      FErroValidacaoCompleto := FErroValidacao + sLineBreak + Erro;
-
-      raise EACBreSocialException.CreateDef(
-        IfThen(Configuracoes.Geral.ExibirErroSchema, ErroValidacaoCompleto,
-        ErroValidacao));
-    end;
-  end;
-end;
-
->>>>>>> cf86e6b2aecfac0b7b2ccff3316923ac66b98070
 procedure TeSocialEvento.GerarCabecalho(Namespace: String);
 begin
   TACBreSocial(FACBreSocial).SSL.NameSpaceURI := 'http://www.esocial.gov.br/schema/evt/'+Namespace+'/v02_01_00';
@@ -377,7 +343,6 @@ end;
 
 function TeSocialEvento.GerarChaveEsocial(const emissao: TDateTime;
   const CNPJF: string; sequencial: Integer): String;
-<<<<<<< HEAD
 var
   nAno, nMes, nDia, nHora, nMin, nSeg, nMSeg: Word;
 begin
@@ -404,34 +369,6 @@ begin
   Result := Result + IntToStrZero(sequencial, 5);
 end;
 
-=======
-var
-  nAno, nMes, nDia, nHora, nMin, nSeg, nMSeg: Word;
-begin
-  // Se o usuario informar 0; o cÃ³digo numerico sera gerado de maneira aleatÃ³ria //
-  if sequencial = 0 then
-    sequencial := Random(99999);
-
-  DecodeDate(emissao, nAno, nMes, nDia);
-  DecodeTime(emissao, nHora, nMin, nSeg, nMSeg);
-  Result := 'ID';
-
-  if (Length(CNPJF) = 14) then
-    Result := Result + IntToStr(2)
-  else
-    Result := Result + IntToStr(1);
-
-  Result := Result + copy(SomenteNumeros(CNPJF) + '00000000000000', 1, 14);
-  Result := Result + IntToStrZero(nAno, 4);
-  Result := Result + IntToStrZero(nMes, 2);
-  Result := Result + IntToStrZero(nDia, 2);
-  Result := Result + IntToStrZero(nHora, 2);
-  Result := Result + IntToStrZero(nMin, 2);
-  Result := Result + IntToStrZero(nSeg, 2);
-  Result := Result + IntToStrZero(sequencial, 5);
-end;
-
->>>>>>> cf86e6b2aecfac0b7b2ccff3316923ac66b98070
 procedure TeSocialEvento.GerarCNH(pCnh: TCNH);
 begin
   Gerador.wGrupo('CNH');

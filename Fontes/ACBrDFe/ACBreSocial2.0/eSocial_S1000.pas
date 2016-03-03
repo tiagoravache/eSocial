@@ -1,4 +1,4 @@
-{******************************************************************************}
+﻿{******************************************************************************}
 { Projeto: Componente ACBreSocial                                              }
 {  Biblioteca multiplataforma de componentes Delphi para envio dos eventos do  }
 { eSocial - http://www.esocial.gov.br/                                         }
@@ -157,7 +157,7 @@ type
   TInfoCadastro = class(TPersistent)
    private
     FNmRazao: string;
-    FClassTrib: string;
+    FClassTrib: Integer;
     FNatJurid: string;
     FIndCoop: TpIndCoop;
     FIndConstr: TpIndConstr;
@@ -185,7 +185,7 @@ type
     function infoFapInst(): Boolean;
 
     property NmRazao: string read FNmRazao write FNmRazao;
-    property ClassTrib: string read FClassTrib write FClassTrib;
+    property ClassTrib: Integer read FClassTrib write FClassTrib;
     property NatJurid: string read FNatJurid write FNatJurid;
     property IndCoop: TpIndCoop read FIndCoop write FIndCoop;
     property IndConstr: TpIndConstr read FIndConstr write FIndConstr;

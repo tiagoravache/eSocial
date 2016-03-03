@@ -61,7 +61,7 @@ type
   private
     FEventos: TEventos;
     FLoteEventos : TLoteEventos;
-    FWebServices: TeSocialWebService;
+    FWebServices: TWebServicesConf;
     FStatus : TStatusACBreSocial;
     function GetConfiguracoes: TConfiguracoeseSocial;
     procedure SetConfiguracoes(AValue: TConfiguracoeseSocial);
@@ -113,10 +113,8 @@ begin
 end;
 
 function TACBreSocial.EnviarEventos(Lote: TLoteEventos): Boolean;
-
 begin
-  Lote   := FLoteEventos;
-  Result := ServicoEnviarLoteEventos(GetServicoEnviarLoteEventos).EnviarLoteEventos(Lote);
+//
 end;
 
 function TACBreSocial.GetAbout: String;
@@ -136,9 +134,9 @@ begin
   AUF := Configuracoes.WebServices.UF;
   Versao := StrToFloat(ACBRESOCIAL_VERSAO);
   URL := '';
-  LerServicoDeParams(GetNomeModeloDFe, AUF,
-    Configuracoes.WebServices.Ambiente, LayOutToServico(LayOutServico),
-    Versao, URL);
+//  LerServicoDeParams(GetNomeModeloDFe, AUF,
+//    Configuracoes.WebServices.Ambiente, LayOutToServico(LayOutServico),
+//    Versao, URL);
 end;
 
 function TACBreSocial.NomeServicoToNomeSchema(const NomeServico: String): String;

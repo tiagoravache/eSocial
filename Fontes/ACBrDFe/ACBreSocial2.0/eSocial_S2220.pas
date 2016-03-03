@@ -1,4 +1,4 @@
-{******************************************************************************}
+﻿{******************************************************************************}
 { Projeto: Componente ACBreSocial                                              }
 {  Biblioteca multiplataforma de componentes Delphi para envio dos eventos do  }
 { eSocial - http://www.esocial.gov.br/                                         }
@@ -437,7 +437,7 @@ begin
     if (self.Aso.IdeServSaude.CodCNES <> '') then
       Gerador.wCampo(tcStr, '', 'codCNES  ', 0, 0, 0, self.Aso.IdeServSaude.CodCNES);
 
-    Gerador.wCampo(tcStr, '', 'frmCtt  ', 0, 0, 0, self.Aso.IdeServSaude.FrmCtt);- removido na versão 2.1
+    Gerador.wCampo(tcStr, '', 'frmCtt  ', 0, 0, 0, self.Aso.IdeServSaude.FrmCtt);// removido na versão 2.1
 
     if (self.Aso.IdeServSaude.Email <> '') then
       Gerador.wCampo(tcStr, '', 'email  ', 0, 0, 0, self.Aso.IdeServSaude.Email);
@@ -449,7 +449,6 @@ procedure TEvtASO.gerarMedico;
 begin
   Gerador.wGrupo('medico');
     Gerador.wCampo(tcStr, '', 'nmMed', 0, 0, 0, self.Aso.IdeServSaude.Medico.NmMed);
-    Gerador.wCampo(tcStr, '', 'frmCtt', 0, 0, 0, self.Aso.IdeServSaude.Medico.FrmCtt);
     gerarCRM;
   Gerador.wGrupo('/medico');
 end;
