@@ -380,22 +380,22 @@ begin
       evtTabLotacao.infoLotacao.IdeLotacao.iniValid   := '2015-06';
       evtTabLotacao.infoLotacao.IdeLotacao.fimValid   := '2099-12';
 
-      evtTabLotacao.infoLotacao.DadosLotacao.tpLotacao := '1';
+      evtTabLotacao.infoLotacao.DadosLotacao.tpLotacao := '01';
       evtTabLotacao.infoLotacao.DadosLotacao.tpInsc    := tiCAEPF;
       evtTabLotacao.infoLotacao.DadosLotacao.nrInsc    := '6564646565';
 
       evtTabLotacao.infoLotacao.DadosLotacao.fPasLotacao.Fpas     := '515';
-      evtTabLotacao.infoLotacao.DadosLotacao.fPasLotacao.codTercs := '15';
+      evtTabLotacao.infoLotacao.DadosLotacao.fPasLotacao.codTercs := '0015';
 
       with evtTabLotacao.infoLotacao.dadosLotacao.fPasLotacao.infoProcJudTerceiros.procJudTerceiro.Add do
       begin
-        codTerc   := '111';
+        codTerc   := '1111';
         nrProcJud := '1234567891239-1345'
       end;
 
       with evtTabLotacao.infoLotacao.dadosLotacao.fPasLotacao.infoProcJudTerceiros.procJudTerceiro.Add do
       begin
-        codTerc   := '222';
+        codTerc   := '2222';
         nrProcJud := '1234567891239-1345'
       end;
 
