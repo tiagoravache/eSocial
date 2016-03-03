@@ -1,4 +1,4 @@
-{******************************************************************************}
+﻿{******************************************************************************}
 { Projeto: Componente ACBreSocial                                              }
 {  Biblioteca multiplataforma de componentes Delphi para envio dos eventos do  }
 { eSocial - http://www.esocial.gov.br/                                         }
@@ -340,7 +340,7 @@ begin
           gerarDadosCargo();
           if Self.ModoLancamento = mlAlteracao then
             if (InfoCargo.novaValidadeInst()) then
-              GerarIdePeriodo(self.InfoCargo.NovaValidade);
+              GerarIdePeriodo(self.InfoCargo.NovaValidade, 'novaValidade');
         end;
       gerarModoFechamento(Self.ModoLancamento);
     Gerador.wGrupo('/infoCargo');

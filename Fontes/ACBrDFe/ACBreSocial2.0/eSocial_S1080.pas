@@ -1,4 +1,4 @@
-{******************************************************************************}
+﻿{******************************************************************************}
 { Projeto: Componente ACBreSocial                                              }
 {  Biblioteca multiplataforma de componentes Delphi para envio dos eventos do  }
 { eSocial - http://www.esocial.gov.br/                                         }
@@ -284,7 +284,7 @@ begin
               gerarDadosOperPortuario();
               if Self.ModoLancamento = mlAlteracao then
                 if (InfoOperPortuario.novaValidadeInst()) then
-                  GerarIdePeriodo(self.InfoOperPortuario.NovaValidade);
+                  GerarIdePeriodo(self.InfoOperPortuario.NovaValidade, 'novaValidade');
             end;
           gerarModoFechamento(Self.ModoLancamento);
         Gerador.wGrupo('/infoOperPortuario');
