@@ -1,4 +1,4 @@
-{******************************************************************************}
+﻿{******************************************************************************}
 { Projeto: Componente ACBreSocial                                              }
 {  Biblioteca multiplataforma de componentes Delphi para envio dos eventos do  }
 { eSocial - http://www.esocial.gov.br/                                         }
@@ -188,7 +188,6 @@ begin
   except on e:exception do
     raise Exception.Create(e.Message);
   end;
-
   Result := (Gerador.ArquivoFormatoXML <> '')
 end;
 

@@ -1539,7 +1539,7 @@ begin
     EvtCadInicial.IdeEmpregador.NrInsc := '0123456789';
 
     EvtCadInicial.Trabalhador.CpfTrab   := '54564654564';
-    EvtCadInicial.Trabalhador.NisTrab   := '654646464';
+    EvtCadInicial.Trabalhador.NisTrab   := '65464646464';
     EvtCadInicial.Trabalhador.NmTrab    := 'Empregado teste';
     EvtCadInicial.Trabalhador.Sexo      := 'M';
     EvtCadInicial.Trabalhador.RacaCor   := 1;
@@ -1617,7 +1617,7 @@ begin
       tpDep    := tpTpDep(tdConjuge);
       nmDep    := 'Dependente 1';
       dtNascto := Date;
-      cpfDep   := '575487587';
+      cpfDep   := '57548758778';
       depIRRF  := tpSimNao(tpSim);
       depSF    := tpSimNao(tpNao);
       //depRPPS  := tpSimNao(tpNao);-- removido na versão 2.1
@@ -1628,7 +1628,7 @@ begin
       tpDep    := tpTpDep(tdFilhoOuEnteadoAte21Anos);
       nmDep    := 'Dependente 2';
       dtNascto := Date;
-      cpfDep   := '575487587';
+      cpfDep   := '57548758778';
       depIRRF  := tpSimNao(tpSim);
       depSF    := tpSimNao(tpNao);
       //depRPPS  := tpSimNao(tpNao);-- removido na versão 2.1
@@ -1645,29 +1645,29 @@ begin
     EvtCadInicial.Vinculo.TpRegTrab := tpTpRegTrab(1);
     EvtCadInicial.Vinculo.TpRegPrev := tpTpRegPrev(1);
 
-    EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.DtAdm             := Date;
-    EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.TpAdmissao        := tpTpAdmissao(1);
-    EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.IndAdmissao       := tpTpIndAdmissao(iaNormal);
-    EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.TpRegJor          := tpTpRegJor(1);
-    EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.NatAtividade      := tpNatAtividade(navUrbano);
-    EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.dtBase            := 03;
-    EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.cnpjSindCategProf := '65469879875454';
+//    EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.DtAdm             := Date;
+//    EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.TpAdmissao        := tpTpAdmissao(1);
+//    EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.IndAdmissao       := tpTpIndAdmissao(iaNormal);
+//    EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.TpRegJor          := tpTpRegJor(1);
+//    EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.NatAtividade      := tpNatAtividade(navUrbano);
+//    EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.dtBase            := 03;
+//    EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.cnpjSindCategProf := '65469879875454';
+//
+//    EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.FGTS.OpcFGTS   := tpOpcFGTS(ofOptante);
+//    EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.FGTS.DtOpcFGTS := Date;
+//
+//    EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.trabTemporario.MtvContrat := tpMtvContrat(2);
+//
+//    EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.trabTemporario.IdeTomadorServ.TpInsc := 1;
+//    EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.trabTemporario.IdeTomadorServ.NrInsc := '564564656';
+//
+//    with EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.trabTemporario.IdeTrabSubstituido.Add do
+//      begin
+//        CpfTrabSubst := '12345678901';
+//        MatricTrabSubst := '985236547';
+//      end;
 
-    EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.FGTS.OpcFGTS   := tpOpcFGTS(ofOptante);
-    EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.FGTS.DtOpcFGTS := Date;
-
-    EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.trabTemporario.MtvContrat := tpMtvContrat(2);
-
-    EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.trabTemporario.IdeTomadorServ.TpInsc := 1;
-    EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.trabTemporario.IdeTomadorServ.NrInsc := '564564656';
-
-    with EvtCadInicial.Vinculo.InfoRegimeTrab.InfoCeletista.trabTemporario.IdeTrabSubstituido.Add do
-      begin
-        CpfTrabSubst := '12345678901';
-        MatricTrabSubst := '985236547';
-      end;
-
-
+//    Enviar apenas um tipo de regime
     EvtCadInicial.Vinculo.InfoRegimeTrab.InfoEstatutario.IndProvim   := tpIndProvim(ipNormal);
     EvtCadInicial.Vinculo.InfoRegimeTrab.InfoEstatutario.TpProv      := tpTpProv(tpNomeacaoCargoEfetivo);
     EvtCadInicial.Vinculo.InfoRegimeTrab.InfoEstatutario.DtNomeacao  := Date;
@@ -1689,14 +1689,15 @@ begin
     EvtCadInicial.Vinculo.InfoContrato.LocalTrabalho.LocalTrabGeral.NrInsc   := '213546';
     EvtCadInicial.Vinculo.InfoContrato.LocalTrabalho.LocalTrabGeral.DescComp := 'Descricao logal geral teste';
 
-    EvtCadInicial.Vinculo.InfoContrato.LocalTrabalho.LocalTrabDom.TpLograd    := '123';
-    EvtCadInicial.Vinculo.InfoContrato.LocalTrabalho.LocalTrabDom.DscLograd   := 'LOCAL DOMESTICO';
-    EvtCadInicial.Vinculo.InfoContrato.LocalTrabalho.LocalTrabDom.NrLograd    := '111';
-    EvtCadInicial.Vinculo.InfoContrato.LocalTrabalho.LocalTrabDom.Complemento := 'Complemento';
-    EvtCadInicial.Vinculo.InfoContrato.LocalTrabalho.LocalTrabDom.Bairro      := 'Bairro';
-    EvtCadInicial.Vinculo.InfoContrato.LocalTrabalho.LocalTrabDom.Cep         := '85202630';
-    EvtCadInicial.Vinculo.InfoContrato.LocalTrabalho.LocalTrabDom.CodMunic    := 123;
-    EvtCadInicial.Vinculo.InfoContrato.LocalTrabalho.LocalTrabDom.Uf          := tpuf(ufPR);
+//    Informar apenas para trabalhador doméstico
+//    EvtCadInicial.Vinculo.InfoContrato.LocalTrabalho.LocalTrabDom.TpLograd    := '123';
+//    EvtCadInicial.Vinculo.InfoContrato.LocalTrabalho.LocalTrabDom.DscLograd   := 'LOCAL DOMESTICO';
+//    EvtCadInicial.Vinculo.InfoContrato.LocalTrabalho.LocalTrabDom.NrLograd    := '111';
+//    EvtCadInicial.Vinculo.InfoContrato.LocalTrabalho.LocalTrabDom.Complemento := 'Complemento';
+//    EvtCadInicial.Vinculo.InfoContrato.LocalTrabalho.LocalTrabDom.Bairro      := 'Bairro';
+//    EvtCadInicial.Vinculo.InfoContrato.LocalTrabalho.LocalTrabDom.Cep         := '85202630';
+//    EvtCadInicial.Vinculo.InfoContrato.LocalTrabalho.LocalTrabDom.CodMunic    := 123;
+//    EvtCadInicial.Vinculo.InfoContrato.LocalTrabalho.LocalTrabDom.Uf          := tpuf(ufPR);
 
     EvtCadInicial.Vinculo.InfoContrato.HorContratual.QtdHrsSem := 44;
     EvtCadInicial.Vinculo.InfoContrato.HorContratual.TpJornada := tpTpJornada(1);
@@ -1714,9 +1715,9 @@ begin
       CodHorContrat := '10';
     end;
 
-    EvtCadInicial.Vinculo.InfoContrato.FiliacaoSindical.CnpjSindTrab := '223456000152';
+    EvtCadInicial.Vinculo.InfoContrato.FiliacaoSindical.CnpjSindTrab := '22345600015212';
     EvtCadInicial.Vinculo.InfoContrato.AlvaraJudicial.NrProcJud      := '123';
-    EvtCadInicial.Vinculo.SucessaoVinc.Cnpj := '54654000155';
+    EvtCadInicial.Vinculo.SucessaoVinc.Cnpj := '12354654000155';
     EvtCadInicial.Vinculo.SucessaoVinc.MatricAnt     := '123';
     EvtCadInicial.Vinculo.SucessaoVinc.DtIniVinculo  := Date;
     EvtCadInicial.Vinculo.SucessaoVinc.Observacao    := 'transferido';
