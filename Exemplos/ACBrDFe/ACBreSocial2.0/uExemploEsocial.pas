@@ -690,7 +690,7 @@ begin
       evtRemun.ideTrabalhador.infoMV.indMV := imvDescontadaempregador;
 
       {Os Grupos abaixo são opcionais
-      O grupo abaixocorresponde a funcionários que tenham dois empregos em empresas diferentes
+      O grupo abaixocorresponde a funcionários que tenham dois empregos em empresas diferentes }
       with evtRemun.ideTrabalhador.infoMV.remunOutrEmpr.add do
         begin
           tpInsc     := tiCNPJ;
@@ -698,7 +698,7 @@ begin
           vlrRemunOE := 1230.10;
         end;
 
-      //o grupo abaixo corresponde apenas a trabalhadores cuja categoria não está sujeita ao evento de admissão
+     {o grupo abaixo corresponde apenas a trabalhadores cuja categoria não está sujeita ao evento de admissão
         ou TSV-início
       evtRemun.ideTrabalhador.infoComplem.nmTrab       := 'João das Neves';
       evtRemun.ideTrabalhador.infoComplem.dtNascto     := Date;
@@ -716,10 +716,11 @@ begin
       with evtRemun.infoPerApur.recPgtos.Add do
         begin
           ideRecPgto := 123456;
+          vrRec := 123456.78;
           with ideEstabLot.Add do
             begin
               tpInsc     := tiCNPJ;
-              nrInsc     := '01234567898765';
+              nrInsc     := '012345678987654';
               codLotacao := 'SACI54321';
               with remunPerApur.Add do
                 begin
@@ -768,50 +769,54 @@ begin
           with recPgtos.Add do
             begin
               ideRecPgto := 000001;
-              idePeriodo.Add.perRef := '042015';
-              with idePeriodo.Add.ideEstabLot.Add do
+              vrRec := 12345.67;
+              with idePeriodo.Add do
                 begin
-                  tpInsc     := tiCNPJ;
-                  nrInsc     := '01234567898765';
-                  codLotacao := 'TESTE123';
-                  with remunPerAnt.Add do
+                  perRef := '201504';
+                  with ideEstabLot.Add do
                     begin
-                      matricula  := 'A1234';
-                      codCateg   := 101;
-                      indSimples := idsIntegralmente;
-                      with itensRemun.Add do
+                      tpInsc     := tiCNPJ;
+                      nrInsc     := '01234567898765';
+                      codLotacao := 'TESTE123';
+                      with remunPerAnt.Add do
                         begin
-                          codRubr := '987654';
-                          //ideTabRubr := 'E380'; deve ser preenchido apenas quando multTabRubricas = S
-                          qtdRubr := 100;
-                          vrUnit  := 3296.35;
-                          vrRubr  := 3330.30;
-                        end;
-                      with infoSaudeColet.detOper.Add do
-                        begin
-                          cnpjOper := '01234567898765';
-                          regANS   := 'A1B2C3';
-                          vrPgTit  := 1.50;
-                          with detPlano.Add do
+                          matricula  := 'A1234';
+                          codCateg   := 101;
+                          indSimples := idsIntegralmente;
+                          with itensRemun.Add do
                             begin
-                              cpfDep      := '01234567898';
-                              dtNasctoDep := Date;
-                              nmDep       := 'José das Areias';
-                              relDep      := rdFilho;
-                              vlrPgDep    := 0.75;
+                              codRubr := '987654';
+                              //ideTabRubr := 'E380'; deve ser preenchido apenas quando multTabRubricas = S
+                              qtdRubr := 100;
+                              vrUnit  := 3296.35;
+                              vrRubr  := 3330.30;
                             end;
-                        end;
+                          with infoSaudeColet.detOper.Add do
+                            begin
+                              cnpjOper := '01234567898765';
+                              regANS   := 'A1B2C3';
+                              vrPgTit  := 1.50;
+                              with detPlano.Add do
+                                begin
+                                  cpfDep      := '01234567898';
+                                  dtNasctoDep := Date;
+                                  nmDep       := 'José das Areias';
+                                  relDep      := rdFilho;
+                                  vlrPgDep    := 0.75;
+                                end;
+                            end;
 
-                      infoAgNocivo.grauExp := ge1;
+                          infoAgNocivo.grauExp := ge1;
 
-                      with pensaoAlim.Add do
-                        begin
-                          cpfBenef      := '01478523698';
-                          dtNasctoBenef := Date;
-                          nmBenefic     := 'Pedro das Águas';
-                          vlrPensao     := 253.30;
-                        end;
-                  end;
+                          with pensaoAlim.Add do
+                            begin
+                              cpfBenef      := '01478523698';
+                              dtNasctoBenef := Date;
+                              nmBenefic     := 'Pedro das Águas';
+                              vlrPensao     := 253.30;
+                            end;
+                      end;
+                    end;
                 end;
             end;
         end;
