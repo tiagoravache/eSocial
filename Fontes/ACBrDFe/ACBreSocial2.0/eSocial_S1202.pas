@@ -1,4 +1,4 @@
-{******************************************************************************}
+﻿{******************************************************************************}
 { Projeto: Componente ACBreSocial                                              }
 {  Biblioteca multiplataforma de componentes Delphi para envio dos eventos do  }
 { eSocial - http://www.esocial.gov.br/                                         }
@@ -344,11 +344,14 @@ begin
 end;
 
 function TEvtRmnRPPS.GerarXML: boolean;
+var
+  SL : TSTringList;
 begin
   try
+    SL := TStringList.Create;
     GerarCabecalho('evtRemunRPPS');
-      //Gerador.wGrupo('evtRmnRPPS Id="'+GerarChaveEsocial(now, self.ideEmpregador.NrInsc, 0)+'"');
-      Gerador.wGrupo('evtRmnRPPS');
+      Gerador.wGrupo('evtRmnRPPS Id="'+GerarChaveEsocial(now, self.ideEmpregador.NrInsc, 0)+'"');
+      //Gerador.wGrupo('evtRmnRPPS');
         //GerarIdVersao(Self);
         GerarIdeEvento3(Self.IdeEvento);
         GerarIdeEmpregador(Self.ideEmpregador);
@@ -357,11 +360,13 @@ begin
     GerarRodape;
 
     XML := Assinar(Gerador.ArquivoFormatoXML, 'evtRmnRPPS');
+    SL.Add(XML);
+    SL.SaveToFile('c:\teste.xml');
     Validar('evtRemunRPPS');
   except on e:exception do
     raise Exception.Create(e.Message);
   end;
-
+  SL.Free;
   Result := (Gerador.ArquivoFormatoXML <> '')
 end;
 
