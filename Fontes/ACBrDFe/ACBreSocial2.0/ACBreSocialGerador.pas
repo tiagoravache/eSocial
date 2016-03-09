@@ -814,7 +814,9 @@ begin
       Gerador.wCampo(tcStr, '', 'indRetif', 0, 0, 0, eSIndRetificacaoToStr(pEvt.indRetif));
 
       if (eSIndRetificacaoToStr(pEvt.indRetif) = '2') then
-        Gerador.wCampo(tcStr, '', 'nrRecibo', 0, 0, 0, pEvt.nrRecibo);
+        Gerador.wCampo(tcStr, '', 'nrRecibo', 0, 0, 0, pEvt.nrRecibo)
+      else
+        Gerador.wCampo(tcStr, '', 'nrRecibo', 0, 0, 0, '0');
 
   if GeraGrupo then
     GerarIdeEvento(pEvt, False);
@@ -827,7 +829,7 @@ procedure TeSocialEvento.GerarIdeEvento3(pEvt: TIdeEvento3; IndRetif: Boolean=Tr
 begin
   Gerador.wGrupo('ideEvento');
     if (indRetif) then
-      GerarIdeEvento2(pEvt, false);
+      GerarIdeEvento2(pEvt, false, indRetif);
     Gerador.wCampo(tcStr, '', 'indApuracao', 0, 0, 0, eSIndApuracaoToStr(pEvt.IndApuracao));
     Gerador.wCampo(tcStr, '', 'perApur', 0, 0, 0, pEvt.perApur);
     GerarIdeEvento(pEvt, false);

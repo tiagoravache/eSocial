@@ -1,4 +1,4 @@
-{******************************************************************************}
+﻿{******************************************************************************}
 { Projeto: Componente ACBreSocial                                              }
 {  Biblioteca multiplataforma de componentes Delphi para envio dos eventos do  }
 { eSocial - http://www.esocial.gov.br/                                         }

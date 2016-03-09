@@ -947,6 +947,8 @@ begin
 end;
 
 procedure TFExemploEsocial.GerareSocial1210;
+var
+  I : Integer;
 begin
   with AcbreSocial1.Eventos.Periodicos.S1210.Add do
     begin
@@ -964,7 +966,7 @@ begin
       EvtPgtos.IdeEmpregador.TpInsc := tiCNPJ;
       EvtPgtos.IdeEmpregador.NrInsc := '9632587410123';
 
-      EvtPgtos.IdeBenef.CpfBenef := '0147852369';
+      EvtPgtos.IdeBenef.CpfBenef := '01478523690';
       with EvtPgtos.IdeBenef.InfoPgto.Add do
         begin
           DtPgto := StrToDate('10/06/2015');
@@ -972,17 +974,22 @@ begin
           tpPgto := tpPgtoResc2299;
           //-OS GRUPOS ABAIXO SÃO OPCIONAIS
           //grupo detPgtoFl agora é um collection
-          //INCLUIR FOR AQUI
-          detPgtoFl.Items[0].perRef  := '052015';
-          detPgtoFl.Items[0].vlrPgto := 12365.43;
-          detPgtoFl.Items[0].ideRecPgto := 1;
+          with detPgtoFl.Add do
+            begin
+              perRef  := '052015';
+              vlrPgto := 12365.43;
+              ideRecPgto := 1;
+            end;
           //grupo detPgtoResc OBRIGATÓRIO se tpPgto=2
-          //INCLUIR FOR AQUI
-          detPgtoResc.Items[0].vlrPgto := 12365.43;
-          detPgtoResc.Items[0].ideRecPgto := 1;
-          detPgtoResc.Items[0].nrRecArq := 'A.00.NNNNNNNNNNNNNNNNNNN';
+          with detPgtoResc.Add do
+            begin
+              vlrPgto := 12365.43;
+              ideRecPgto := 1;
+              nrRecArq := 'A.00.NNNNNNNNNNNNNNNNNNN';
+            end;
           //grupo idePgtoExt
-          IdePgtoExt.idePais.codPais := '116';
+
+          {IdePgtoExt.idePais.codPais := '116';
           IdePgtoExt.idePais.indNIF := infBeneficiaNIF;
           IdePgtoExt.idePais.nifBenef := 'ABCDEFGH123456789';
           IdePgtoExt.endExt.dscLograd := 'Abbey Road St';
@@ -990,7 +997,7 @@ begin
           IdePgtoExt.endExt.complem := 'apto 11';
           IdePgtoExt.endExt.bairro := 'Sgt Peppers';
           IdePgtoExt.endExt.nmCid := 'Liverpool';
-          IdePgtoExt.endExt.codPostal := '9999999999';
+          IdePgtoExt.endExt.codPostal := '9999999999';}
         end;
 
     end;
@@ -1072,7 +1079,7 @@ begin
       with EvtAqProd.InfoAquisProd.IdeEstabAdquir.TpAquis.Items[0].IdeProdutor.Add do
       begin
         tpInscProd  := tpTpInsc(0);
-        nrInscProd  := '987654321000156';
+        nrInscProd  := '98765432100015';
         vlrBruto    := 4000.54;
         vrCPDescPR  := 3850.32;
         vrRatDescPR := 500.30;
@@ -1081,7 +1088,7 @@ begin
         with EvtAqProd.InfoAquisProd.IdeEstabAdquir.TpAquis.Items[0].IdeProdutor.Items[0].Nfs.Add do
         begin
           serie       := '00004';
-          nrDocto     := '648965498987894';
+          nrDocto     := '64896549898789';
           dtEmisNF    := now;
           vlrBruto    := 4000.54;
           vrCPDescPR  := 3850.32;
@@ -1135,7 +1142,7 @@ begin
       with EvtAqProd.InfoAquisProd.IdeEstabAdquir.TpAquis.Items[0].IdeProdutor.Add do
       begin
         tpInscProd  := tpTpInsc(0);
-        nrInscProd  := '987654321000156';
+        nrInscProd  := '98765432100015';
         vlrBruto    := 4000.54;
         vrCPDescPR  := 3850.32;
         vrRatDescPR := 500.30;
@@ -1345,14 +1352,14 @@ begin
 
     with EvtContratAvNP.InfoRemunAvNP.IdeSind.Add do
     begin
-      cnpjSind := '123456789000117';
+      cnpjSind := '12345678900011';
       fpasSind := 515;
       codTercs := '1356';
 
       with EvtContratAvNP.InfoRemunAvNP.IdeSind.Items[0].RemunAvNP.Add do
       begin
         tpInsc   := tpTpInscEstab(0);
-        nrInsc   := '987654321000156';
+        nrInsc   := '98765432100015';
         vlrRemun := 4000.54;
         vr13     := 3850.32;
         vrDescCP := 500.30;
@@ -1361,7 +1368,7 @@ begin
       with EvtContratAvNP.InfoRemunAvNP.IdeSind.Items[0].RemunAvNP.Add do
       begin
         tpInsc   := tpTpInscEstab(1);
-        nrInsc   := '654321987000152';
+        nrInsc   := '65432198700015';
         vlrRemun := 6000.25;
         vr13     := 4856.32;
         vrDescCP := 200.30;
@@ -1370,14 +1377,14 @@ begin
 
     with EvtContratAvNP.InfoRemunAvNP.IdeSind.Add do
     begin
-      cnpjSind := '999999999000199';
+      cnpjSind := '99999999900019';
       fpasSind := 500;
-      codTercs := '999';
+      codTercs := '9999';
 
       with EvtContratAvNP.InfoRemunAvNP.IdeSind.Items[1].RemunAvNP.Add do
       begin
         tpInsc   := tpTpInscEstab(2);
-        nrInsc   := '987654321000156';
+        nrInsc   := '98765432100015';
         vlrRemun := 100.54;
         vr13     := 200.32;
         vrDescCP := 300.30;
@@ -1422,18 +1429,18 @@ begin
     begin
       cnpjOpPortuario      := '12345678900112';
       indSubstPatrOpPort   := tpIndSubstPatrOpPort(0);
-      percRedContribOpPort := 1000.20;
+      percRedContribOpPort := 100.20;
     end;
 
     with EvtInfoComplPer.InfoSubstPatr.InfoSubstPatrOpPort.Add do
     begin
-      cnpjOpPortuario      := '987654321000145';
+      cnpjOpPortuario      := '98765432100014';
       indSubstPatrOpPort   := tpIndSubstPatrOpPort(1);
-      percRedContribOpPort := 5000.20;
+      percRedContribOpPort :=80.20;
     end;
 
-    EvtInfoComplPer.InfoAtivConcom.fatorMes := 99999.99;
-    EvtInfoComplPer.InfoAtivConcom.fator13  := 1111.11;
+    EvtInfoComplPer.InfoAtivConcom.fatorMes := 999.99;
+    EvtInfoComplPer.InfoAtivConcom.fator13  := 111.11;
   end;
 end;
 
