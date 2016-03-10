@@ -1,4 +1,4 @@
-{******************************************************************************}
+﻿{******************************************************************************}
 { Projeto: Componente ACBreSocial                                              }
 {  Biblioteca multiplataforma de componentes Delphi para envio dos eventos do  }
 { eSocial - http://www.esocial.gov.br/                                         }
@@ -84,7 +84,7 @@ type
 
   TEvtAdmPrelim = class(TeSocialEvento)
   private
-    FIdeEvento: TIdeEvento2;
+    FIdeEvento: TIdeEvento;
     FIdeEmpregador: TIdeEmpregador;
     FInfoRegPrelim: TInfoRegPrelim;
 
@@ -95,7 +95,7 @@ type
 
     function GerarXML: boolean; override;
 
-    property IdeEvento: TIdeEvento2 read FIdeEvento write FIdeEvento;
+    property IdeEvento: TIdeEvento read FIdeEvento write FIdeEvento;
     property IdeEmpregador: TIdeEmpregador read FIdeEmpregador write FIdeEmpregador;
     property InfoRegPrelim: TInfoRegPrelim read FInfoRegPrelim write FInfoRegPrelim;
   end;
@@ -156,7 +156,7 @@ end;
 constructor TEvtAdmPrelim.create;
 begin
   inherited;
-  FIdeEvento := TIdeEvento2.Create;
+  FIdeEvento := TIdeEvento.Create;
   FIdeEmpregador := TIdeEmpregador.Create;
   FInfoRegPrelim := TInfoRegPrelim.Create;
 end;
@@ -184,7 +184,7 @@ begin
     GerarCabecalho('evtAdmissaoPreliminar');
       Gerador.wGrupo('evtAdmPrelim Id="'+GerarChaveEsocial(now, self.ideEmpregador.NrInsc, 0)+'"');
         //gerarIdVersao(self);
-        gerarIdeEvento2(self.IdeEvento, True, False);
+        gerarIdeEvento(self.IdeEvento);
         gerarIdeEmpregador(self.IdeEmpregador);
         GerarInfoRegPrelim();
       Gerador.wGrupo('/evtAdmPrelim');

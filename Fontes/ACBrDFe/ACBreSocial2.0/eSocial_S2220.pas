@@ -437,7 +437,7 @@ begin
     if (self.Aso.IdeServSaude.CodCNES <> '') then
       Gerador.wCampo(tcStr, '', 'codCNES  ', 0, 0, 0, self.Aso.IdeServSaude.CodCNES);
 
-    Gerador.wCampo(tcStr, '', 'frmCtt  ', 0, 0, 0, self.Aso.IdeServSaude.FrmCtt);// removido na versão 2.1
+    Gerador.wCampo(tcStr, '', 'frmCtt  ', 0, 0, 0, self.Aso.IdeServSaude.FrmCtt);
 
     if (self.Aso.IdeServSaude.Email <> '') then
       Gerador.wCampo(tcStr, '', 'email  ', 0, 0, 0, self.Aso.IdeServSaude.Email);
