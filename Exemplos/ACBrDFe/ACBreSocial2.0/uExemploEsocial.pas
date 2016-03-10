@@ -2344,10 +2344,10 @@ begin
       EvtAfastTemp.IdeEvento.VerProc := '1.0';
 
       EvtAfastTemp.IdeEmpregador.TpInsc := tiCNPJ;
-      EvtAfastTemp.IdeEmpregador.NrInsc := '09876543212345';
+      EvtAfastTemp.IdeEmpregador.NrInsc := '12345678901234';
 
-      EvtAfastTemp.IdeVinculo.cpfTrab := '54789632147';
-      EvtAfastTemp.IdeVinculo.nisTrab := '01236987456';
+      EvtAfastTemp.IdeVinculo.cpfTrab := '12345678901';
+      EvtAfastTemp.IdeVinculo.nisTrab := '12345678901';
       EvtAfastTemp.IdeVinculo.matricula := 'A123';
 
       EvtAfastTemp.infoAfastamento.iniAfastamento.DtIniAfast := incDay(Date, -10);
@@ -2367,7 +2367,7 @@ begin
       EvtAfastTemp.infoAfastamento.iniAfastamento.infoCessao.infOnus := ocCessionario;
 
       //infoMandSind opcional para cessão de funcionario para mandato sindical
-      EvtAfastTemp.infoAfastamento.iniAfastamento.infoMandSind.cnpjSind := '01478523698745';
+      EvtAfastTemp.infoAfastamento.iniAfastamento.infoMandSind.cnpjSind := '12345678901234';
       EvtAfastTemp.infoAfastamento.iniAfastamento.infoMandSind.infOnusRemun := orEmpregador;
 
       //Apenas alteração do MOTIVO de afastamento
@@ -2397,10 +2397,10 @@ begin
       EvtExpRisco.ideEvento.VerProc        := '1.0';
 
       EvtExpRisco.ideEmpregador.TpInsc := tiCNPJ;
-      EvtExpRisco.ideEmpregador.NrInsc := '00640071000159';
+      EvtExpRisco.ideEmpregador.NrInsc := '12345678901234';
 
-      EvtExpRisco.IdeVinculo.CpfTrab   := '54564654564';
-      EvtExpRisco.IdeVinculo.NisTrab   := '654646464';
+      EvtExpRisco.IdeVinculo.CpfTrab   := '12345678901';
+      EvtExpRisco.IdeVinculo.NisTrab   := '12345678901';
       EvtExpRisco.IdeVinculo.Matricula := '564545';
 
       EvtExpRisco.infoExpRisco.iniExpRisco.dtCondicao := Date;
@@ -2483,10 +2483,10 @@ begin
       EvtInsApo.ideEvento.VerProc        := '1.0';
 
       EvtInsApo.ideEmpregador.TpInsc := tiCNPJ;
-      EvtInsApo.ideEmpregador.NrInsc := '00640071000159';
+      EvtInsApo.ideEmpregador.NrInsc := '12345678901234';
 
-      EvtInsApo.IdeVinculo.CpfTrab   := '54564654564';
-      EvtInsApo.IdeVinculo.NisTrab   := '654646464';
+      EvtInsApo.IdeVinculo.CpfTrab   := '12345678901';
+      EvtInsApo.IdeVinculo.NisTrab   := '12345678901';
       EvtInsApo.IdeVinculo.Matricula := '564545';
 
       //InsalPeric - Informações de insalubridade e periculosidade
@@ -2568,10 +2568,10 @@ begin
     EvtAvPrevio.IdeEvento.VerProc  := '1.0';
 
     EvtAvPrevio.IdeEmpregador.TpInsc := tpTpInsc(1);
-    EvtAvPrevio.IdeEmpregador.NrInsc := '0123456789';
+    EvtAvPrevio.IdeEmpregador.NrInsc := '12345678901234';
 
-    EvtAvPrevio.IdeVinculo.cpfTrab   := '564646464654';
-    EvtAvPrevio.IdeVinculo.nisTrab   := '00640071000159';
+    EvtAvPrevio.IdeVinculo.cpfTrab   := '12345678901';
+    EvtAvPrevio.IdeVinculo.nisTrab   := '12345678901';
     EvtAvPrevio.IdeVinculo.matricula := '123456';
 
     //aviso
@@ -2607,8 +2607,8 @@ begin
     EvtReintegr.IdeEmpregador.TpInsc := tpTpInsc(1);
     EvtReintegr.IdeEmpregador.NrInsc := '0123456789';
 
-    EvtReintegr.IdeVinculo.cpfTrab   := '564646464654';
-    EvtReintegr.IdeVinculo.nisTrab   := '00640071000159';
+    EvtReintegr.IdeVinculo.cpfTrab   := '12345678901';
+    EvtReintegr.IdeVinculo.nisTrab   := '88888888888';
     EvtReintegr.IdeVinculo.matricula := '123456';
 
     EvtReintegr.InfoReintegr.tpReint       := tpTpReint(0);
@@ -2635,8 +2635,8 @@ begin
       EvtDeslig.IdeEmpregador.TpInsc := tpTpInsc(1);
       EvtDeslig.IdeEmpregador.NrInsc := '0123456789';
 
-      EvtDeslig.IdeVinculo.cpfTrab   := '564646464654';
-      EvtDeslig.IdeVinculo.nisTrab   := '00640071000159';
+      EvtDeslig.IdeVinculo.cpfTrab   := '33333333303';
+      EvtDeslig.IdeVinculo.nisTrab   := '11111111111';
       EvtDeslig.IdeVinculo.matricula := '123456';
 
       EvtDeslig.InfoDeslig.mtvDeslig := '02';
@@ -2662,7 +2662,7 @@ begin
           with ideEstabLot.Add do
             begin
               tpInsc := tiCNPJ;
-              nrInsc := '12345678987654';
+              nrInsc := '12345678901234';
               codLotacao := 'A1234';
               with detVerbas.Add do
                 begin
@@ -2787,7 +2787,7 @@ begin
           tpDep    := tpTpDep(tdConjuge);
           nmDep    := 'Dependente 1';
           dtNascto := Date;
-          cpfDep   := '575487587';
+          cpfDep   := '99999999909';
           depIRRF  := tpSimNao(tpSim);
           depSF    := tpSimNao(tpNao);
         //depRPPS  := tpSimNao(tpNao);Removido na versão 2.1
@@ -2798,7 +2798,7 @@ begin
           tpDep    := tpTpDep(tdFilhoOuEnteadoAte21Anos);
           nmDep    := 'Dependente 2';
           dtNascto := Date;
-          cpfDep   := '575487587';
+          cpfDep   := '99999999909';
           depIRRF  := tpSimNao(tpSim);
           depSF    := tpSimNao(tpNao);
           //depRPPS  := tpSimNao(tpNao);Removido na versão 2.1
@@ -2825,13 +2825,13 @@ begin
 
       //dados da empresa de origem do dirigente sindical
       EvtTSVInicio.infoTSVInicio.infoComplementares.infoDirSind.categOrig  := 001;
-      EvtTSVInicio.infoTSVInicio.infoComplementares.infoDirSind.cnpjOrigem := '12345678987654';
+      EvtTSVInicio.infoTSVInicio.infoComplementares.infoDirSind.cnpjOrigem := '12345678901234';
       EvtTSVInicio.infoTSVInicio.infoComplementares.infoDirSind.dtAdmOrig  := Date;
       EvtTSVInicio.infoTSVInicio.infoComplementares.infoDirSind.matricOrig := 'A1234';
 
       //Informações de trabalhador cedido, devem ser preenchidas exclusivamente pelo cessionário
       EvtTSVInicio.infoTSVInicio.infoComplementares.infoTrabCedido.categOrig := 001;
-      EvtTSVInicio.infoTSVInicio.infoComplementares.infoTrabCedido.cnpjCednt := '12345678987654';
+      EvtTSVInicio.infoTSVInicio.infoComplementares.infoTrabCedido.cnpjCednt := '12345678901234';
       EvtTSVInicio.infoTSVInicio.infoComplementares.infoTrabCedido.matricCed := 'B4321';
       EvtTSVInicio.infoTSVInicio.infoComplementares.infoTrabCedido.dtAdmCed  := Date;
       EvtTSVInicio.infoTSVInicio.infoComplementares.infoTrabCedido.infOnus   := ocCedente;
@@ -2843,7 +2843,7 @@ begin
       EvtTSVInicio.infoTSVInicio.infoComplementares.infoEstagiario.vlrBolsa    := 600.00;
       EvtTSVInicio.infoTSVInicio.infoComplementares.infoEstagiario.dtPrevTerm  := IncMonth(Date, 12);
 
-      EvtTSVInicio.infoTSVInicio.infoComplementares.infoEstagiario.instEnsino.cnpjInstEnsino := '12345678998765';
+      EvtTSVInicio.infoTSVInicio.infoComplementares.infoEstagiario.instEnsino.cnpjInstEnsino := '12345678901234';
       EvtTSVInicio.infoTSVInicio.infoComplementares.infoEstagiario.instEnsino.nmRazao        := 'Nome da Instituição de Ensino';
       EvtTSVInicio.infoTSVInicio.infoComplementares.infoEstagiario.instEnsino.dscLograd      := 'R Pitagoras';
       EvtTSVInicio.infoTSVInicio.infoComplementares.infoEstagiario.instEnsino.nrLograd       := '1618';
@@ -2852,7 +2852,7 @@ begin
       EvtTSVInicio.infoTSVInicio.infoComplementares.infoEstagiario.instEnsino.codMunic       := 4141414;
       EvtTSVInicio.infoTSVInicio.infoComplementares.infoEstagiario.instEnsino.Uf             := ufPR;
 
-      EvtTSVInicio.infoTSVInicio.infoComplementares.infoEstagiario.ageIntegracao.cnpjAgntInteg := '98765432145678';
+      EvtTSVInicio.infoTSVInicio.infoComplementares.infoEstagiario.ageIntegracao.cnpjAgntInteg := '12345678901234';
       EvtTSVInicio.infoTSVInicio.infoComplementares.infoEstagiario.ageIntegracao.nmRazao       := 'Nome da empresa';
       EvtTSVInicio.infoTSVInicio.infoComplementares.infoEstagiario.ageIntegracao.dscLograd     := 'R Adam Smith';
       EvtTSVInicio.infoTSVInicio.infoComplementares.infoEstagiario.ageIntegracao.nrLograd      := '9999';
@@ -2861,7 +2861,7 @@ begin
       EvtTSVInicio.infoTSVInicio.infoComplementares.infoEstagiario.ageIntegracao.codMunic      := 4141414;
       EvtTSVInicio.infoTSVInicio.infoComplementares.infoEstagiario.ageIntegracao.Uf            := ufPR;
 
-      EvtTSVInicio.infoTSVInicio.infoComplementares.infoEstagiario.supervisorEstagio.cpfSupervisor := '623236326532';
+      EvtTSVInicio.infoTSVInicio.infoComplementares.infoEstagiario.supervisorEstagio.cpfSupervisor := '88888888801';
       EvtTSVInicio.infoTSVInicio.infoComplementares.infoEstagiario.supervisorEstagio.nmSuperv      := 'Pedro das Pedras';
     end;
 end;
@@ -2879,6 +2879,10 @@ begin
 
       EvtTSVAltContr.IdeEmpregador.TpInsc := tiCNPJ;
       EvtTSVAltContr.IdeEmpregador.NrInsc := '12345678987654';
+
+      EvtTSVAltContr.IdeTrabSemVinc.cpfTrab := '12345678901';
+      EvtTSVAltContr.IdeTrabSemVinc.nisTrab := '00000000000';
+      EvtTSVAltContr.IdeTrabSemVinc.codCateg := 5;
 
       EvtTSVAltContr.infoTSVAlteracao.dtAlteracao    := Date;
       EvtTSVAltContr.infoTSVAlteracao.natAtivididade := navUrbano;
@@ -2915,7 +2919,7 @@ begin
       EvtTSVAltContr.infoTSVAlteracao.infoComplementares.infoEstagiario.ageIntegracao.codMunic      := 4141414;
       EvtTSVAltContr.infoTSVAlteracao.infoComplementares.infoEstagiario.ageIntegracao.Uf            := ufPR;
 
-      EvtTSVAltContr.infoTSVAlteracao.infoComplementares.infoEstagiario.supervisorEstagio.cpfSupervisor := '623236326532';
+      EvtTSVAltContr.infoTSVAlteracao.infoComplementares.infoEstagiario.supervisorEstagio.cpfSupervisor := '12345678901';
       EvtTSVAltContr.infoTSVAlteracao.infoComplementares.infoEstagiario.supervisorEstagio.nmSuperv      := 'Pedro das Pedras';
     end;
 end;
