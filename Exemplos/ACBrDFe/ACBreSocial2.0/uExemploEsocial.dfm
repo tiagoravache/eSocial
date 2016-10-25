@@ -455,13 +455,15 @@ object FExemploEsocial: TFExemploEsocial
   end
   object ACBreSocial1: TACBreSocial
     Configuracoes.Geral.SSLLib = libCapicom
-    Configuracoes.Geral.Salvar = True
     Configuracoes.Geral.FormatoAlerta = 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'
     Configuracoes.Arquivos.PathSalvar = 'C:\teste_esocial\'
+    Configuracoes.Arquivos.PathSchemas = 'P:\ACBreSocial\trunk\Exemplos\ACBrDFe\ACBreSocial2.0\Schemas\'
     Configuracoes.WebServices.UF = 'SP'
     Configuracoes.WebServices.AguardarConsultaRet = 0
     Configuracoes.WebServices.QuebradeLinha = '|'
-    Configuracoes.Certificados.NumeroSerie = '388555B6980CDFBB'
+    Configuracoes.Certificados.ArquivoPFX = 'C:\Users\cantu\Desktop\GP DISTRIBUIDORA DE COMBUSTIVEIS .pfx'
+    Configuracoes.Certificados.NumeroSerie = '39373B633A2520ACCD28A254467D0A6E'
+    Configuracoes.Certificados.Senha = 'trevo'
     Left = 648
     Top = 32
   end
