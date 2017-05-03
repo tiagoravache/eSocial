@@ -6,12 +6,13 @@ interface
 
 uses
   Classes,
-  ACBrCAPICOM_TLB, ACBrMSXML2_TLB, JwaWinCrypt,
+  ACBrCAPICOM_TLB, ACBrMSXML2_TLB, JwaWinCrypt, ActiveX,
   {$IFDEF FPC}
     LResources, Controls, Graphics, Dialogs,
   {$ELSE}
-    StrUtils, Activex,
+    Activex,
   {$ENDIF}
+    StrUtils,
     Sysutils;
 
 

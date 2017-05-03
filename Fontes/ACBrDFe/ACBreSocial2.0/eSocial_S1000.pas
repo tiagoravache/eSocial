@@ -69,14 +69,9 @@ type
   TInfoComplementares = class;
   TSituacaoPJ = class;
   TSituacaoPF = class;
-  TPerc = class;
-  TInfEnteFed = class;
-  TInfoRPPS = class;
-  TInfoFap = class;
-  TLimitesRemCollection = class;
-  TLimitesRemCollectionItem = class;
-  TAliqEnteFedCollection = class;
-  TAliqEnteFedCollectionItem = class;
+  TInfoOP = class;
+  TInfoEFR = class;
+  TInfoEnte = class;
 
   TS1000Collection = class(TOwnedCollection)
   private
@@ -113,6 +108,9 @@ type
     procedure GerarInfoFap();
     procedure GerarDadosIsencao();
     procedure GerarContato();
+    procedure GerarInfoOp();
+    procedure GerarInfoEFR();
+    procedure GerarInfoEnte();
     procedure GerarInfoOrgInternacional();
     procedure GerarSoftwareHouse();
     procedure GerarSituacaoPJ();
@@ -120,9 +118,6 @@ type
     procedure GerarInfoComplementares();
     procedure GerarLimitesRem();
     procedure GerarPerc(indexAliqEnteFed: Integer);
-    procedure GerarAliqEnteFed();
-    procedure GerarInfEnteFed();
-    procedure GerarInfoRPPS();
 
   public
     constructor Create(AACBreSocial: TObject); overload;
@@ -164,25 +159,24 @@ type
     FIndDesFolha: TpIndDesFolha;
     FIndOptRegEletron: TpIndOptRegEletron;
     FMultTabRubricas: tpSimNao;
-    FNrSiafi: string;
-    FInfoFap: TInfoFap;
+    FIndEntEd: tpSimNao;
+    FIndEtt: tpSimNao;
+    FNrRegEtt: Integer;
     FDadosIsencao: TDadosIsencao;
     FContato: TContato;
+    FInfoOp: TInfoOp;
     FInfoOrgInternacional: TInfoOrgInternacional;
     FSoftwareHouse: TSoftwareHouseCollection;
     FInfoComplementares: TInfoComplementares;
-    FInfoRPPS: TInfoRPPS;
-    function getInfoFap(): TInfoFap;
+    function getInfoOp(): TInfoOp;
     function getDadosIsencao(): TDadosIsencao;
     function getInfoOrgInternacional(): TInfoOrgInternacional;
-    function getInfoRPPS(): TInfoRPPS;
   public
     constructor Create;
     destructor Destroy; override;
-    function infoRPPSInst(): Boolean;
     function infoOrgInternacionalInst(): Boolean;
     function dadosIsencaoInst(): Boolean;
-    function infoFapInst(): Boolean;
+    function infoOpInst(): Boolean;
 
     property NmRazao: string read FNmRazao write FNmRazao;
     property ClassTrib: String read FClassTrib write FClassTrib;
@@ -192,14 +186,15 @@ type
     property IndDesFolha: TpIndDesFolha read FIndDesFolha write FIndDesFolha;
     property IndOptRegEletron: TpIndOptRegEletron read FIndOptRegEletron write FIndOptRegEletron;
     property MultTabRubricas: tpSimNao read FMultTabRubricas write FMultTabRubricas;
-    property NrSiafi: string read FNrSiafi write FNrSiafi;
-    property InfoFap: TInfoFap read getInfoFap write FInfoFap;
+    property IndEntEd: tpSimNao read FIndEntEd write FIndEntEd;
+    property IndEtt: tpSimNao read FIndEtt write FIndEtt;
+    property nrRegEtt: Integer read FNrRegEtt write FNrRegEtt;
     property DadosIsencao: TDadosIsencao read getDadosIsencao write FDadosIsencao;
     property Contato: TContato read FContato write FContato;
+    property InfoOp: TInfoOp read getInfoOp write FInfoOp;
     property InfoOrgInternacional: TInfoOrgInternacional read getInfoOrgInternacional write FInfoOrgInternacional;
     property SoftwareHouse: TSoftwareHouseCollection read FSoftwareHouse write FSoftwareHouse;
     property InfoComplementares: TInfoComplementares read FInfoComplementares write FInfoComplementares;
-    property InfoRPPS: TInfoRPPS read getInfoRPPS write FInfoRPPS;
   end;
 
   TInfoComplementares = class(TPersistent)
@@ -233,7 +228,7 @@ type
 
   TDadosIsencao = class(TPersistent)
    private
-    FSiglaMin: tpSiglaMin;
+    FIdeMinLei: tpSiglaMin;
     FNrCertif: string;
     FDtEmisCertif : TDateTime;
     FDtVencCertif: TDateTime;
@@ -242,7 +237,7 @@ type
     FDtDou: TDateTime;
     FPagDou: string;
   public
-    property SiglaMin: tpSiglaMin read FSiglaMin write FSiglaMin;
+    property IdeMinLei: tpSiglaMin read FIdeMinLei write FIdeMinLei;
     property NrCertif: string read FNrCertif write FNrCertif;
     property DtEmisCertif: TDateTime read FDtEmisCertif write FDtEmisCertif;
     property DtVencCertif: TDateTime read FDtVencCertif write FDtVencCertif;
@@ -286,108 +281,48 @@ type
     property email: string read Femail write Femail;
   end;
 
-  TInfoFap = class(TPersistent)
+  TInfoEFR = class(TPersistent)
    private
-     Ffap: Double;
-     FProcAdmJudFap: TProcAdmJudFap;
-     function getProcAdmJudFap(): TProcAdmJudFap;
+     FideEFR: tpSimNao;
+     FcnpjEFR: String;
+  public
+    property ideEFR: tpSimNao read FideEFR write FideEFR;
+    property cnpjEFR: String read FcnpjEFR write FcnpjEFR;
+  end;
+
+  TInfoEnte = class(TPersistent)
+    private
+      FNmEnte: String;
+      FUf: tpuf;
+      FCodMunic: Integer;
+      FIndRPPS: tpSimNao;
+      FSubteto: tpIdeSubteto;
+      FVrSubTeto: double;
+  public
+    property nmEnte: String read FNmEnte write FNmEnte;
+    property uf: tpuf read FUf write FUf;
+    property codMunic: Integer read FCodMunic write FCodMunic;
+    property indRPPS: tpSimNao read FIndRPPS write FIndRPPS;
+    property subteto: tpIdeSubteto read FSubteto write FSubteto;
+    property vrSubteto: Double read FVrSubTeto write FVrSubTeto;
+  end;
+
+  TInfoOp = class(TPersistent)
+   private
+     FNrSiafi: String;
+     FInfoEFR: TInfoEFR;
+     FInfoEnte: TInfoEnte;
+     function getInfoEFR(): TInfoEFR;
+     function getInfoEnte(): TInfoEnte;
   public
     constructor Create;
     destructor Destroy; override;
-    function procAdmJudFapInst(): Boolean;
+    function InfoEFRInst(): Boolean;
+    function InfoEnteInst(): Boolean;
 
-    property fap: Double read Ffap write Ffap;
-    property procAdmJudFap: TProcAdmJudFap read getProcAdmJudFap write FProcAdmJudFap;
-  end;
-
-  TLimitesRemCollection = class(TCollection)
-   private
-    function GetItem(Index: Integer): TLimitesRemCollectionItem;
-    procedure SetItem(Index: Integer; Value: TLimitesRemCollectionItem);
-  public
-    constructor create(); reintroduce;
-
-    function Add: TLimitesRemCollectionItem;
-    property Items[Index: Integer]: TLimitesRemCollectionItem read GetItem write SetItem; default;
-  end;
-
-  TLimitesRemCollectionItem = class(TCollectionItem)
-   private
-    FIdeSubteto: tpIdeSubteto;
-    FValSubteto: Double;
-    FIdMaior: string;
-  public
-    constructor create; reintroduce;
-    property IdeSubteto: tpIdeSubteto read FIdeSubteto write FIdeSubteto;
-    property ValSubteto: Double read  FValSubteto write FValSubteto;
-    property IdMaior: string read FIdMaior write FIdMaior;
-  end;
-
-  TPerc = class(TPersistent)
-   private
-    FPercSeg: Double;
-    FPercEnte: Double;
-    FPercSupl: Double;
-  public
-    property PercSeg: Double read FPercSeg write FPercSeg;
-    property PercEnte: Double read FPercEnte write FPercEnte;
-    property PercSupl: Double read FPercSupl write FPercSupl;
-  end;
-
-  TAliqEnteFedCollection = class(TCollection)
-   private
-    function GetItem(Index: Integer): TAliqEnteFedCollectionItem;
-    procedure SetItem(Index: Integer; Value: TAliqEnteFedCollectionItem);
-  public
-    constructor Create();
-
-    function Add: TAliqEnteFedCollectionItem;
-    property Items[Index: Integer]: TAliqEnteFedCollectionItem read GetItem write SetItem; default;
-  end;
-
-  TAliqEnteFedCollectionItem = class(TCollectionItem)
-   private
-    FTpPublAlvo: tpTpPublAlvo;
-    FDescSegDif: string;
-    FPerc: TPerc;
-    procedure setPerc(const value: TPerc);
-  public
-    constructor create; reintroduce;
-    destructor Destroy; override;
-
-    property TpPublAlvo: tpTpPublAlvo read FTpPublAlvo write FTpPublAlvo;
-    property DescSegDif: string read FDescSegDif write FDescSegDif;
-    property Perc: TPerc read FPerc write setPerc;
-  end;
-
-  TInfEnteFed = class(TPersistent)
-   private
-    FufEnteFed: tpuf;
-    FcodMunic: Integer;
-    FaliqEnteFed: TAliqEnteFedCollection;
-    FlimitesRem: TLimitesRemCollection;
-  public
-    constructor create;
-    destructor Destroy; override;
-
-    property ufEnteFed: tpuf read FufEnteFed write FufEnteFed;
-    property codMunic: Integer read FcodMunic write FcodMunic;
-    property aliqEnteFed: TAliqEnteFedCollection read FaliqEnteFed write FaliqEnteFed;
-    property limitesRem: TLimitesRemCollection read FlimitesRem write FlimitesRem;
-  end;
-
-  TInfoRPPS = class(TPersistent)
-   private
-    FindRPPS: tpSimNao;
-    FinfEnteFed: TInfEnteFed;
-    function getInfEnteFed(): TInfEnteFed;
-  public
-    constructor create;
-    destructor Destroy; override;
-    function infEnteFedInst(): Boolean;
-
-    property indRPPS: tpSimNao read FindRPPS write FindRPPS;
-    property infEnteFed: TInfEnteFed read getInfEnteFed write FinfEnteFed;
+    property nrSiafi: String read FNrSiafi write FNrSiafi;
+    property infoEFR: TInfoEFR read getInfoEFR write FInfoEFR;
+    property infoEnte: TInfoEnte read getInfoEnte write FInfoEnte;
   end;
 
 
@@ -451,22 +386,6 @@ begin
   inherited;
 end;
 
-procedure TevtInfoEmpregador.GerarAliqEnteFed;
-  var
-      iAliqEnteFed: Integer;
-begin
-  for iAliqEnteFed := 0 to Self.infoEmpregador.infoCadastro.InfoRPPS.infEnteFed.aliqEnteFed.Count - 1 do
-  begin
-    Gerador.wGrupo('aliqEnteFed');
-      Gerador.wCampo(tcStr, '', 'tpPublAlvo', 0, 0, 0, eSTpPublAlvoToStr(infoEmpregador.infoCadastro.InfoRPPS.infEnteFed.aliqEnteFed.Items[iAliqEnteFed].TpPublAlvo));
-
-      if (infoEmpregador.infoCadastro.InfoRPPS.infEnteFed.aliqEnteFed.Items[iAliqEnteFed].DescSegDif <> '') then
-        Gerador.wCampo(tcStr, '', 'descSegDif', 0, 0, 0, infoEmpregador.infoCadastro.InfoRPPS.infEnteFed.aliqEnteFed.Items[iAliqEnteFed].DescSegDif);
-      GerarPerc(iAliqEnteFed);
-    Gerador.wGrupo('/aliqEnteFed');
-  end;
-end;
-
 procedure TevtInfoEmpregador.GerarContato;
 begin
   Gerador.wGrupo('contato');
@@ -484,12 +403,50 @@ begin
   Gerador.wGrupo('/contato');
 end;
 
+procedure TevtInfoEmpregador.GerarInfoEFR;
+begin
+  if infoEmpregador.infoCadastro.InfoOp.InfoEFRInst() then
+  begin
+    Gerador.wGrupo('infoEFR');
+      Gerador.wCampo(tcStr, '', 'ideEFR', 1, 1, 0, eSSimNaoToStr(infoEmpregador.infoCadastro.InfoOp.infoEFR.ideEFR));
+      Gerador.wCampo(tcStr, '', 'cnpjEFR', 0, 1, 0, infoEmpregador.infoCadastro.InfoOp.infoEFR.cnpjEFR);
+    Gerador.wGrupo('/infoEFR')
+  end;
+end;
+
+procedure TevtInfoEmpregador.GerarInfoEnte;
+begin
+  if infoEmpregador.infoCadastro.InfoOp.InfoEnteInst() then
+  begin
+    Gerador.wGrupo('infoEnte');
+      Gerador.wCampo(tcStr, '', 'nmEnte', 1, 1, 0, infoEmpregador.infoCadastro.InfoOp.infoEnte.nmEnte);
+      Gerador.wCampo(tcStr, '', 'uf', 1, 1, 0, eSufToStr(infoEmpregador.infoCadastro.InfoOp.infoEnte.uf));
+      Gerador.wCampo(tcInt, '', 'codMunic', 0, 1, 0, infoEmpregador.infoCadastro.InfoOp.infoEnte.codMunic);
+      Gerador.wCampo(tcStr, '', 'indRPPS', 1, 1, 0, eSSimNaoToStr(infoEmpregador.infoCadastro.InfoOp.infoEnte.indRPPS));
+      Gerador.wCampo(tcInt, '', 'subteto', 1, 1, 0, eSIdeSubtetoToStr(infoEmpregador.infoCadastro.InfoOp.infoEnte.subteto));
+      Gerador.wCampo(tcInt, '', 'vrSubteto', 1, 1, 0, infoEmpregador.infoCadastro.InfoOp.infoEnte.vrSubteto);
+    Gerador.wGrupo('/infoEnte');
+  end;
+end;
+
+procedure TevtInfoEmpregador.GerarInfoOp;
+begin
+  if infoEmpregador.infoCadastro.infoOpInst() then
+  begin
+    Gerador.wGrupo('infoOP');
+      Gerador.wCampo(tcStr, '', 'nrSiafi', 1, 1, 0, infoEmpregador.infoCadastro.InfoOp.nrSiafi);
+      GerarInfoEFR();
+      GerarInfoEnte();
+    Gerador.wGrupo('/infoOP');
+  end;
+end;
+
 procedure TevtInfoEmpregador.GerarDadosIsencao;
 begin
   if infoEmpregador.infoCadastro.dadosIsencaoInst() then
   begin
     Gerador.wGrupo('dadosIsencao');
-      Gerador.wCampo(tcStr, '', 'siglaMin', 0, 0, 0, eSSiglaMinToStr(infoEmpregador.infoCadastro.DadosIsencao.SiglaMin));
+      Gerador.wCampo(tcStr, '', 'ideMinLei', 0, 0, 0, eSSiglaMinToStr(infoEmpregador.infoCadastro.DadosIsencao.IdeMinLei));
       Gerador.wCampo(tcStr, '', 'nrCertif', 0, 0, 0, infoEmpregador.infoCadastro.DadosIsencao.NrCertif);
       Gerador.wCampo(tcDat, '', 'dtEmisCertif', 0, 0, 0, infoEmpregador.infoCadastro.DadosIsencao.DtEmisCertif);
       Gerador.wCampo(tcDat, '', 'dtVencCertif', 0, 0, 0, infoEmpregador.infoCadastro.DadosIsencao.DtVencCertif);
@@ -509,18 +466,6 @@ begin
   end;
 end;
 
-procedure TevtInfoEmpregador.GerarInfEnteFed;
-begin
-  Gerador.wGrupo('infEnteFed');
-    Gerador.wCampo(tcStr, '', 'ufEnteFed', 0, 0, 0, eSufToStr(Self.infoEmpregador.infoCadastro.InfoRPPS.infEnteFed.ufEnteFed));
-
-    if (Self.infoEmpregador.infoCadastro.InfoRPPS.infEnteFed.codMunic <> 0) then
-      Gerador.wCampo(tcInt, '', 'codMunic', 0, 0, 0, Self.infoEmpregador.infoCadastro.InfoRPPS.infEnteFed.codMunic);
-    GerarAliqEnteFed();
-    GerarLimitesRem();
-  Gerador.wGrupo('/infEnteFed');
-end;
-
 procedure TevtInfoEmpregador.GerarInfoCadastro;
 begin
   Gerador.wGrupo('infoCadastro');
@@ -532,19 +477,16 @@ begin
     Gerador.wCampo(tcStr, '', 'indDesFolha', 0, 0, 0, eSIndDesFolhaToStr(Self.infoEmpregador.infoCadastro.IndDesFolha));
     Gerador.wCampo(tcStr, '', 'indOptRegEletron', 0, 0, 0, eSIndOptRegEletronicoToStr(Self.infoEmpregador.infoCadastro.IndOptRegEletron));
     Gerador.wCampo(tcStr, '', 'multTabRubricas', 0, 0, 0, eSSimNaoToStr(Self.infoEmpregador.infoCadastro.MultTabRubricas));
+    Gerador.wCampo(tcStr, '', 'indEntEd', 0, 1, 0, eSSimNaoToStr(Self.infoEmpregador.infoCadastro.IndEntEd));
+    Gerador.wCampo(tcStr, '', 'indEtt', 1, 1, 0, eSSimNaoToStr(Self.infoEmpregador.infoCadastro.IndEtt));
+    Gerador.wCampo(tcInt, '', 'nrRegEtt', 0, 1, 0, Self.infoEmpregador.infoCadastro.nrRegEtt);
 
-    if (Self.infoEmpregador.infoCadastro.ClassTrib = '85') then
-      Gerador.wCampo(tcStr, '', 'nrSiafi', 0, 0, 0, Self.infoEmpregador.infoCadastro.NrSiafi)
-    else
-      Gerador.wCampo(tcStr, '', 'nrSiafi', 0, 0, 0, '000000');
-
-    GerarInfoFap();
     GerarDadosIsencao();
     GerarContato();
+    GerarInfoOp();
     GerarInfoOrgInternacional();
     GerarSoftwareHouse();
     GerarInfoComplementares();
-    GerarInfoRPPS();
   Gerador.wGrupo('/infoCadastro');
 end;
 
@@ -558,14 +500,14 @@ end;
 
 procedure TevtInfoEmpregador.GerarInfoFap;
 begin
-  if infoEmpregador.infoCadastro.infoFapInst() then
-  begin
-    Gerador.wGrupo('infoFap');
-      Gerador.wCampo(tcDe4, '', 'fap', 0, 0, 0, infoEmpregador.infoCadastro.InfoFap.fap);
-      if (infoEmpregador.infoCadastro.InfoFap.procAdmJudFapInst()) then
-        GerarProcessoAdmJudFap(infoEmpregador.infoCadastro.InfoFap.procAdmJudFap);
-    Gerador.wGrupo('/infoFap');
-  end;
+  //if infoEmpregador.infoCadastro.infoFapInst() then
+  //begin
+  //  Gerador.wGrupo('infoFap');
+  //    Gerador.wCampo(tcDe4, '', 'fap', 0, 0, 0, infoEmpregador.infoCadastro.InfoFap.fap);
+  //    if (infoEmpregador.infoCadastro.InfoFap.procAdmJudFapInst()) then
+  //      GerarProcessoAdmJudFap(infoEmpregador.infoCadastro.InfoFap.procAdmJudFap);
+  //  Gerador.wGrupo('/infoFap');
+  //end;
 end;
 
 procedure TevtInfoEmpregador.GerarInfoOrgInternacional;
@@ -578,38 +520,27 @@ begin
   end;
 end;
 
-procedure TevtInfoEmpregador.GerarInfoRPPS;
-begin
-  if infoEmpregador.infoCadastro.infoRPPSInst() then
-  begin
-    Gerador.wGrupo('infoRPPS');
-      Gerador.wCampo(tcStr, '', 'indRPPS', 0, 0, 0, eSSimNaoToStr(infoEmpregador.infoCadastro.InfoRPPS.indRPPS));
-      GerarInfEnteFed();
-    Gerador.wGrupo('/infoRPPS');
-  end;
-end;
-
 procedure TevtInfoEmpregador.GerarLimitesRem;
   var
       iLimitesRem: Integer;
 begin
-  for iLimitesRem := 0 to infoEmpregador.infoCadastro.InfoRPPS.infEnteFed.limitesRem.Count - 1 do
-  begin
-    Gerador.wGrupo('limitesRem');
-      Gerador.wCampo(tcStr, '', 'ideSubteto', 0, 0, 0, eSIdeSubtetoToStr(Self.infoEmpregador.infoCadastro.InfoRPPS.infEnteFed.limitesRem.Items[iLimitesRem].IdeSubteto));
-      Gerador.wCampo(tcDe2, '', 'valSubteto', 0, 0, 0, Self.infoEmpregador.infoCadastro.InfoRPPS.infEnteFed.limitesRem.Items[iLimitesRem].ValSubteto);
-      Gerador.wCampo(tcStr, '', 'idMaior', 0, 0, 0, Self.infoEmpregador.infoCadastro.InfoRPPS.infEnteFed.limitesRem.Items[iLimitesRem].IdMaior);
-    Gerador.wGrupo('/limitesRem');
-  end;
+  //for iLimitesRem := 0 to infoEmpregador.infoCadastro.InfoRPPS.infEnteFed.limitesRem.Count - 1 do
+  //begin
+  //  Gerador.wGrupo('limitesRem');
+  //    Gerador.wCampo(tcStr, '', 'ideSubteto', 0, 0, 0, eSIdeSubtetoToStr(Self.infoEmpregador.infoCadastro.InfoRPPS.infEnteFed.limitesRem.Items[iLimitesRem].IdeSubteto));
+  //    Gerador.wCampo(tcDe2, '', 'valSubteto', 0, 0, 0, Self.infoEmpregador.infoCadastro.InfoRPPS.infEnteFed.limitesRem.Items[iLimitesRem].ValSubteto);
+  //    Gerador.wCampo(tcStr, '', 'idMaior', 0, 0, 0, Self.infoEmpregador.infoCadastro.InfoRPPS.infEnteFed.limitesRem.Items[iLimitesRem].IdMaior);
+  //  Gerador.wGrupo('/limitesRem');
+  //end;
 end;
 
 procedure TevtInfoEmpregador.GerarPerc(indexAliqEnteFed: Integer);
 begin
-  Gerador.wGrupo('perc');
-    Gerador.wCampo(tcDe2, '', 'percSeg', 0, 0, 0, Self.infoEmpregador.infoCadastro.InfoRPPS.infEnteFed.aliqEnteFed.Items[indexAliqEnteFed].Perc.PercSeg);
-    Gerador.wCampo(tcDe2, '', 'percEnte', 0, 0, 0, Self.infoEmpregador.infoCadastro.InfoRPPS.infEnteFed.aliqEnteFed.Items[indexAliqEnteFed].Perc.PercEnte);
-    Gerador.wCampo(tcDe2, '', 'percSupl', 0, 0, 0, Self.infoEmpregador.infoCadastro.InfoRPPS.infEnteFed.aliqEnteFed.Items[indexAliqEnteFed].Perc.percSupl);
-  Gerador.wGrupo('/perc');
+  //Gerador.wGrupo('perc');
+  //  Gerador.wCampo(tcDe2, '', 'percSeg', 0, 0, 0, Self.infoEmpregador.infoCadastro.InfoRPPS.infEnteFed.aliqEnteFed.Items[indexAliqEnteFed].Perc.PercSeg);
+  //  Gerador.wCampo(tcDe2, '', 'percEnte', 0, 0, 0, Self.infoEmpregador.infoCadastro.InfoRPPS.infEnteFed.aliqEnteFed.Items[indexAliqEnteFed].Perc.PercEnte);
+  //  Gerador.wCampo(tcDe2, '', 'percSupl', 0, 0, 0, Self.infoEmpregador.infoCadastro.InfoRPPS.infEnteFed.aliqEnteFed.Items[indexAliqEnteFed].Perc.percSupl);
+  //Gerador.wGrupo('/perc');
 end;
 
 procedure TevtInfoEmpregador.GerarSituacaoPF;
@@ -728,13 +659,12 @@ end;
 
 constructor TInfoCadastro.Create;
 begin
-  FInfoFap := nil;
   FDadosIsencao:= nil;
-  FContato:= TContato.Create;
-  FInfoOrgInternacional:= nil;
-  FSoftwareHouse:= TSoftwareHouseCollection.Create;
-  FInfoComplementares:= TInfoComplementares.Create;
-  FInfoRPPS := nil;
+  FContato := TContato.Create;
+  FInfoOrgInternacional := nil;
+  FSoftwareHouse := TSoftwareHouseCollection.Create;
+  FInfoComplementares := TInfoComplementares.Create;
+  FInfoOp := TInfoOp.Create;
 end;
 
 function TInfoCadastro.dadosIsencaoInst: Boolean;
@@ -744,14 +674,25 @@ end;
 
 destructor TInfoCadastro.Destroy;
 begin
-  FreeAndNil(FInfoFap);
   FreeAndNil(FDadosIsencao);
   FContato.Free;
   FreeAndNil(FInfoOrgInternacional);
   FSoftwareHouse.Free;
   FInfoComplementares.Free;
-  FreeAndNil(FInfoRPPS);
+  FreeAndNil(FInfoOp);
   inherited;
+end;
+
+function TInfoCadastro.getInfoOp: TInfoOp;
+begin
+  if Not(Assigned(FInfoOp)) then
+    FInfoOp := TInfoOp.Create;
+  Result := FInfoOp;
+end;
+
+function TInfoCadastro.infoOpInst: Boolean;
+begin
+  Result := Assigned(FInfoOp);
 end;
 
 function TInfoCadastro.getDadosIsencao: TDadosIsencao;
@@ -761,12 +702,6 @@ begin
   Result := FDadosIsencao;
 end;
 
-function TInfoCadastro.getInfoFap: TInfoFap;
-begin
-  if Not(Assigned(FInfoFap)) then
-    FInfoFap := TInfoFap.Create;
-  Result := FInfoFap;
-end;
 
 function TInfoCadastro.getInfoOrgInternacional: TInfoOrgInternacional;
 begin
@@ -775,52 +710,53 @@ begin
   Result := FInfoOrgInternacional;
 end;
 
-function TInfoCadastro.getInfoRPPS: TInfoRPPS;
-begin
-  if Not(Assigned(FInfoRPPS)) then
-    FInfoRPPS := TInfoRPPS.create;
-  Result := FInfoRPPS;
-end;
-
-function TInfoCadastro.infoFapInst: Boolean;
-begin
-  Result := Assigned(FInfoFap);
-end;
 
 function TInfoCadastro.infoOrgInternacionalInst: Boolean;
 begin
   Result := Assigned(FInfoOrgInternacional);
 end;
 
-function TInfoCadastro.infoRPPSInst: Boolean;
+
+
+
+{ TInfoOp }
+
+constructor TInfoOp.Create;
 begin
-  Result := Assigned(FInfoRPPS);
+  FInfoEFR := TInfoEFR.Create;
+  FInfoEnte := TInfoEnte.Create;
 end;
 
-{ TInfoFap }
-
-constructor TInfoFap.Create;
+destructor TInfoOp.Destroy;
 begin
-  FProcAdmJudFap := TProcAdmJudFap.Create;
+  FreeAndNil(FInfoEFR);
+  FreeAndNil(FInfoEnte);
 end;
 
-destructor TInfoFap.Destroy;
-begin  
-  FreeAndNil(FProcAdmJudFap);
-  inherited;
-end;
-
-function TInfoFap.getProcAdmJudFap: TProcAdmJudFap;
+function TInfoOp.getInfoEFR: TInfoEFR;
 begin
-  if Not(Assigned(FProcAdmJudFap)) then
-    FProcAdmJudFap := TProcAdmJudFap.Create;
-  Result := FProcAdmJudFap;
+  if Not(Assigned(FInfoEFR)) then
+    FInfoEFR := TInfoEFR.Create;
+  Result := FInfoEFR;
 end;
 
-function TInfoFap.procAdmJudFapInst: Boolean;
+function TInfoOp.getInfoEnte: TInfoEnte;
 begin
-  Result := Assigned(FProcAdmJudFap);
+  if Not(Assigned(FInfoEnte)) then
+     FInfoEnte := TInfoEnte.Create;
+  result := FInfoEnte;
 end;
+
+function TInfoOp.InfoEFRInst: Boolean;
+begin
+  result := Assigned(FInfoEFR);
+end;
+
+function TInfoOp.InfoEnteInst: Boolean;
+begin
+  Result := Assigned(FInfoEnte);
+end;
+
 
 { TInfoComplementares }
 
@@ -853,114 +789,6 @@ end;
 function TInfoComplementares.situacaoPJInst: Boolean;
 begin
   Result := Assigned(FSituacaoPJ);
-end;
-
-{ TAliqEnteFed }
-
-constructor TAliqEnteFedCollectionItem.create;
-begin
-  FPerc := TPerc.Create;
-end;
-
-destructor TAliqEnteFedCollectionItem.destroy;
-begin
-  FreeAndNil(FPerc);
-  inherited;
-end;
-
-procedure TAliqEnteFedCollectionItem.setPerc(const value: TPerc);
-begin
-  FreeAndNil(FPerc);
-  FPerc := value;
-end;
-
-{ TInfEnteFed }
-
-constructor TInfEnteFed.create;
-begin
-  FaliqEnteFed := TAliqEnteFedCollection.create;
-  FlimitesRem := TLimitesRemCollection.Create;
-end;
-
-destructor TInfEnteFed.destroy;
-begin
-  FaliqEnteFed.Free;
-  FlimitesRem.Free;
-  inherited;
-end;
-
-{ TInfoRPPS }
-
-constructor TInfoRPPS.create;
-begin
-  FinfEnteFed := nil;
-end;
-
-destructor TInfoRPPS.destroy;
-begin
-  FreeAndNil(FinfEnteFed);
-  inherited;
-end;
-
-function TInfoRPPS.getInfEnteFed: TInfEnteFed;
-begin
-  if Not(Assigned(FinfEnteFed)) then
-    FinfEnteFed := TInfEnteFed.create;
-  Result := FinfEnteFed;
-end;
-
-function TInfoRPPS.infEnteFedInst: Boolean;
-begin
-  Result := Assigned(FinfEnteFed);
-end;
-
-{ TAliqEnteFedCollection }
-function TAliqEnteFedCollection.Add: TAliqEnteFedCollectionItem;
-begin
-  Result := TAliqEnteFedCollectionItem(inherited Add());
-  Result.create;
-end;
-
-constructor TAliqEnteFedCollection.Create;
-begin
-  inherited Create(TAliqEnteFedCollectionItem);
-end;
-
-function TAliqEnteFedCollection.GetItem(Index: Integer): TAliqEnteFedCollectionItem;
-begin
-  Result := TAliqEnteFedCollectionItem(inherited GetItem(Index))
-end;
-
-procedure TAliqEnteFedCollection.SetItem(Index: Integer; Value: TAliqEnteFedCollectionItem);
-begin
-  inherited SetItem(Index, Value);
-end;
-
-{ TLimitesRemCollection }  
-function TLimitesRemCollection.Add: TLimitesRemCollectionItem;
-begin
-  Result := TLimitesRemCollectionItem(inherited Add());
-  Result.Create();
-end;
-
-constructor TLimitesRemCollection.Create;
-begin
-  inherited Create(TLimitesRemCollectionItem);
-end;
-
-function TLimitesRemCollection.GetItem(Index: Integer): TLimitesRemCollectionItem;
-begin
-  Result := TLimitesRemCollectionItem(inherited GetItem(Index));
-end;
-
-procedure TLimitesRemCollection.SetItem(Index: Integer;Value: TLimitesRemCollectionItem);
-begin
-  inherited SetItem(Index, Value);
-end;
-
-{ TLimitesRemCollectionItem }     
-constructor TLimitesRemCollectionItem.create;
-begin
 end;
 
 { TSoftwareHouseCollection }

@@ -1,0 +1,417 @@
+object FExemploEsocial: TFExemploEsocial
+  Left = 344
+  Height = 587
+  Top = 178
+  Width = 730
+  Caption = 'Exemplo eSocial'
+  ClientHeight = 587
+  ClientWidth = 730
+  Color = clBtnFace
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  OnClose = FormClose
+  LCLVersion = '1.6.0.4'
+  object GroupBox1: TGroupBox
+    Left = 0
+    Height = 158
+    Top = 0
+    Width = 730
+    Align = alTop
+    Caption = ' Eventos de Tabela '
+    ClientHeight = 140
+    ClientWidth = 726
+    TabOrder = 0
+    object cbS1000: TCheckBox
+      Left = 8
+      Height = 19
+      Top = 23
+      Width = 190
+      Caption = 'S-1000 Informações do Empregador'
+      TabOrder = 0
+    end
+    object cbS1010: TCheckBox
+      Left = 8
+      Height = 19
+      Top = 65
+      Width = 150
+      Caption = 'S-1010 Tabela de Rubricas'
+      TabOrder = 2
+    end
+    object cbS1020: TCheckBox
+      Left = 8
+      Height = 19
+      Top = 86
+      Width = 229
+      Caption = 'S-1020 Tabela de Lotações/Departamentos'
+      TabOrder = 3
+    end
+    object cbS1030: TCheckBox
+      Left = 8
+      Height = 19
+      Top = 108
+      Width = 141
+      Caption = 'S-1030 Tabela de Cargos'
+      TabOrder = 4
+    end
+    object cbS1040: TCheckBox
+      Left = 8
+      Height = 19
+      Top = 129
+      Width = 149
+      Caption = 'S-1040 Tabela de Funções'
+      TabOrder = 5
+    end
+    object cbS1080: TCheckBox
+      Left = 346
+      Height = 19
+      Top = 87
+      Width = 219
+      Caption = 'S-1080 - Tabela de Operadores Portuários'
+      TabOrder = 9
+    end
+    object cbS2100: TCheckBox
+      Left = 346
+      Height = 19
+      Top = 108
+      Width = 219
+      Caption = 'S-2100 - Cadastramento Inicial do Vínculo'
+      TabOrder = 10
+    end
+    object cbS1070: TCheckBox
+      Left = 346
+      Height = 19
+      Top = 65
+      Width = 163
+      Caption = 'S-1070 - Tabela de Processos'
+      TabOrder = 8
+    end
+    object cbS1060: TCheckBox
+      Left = 346
+      Height = 19
+      Top = 44
+      Width = 217
+      Caption = 'S-1060 Tabela de Ambientes de Trabalho'
+      TabOrder = 7
+    end
+    object cbS1050: TCheckBox
+      Left = 346
+      Height = 19
+      Top = 23
+      Width = 245
+      Caption = 'S-1050 Tabela de Horários/Turnos de Trabalho'
+      TabOrder = 6
+    end
+    object cbS1005: TCheckBox
+      Left = 8
+      Height = 19
+      Top = 44
+      Width = 325
+      Caption = 'S-1005 Tabela de Estabelecimentos e Obras de Construção Civil'
+      TabOrder = 1
+    end
+  end
+  object GroupBox2: TGroupBox
+    Left = 0
+    Height = 205
+    Top = 299
+    Width = 730
+    Align = alTop
+    Caption = ' Eventos Não Periódicos '
+    ClientHeight = 187
+    ClientWidth = 726
+    TabOrder = 1
+    object cbS2200: TCheckBox
+      Left = 8
+      Height = 19
+      Top = 34
+      Width = 148
+      Caption = 'S-2200 -  Evento Admissão'
+      TabOrder = 1
+    end
+    object cbS2220: TCheckBox
+      Left = 8
+      Height = 19
+      Top = 106
+      Width = 260
+      Caption = 'S-2220 -  Monitoramento da Saúde do Trabalhador'
+      TabOrder = 5
+    end
+    object cbS2240: TCheckBox
+      Left = 8
+      Height = 19
+      Top = 142
+      Width = 319
+      Caption = 'S-2240 -  Condições Ambientais do Trabalho - Fatores de Risco'
+      TabOrder = 7
+    end
+    object cbS2210: TCheckBox
+      Left = 8
+      Height = 19
+      Top = 88
+      Width = 248
+      Caption = 'S-2210 - Comunicação de Acidente de Trabalho'
+      TabOrder = 4
+    end
+    object cbS2250: TCheckBox
+      Left = 346
+      Height = 19
+      Top = 17
+      Width = 122
+      Caption = 'S-2250 - Aviso Prévio'
+      TabOrder = 9
+    end
+    object cbS2298: TCheckBox
+      Left = 346
+      Height = 19
+      Top = 34
+      Width = 127
+      Caption = 'S-2298 - Reintegração'
+      TabOrder = 11
+    end
+    object cbAviso: TComboBox
+      Left = 469
+      Height = 21
+      Top = 14
+      Width = 145
+      ItemHeight = 13
+      ItemIndex = 0
+      Items.Strings = (
+        'Aviso'
+        'Cancelamento'
+      )
+      Style = csDropDownList
+      TabOrder = 10
+      Text = 'Aviso'
+    end
+    object cbS3000: TCheckBox
+      Left = 346
+      Height = 19
+      Top = 124
+      Width = 163
+      Caption = 'S-3000 - Exclusão de Eventos'
+      TabOrder = 16
+    end
+    object cbS4000: TCheckBox
+      Left = 346
+      Height = 19
+      Top = 142
+      Width = 356
+      Caption = 'S-4000 - Solicitação de Totalização de Eventos, Bases e Contribuições'
+      TabOrder = 17
+    end
+    object cbS4999: TCheckBox
+      Left = 346
+      Height = 19
+      Top = 161
+      Width = 208
+      Caption = 'S-4999 - Adesão antecipada ao eSocial'
+      TabOrder = 18
+    end
+    object cbS2190: TCheckBox
+      Left = 8
+      Height = 19
+      Top = 17
+      Width = 279
+      Caption = 'S-2190 - Admissão de Trabalhador - Registro Preliminar'
+      TabOrder = 0
+    end
+    object cbS2205: TCheckBox
+      Left = 8
+      Height = 19
+      Top = 52
+      Width = 284
+      Caption = 'S-2205 - Alteração de Dados Cadastrais do Trabalhador'
+      TabOrder = 2
+    end
+    object cbS2206: TCheckBox
+      Left = 8
+      Height = 19
+      Top = 70
+      Width = 226
+      Caption = 'S-2206 - Alteração do Contrato de Trabalho'
+      TabOrder = 3
+    end
+    object cbS2230: TCheckBox
+      Left = 8
+      Height = 19
+      Top = 124
+      Width = 172
+      Caption = 'S-2230 - Afstamento Temporário'
+      TabOrder = 6
+    end
+    object cbS2241: TCheckBox
+      Left = 8
+      Height = 19
+      Top = 161
+      Width = 324
+      Caption = 'S-2241 - Insalubridade, Periculosidade e Aposentadoria Especial'
+      TabOrder = 8
+    end
+    object cbS2299: TCheckBox
+      Left = 346
+      Height = 19
+      Top = 52
+      Width = 127
+      Caption = 'S-2299 - Desligamento'
+      TabOrder = 12
+    end
+    object cbS2300: TCheckBox
+      Left = 346
+      Height = 19
+      Top = 70
+      Width = 220
+      Caption = 'S-2300 - Trabalhador Sem Vínculo - Início'
+      TabOrder = 13
+    end
+    object cbS2305: TCheckBox
+      Left = 346
+      Height = 19
+      Top = 88
+      Width = 289
+      Caption = 'S-2305 - Trabalhador Sem Vínculo - Alteração Contratual'
+      TabOrder = 14
+    end
+    object cbS2399: TCheckBox
+      Left = 346
+      Height = 19
+      Top = 106
+      Width = 231
+      Caption = 'S-2399 - Trabalhador Sem Vínculo - Término'
+      TabOrder = 15
+    end
+  end
+  object GroupBox3: TGroupBox
+    Left = 0
+    Height = 141
+    Top = 158
+    Width = 730
+    Align = alTop
+    Caption = ' Eventos Periódicos '
+    ClientHeight = 123
+    ClientWidth = 726
+    TabOrder = 2
+    object cbS1220: TCheckBox
+      Left = 8
+      Height = 19
+      Top = 74
+      Width = 280
+      Caption = 'S-1220 - Pagamentos a Beneficiários Não Identificados'
+      TabOrder = 3
+    end
+    object cbS1298: TCheckBox
+      Left = 346
+      Height = 19
+      Top = 56
+      Width = 230
+      Caption = 'S-1298 - Reabertura dos Eventos Periódicos'
+      TabOrder = 8
+    end
+    object cbS1299: TCheckBox
+      Left = 346
+      Height = 19
+      Top = 74
+      Width = 236
+      Caption = 'S-1299 - Fechamento dos Eventos Periódicos'
+      TabOrder = 9
+    end
+    object cbS1300: TCheckBox
+      Left = 346
+      Height = 19
+      Top = 91
+      Width = 204
+      Caption = 'S-1300 - Contribuição Sindical Patronal'
+      TabOrder = 10
+    end
+    object cbS1280: TCheckBox
+      Left = 346
+      Height = 19
+      Top = 37
+      Width = 316
+      Caption = 'S-1280 - Informações Complementares aos Eventos Periódicos'
+      TabOrder = 7
+    end
+    object cbS1270: TCheckBox
+      Left = 346
+      Height = 19
+      Top = 19
+      Width = 320
+      Caption = 'S-1270 - Contratação de Trabalhadores Avulsos Não Portuários'
+      TabOrder = 6
+    end
+    object cbS1250: TCheckBox
+      Left = 8
+      Height = 19
+      Top = 91
+      Width = 201
+      Caption = 'S-1250 - Aquisição de Produção Rural'
+      TabOrder = 4
+    end
+    object cbS1260: TCheckBox
+      Left = 8
+      Height = 19
+      Top = 108
+      Width = 302
+      Caption = 'S-1260 - Comercialização da Produção Rural Pessoa Física'
+      TabOrder = 5
+    end
+    object cbS1200: TCheckBox
+      Left = 8
+      Height = 19
+      Top = 19
+      Width = 199
+      Caption = 'S-1200 Remuneração do Trabalhador'
+      TabOrder = 0
+    end
+    object cbS1210: TCheckBox
+      Left = 8
+      Height = 19
+      Top = 56
+      Width = 262
+      Caption = 'S-1210 - Pagamentos de Rendimentos do Trabalho'
+      TabOrder = 2
+    end
+    object cbS1202: TCheckBox
+      Left = 8
+      Height = 19
+      Top = 37
+      Width = 244
+      Caption = 'S-1202 - Remuneração de trabalhadores RPPS'
+      TabOrder = 1
+    end
+  end
+  object GroupBox4: TGroupBox
+    Left = 0
+    Height = 77
+    Top = 510
+    Width = 730
+    Align = alBottom
+    Caption = ' Dados Adicionais '
+    ClientHeight = 59
+    ClientWidth = 726
+    TabOrder = 3
+    object btnGerar: TButton
+      Left = 290
+      Height = 25
+      Top = 25
+      Width = 109
+      Caption = 'Gerar Arquivos'
+      OnClick = btnGerarClick
+      TabOrder = 0
+    end
+  end
+  object ACBreSocial1: TACBreSocial
+    Configuracoes.Geral.SSLLib = libCapicom
+    Configuracoes.Geral.FormatoAlerta = 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'
+    Configuracoes.Arquivos.PathSalvar = 'C:\teste_esocial\'
+    Configuracoes.Arquivos.PathSchemas = 'Schemas\'
+    Configuracoes.WebServices.UF = 'SP'
+    Configuracoes.WebServices.AguardarConsultaRet = 0
+    Configuracoes.WebServices.QuebradeLinha = '|'
+    Configuracoes.Certificados.ArquivoPFX = 'C:\Users\cantu\Desktop\GP DISTRIBUIDORA DE COMBUSTIVEIS .pfx'
+    Configuracoes.Certificados.NumeroSerie = '39373B633A2520ACCD28A254467D0A6E'
+    Configuracoes.Certificados.Senha = 'trevo'
+    left = 648
+    top = 32
+  end
+end

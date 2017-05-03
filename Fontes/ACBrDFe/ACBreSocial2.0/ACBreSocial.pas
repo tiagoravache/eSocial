@@ -49,7 +49,7 @@ interface
 uses
   Classes, SysUtils, ACBrDFe, ACBrDFeException,
   ACBrDFeConfiguracoes, pcnConversao, ACBreSocialLoteEventos, eSocial_Conversao,
-  ACBreSocialEventos, ACBreSocialConfiguracoes, ACBreSocialWebServices, ACBrUtil, wsEnviarLoteEventos;
+  ACBreSocialEventos, ACBreSocialConfiguracoes, ACBreSocialWebServices, ACBrUtil;
 
 const
   ACBRESOCIAL_VERSAO = '2.1.0';
