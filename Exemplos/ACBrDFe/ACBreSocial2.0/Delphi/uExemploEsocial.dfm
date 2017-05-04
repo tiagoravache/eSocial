@@ -457,7 +457,7 @@ object FExemploEsocial: TFExemploEsocial
     Configuracoes.Geral.SSLLib = libCapicom
     Configuracoes.Geral.FormatoAlerta = 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'
     Configuracoes.Arquivos.PathSalvar = 'C:\teste_esocial\'
-    Configuracoes.Arquivos.PathSchemas = 'P:\ACBreSocial\trunk\Exemplos\ACBrDFe\ACBreSocial2.0\Schemas\'
+    Configuracoes.Arquivos.PathSchemas = '..\Schemas\'
     Configuracoes.WebServices.UF = 'SP'
     Configuracoes.WebServices.AguardarConsultaRet = 0
     Configuracoes.WebServices.QuebradeLinha = '|'

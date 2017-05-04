@@ -18,6 +18,7 @@
         <ComponentName Value="FExemploEsocial"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="143"/>
         <CursorPos X="3" Y="173"/>
@@ -39,8 +40,8 @@
       </Unit3>
       <Unit4>
         <Filename Value="..\..\..\..\Fontes\ACBrComum\ACBrUtil.pas"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
         <UsageCount Value="10"/>
       </Unit4>
       <Unit5>

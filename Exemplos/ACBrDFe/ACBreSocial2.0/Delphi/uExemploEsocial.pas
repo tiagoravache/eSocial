@@ -170,82 +170,72 @@ begin
   begin
     with ACBreSocial1.Eventos.Iniciais.S1000.Add do
     begin
-      evtInfoEmpregador.id     := '1';
-//      evtInfoEmpregador.Versao := '2.0';
+      evtInfoEmpregador.id := '1';
+      //      evtInfoEmpregador.Versao := '2.0';
 
-      evtInfoEmpregador.IdeEvento.TpAmb   := TpTpAmb(1);
-      evtInfoEmpregador.IdeEvento.ProcEmi := TpProcEmi(1);
+      evtInfoEmpregador.IdeEvento.TpAmb := TpTpAmb(0);
+      evtInfoEmpregador.IdeEvento.ProcEmi := TpProcEmi(0);
       evtInfoEmpregador.IdeEvento.VerProc := '1.0';
 
       evtInfoEmpregador.IdeEmpregador.TpInsc := tpTpInsc(1);
       evtInfoEmpregador.IdeEmpregador.NrInsc := '0123456789';
 
-      evtInfoEmpregador.ModoLancamento  := TModoLancamento( i );
+      evtInfoEmpregador.ModoLancamento := TModoLancamento(i);
       evtInfoEmpregador.InfoEmpregador.IdePeriodo.IniValid := '2015-05';
       evtInfoEmpregador.InfoEmpregador.IdePeriodo.FimValid := '2099-12';
 
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.NmRazao          := 'Empresa Teste';
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.ClassTrib        := '01';
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.NatJurid         := '0001';
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.IndCoop          := TpIndCoop(1);
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.IndConstr        := TpIndConstr(2);
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.IndDesFolha      := TpIndDesFolha(1);
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.IndOptRegEletron := TpIndOptRegEletron(1);
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.MultTabRubricas  := tpSimNao(1);
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.NrSiafi          := '123456';
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.NmRazao := 'Empresa Teste';
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.ClassTrib := '01';
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.NatJurid := '0001';
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.IndCoop := TpIndCoop(1);
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.IndConstr := TpIndConstr(2);
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.IndDesFolha := TpIndDesFolha(1);
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.IndOptRegEletron :=
+        TpIndOptRegEletron(1);
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.MultTabRubricas := tpSimNao(1);
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.IndEtt := tpSimNao(1);
 
-      evtInfoEmpregador.InfoEmpregador.infoCadastro.InfoFap.fap                  := 0.500;
-      evtInfoEmpregador.InfoEmpregador.infoCadastro.InfoFap.procAdmJudFap.tpProc := tpTpProc(1);
-      evtInfoEmpregador.InfoEmpregador.infoCadastro.InfoFap.procAdmJudFap.nrProc := '999999';
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.InfoOp.nrSiafi := '12345';
 
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.dadosIsencao.SiglaMin     := tpSiglaMin(1);
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.dadosIsencao.NrCertif     := '1111';
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.InfoOp.infoEnte.nmEnte := 'Ente federativo teste';
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.InfoOp.infoEnte.uf := tpuf(ufSP);
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.InfoOp.infoEnte.vrSubteto := 100.00;
+
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.dadosIsencao.IdeMinLei := tpSiglaMin(1);
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.dadosIsencao.NrCertif := '1111';
       evtInfoEmpregador.InfoEmpregador.InfoCadastro.dadosIsencao.DtEmisCertif := date;
       evtInfoEmpregador.InfoEmpregador.InfoCadastro.dadosIsencao.DtVencCertif := date;
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.dadosIsencao.NrProtRenov  := '10';
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.dadosIsencao.DtProtRenov  := date;
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.dadosIsencao.DtDou        := date;
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.dadosIsencao.PagDou       := '111';
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.dadosIsencao.NrProtRenov := '10';
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.dadosIsencao.DtProtRenov := date;
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.dadosIsencao.DtDou := date;
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.dadosIsencao.PagDou := '111';
 
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.Contato.NmCtt    := 'Contato 1';
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.Contato.CpfCtt   := '00000222220';
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.Contato.FoneFixo := '33333333';
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.Contato.FoneCel  := '99999999';
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.Contato.email    := 'testecontato@testecontato.com';
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.Contato.NmCtt := 'Contato 1';
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.Contato.CpfCtt := '00000222220';
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.Contato.FoneFixo := '34335856';
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.Contato.FoneCel := '991524587';
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.Contato.email :=
+        'testecontato@testecontato.com';
 
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.InfoOrgInternacional.IndAcordoIsenMulta := tpIndAcordoIsencaoMulta(1);
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.InfoOrgInternacional.
+        IndAcordoIsenMulta := tpIndAcordoIsencaoMulta(1);
 
 
       with evtInfoEmpregador.InfoEmpregador.InfoCadastro.SoftwareHouse.Add do
       begin
         CnpjSoftHouse := '00000000000000';
-        NmRazao       := 'SoftwareHouse Teste';
-        NmCont        := 'Soft Contato';
-        Telefone      := '3333333';
-        email         := 'teste@teste.com';
+        NmRazao := 'SoftwareHouse Teste';
+        NmCont := 'Soft Contato';
+        Telefone := '34335856';
+        email := 'teste@teste.com';
       end;
 
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.InfoComplementares.SituacaoPJ.IndSitPJ := tpIndSitPJ(0);
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.InfoComplementares.SituacaoPF.IndSitPF := tpIndSitPF(0);
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.infoRPPS.indRPPS                       := tpSimNao(0);
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.infoRPPS.infEnteFed.ufEnteFed          := tpuf(ufPR);
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.infoRPPS.infEnteFed.codMunic           := 1234567;
-
-      with evtInfoEmpregador.InfoEmpregador.InfoCadastro.infoRPPS.infEnteFed.aliqEnteFed.Add do
-      begin
-        TpPublAlvo    := tpTpPublAlvo(1);
-        DescSegDif    := 'teste';
-        Perc.PercSeg  := 1.5;
-        Perc.PercEnte := 2.5;
-        perc.PercSupl  := 3.3;
-      end;
-
-      with evtInfoEmpregador.InfoEmpregador.InfoCadastro.infoRPPS.infEnteFed.limitesRem.Add do
-      begin
-        IdeSubteto := tpIdeSubteto(1);
-        ValSubteto := 5000;
-        IdMaior    := '65';
-      end;
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.InfoComplementares.
+        SituacaoPJ.IndSitPJ :=
+        tpIndSitPJ(0);
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.InfoComplementares.
+        SituacaoPF.IndSitPF :=
+        tpIndSitPF(0);
 
       evtInfoEmpregador.infoEmpregador.NovaValidade.IniValid := '2014-05';
       evtInfoEmpregador.infoEmpregador.novaValidade.FimValid := '2099-12';
@@ -3050,6 +3040,8 @@ end;
 
 procedure TFExemploEsocial.btnGerarClick(Sender: TObject);
 begin
+
+  ACBreSocial1.SSL.SelecionarCertificado;
 
   if (cbS1000.Checked) then
     GerareSocial1000;
