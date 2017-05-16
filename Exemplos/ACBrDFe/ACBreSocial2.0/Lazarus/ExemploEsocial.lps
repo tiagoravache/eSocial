@@ -4,13 +4,13 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="7">
+    <Units Count="19">
       <Unit0>
         <Filename Value="ExemploEsocial.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos X="9" Y="18"/>
-        <UsageCount Value="20"/>
+        <CursorPos X="16" Y="10"/>
+        <UsageCount Value="32"/>
+        <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="uExemploEsocial.pas"/>
@@ -19,15 +19,17 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <IsVisibleTab Value="True"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="143"/>
-        <CursorPos X="3" Y="173"/>
-        <UsageCount Value="20"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="535"/>
+        <CursorPos X="63" Y="544"/>
+        <UsageCount Value="32"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="uExemploEsocial.lfm"/>
         <EditorIndex Value="-1"/>
-        <CursorPos X="27"/>
+        <CursorPos X="31" Y="5"/>
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit2>
@@ -52,14 +54,94 @@
       <Unit6>
         <Filename Value="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\ACBreSocialGerador.pas"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="313"/>
-        <CursorPos Y="332"/>
+        <TopLine Value="434"/>
+        <CursorPos X="97" Y="460"/>
         <UsageCount Value="10"/>
       </Unit6>
+      <Unit7>
+        <Filename Value="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1005.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="56"/>
+        <CursorPos X="55" Y="76"/>
+        <UsageCount Value="10"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1010.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="322"/>
+        <CursorPos X="61" Y="342"/>
+        <UsageCount Value="12"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1000.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="167"/>
+        <CursorPos X="53" Y="196"/>
+        <UsageCount Value="10"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1020.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="312"/>
+        <CursorPos X="22" Y="332"/>
+        <UsageCount Value="12"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_Common.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1879"/>
+        <CursorPos X="18" Y="1912"/>
+        <UsageCount Value="12"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_Tabelas.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="112"/>
+        <CursorPos X="39" Y="192"/>
+        <UsageCount Value="10"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1035.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="144"/>
+        <CursorPos X="24" Y="171"/>
+        <UsageCount Value="10"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1030.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="196"/>
+        <CursorPos X="3" Y="214"/>
+        <UsageCount Value="10"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1060.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="351"/>
+        <CursorPos X="28" Y="383"/>
+        <UsageCount Value="10"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1070.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="408"/>
+        <CursorPos Y="428"/>
+        <UsageCount Value="10"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="..\..\..\..\Fontes\PCNComum\pcnGerador.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="714"/>
+        <CursorPos Y="747"/>
+        <UsageCount Value="10"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S2100.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="8"/>
+        <UsageCount Value="10"/>
+      </Unit18>
     </Units>
-    <General>
-      <ActiveWindowIndexAtStart Value="-1"/>
-    </General>
     <JumpHistory HistoryIndex="-1"/>
   </ProjectSession>
 </CONFIG>

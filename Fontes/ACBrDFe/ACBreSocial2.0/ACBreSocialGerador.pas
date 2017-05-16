@@ -1,36 +1,36 @@
-﻿{******************************************************************************}
+{******************************************************************************}
 { Projeto: Componente ACBreSocial                                              }
 {  Biblioteca multiplataforma de componentes Delphi para envio dos eventos do  }
 { eSocial - http://www.esocial.gov.br/                                         }
 {                                                                              }
 { Direitos Autorais Reservados (c) 2008 Wemerson Souto                         }
 {                                       Daniel Simoes de Almeida               }
-{                                       AndrÃ© Ferreira de Moraes               }
+{                                       André Ferreira de Moraes               }
 {                                                                              }
 { Colaboradores nesse arquivo:                                                 }
 {                                                                              }
-{  VocÃª pode obter a Ãºltima versÃ£o desse arquivo na pagina do Projeto ACBr     }
+{  Você pode obter a última versão desse arquivo na pagina do Projeto ACBr     }
 { Componentes localizado em http://www.sourceforge.net/projects/acbr           }
 {                                                                              }
 {                                                                              }
-{  Esta biblioteca Ã© software livre; vocÃª pode redistribuÃ­-la e/ou modificÃ¡-la }
-{ sob os termos da LicenÃ§a PÃºblica Geral Menor do GNU conforme publicada pela  }
-{ Free Software Foundation; tanto a versÃ£o 2.1 da LicenÃ§a, ou (a seu critÃ©rio) }
-{ qualquer versÃ£o posterior.                                                   }
+{  Esta biblioteca é software livre; você pode redistribuí-la e/ou modificá-la }
+{ sob os termos da Licença Pública Geral Menor do GNU conforme publicada pela  }
+{ Free Software Foundation; tanto a versão 2.1 da Licença, ou (a seu critério) }
+{ qualquer versão posterior.                                                   }
 {                                                                              }
-{  Esta biblioteca Ã© distribuÃ­da na expectativa de que seja Ãºtil, porÃ©m, SEM   }
-{ NENHUMA GARANTIA; nem mesmo a garantia implÃ­cita de COMERCIABILIDADE OU      }
-{ ADEQUAÃ‡ÃƒO A UMA FINALIDADE ESPECÃFICA. Consulte a LicenÃ§a PÃºblica Geral Menor}
-{ do GNU para mais detalhes. (Arquivo LICENÃ‡A.TXT ou LICENSE.TXT)              }
+{  Esta biblioteca é distribuída na expectativa de que seja útil, porém, SEM   }
+{ NENHUMA GARANTIA; nem mesmo a garantia implícita de COMERCIABILIDADE OU      }
+{ ADEQUAÇÃO A UMA FINALIDADE ESPECÍFICA. Consulte a Licença Pública Geral Menor}
+{ do GNU para mais detalhes. (Arquivo LICENÇA.TXT ou LICENSE.TXT)              }
 {                                                                              }
-{  VocÃª deve ter recebido uma cÃ³pia da LicenÃ§a PÃºblica Geral Menor do GNU junto}
-{ com esta biblioteca; se nÃ£o, escreva para a Free Software Foundation, Inc.,  }
-{ no endereÃ§o 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
-{ VocÃª tambÃ©m pode obter uma copia da licenÃ§a em:                              }
+{  Você deve ter recebido uma cópia da Licença Pública Geral Menor do GNU junto}
+{ com esta biblioteca; se não, escreva para a Free Software Foundation, Inc.,  }
+{ no endereço 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
+{ Você também pode obter uma copia da licença em:                              }
 { http://www.opensource.org/licenses/lgpl-license.php                          }
 {                                                                              }
-{ Daniel SimÃµes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
-{              PraÃ§a Anita Costa, 34 - TatuÃ­ - SP - 18270-410                  }
+{ Daniel Simões de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
+{              Praça Anita Costa, 34 - Tatuí - SP - 18270-410                  }
 {                                                                              }
 {******************************************************************************}
 
@@ -38,13 +38,13 @@
 |* Historico
 |*
 |* 27/10/2015: Jean Carlo Cantu, Tiago Ravache
-|*  - DoaÃ§Ã£o do componente para o Projeto ACBr
+|*  - Doação do componente para o Projeto ACBr
 |* 29/02/2016: Guilherme Costa
-|*  - Atribuindo o namespace ao URI para validaÃ§Ã£o dos XSD
+|*  - Atribuindo o namespace ao URI para validação dos XSD
 |* 01/03/2016: Guilherme Costa
-|*  - AlteraÃ§Ãµes para validaÃ§Ã£o com os XSD
+|*  - Alterações para validação com os XSD
 |* 02/03/2016: Robson Batista Neto
-|*  - Alteração nas linhas 271 e 274 Não estava gravando o nome do xml
+|*  - Altera��o nas linhas 271 e 274 N�o estava gravando o nome do xml
 ******************************************************************************}
 {$I ACBr.inc}
 
@@ -118,6 +118,7 @@ type
     procedure GerarIdePeriodo(pIdePeriodo: TidePeriodo; const GroupName: string = 'idePeriodo');
     procedure GerarIdeEmpregador(pEmp: TIdeEmpregador; pNumTags: integer = 2);
     procedure GerarIdeTomadorServ(pIdeTomadorServ: TIdeTomadorServ);
+    procedure GerarIdeEstabVinc(pIdeEstabVinc: TIdeEstabVinc);
     procedure GerarIdeTrabSubstituido(pIdeTrabSubstituido: TIdeTrabSubstituidoCollection);
     procedure GerarIdVersao(pIdEsocial: TeSocial);
     procedure GerarIdeVinculo(pIdeVinculo: TIdeVinculo);
@@ -129,6 +130,7 @@ type
     procedure GerarModoAbertura(pModo: TModoLancamento);
     procedure GerarModoFechamento(pModo: TModoLancamento);
     procedure GerarNascimento(pNasc: TNascimento);
+    procedure GerarProcessoGenerico(pChave: string; pProcesso: TProcesso);
     procedure GerarProcessoAdmJudFap(pProcAdmJudFap: TProcAdmJudFap);
     procedure GerarProcessoAdmJudRat(pProcAdmJudRat: TProcAdmJudRat);
     procedure GerarRemuneracao(pRemuneracao: TRemuneracao);
@@ -145,7 +147,9 @@ type
     procedure GerarDesligamento(pDesligamento: TDesligamento);
     procedure GerarVinculo(pVinculo: TVinculo; pTipo: integer = 1);
     procedure GerarInfoRegimeTrab(pInfoRegimeTrab: TInfoRegimeTrab);
+    procedure GerarInfoAprend(pAprend: TAprend);
     procedure GerarInfoCeletista(pInfoCeletista: TInfoCeletista);
+    procedure GerarInfoDecJud(pInfoDecJud: TInfoDecJud);
     procedure GerarInfoEstatutario(pInfoEstatutario: TInfoEstatutario);
     procedure gerarIdeTrabalhador(
       pideTrabalhador: TideTrabalhador;
@@ -215,7 +219,7 @@ begin
 
   ArqXML := XMLEvento;
 
-  // XML jÃ¡ deve estar em UTF8, para poder ser assinado //
+  // XML já deve estar em UTF8, para poder ser assinado //
   ArqXML := ConverteXMLtoUTF8(ArqXML);
   FXMLOriginal := ArqXML;
 
@@ -225,7 +229,7 @@ begin
     FXMLAssinado := XMLAss;
     FXMLOriginal := XMLAss;
 
-    // Remove header, pois podem existir vÃ¡rias Notas no XML //
+    // Remove header, pois podem existir várias Notas no XML //
     //TODO: Verificar se precisa
     //XMLAss := StringReplace(XMLAss, '<' + ENCODING_UTF8_STD + '>', '', [rfReplaceAll]);
     //XMLAss := StringReplace(XMLAss, '<' + XML_V01 + '>', '', [rfReplaceAll]);
@@ -233,7 +237,7 @@ begin
     {AVALIAR TRECHO ABAIXO!!!!
     Leitor := TLeitor.Create;
     try
-      leitor.Grupo := XMLAss;   NÃƒO EXISTEM AS PROPRIEDADES ABAIXO NAS CLASSES DOS EVENTOS DO ESOCIAL
+      leitor.Grupo := XMLAss;   NÃO EXISTEM AS PROPRIEDADES ABAIXO NAS CLASSES DOS EVENTOS DO ESOCIAL
       NFe.signature.URI := Leitor.rAtributo('Reference URI=');
       NFe.signature.DigestValue := Leitor.rCampo(tcStr, 'DigestValue');
       NFe.signature.SignatureValue := Leitor.rCampo(tcStr, 'SignatureValue');
@@ -323,7 +327,7 @@ begin
     EhValido := SSL.Validar(AXML, Configuracoes.Arquivos.PathSchemas+Evento+'.xsd', Erro);
     if not EhValido then
     begin
-      FErroValidacao := ACBrStr('Falha na validação dos dados do evento: ') +
+      FErroValidacao := ACBrStr('Falha na valida��o dos dados do evento: ') +
         Evento + sLineBreak + FAlertas ;
       FErroValidacaoCompleto := FErroValidacao + sLineBreak + Erro;
 
@@ -346,7 +350,7 @@ function TeSocialEvento.GerarChaveEsocial(const emissao: TDateTime;
 var
   nAno, nMes, nDia, nHora, nMin, nSeg, nMSeg: Word;
 begin
-  // Se o usuario informar 0; o código numerico sera gerado de maneira aleatória //
+  // Se o usuario informar 0; o c�digo numerico sera gerado de maneira aleat�ria //
   if sequencial = 0 then
     sequencial := Random(99999);
 
@@ -410,6 +414,12 @@ begin
       Gerador.wCampo(tcStr, '', 'codFuncao  ', 0, 0, 0, pInfoContrato.CodFuncao);
 
     Gerador.wCampo(tcStr, '', 'codCateg  ', 0, 0, 0, pInfoContrato.CodCateg);
+
+    if (pInfoContrato.codCarreira <> '') then
+    begin
+      Gerador.wCampo(tcStr, '', 'codCarreira  ', 0, 0, 0, pInfoContrato.codCarreira);
+      Gerador.wCampo(tcDat, '', 'dtIngrCarr  ', 0, 0, 0, pInfoContrato.dtIngrCarr);
+    end;
     GerarRemuneracao(pInfoContrato.Remuneracao);
     GerarDuracao(pInfoContrato.Duracao);
     GerarLocalTrabalho(pInfoContrato.LocalTrabalho);
@@ -446,9 +456,8 @@ begin
 
       Gerador.wCampo(tcStr, '', 'depIRRF  ', 0, 0, 0, eSSimNaoToStr(pDependente.Items[i].DepIRRF));
       Gerador.wCampo(tcStr, '', 'depSF  ', 0, 0, 0, eSSimNaoToStr(pDependente.Items[i].DepSF));
-
-//      if (eSSimNaoToStr(pDependente.Items[i].DepRPPS) <> '') then             --REMOVIDO NA VERSÃƒO 2.1
-//        Gerador.wCampo(tcStr, '', 'depRPPS  ', 0, 0, 0, eSSimNaoToStr(pDependente.Items[i].DepRPPS));
+      Gerador.wCampo(tcStr, '', 'depPlan  ', 0, 0, 0, eSSimNaoToStr(pDependente.Items[i].depPlan));
+      Gerador.wCampo(tcStr, '', 'incTrab  ', 0, 0, 0, eSSimNaoToStr(pDependente.Items[i].incTrab));
     Gerador.wGrupo('/dependente');
   end;
 end;
@@ -608,6 +617,7 @@ begin
 
     if (eSTpJornadaToStr(pHorContratual.TpJornada) = '2') then
       Gerador.wCampo(tcStr, '', 'dscTpJorn  ', 0, 0, 0, pHorContratual.DscTpJorn);
+    Gerador.wCampo(tcStr, '', 'tmpParc  ', 0, 0, 0, eSSimNaoToStr(pHorContratual.tmpParc));
     GerarHorario(pHorContratual.horario);
   Gerador.wGrupo('/horContratual');
 end;
@@ -682,6 +692,7 @@ begin
       Gerador.wCampo(tcStr, '', 'estCiv  ', 0, 0, 0, pTrabalhador.EstCiv);
 
     Gerador.wCampo(tcStr, '', 'grauInstr  ', 0, 0, 0, pTrabalhador.GrauInstr);
+    Gerador.wCampo(tcStr, '', 'nmSoc', 0, 0, 0, pTrabalhador.nmSoc);
     if (tipo = 2) then
       Gerador.wCampo(tcStr, '', 'indPriEmpr  ', 0, 0, 0, eSSimNaoToStr(pTrabalhador.IndPriEmpr));
     if (GroupName = 'trabalhador') then    
@@ -711,7 +722,9 @@ end;
 procedure TeSocialEvento.GerarTrabTemporario(pTrabTemporario: TTrabTemporario);
 begin
   Gerador.wGrupo('trabTemporario');
-    Gerador.wCampo(tcStr, '', 'mtvContrat  ', 0, 0, 0, eSMtvContratToStr(pTrabTemporario.mtvContrat));
+    Gerador.wCampo(tcInt, '', 'hipLeg', 0, 0, 0, eSMtvContratToStr(pTrabTemporario.hipLeg));
+    Gerador.wCampo(tcStr, '', 'justContr', 0, 0, 0, pTrabTemporario.justContr);
+    Gerador.wCampo(tcInt, '', 'tpInclContr', 0, 0, 0, eSTpInclContrToStr(pTrabTemporario.tpinclContr));
     GerarIdeTomadorServ(pTrabTemporario.IdeTomadorServ);
     GerarIdeTrabSubstituido(pTrabTemporario.IdeTrabSubstituido);
   Gerador.wGrupo('/trabTemporario');
@@ -781,7 +794,7 @@ end;
 procedure TeSocialEvento.GerarAposentadoria(pAposentadoria: TAposentadoria);
 begin
   Gerador.wGrupo('aposentadoria');
-    Gerador.wCampo(tcStr, '', 'trabAposent', 0, 0, 0, pAposentadoria.TrabAposent);
+    Gerador.wCampo(tcStr, '', 'trabAposent', 0, 0, 0, eSSimNaoToStr(pAposentadoria.TrabAposent));
   Gerador.wGrupo('/aposentadoria');
 end;
 
@@ -865,11 +878,23 @@ begin
   Gerador.wGrupo('/'+GroupName);
 end;
 
+procedure TeSocialEvento.GerarIdeEstabVinc(pIdeEstabVinc: TIdeEstabVinc);
+begin
+  if (pIdeEstabVinc.NrInsc <> '') then
+  begin
+    Gerador.wGrupo('ideEstabVinc');
+      Gerador.wCampo(tcStr, '', 'tpInsc', 0, 0, 0, pIdeEstabVinc.TpInsc);
+      Gerador.wCampo(tcStr, '', 'nrInsc', 0, 0, 0, pIdeEstabVinc.NrInsc);
+    Gerador.wGrupo('/ideEstabVinc');
+  end;
+end;
+
 procedure TeSocialEvento.GerarIdeTomadorServ(pIdeTomadorServ: TIdeTomadorServ);
 begin
   Gerador.wGrupo('ideTomadorServ');
     Gerador.wCampo(tcStr, '', 'tpInsc', 0, 0, 0, pIdeTomadorServ.TpInsc);
     Gerador.wCampo(tcStr, '', 'nrInsc', 0, 0, 0, pIdeTomadorServ.NrInsc);
+    GerarIdeEstabVinc(pIdeTomadorServ.ideEstabVinc);
   Gerador.wGrupo('/ideTomadorServ');
 end;
 
@@ -882,7 +907,6 @@ begin
   begin
     Gerador.wGrupo('ideTrabSubstituido');
       Gerador.wCampo(tcStr, '', 'cpfTrabSubst  ', 0, 0, 0, pIdeTrabSubstituido.Items[i].CpfTrabSubst);
-      Gerador.wCampo(tcStr, '', 'matricTrabSubst  ', 0, 0, 0, pIdeTrabSubstituido.Items[i].MatricTrabSubst);
     Gerador.wGrupo('/ideTrabSubstituido');
   end;
 end;
@@ -925,6 +949,17 @@ begin
   Gerador.wGrupo('/infoAtivDesemp');
 end;
 
+procedure TeSocialEvento.GerarInfoAprend(pAprend: TAprend);
+begin
+  if (pAprend.NrInsc <> '') then
+  begin
+    Gerador.wGrupo('aprend');
+      Gerador.wCampo(tcStr, '', 'tpInsc', 0, 0, 0, pAprend.TpInsc);
+      Gerador.wCampo(tcStr, '', 'nrInsc', 0, 0, 0, pAprend.NrInsc);
+    Gerador.wGrupo('/aprend');
+  end;
+end;
+
 procedure TeSocialEvento.GerarInfoCeletista(pInfoCeletista: TInfoCeletista);
 begin
   if NaoEstaVazio(pInfoCeletista.cnpjSindCategProf) then
@@ -943,6 +978,7 @@ begin
   
       GerarFGTS(pInfoCeletista.FGTS);
       GerarTrabTemporario(pInfoCeletista.TrabTemporario);
+      GerarInfoAprend(pInfoCeletista.aprend);
     Gerador.wGrupo('/infoCeletista');
   end;    
 end;
@@ -957,10 +993,21 @@ begin
     Gerador.wCampo(tcStr, '', 'defMental ', 0, 0, 0, eSSimNaoToStr(pInfoDeficiencia.DefMental));
     Gerador.wCampo(tcStr, '', 'defIntelectual ', 0, 0, 0, eSSimNaoToStr(pInfoDeficiencia.DefIntelectual));
     Gerador.wCampo(tcStr, '', 'reabReadap  ', 0, 0, 0, eSSimNaoToStr(pInfoDeficiencia.reabReadap));
+    Gerador.wCampo(tcStr, '', 'infoCota', 0, 0, 0, eSSimNaoToStr(pInfoDeficiencia.infoCota));
 
     if ((pInfoDeficiencia.Observacao <> '') or (pInfoDeficiencia.Observacao <> null)) then
       Gerador.wCampo(tcStr, '', 'observacao  ', 0, 0, 0, pInfoDeficiencia.Observacao);
   Gerador.wGrupo('/infoDeficiencia');
+end;
+
+procedure TeSocialEvento.GerarInfoDecJud(pInfoDecJud: TInfoDecJud);
+begin
+  if (pInfoDecJud.nrProcJud <> '') then
+  begin
+    Gerador.wGrupo('infoDecJud');
+      Gerador.wCampo(tcStr, '', 'nrProcJud ', 0, 0, 0, pInfoDecJud.nrProcJud);
+    Gerador.wGrupo('/infoDecJud');
+  end;
 end;
 
 procedure TeSocialEvento.GerarInfoEstatutario(
@@ -978,6 +1025,8 @@ begin
           (eSIndProvimToStr(pInfoEstatutario.IndProvim) = '2') or
           (DateToStr(pInfoEstatutario.DtExercicio) <> '')) then
         Gerador.wCampo(tcDat, '', 'dtExercicio ', 0, 0, 0, pInfoEstatutario.DtExercicio);
+      Gerador.wCampo(tcInt, '', 'tpPlanRP', 0, 0, 0,  eSTpPlanRPToStr(pInfoEstatutario.tpPlanRP));
+      GerarInfoDecJud(pInfoEstatutario.infoDecJud);
     Gerador.wGrupo('/infoEstatutario');
   end;    
 end;
@@ -1117,11 +1166,22 @@ begin
   end;
 end;
 
+procedure TeSocialEvento.GerarProcessoGenerico(pChave: string; pProcesso: TProcesso);
+begin
+  Gerador.wGrupo(pChave);
+    Gerador.wCampo(tcStr, '', 'nrProc', 0, 0, 1, pProcesso.nrProc);
+    if pProcesso.codSusp > 0 then
+      Gerador.wCampo(tcInt, '', 'codSusp', 0, 0, 1, pProcesso.codSusp);
+  Gerador.wGrupo('/' + pChave);
+end;
+
 procedure TeSocialEvento.GerarProcessoAdmJudFap(pProcAdmJudFap: TProcAdmJudFap);
 begin
   Gerador.wGrupo('procAdmJudFap');
     Gerador.wCampo(tcStr, '', 'tpProc', 0, 0, 1, eSTpProcessoToStr(pProcAdmJudFap.tpProc));
     Gerador.wCampo(tcStr, '', 'nrProc', 0, 0, 1, pProcAdmJudFap.nrProc);
+    if pProcAdmJudFap.codSusp > 0 then
+      Gerador.wCampo(tcInt, '', 'codSusp', 0, 0, 1, pProcAdmJudFap.codSusp);
   Gerador.wGrupo('/procAdmJudFap');
 end;
 
@@ -1130,6 +1190,8 @@ begin
   Gerador.wGrupo('procAdmJudRat');
     Gerador.wCampo(tcStr, '', 'tpProc', 0, 0, 0, eSTpProcessoToStr(pProcAdmJudRat.tpProc));
     Gerador.wCampo(tcStr, '', 'nrProc', 0, 0, 0, pProcAdmJudRat.nrProc);
+    if pProcAdmJudRat.codSusp > 0 then
+      Gerador.wCampo(tcInt, '', 'codSusp', 0, 0, 1, pProcAdmJudRat.codSusp);
   Gerador.wGrupo('/procAdmJudRat');
 end;
 

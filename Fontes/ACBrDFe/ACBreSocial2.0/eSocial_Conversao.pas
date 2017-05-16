@@ -5,32 +5,32 @@
 {                                                                              }
 { Direitos Autorais Reservados (c) 2008 Wemerson Souto                         }
 {                                       Daniel Simoes de Almeida               }
-{                                       Andr√© Ferreira de Moraes               }
+{                                       AndrÈ Ferreira de Moraes               }
 {                                                                              }
 { Colaboradores nesse arquivo:                                                 }
 {                                                                              }
-{  Voc√™ pode obter a √∫ltima vers√£o desse arquivo na pagina do Projeto ACBr     }
+{  VocÍ pode obter a ˙ltima vers„o desse arquivo na pagina do Projeto ACBr     }
 { Componentes localizado em http://www.sourceforge.net/projects/acbr           }
 {                                                                              }
 {                                                                              }
-{  Esta biblioteca √© software livre; voc√™ pode redistribu√≠-la e/ou modific√°-la }
-{ sob os termos da Licen√ßa P√∫blica Geral Menor do GNU conforme publicada pela  }
-{ Free Software Foundation; tanto a vers√£o 2.1 da Licen√ßa, ou (a seu crit√©rio) }
-{ qualquer vers√£o posterior.                                                   }
+{  Esta biblioteca È software livre; vocÍ pode redistribuÌ-la e/ou modific·-la }
+{ sob os termos da LicenÁa P˙blica Geral Menor do GNU conforme publicada pela  }
+{ Free Software Foundation; tanto a vers„o 2.1 da LicenÁa, ou (a seu critÈrio) }
+{ qualquer vers„o posterior.                                                   }
 {                                                                              }
-{  Esta biblioteca √© distribu√≠da na expectativa de que seja √∫til, por√©m, SEM   }
-{ NENHUMA GARANTIA; nem mesmo a garantia impl√≠cita de COMERCIABILIDADE OU      }
-{ ADEQUA√á√ÉO A UMA FINALIDADE ESPEC√çFICA. Consulte a Licen√ßa P√∫blica Geral Menor}
-{ do GNU para mais detalhes. (Arquivo LICEN√áA.TXT ou LICENSE.TXT)              }
+{  Esta biblioteca È distribuÌda na expectativa de que seja ˙til, porÈm, SEM   }
+{ NENHUMA GARANTIA; nem mesmo a garantia implÌcita de COMERCIABILIDADE OU      }
+{ ADEQUA«√O A UMA FINALIDADE ESPECÕFICA. Consulte a LicenÁa P˙blica Geral Menor}
+{ do GNU para mais detalhes. (Arquivo LICEN«A.TXT ou LICENSE.TXT)              }
 {                                                                              }
-{  Voc√™ deve ter recebido uma c√≥pia da Licen√ßa P√∫blica Geral Menor do GNU junto}
-{ com esta biblioteca; se n√£o, escreva para a Free Software Foundation, Inc.,  }
-{ no endere√ßo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
-{ Voc√™ tamb√©m pode obter uma copia da licen√ßa em:                              }
+{  VocÍ deve ter recebido uma cÛpia da LicenÁa P˙blica Geral Menor do GNU junto}
+{ com esta biblioteca; se n„o, escreva para a Free Software Foundation, Inc.,  }
+{ no endereÁo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
+{ VocÍ tambÈm pode obter uma copia da licenÁa em:                              }
 { http://www.opensource.org/licenses/lgpl-license.php                          }
 {                                                                              }
-{ Daniel Sim√µes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
-{              Pra√ßa Anita Costa, 34 - Tatu√≠ - SP - 18270-410                  }
+{ Daniel Simıes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
+{              PraÁa Anita Costa, 34 - TatuÌ - SP - 18270-410                  }
 {                                                                              }
 {******************************************************************************}
 
@@ -38,9 +38,9 @@
 |* Historico
 |*
 |* 27/10/2015: Jean Carlo Cantu, Tiago Ravache
-|*  - Doa√ß√£o do componente para o Projeto ACBr
+|*  - DoaÁ„o do componente para o Projeto ACBr
 |* 29/02/2015: Guilherme Costa
-|*  - Adicionado algumas convers√µes
+|*  - Adicionado algumas conversıes
 ******************************************************************************}
 {$I ACBr.inc}
 
@@ -78,7 +78,7 @@ type
   TStatusACBreSocial      = (stIdle, stEnvLoteEventos, stRetEnvLoteEventos, stConsResultProcessamento, stRetConsResultProcessamento );
 
 
-  TTipoEvento             = (teS1000, teS1005, teS1010, teS1020, teS1030, teS1040, teS1050,
+  TTipoEvento             = (teS1000, teS1005, teS1010, teS1020, teS1030, teS1035, teS1040, teS1050,
                              teS1060, teS1070, teS1080, teS2100, teS1200, teS1202, teS1210,
                              teS1220, teS1250, teS1260, teS1270, teS1280, teS1298, teS1299,
                              teS1300, teS2190, teS2200, teS2205, teS2206, teS2210, teS2220,
@@ -124,12 +124,15 @@ type
   tpIndProvDesc           = (ipdProvento, ipdDesconto, ipdInformativa );
 
   tpCodIncCP              = (cicNaoeBasedeCalculo,
+                             cicNaoeBasedeCalculoAcordoInternacionalPrevidenciaSocial,
                              cicBasedeCalculodoSalariodeContribuicaoMensal,
                              cicBasedeCalculodaContribPrevsobre13oSalario,
                              cicBasedeCalculodaContribPrevSalMaternidade,
                              cicBasedeCalculodaContribPrevSalMaternidade13oSalario,
                              ciBasedeCalcContribPrevAuxilioDoencaRegPropriodePrevSocial,
                              ciBasedeCalcContribPrevAuxDoenca13oSalDoencaRegPropPrevSocial,
+                             cicBasedeCalculodaContribMaternidadeINSS,
+                             cicBasedeCalculodaContribMaternidade13INSS,
                              cicContribuicaoDescontadadoSegurado,
                              cicContribuicaoDescontadadoSegurado13oSalario,
                              cicContribuicaoDescontadadoSeguradoSEST,
@@ -141,14 +144,15 @@ type
                              cicIncidsuspensajudicialBCSalMaternidade,
                              cicIncidsuspensajudicialBCSalMaternidade13oSalario);
 
-  tpCodIncIRRF            = (ciiNaoeBasedeCalculo, ciiBasedeCalculoIRRFRemMensal, ciiBasedeCalculoIRRF13oSalario,
+  tpCodIncIRRF            = (ciiNaoeBasedeCalculo, ciiNaoeBasedeCalculoAcordoInternacional,
+                             ciiBasedeCalculoIRRFRemMensal, ciiBasedeCalculoIRRF13oSalario,
                              ciiBasedeCalculoIRRFFerias, ciiBasedeCalculoIRRFPLR, ciiBasedeCalculoIRRFRRA,
                              ciiValorIRRFRemMensal, ciiValorIRRF13oSalario, ciiValorIRRFFerias, ciiValorIRRFPLR,
                              ciiValorIRRFPLRRRA, ciPrevSocialOficialRemMensal, ciPrevSocialOficial13Salario,
                              ciPrevSocialOficialFerias, ciPrevSocialOficialRRA, ciPrevPrivadaSalarioMensal,
                              ciPrevPrivada13Salario, ciPensaoAlimenticiaRemMensal, ciPensaoAlimenticia13Salario,
-                             ciPensaoAlimenticiaFerias, ciPensaoAlimenticiaRRA, ciDependenteRemMensal,
-                             ciDependente13Salario, ciDependenteFerias, ciFundoAposentadoriaProgIndFAPIRemMensal,
+                             ciPensaoAlimenticiaFerias, ciPensaoAlimenticiaPLR, ciPensaoAlimenticiaRRA,
+                             ciFundoAposentadoriaProgIndFAPIRemMensal,
                              ciFundoAposentadoriaProgIndFAPI13Salario, ciFundacaoPrevCompServidorPubFederalFunprespRemMensal,
                              ciFundacaoPrevCompServidorPubFederalFunpresp13Salario, ciParcelaIsenta65AnosRemMensal,
                              ciParcelaIsenta65Anos13Salario, ciDiaria, ciAjudaDeCusto, ciIndenizacaoRescisaoContratoInclusiveAtituloPDV,
@@ -167,10 +171,10 @@ type
   tpExtDecisao            = (edContribPatronais, edContribPatronaisSegurados );
 
   tpTpInscEstab           = (tpI1, tpI3, tpI4, tpVazio ); // Vazio para seguir regra do manual
-                                                          // Valida√ß√£o: O campo n√£o deve ser preenchido se {tpLotacao} for
-                                                          // igual a [07,10,90]. Nos demais casos, observar conte√∫do
+                                                          // ValidaÁ„o: O campo n„o deve ser preenchido se {tpLotacao} for
+                                                          // igual a [07,10,90]. Nos demais casos, observar conte˙do
                                                           // exigido para o campo {nrInscEstab}, conforme tabela de tipos
-                                                          // de lota√ß√£o.
+                                                          // de lotaÁ„o.
 
   tpTpIntervalo           = (tinHorarioFixo, tinHorarioVariavel);
 
@@ -179,7 +183,11 @@ type
   tpIndDecisao            = (idLiminarMandado, idDepositoJudicial, idDepositoAdministrativo, idAntecipacao,
                              idLiminarMedidaCautelar, idDecisaoNaoTransitada, idContestacaoFAP, idDefinitiva);
 
-  tpindAutoria            = (idA1, idA2);
+  tpindAutoria            = (iaProprioContribuinte, iaOutraEntidade);
+
+  tpIndMatProc            = (impTributariaouRelativaFGTS, impAutorizacaoTrabalhadorMenor, impDispensaPCD,
+                             impDispensaAprendiz, impSegurancaoeSaudeTrabalhador, impConversaoLicencaSaudeAcidenteTrabalho,
+                             impOutros);
 
   tpIndRetificacao        = (ireOriginal, ireRetificacao);
 
@@ -243,9 +251,11 @@ type
 
   tpSitCargo              = (scCriacao, scExtincao, scReestruturacao);
 
+  tpSitCarr               = tpSitCargo;
+
   tpAcumCargo             = (acNaoAcumulavel, acProfSaude, acProfessor, acTecCientifico);
 
-  tpContagemEsp           = (ceNao, ceProfInfantilFundamentalMedio, ceProfEnsSuperiorMagistradoMembroMinisPublicoTribContas);
+  tpContagemEsp           = (ceNao, ceProfInfantilFundamentalMedio, ceProfEnsSuperiorMagistradoMembroMinisPublicoTribContas, ceAtividadedeRisco);
 
   tpUtilizEPC             = (uEPCNaoAplica, uEPCNaoUtilizado, uEPCEficaz, uEPCNaoEficaz);
 
@@ -254,7 +264,7 @@ type
   tpTpAcConv              = (tacAcordoColTrab, tacComissaoConcPrevia, tacConvencaoColTrab,
                              tacSetencNormativa, tacConversaoLicenSaudeAcidTrabalho);
 
-  tpIndSusp               = (siLiminarMandadoSeguranca, siAntecipacaoTutela, siLiminarMedidaCautelar,
+  tpIndSusp               = (siLiminarMandadoSeguranca, siDepositoJudicial, siDepositoAdministrativo, siAntecipacaoTutela, siLiminarMedidaCautelar,
                              siSentencaMandadoSegurancaFavoravelContribuinte, siSentencaAcaoOrdinariaFavContribuinteConfirmadaPeloTRF,
                              siAcordaoTRFFavoravelContribuinte, siAcordaoSTJRecursoEspecialFavoravelContribuinte,
                              siAcordaoSTFRecursoExtraordinarioFavoravelContribuinte, siSentenca1instanciaNaoTransitadaJulgadoEfeitoSusp,
@@ -369,6 +379,16 @@ type
 
   tpOpcConsult            = (ocContribPrevCPF, ocIRporCPF, ocTotContribSociais, ocTotIRRF);
 
+  tpRegPt                 = (rpNaoUtiliza, rpManual, rpMecanico, rpEletronico, rpNaoEletronicoAlternativo, rpEletronicoAlternativo);
+
+  tpContApr               = (caDispensado, caDispensadoParcialmente, caObrigado);
+
+  tpContPCD               = (cpcdDispensado, cpcdDispensadoParcialmente, cpcdExigibilidadeSuspensa, cpcdObrigado);
+
+  tpInclContr             = (icLocaisSemFiliais, icEstudoDeMercado, icContratacaoSuperior3Meses);
+
+  tpPlanRP                = (prpPlanoPrevidenciarioOuUnico, prpPlanoFinanceiro);
+
   function EnumeradoToStr2(const t: variant; const AString:
     array of string ): variant;
 
@@ -465,6 +485,9 @@ type
   function eSindAutoriaToStr(const t: TpindAutoria ): string;
   function eSStrToindAutoria(var ok: boolean; const s: string): TpindAutoria;
 
+  function eSTpIndMatProcToStr(const t: tpIndMatProc): string;
+  function eSStrToTpIndMatProc(var ok: boolean; const s: string): tpIndMatProc;
+
   function eSIndRetificacaoToStr(const t: TpIndRetificacao ): string;
   function eSStrToIndRetificacao(var ok: boolean; const s: string): TpIndRetificacao;
 
@@ -554,6 +577,9 @@ type
 
   function eStpSitCargoToStr(const t: tpSitCargo): string;
   function eSStrToSitCargo(var ok: Boolean; const s: string): tpSitCargo;
+
+  function eStpSitCarrToStr(const t: tpSitCarr): string;
+  function eSStrToSitCarr(var ok: Boolean; const s: string): tpSitCarr;
 
   function eSAcumCargoToStr(const t: tpAcumCargo): string;
   function eSStrToAcumCargo(var ok: Boolean; const s: string): tpAcumCargo;
@@ -687,23 +713,38 @@ type
   function eSTpNatEstagioToStr(const t: tpNatEstagio): string;
   function eSStrToTpNatEstagio(var ok: boolean; const s: string): tpNatEstagio;
 
-  function eStpCaepfToStr(const t: tpCaepf): string;
+  function eSTpCaepfToStr(const t: tpCaepf): string;
   function eSStrTotpCaepf(var ok: Boolean; const s: string): tpCaepf;
 
-  function eStpTpPgtoToStr(const t: tpTpPgto): string;
+  function eSTpTpPgtoToStr(const t: tpTpPgto): string;
   function eSStrTotpTpPgto(var ok: Boolean; const s: string): tpTpPgto;
 
-  function eStpOpcConsultToStr(const t: tpOpcConsult): string;
+  function eSTpOpcConsultToStr(const t: tpOpcConsult): string;
   function eSStrTotpOpcConsult(var ok: Boolean; const s: string): tpOpcConsult;
   
-  function eStpNivelEstagioToStr(const t: tpNivelEstagio): string;
+  function eSTpNivelEstagioToStr(const t: tpNivelEstagio): string;
   function eSStrTotpNivelEstagio(var ok: Boolean; const s: string): tpNivelEstagio;
+
+  function eSTpRegPtToStr(const t: tpRegPt): string;
+  function eSStrTotpRegPt(var ok: boolean; const s: string): tpRegPt;
+
+  function eSTpContAprToStr(const t: tpContApr): string;
+  function eSStrTotpContApr(var ok: boolean; const s: string): tpContApr;
+
+  function eSTpContPCDToStr(const t: tpContPCD): string;
+  function eSStrToTpContPCD(var ok: boolean; const s: string): tpContPCD;
+
+  function eSTpInclContrToStr(const t: tpInclContr): string;
+  function eSStrToTpInclContr(var ok: boolean; const s: string): tpInclContr;
+
+  function eSTpPlanRPToStr(const t: tpPlanRP): string;
+  function eSStrToTpPlanRP(var ok: boolean; const s: string): tpPlanRP;
 
 implementation
 
 const
 
-  TTipoEventoString   : array[0..39] of String =('S-1000', 'S-1005', 'S-1010', 'S-1020', 'S-1030',
+  TTipoEventoString   : array[0..40] of String =('S-1000', 'S-1005', 'S-1010', 'S-1020', 'S-1030', 'S-1035',
                                                  'S-1040', 'S-1050', 'S-1060', 'S-1070', 'S-1080',
                                                  'S-2100', 'S-1200', 'S-1202', 'S-1210', 'S-1220',
                                                  'S-1250', 'S-1260', 'S-1270', 'S-1280', 'S-1298',
@@ -721,10 +762,13 @@ const
 
   TSimNaoString       : array[0..1] of string = ('S','N' );
 
+  TIndicativoContratacaoPCD : array[0..3] of string = ('0', '1', '2', '9' );
+
   TGenericosString0_1 : array[0..1] of string = ('0','1' );
   TGenericosString0_2 : array[0..2] of string = ('0','1','2' );
   TGenericosString0_3 : array[0..3] of string = ('0','1','2','3' );
   TGenericosString0_4 : array[0..4] of string = ('0','1','2','3','4' );
+  TGenericosString0_5 : array[0..5] of string = ('0','1','2','3','4','5' );
 
   TGenericosString1   : array[0..0] of string = ('1');
   TGenericosString1_2 : array[0..1] of string = ('1','2' );
@@ -828,6 +872,56 @@ begin
   result := tpOpcConsult( StrToEnumerado2(ok , s, TGenericosString1_4 ) );
 end;
 
+function eSTpRegPtToStr(const t: tpRegPt): string;
+begin
+  result := EnumeradoToStr2(t, TGenericosString0_5 );
+end;
+
+function eSStrToTpRegPt(var ok: Boolean; const s: string): tpRegPt;
+begin
+  result := tpRegPt( StrToEnumerado2(ok, s, TGenericosString0_5) );
+end;
+
+function eSTpContAprToStr(const t: tpContApr): string;
+begin
+  result := EnumeradoToStr2(t, TGenericosString0_2 );
+end;
+
+function eSStrToTpContApr(var ok: Boolean; const s: string): tpContApr;
+begin
+  result := tpContApr( StrToEnumerado2(ok, s, TGenericosString0_2) );
+end;
+
+function eSTpContPCDToStr(const t: tpContPCD): string;
+begin
+  result := EnumeradoToStr2(t, TIndicativoContratacaoPCD );
+end;
+
+function eSStrToTpContPCD(var ok: Boolean; const s: string): tpContPCD;
+begin
+  result := tpContPCD( StrToEnumerado2(ok, s, TIndicativoContratacaoPCD) );
+end;
+
+function eSTpInclContrToStr(const t: tpInclContr): string;
+begin
+  result := EnumeradoToStr2(t, TGenericosString1_3 );
+end;
+
+function eSStrToTpInclContr(var ok: Boolean; const s: string): tpInclContr;
+begin
+  Result := tpInclContr( StrToEnumerado2(ok, s, TGenericosString1_3) );
+end;
+
+function eSTpPlanRPToStr(const t: tpPlanRP): string;
+begin
+  result := EnumeradoToStr2(t, TGenericosString1_2 );
+end;
+
+function eSStrToTpPlanRP(var ok: Boolean; const s: string): tpPlanRP;
+begin
+  result := tpPlanRP( StrToEnumerado2(ok, s, TGenericosString1_2) );
+end;
+
 function eSTpRegTrabToStr(const t: tpTpRegTrab ): string;
 begin
   result := EnumeradoToStr2(t,TGenericosString1_2 );
@@ -898,6 +992,16 @@ end;
 function eSStrToTpProv(var ok: boolean; const s: string): tpTpProv;
 begin
   result := tpTpProv( StrToEnumerado2(ok , s, [ '1', '2', '3', '4', '5', '9' ] ) );
+end;
+
+function eSTpIndMatProcToStr(const t: tpIndMatProc): string;
+begin
+  result := EnumeradoToStr2(t, [ '1', '2', '3', '4', '5', '6', '99']);
+end;
+
+function eSStrToTpIndMatProc(var ok: boolean; const s: string): tpIndMatProc;
+begin
+  result := tpIndMatProc( StrToEnumerado2(ok, s, [ '1', '2', '3', '4', '5', '6', '99']) );
 end;
 
 function eSUndSalFixoToStr(const t: tpUndSalFixo ): string;
@@ -1217,12 +1321,12 @@ end;
 
 function eSCodIncCPToStr(const t:tpCodIncCP ): string;
 begin
-  result := EnumeradoToStr2(t,[ '00', '11', '12', '21', '22', '23', '24', '31',
+  result := EnumeradoToStr2(t,[ '00', '01', '11', '12', '21', '22', '23', '24', '25', '26', '31',
                                 '32', '34', '35', '51', '61', '91', '92', '93', '94' ] );
 end;
 function eSStrToCodIncCP(var ok: boolean; const s: string): tpCodIncCP;
 begin
-  result := tpCodIncCP( StrToEnumerado2(ok , s,[ '00', '11', '12', '21', '22', '23', '24', '31',
+  result := tpCodIncCP( StrToEnumerado2(ok , s,[ '00', '01', '11', '12', '21', '22', '23', '24', '25', '26', '31',
                                                  '32', '34', '35', '51', '61', '91', '92', '93', '94' ] ));
 end;
 
@@ -1255,17 +1359,17 @@ end;
 
 function eSCodIncIRRFToStr(const t:tpCodIncIRRF ): string;
 begin
-  result := EnumeradoToStr2(t,[  '00', '11', '12', '13', '14', '15', '31', '32', '33', '34',
+  result := EnumeradoToStr2(t,[  '00', '01', '11', '12', '13', '14', '15', '31', '32', '33', '34',
                                  '35', '41', '42', '43', '44', '46', '47', '51', '52', '53',
-                                 '54', '56', '57', '58', '61', '62', '63', '64', '70', '71',
+                                 '54', '55', '61', '62', '63', '64', '70', '71',
                                  '72', '73', '74', '75', '76', '77', '78', '79', '81', '82',
                                  '83','91', '92', '93', '94', '95' ] );
 end;
 function eSStrToCodIncIRRF(var ok: boolean; const s: string): tpCodIncIRRF;
 begin
-  result := tpCodIncIRRF( StrToEnumerado2(ok , s,[  '00', '11', '12', '13', '14', '15', '31', '32', '33', '34',
+  result := tpCodIncIRRF( StrToEnumerado2(ok , s,[  '00', '01', '11', '12', '13', '14', '15', '31', '32', '33', '34',
                                                     '35', '41', '42', '43', '44', '46', '47', '51', '52', '53',
-                                                    '54', '56', '57', '58', '61', '62', '63', '64', '70', '71',
+                                                    '54', '55', '61', '62', '63', '64', '70', '71',
                                                     '72', '73', '74', '75', '76', '77', '78', '79', '81', '82',
                                                     '83','91', '92', '93', '94', '95' ] ));
 end;
@@ -1290,7 +1394,7 @@ end;
 
 function eSIndSuspToStr(const t: tpIndSusp): string;
 begin
-  result := EnumeradoToStr2(t,[ '01', '04', '05', '08', '09', '10',
+  result := EnumeradoToStr2(t,[ '01', '02', '03','04', '05', '08', '09', '10',
                                 '11', '12', '13', '14', '90', '92' ] );
 end;
 function eSStrToIndSusp(var ok: Boolean; const s: string): tpIndSusp;
@@ -1677,6 +1781,15 @@ begin
   result := tpSitCargo( StrToEnumerado2(ok , s, TGenericosString1_3 ));
 end;
 
+function eStpSitCarrToStr(const t: tpSitCarr): string;
+begin
+  result := EnumeradoToStr2(t, TGenericosString1_3);
+end;
+function eSStrToSitCarr(var ok: Boolean; const s: string): tpSitCarr;
+begin
+  result := tpSitCarr( StrToEnumerado2(ok , s, TGenericosString1_3 ));
+end;
+
 function eSAcumCargoToStr(const t: tpAcumCargo): string;
 begin
   result := EnumeradoToStr2(t, TGenericosString1_4);
@@ -1688,11 +1801,11 @@ end;
 
 function eSContagemEspToStr(const t: tpContagemEsp): string;
 begin
-  result := EnumeradoToStr2(t, TGenericosString1_3);
+  result := EnumeradoToStr2(t, TGenericosString1_4);
 end;
 function eSStrToContagemEsp(var ok: Boolean; const s: string): tpContagemEsp;
 begin
-  result := tpContagemEsp( StrToEnumerado2(ok , s, TGenericosString1_3 ));
+  result := tpContagemEsp( StrToEnumerado2(ok , s, TGenericosString1_4 ));
 end;
 
 function eStpUtilizEPCToStr(const t: tpUtilizEPC): string;

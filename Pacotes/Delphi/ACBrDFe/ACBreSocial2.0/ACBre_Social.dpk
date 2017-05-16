@@ -45,6 +45,7 @@
 package ACBre_Social;
 
 {$R *.res}
+{$R *.otares}
 {$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
 {$ALIGN 8}
 {$ASSERTIONS ON}
@@ -56,12 +57,12 @@ package ACBre_Social;
 {$LOCALSYMBOLS ON}
 {$LONGSTRINGS ON}
 {$OPENSTRINGS ON}
-{$OPTIMIZATION ON}
+{$OPTIMIZATION OFF}
 {$OVERFLOWCHECKS OFF}
 {$RANGECHECKS OFF}
 {$REFERENCEINFO ON}
 {$SAFEDIVIDE OFF}
-{$STACKFRAMES OFF}
+{$STACKFRAMES ON}
 {$TYPEDADDRESS OFF}
 {$VARSTRINGCHECKS ON}
 {$WRITEABLECONST OFF}
@@ -70,6 +71,7 @@ package ACBre_Social;
 {$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
 {$DESCRIPTION 'ACBr - eSocial - (http://www.projetoacbr.com.br/)'}
+{$DESIGNONLY}
 {$IMPLICITBUILD OFF}
 
 requires
@@ -101,6 +103,7 @@ contains
   eSocial_S1010 in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1010.pas',
   eSocial_S1020 in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1020.pas',
   eSocial_S1030 in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1030.pas',
+  eSocial_S1035 in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1035.pas',
   eSocial_S1040 in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1040.pas',
   eSocial_S1050 in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1050.pas',
   eSocial_S1060 in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1060.pas',
@@ -135,9 +138,6 @@ contains
   eSocial_S2399 in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S2399.pas',
   eSocial_S3000 in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S3000.pas',
   eSocial_S4000 in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S4000.pas',
-  eSocial_S4999 in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S4999.pas',
-  ACBreSocialWebServices in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\ACBreSocialWebServices.pas',
-  ACBreSocialLoteEventos in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\ACBreSocialLoteEventos.pas',
-  wsEnviarLoteEventos in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\wsEnviarLoteEventos.pas';
+  eSocial_S4999 in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S4999.pas';
 
 end.

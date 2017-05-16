@@ -1,36 +1,36 @@
-Ôªø{******************************************************************************}
+{******************************************************************************}
 { Projeto: Componente ACBreSocial                                              }
 {  Biblioteca multiplataforma de componentes Delphi para envio dos eventos do  }
 { eSocial - http://www.esocial.gov.br/                                         }
 {                                                                              }
 { Direitos Autorais Reservados (c) 2008 Wemerson Souto                         }
 {                                       Daniel Simoes de Almeida               }
-{                                       Andr√© Ferreira de Moraes               }
+{                                       AndrÈ Ferreira de Moraes               }
 {                                                                              }
 { Colaboradores nesse arquivo:                                                 }
 {                                                                              }
-{  Voc√™ pode obter a √∫ltima vers√£o desse arquivo na pagina do Projeto ACBr     }
+{  VocÍ pode obter a ˙ltima vers„o desse arquivo na pagina do Projeto ACBr     }
 { Componentes localizado em http://www.sourceforge.net/projects/acbr           }
 {                                                                              }
 {                                                                              }
-{  Esta biblioteca √© software livre; voc√™ pode redistribu√≠-la e/ou modific√°-la }
-{ sob os termos da Licen√ßa P√∫blica Geral Menor do GNU conforme publicada pela  }
-{ Free Software Foundation; tanto a vers√£o 2.1 da Licen√ßa, ou (a seu crit√©rio) }
-{ qualquer vers√£o posterior.                                                   }
+{  Esta biblioteca È software livre; vocÍ pode redistribuÌ-la e/ou modific·-la }
+{ sob os termos da LicenÁa P˙blica Geral Menor do GNU conforme publicada pela  }
+{ Free Software Foundation; tanto a vers„o 2.1 da LicenÁa, ou (a seu critÈrio) }
+{ qualquer vers„o posterior.                                                   }
 {                                                                              }
-{  Esta biblioteca √© distribu√≠da na expectativa de que seja √∫til, por√©m, SEM   }
-{ NENHUMA GARANTIA; nem mesmo a garantia impl√≠cita de COMERCIABILIDADE OU      }
-{ ADEQUA√á√ÉO A UMA FINALIDADE ESPEC√çFICA. Consulte a Licen√ßa P√∫blica Geral Menor}
-{ do GNU para mais detalhes. (Arquivo LICEN√áA.TXT ou LICENSE.TXT)              }
+{  Esta biblioteca È distribuÌda na expectativa de que seja ˙til, porÈm, SEM   }
+{ NENHUMA GARANTIA; nem mesmo a garantia implÌcita de COMERCIABILIDADE OU      }
+{ ADEQUA«√O A UMA FINALIDADE ESPECÕFICA. Consulte a LicenÁa P˙blica Geral Menor}
+{ do GNU para mais detalhes. (Arquivo LICEN«A.TXT ou LICENSE.TXT)              }
 {                                                                              }
-{  Voc√™ deve ter recebido uma c√≥pia da Licen√ßa P√∫blica Geral Menor do GNU junto}
-{ com esta biblioteca; se n√£o, escreva para a Free Software Foundation, Inc.,  }
-{ no endere√ßo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
-{ Voc√™ tamb√©m pode obter uma copia da licen√ßa em:                              }
+{  VocÍ deve ter recebido uma cÛpia da LicenÁa P˙blica Geral Menor do GNU junto}
+{ com esta biblioteca; se n„o, escreva para a Free Software Foundation, Inc.,  }
+{ no endereÁo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
+{ VocÍ tambÈm pode obter uma copia da licenÁa em:                              }
 { http://www.opensource.org/licenses/lgpl-license.php                          }
 {                                                                              }
-{ Daniel Sim√µes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
-{              Pra√ßa Anita Costa, 34 - Tatu√≠ - SP - 18270-410                  }
+{ Daniel Simıes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
+{              PraÁa Anita Costa, 34 - TatuÌ - SP - 18270-410                  }
 {                                                                              }
 {******************************************************************************}
 
@@ -38,9 +38,9 @@
 |* Historico
 |*
 |* 27/10/2015: Jean Carlo Cantu, Tiago Ravache
-|*  - Doa√ß√£o do componente para o Projeto ACBr
+|*  - DoaÁ„o do componente para o Projeto ACBr
 |* 01/03/2016: Guilherme Costa
-|*  - Altera√ß√µes para valida√ß√£o com o XSD
+|*  - AlteraÁıes para validaÁ„o com o XSD
 ******************************************************************************}
 {$I ACBr.inc}
 
@@ -81,6 +81,7 @@ type
   TIdeEmpregador = class;
   TIdeEvento = class;
   TIdePeriodo = class;
+  TIdeEstabVinc = class;
   TIdeTomadorServ = class;
   TIdeTrabSubstituidoCollection = class;
   TIdeTrabSubstituidoCollectionItem = class;
@@ -89,6 +90,7 @@ type
   TInfoDeficiencia = class;
   TLocalTrabalho = class;
   TNascimento = class;
+  TProcesso = class;
   TProcAdmJudFap = class;
   TProcAdmJudRat = class;
   TRemuneracao = class;
@@ -154,7 +156,7 @@ type
   TeSocial = class(TPersistent)
   private
     FId: string;
-//    FVersao: string; - removido na vers√£o 2.1
+//    FVersao: string; - removido na vers„o 2.1
   published
     property Id: string read FId write FId;
 //    property versao: string read FVersao write FVersao;
@@ -204,9 +206,9 @@ type
 
   TAposentadoria = class
   private
-    FTrabAposent: string;
+    FTrabAposent: tpSimNao;
   public
-    property TrabAposent: string read FTrabAposent write FTrabAposent;
+    property TrabAposent: tpSimNao read FTrabAposent write FTrabAposent;
   end;
 
   TBrasil = class
@@ -280,6 +282,8 @@ type
     FCodCargo: string;
     FCodFuncao: string;
     FCodCateg: integer;
+    FCodCarreira: string;
+    FDTIngrCarr: TDate;
 
     FRemuneracao: TRemuneracao;
     FDuracao: TDuracao;
@@ -295,6 +299,8 @@ type
     property CodCargo: string read FCodCargo write FCodCargo;
     property CodFuncao: string read FCodFuncao write FCodFuncao;
     property CodCateg: integer read FCodCateg write FCodCateg;
+    property codCarreira: string read FCodCarreira write FCodCarreira;
+    property dtIngrCarr: TDate read FDTIngrCarr write FDTIngrCarr;
     property Remuneracao: TRemuneracao read FRemuneracao write FRemuneracao;
     property Duracao: TDuracao read FDuracao write FDuracao;
     property LocalTrabalho: TLocalTrabalho read FLocalTrabalho write FLocalTrabalho;
@@ -333,7 +339,8 @@ type
     FcpfDep: string;
     FdepIRRF: tpSimNao;
     FdepSF: tpSimNao;
-   // FDepRPPS: tpSimNao;--removido na vers√£o 2.1
+    FDepPlan: tpSimNao;
+    FIncTrab: tpSimNao;
   published
     constructor create; reintroduce;
     property tpDep: tpTpDep read FtpDep write FtpDep;
@@ -342,7 +349,8 @@ type
     property cpfDep: string read FcpfDep write FcpfDep;
     property depIRRF: tpSimNao read FdepIRRF write FdepIRRF;
     property depSF: tpSimNao read FdepSF write FdepSF;
-  //  property DepRPPS: tpSimNao read FDepRPPS write FDepRPPS; removido na vers√£o 2.1
+    property depPlan: tpSimNao read FDepPlan write FDepPlan;
+    property incTrab: tpSimNao read FIncTrab write FIncTrab;
   end;
 
   TDescAtividadeCollection = class(TCollection)
@@ -494,6 +502,7 @@ type
     FQtdHrsSem: integer;
     FTpJornada: tpTpJornada;
     FDscTpJorn: string;
+    FTMPParc: tpSimNao;
     FHorario: THorarioCollection;
   public
     constructor Create;
@@ -502,16 +511,20 @@ type
     property QtdHrsSem: integer read FQtdHrsSem write FQtdHrsSem;
     property TpJornada: tpTpJornada read FTpJornada write FTpJornada;
     property DscTpJorn: string read FDscTpJorn write FDscTpJorn;
+    property tmpParc: tpSimNao read FTMPParc write FTMPParc;
     property horario: THorarioCollection read FHorario write FHorario;
   end;
 
-  TIdeEmpregador = class(TPersistent)
-  private
+  TInscricao = class(TPersistent)
+  protected
     FTpInsc: tpTpInsc;
     FNrInsc: string;
   public
     property TpInsc: tpTpInsc read FTpInsc write FTpInsc;
     property NrInsc: string read FNrInsc write FNrInsc;
+  end;
+
+  TIdeEmpregador = class(TInscricao)
   end;
 
   TIdeTransmissor = class(TIdeEmpregador);
@@ -569,13 +582,17 @@ type
     property FimValid: string read FFimValid write FFimValid;
   end;
 
-  TIdeTomadorServ = class
+  TIdeEstabVinc = class(TInscricao)
+  end;
+
+  TIdeTomadorServ = class(TInscricao)
   private
-    FTpInsc:  Integer;
-    FNrInsc: string;
+    FIdeEstabVinc: TIdeEstabVinc;
   public
-    property TpInsc: Integer read FTpInsc write FTpInsc;
-    property NrInsc: string read FNrInsc write FNrInsc;
+    constructor Create;
+    destructor Destroy; override;
+
+    property ideEstabVinc: TIdeEstabVinc read FIdeEstabVinc write FIdeEstabVinc;
   end;
 
 
@@ -592,11 +609,9 @@ type
   TIdeTrabSubstituidoCollectionItem = class(TCollectionItem)
   private
     FCpfTrabSubst:  string;
-    FMatricTrabSubst: string;
   public
     constructor Create; reintroduce;
     property CpfTrabSubst:  string read FCpfTrabSubst write FCpfTrabSubst;
-    property MatricTrabSubst: string read FMatricTrabSubst write FMatricTrabSubst;
   end;
 
   TIdeVinculo = class
@@ -629,6 +644,7 @@ type
     FDefAuditiva: tpSimNao;
     FDefFisica: tpSimNao;
     FReabReadap: tpSimNao;
+    FInfoCota: tpSimNao;
     FObservacao: string;
   public
     property DefFisica: tpSimNao read FDefFisica  write FDefFisica;
@@ -638,6 +654,7 @@ type
     property DefVisual: tpSimNao read FDefVisual write FDefVisual;
     property DefAuditiva: tpSimNao read FDefAuditiva write FDefAuditiva;
     property ReabReadap: tpSimNao read FReabReadap write FReabReadap;
+    property infoCota: tpSimNao read FInfoCota write FInfoCota;
     property Observacao: string read FObservacao write FObservacao;
   end;
 
@@ -704,22 +721,28 @@ type
     property NmPai: string read FNmPai write FNmPai;
   end;
 
-  TProcAdmJudFap = class(TPersistent)
-  private
-    FTpProc: tpTpProc;
-    FNrProc: string;
+  TProcesso = class(TCollectionItem)
+  protected
+    FNrProc: String;
+    FCodSusp: Integer;
   public
-    property tpProc: tpTpProc read FTpProc write FTpProc;
+    constructor create; reintroduce;
     property nrProc: string read FNrProc write FNrProc;
+    property codSusp: Integer read FCodSusp write FCodSusp;
   end;
 
-  TProcAdmJudRat = class(TPersistent)
+  TProcAdmJudFap = class(TProcesso)
   private
     FTpProc: tpTpProc;
-    FNrProc: string;
   public
     property tpProc: tpTpProc read FTpProc write FTpProc;
-    property nrProc: string read FNrProc write FNrProc;
+  end;
+
+  TProcAdmJudRat = class(TProcesso)
+  private
+    FTpProc: tpTpProc;
+  public
+    property tpProc: tpTpProc read FTpProc write FTpProc;
   end;
 
   TRemuneracao = class
@@ -801,6 +824,7 @@ type
     FRacaCor: integer;
     FEstCiv: integer;
     FGrauInstr: integer;
+    FNmSoc: string;
     FIndPriEmpr: tpSimNao;
 
     FNascimento: TNascimento;
@@ -822,6 +846,7 @@ type
     property RacaCor: integer read FRacaCor write FRacaCor;
     property EstCiv: integer read FEstCiv write FEstCiv;
     property GrauInstr: integer read FGrauInstr write FGrauInstr;
+    property nmSoc: string read FNmSoc write FNmSoc;
     property IndPriEmpr: tpSimNao read FIndPriEmpr write FIndPriEmpr;
     property Nascimento: TNascimento read FNascimento write FNascimento;
     property Documentos: TDocumentos read FDocumentos write FDocumentos;
@@ -848,7 +873,9 @@ type
 
   TTrabTemporario = class(TPersistent)
   private
-    FmtvContrat: tpMtvContrat;
+    FHipLeg: tpMtvContrat;
+    FJustContr: string;
+    FTpInclContr: tpInclContr;
 
     FIdeTomadorServ: TIdeTomadorServ;
     FIdeTrabSubstituido: TIdeTrabSubstituidoCollection;
@@ -856,11 +883,15 @@ type
     constructor Create;
     destructor Destroy; override;
 
-    property MtvContrat: tpMtvContrat read FmtvContrat write FmtvContrat;
+    property hipLeg: tpMtvContrat read FHipLeg write FHipLeg;
+    property justContr: string read FJustContr write FJustContr;
+    property tpinclContr: tpinclContr read FTpInclContr write FTpInclContr;
     property IdeTomadorServ: TIdeTomadorServ read FIdeTomadorServ write FIdeTomadorServ;
     property IdeTrabSubstituido: TIdeTrabSubstituidoCollection read FIdeTrabSubstituido write FIdeTrabSubstituido;
   end;
 
+  TAprend = class(TInscricao)
+  end;
 
   TInfoCeletista = class
   private
@@ -874,6 +905,7 @@ type
 
     FFGTS: TFGTS;
     FTrabTemporario: TTrabTemporario;
+    FAprend: TAprend;
   public
     constructor Create;
     destructor Destroy; override;
@@ -888,6 +920,14 @@ type
 
     property FGTS: TFGTS read FFGTS write FFGTS;
     property TrabTemporario: TTrabTemporario read FTrabTemporario write FTrabTemporario;
+    property aprend: TAprend read FAprend write FAprend;
+  end;
+
+  TInfoDecJud = class
+  private
+    FNrProcJud: string;
+  public
+    property nrProcJud: string read FNrProcJud write FNrProcJud;
   end;
 
   TInfoEstatutario = class
@@ -897,13 +937,19 @@ type
     FDtNomeacao: TDate;
     FDtPosse: TDate;
     FDtExercicio: TDate;
-
+    FTpPlanRP: tpPlanRP;
+    FInfoDecJud: TInfoDecJud;
   public
+    constructor Create;
+    destructor Destroy; override;
+
     property IndProvim: tpIndProvim read FIndProvim write FIndProvim;
     property TpProv: tpTpProv read FTpProv write FTpProv;
     property DtNomeacao: TDate read FDtNomeacao write FDtNomeacao;
     property DtPosse: TDate read FDtPosse write FDtPosse;
     property DtExercicio: TDate read FDtExercicio write FDtExercicio;
+    property tpPlanRP: tpPlanRP read FTpPlanRP write FTpPlanRP;
+    property infoDecJud: TInfoDecJud read FInfoDecJud write FInfoDecJud;
   end;
 
   TInfoRegimeTrab = class
@@ -1369,7 +1415,7 @@ type
   private
     FtpProc : tpTpProc;
     FtpTrib : tpTpTributo;
-    FnrProcJud: string;//em S1250 o campo √© nrProcJUD e em S1260 √© apenas nrProc - deixado nrProcJud para reutiliza√ß√£o da classe
+    FnrProcJud: string;//em S1250 o campo È nrProcJUD e em S1260 È apenas nrProc - deixado nrProcJud para reutilizaÁ„o da classe
     FvrCPNRet: Double;
     FvrRatNRet: Double;
     FvrSenarNRet: Double;
@@ -1621,6 +1667,18 @@ begin
   inherited;
 end;
 
+{ TIdeTomadorServ }
+constructor TIdeTomadorServ.Create;
+begin
+  FIdeEstabVinc := TIdeEstabVinc.Create;
+end;
+
+destructor TIdeTomadorServ.Destroy;
+begin
+  FIdeEstabVinc.Free;
+  inherited;
+end;
+
 { THorarioCollection }
 function THorarioCollection.Add: THorarioCollectionItem;
 begin
@@ -1833,17 +1891,33 @@ begin
   inherited;
 end;
 
+
+{ TInfoEstatutario }
+
+constructor TInfoEstatutario.Create;
+begin
+  FInfoDecJud := TInfoDecJud.Create;
+end;
+
+destructor TInfoEstatutario.Destroy;
+begin
+  FInfoDecJud.Free;
+  inherited;
+end;
+
 { TInfoCeletista }
 constructor TInfoCeletista.Create;
 begin
   FFGTS := TFGTS.Create;
   FTrabTemporario := TTrabTemporario.Create;
+  FAprend := TAprend.Create;
 end;
 
 destructor TInfoCeletista.Destroy;
 begin
   FFGTS.Free;
   FTrabTemporario.Free;
+  FAprend.Free;
   inherited;
 end;
 
@@ -2246,6 +2320,12 @@ end;
 
 
 constructor TIdeTrabSubstituidoCollectionItem.Create;
+begin
+
+end;
+
+{ TProcesso }
+constructor TProcesso.Create;
 begin
 
 end;

@@ -62,8 +62,8 @@ object FExemploEsocial: TFExemploEsocial
       TabOrder = 4
     end
     object cbS1040: TCheckBox
-      Left = 8
-      Top = 129
+      Left = 346
+      Top = 23
       Width = 156
       Height = 17
       Caption = 'S-1040 Tabela de Fun'#231#245'es'
@@ -73,53 +73,53 @@ object FExemploEsocial: TFExemploEsocial
     end
     object cbS1080: TCheckBox
       Left = 346
-      Top = 87
+      Top = 108
       Width = 224
       Height = 17
       Caption = 'S-1080 - Tabela de Operadores Portu'#225'rios'
       Ctl3D = False
       ParentCtl3D = False
-      TabOrder = 9
+      TabOrder = 10
     end
     object cbS2100: TCheckBox
       Left = 346
-      Top = 108
+      Top = 129
       Width = 268
       Height = 17
       Caption = 'S-2100 - Cadastramento Inicial do V'#237'nculo'
       Ctl3D = False
       ParentCtl3D = False
-      TabOrder = 10
+      TabOrder = 11
     end
     object cbS1070: TCheckBox
       Left = 346
-      Top = 65
+      Top = 86
       Width = 168
       Height = 17
       Caption = 'S-1070 - Tabela de Processos'
       Ctl3D = False
       ParentCtl3D = False
-      TabOrder = 8
+      TabOrder = 9
     end
     object cbS1060: TCheckBox
       Left = 346
-      Top = 44
+      Top = 65
       Width = 228
       Height = 17
       Caption = 'S-1060 Tabela de Ambientes de Trabalho'
       Ctl3D = False
       ParentCtl3D = False
-      TabOrder = 7
+      TabOrder = 8
     end
     object cbS1050: TCheckBox
       Left = 346
-      Top = 23
+      Top = 44
       Width = 248
       Height = 17
       Caption = 'S-1050 Tabela de Hor'#225'rios/Turnos de Trabalho'
       Ctl3D = False
       ParentCtl3D = False
-      TabOrder = 6
+      TabOrder = 7
     end
     object cbS1005: TCheckBox
       Left = 8
@@ -130,6 +130,14 @@ object FExemploEsocial: TFExemploEsocial
       Ctl3D = False
       ParentCtl3D = False
       TabOrder = 1
+    end
+    object cbS1035: TCheckBox
+      Left = 8
+      Top = 129
+      Width = 249
+      Height = 17
+      Caption = 'S-1035 Tabela de Carreiras P'#250'blicas'
+      TabOrder = 6
     end
   end
   object GroupBox2: TGroupBox
@@ -457,13 +465,11 @@ object FExemploEsocial: TFExemploEsocial
     Configuracoes.Geral.SSLLib = libCapicom
     Configuracoes.Geral.FormatoAlerta = 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'
     Configuracoes.Arquivos.PathSalvar = 'C:\teste_esocial\'
-    Configuracoes.Arquivos.PathSchemas = '..\Schemas\'
+    Configuracoes.Arquivos.PathSchemas = '..\..\schemas\eSocial\'
     Configuracoes.WebServices.UF = 'SP'
     Configuracoes.WebServices.AguardarConsultaRet = 0
     Configuracoes.WebServices.QuebradeLinha = '|'
-    Configuracoes.Certificados.ArquivoPFX = 'C:\Users\cantu\Desktop\GP DISTRIBUIDORA DE COMBUSTIVEIS .pfx'
-    Configuracoes.Certificados.NumeroSerie = '39373B633A2520ACCD28A254467D0A6E'
-    Configuracoes.Certificados.Senha = 'trevo'
+    Configuracoes.Certificados.NumeroSerie = '388555B6980CDFBB'
     Left = 648
     Top = 32
   end

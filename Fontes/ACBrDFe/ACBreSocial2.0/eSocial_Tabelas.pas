@@ -48,8 +48,8 @@ interface
 
 uses
   SysUtils, Classes, ACBrUtil, eSocial_Conversao,
-  eSocial_S1010, eSocial_S1020, eSocial_S1030, eSocial_S1040, eSocial_S1050,
-  eSocial_S1070, eSocial_S1080, eSocial_S1060;
+  eSocial_S1010, eSocial_S1020, eSocial_S1030, eSocial_S1035, eSocial_S1040,
+  eSocial_S1050, eSocial_S1070, eSocial_S1080, eSocial_S1060;
 
 type
 
@@ -58,6 +58,7 @@ type
     FS1010: TS1010Collection;
     FS1020: TS1020Collection;
     FS1030: TS1030Collection;
+    FS1035: TS1035Collection;
     FS1040: TS1040Collection;
     FS1050: TS1050Collection;
     FS1060: TS1060Collection;
@@ -66,6 +67,7 @@ type
     procedure setS1010(const Value: TS1010Collection);
     procedure setS1020(const Value: TS1020Collection);
     procedure setS1030(const Value: TS1030Collection);
+    procedure setS1035(const Value: TS1035Collection);
     procedure setS1040(const Value: TS1040Collection);
     procedure setS1050(const Value: TS1050Collection);
     procedure setS1060(const Value: TS1060Collection);
@@ -83,6 +85,7 @@ type
     property S1010: TS1010Collection read FS1010 write setS1010;
     property S1020: TS1020Collection read FS1020 write setS1020;
     property S1030: TS1030Collection read FS1030 write setS1030;
+    property S1035: TS1035Collection read FS1035 write setS1035;
     property S1040: TS1040Collection read FS1040 write setS1040;
     property S1050: TS1050Collection read FS1050 write setS1050;
     property S1060: TS1060Collection read FS1060 write setS1060;
@@ -102,6 +105,7 @@ begin
   FS1010.Clear;
   FS1020.Clear;
   FS1030.Clear;
+  FS1035.Clear;
   FS1040.Clear;
   FS1050.Clear;
   FS1060.Clear;
@@ -115,6 +119,7 @@ begin
   FS1010 := TS1010Collection.Create(AOwner, TS1010CollectionItem);
   FS1020 := TS1020Collection.Create(AOwner, TS1020CollectionItem);
   FS1030 := TS1030Collection.Create(AOwner, TS1030CollectionItem);
+  FS1035 := TS1035Collection.Create(AOwner, TS1035CollectionItem);
   FS1040 := TS1040Collection.Create(AOwner, TS1040CollectionItem);
   FS1050 := TS1050Collection.Create(AOwner, TS1050CollectionItem);
   FS1060 := TS1060Collection.Create(AOwner, TS1060CollectionItem);
@@ -127,6 +132,7 @@ begin
   FS1010.Free;
   FS1020.Free;
   FS1030.Free;
+  FS1035.Free;
   FS1040.Free;
   FS1050.Free;
   FS1060.Free;
@@ -147,6 +153,9 @@ begin
 
   for I := 0 to Self.S1030.Count - 1 do
     Self.S1030.Items[i].EvtTabCargo.GerarXML;
+
+  for I := 0 to Self.S1035.Count - 1 do
+    Self.S1035.Items[i].evtTabCarreira.GerarXML;
 
   for I := 0 to Self.S1040.Count - 1 do
     Self.S1040.Items[i].EvtTabFuncao.GerarXML;
@@ -179,6 +188,9 @@ begin
   for I := 0 to Self.S1030.Count - 1 do
     Self.S1030.Items[i].EvtTabCargo.SaveToFile(Path+'\'+TipoEventoToStr(Self.S1030.Items[i].TipoEvento)+'-'+IntToStr(i));
 
+  for I := 0 to Self.S1035.Count - 1 do
+    Self.S1035.Items[i].evtTabCarreira.SaveToFile(Path+'\'+TipoEventoToStr(Self.S1035.Items[i].TipoEvento)+'-'+IntToStr(i));
+
   for I := 0 to Self.S1040.Count - 1 do
     Self.S1040.Items[i].EvtTabFuncao.SaveToFile(Path+'\'+TipoEventoToStr(Self.S1040.Items[i].TipoEvento)+'-'+IntToStr(i));
 
@@ -208,6 +220,11 @@ end;
 procedure TTabelas.setS1030(const Value: TS1030Collection);
 begin
   FS1030.Assign(Value);
+end;
+
+procedure TTabelas.setS1035(const Value: TS1035Collection);
+begin
+  FS1035.Assign(Value);
 end;
 
 procedure TTabelas.setS1040(const Value: TS1040Collection);

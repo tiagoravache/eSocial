@@ -1,36 +1,36 @@
-ï»¿{******************************************************************************}
+{******************************************************************************}
 { Projeto: Componente ACBreSocial                                              }
 {  Biblioteca multiplataforma de componentes Delphi para envio dos eventos do  }
 { eSocial - http://www.esocial.gov.br/                                         }
 {                                                                              }
 { Direitos Autorais Reservados (c) 2008 Wemerson Souto                         }
 {                                       Daniel Simoes de Almeida               }
-{                                       AndrÃ© Ferreira de Moraes               }
+{                                       André Ferreira de Moraes               }
 {                                                                              }
 { Colaboradores nesse arquivo:                                                 }
 {                                                                              }
-{  VocÃª pode obter a Ãºltima versÃ£o desse arquivo na pagina do Projeto ACBr     }
+{  Você pode obter a última versão desse arquivo na pagina do Projeto ACBr     }
 { Componentes localizado em http://www.sourceforge.net/projects/acbr           }
 {                                                                              }
 {                                                                              }
-{  Esta biblioteca Ã© software livre; vocÃª pode redistribuÃ­-la e/ou modificÃ¡-la }
-{ sob os termos da LicenÃ§a PÃºblica Geral Menor do GNU conforme publicada pela  }
-{ Free Software Foundation; tanto a versÃ£o 2.1 da LicenÃ§a, ou (a seu critÃ©rio) }
-{ qualquer versÃ£o posterior.                                                   }
+{  Esta biblioteca é software livre; você pode redistribuí-la e/ou modificá-la }
+{ sob os termos da Licença Pública Geral Menor do GNU conforme publicada pela  }
+{ Free Software Foundation; tanto a versão 2.1 da Licença, ou (a seu critério) }
+{ qualquer versão posterior.                                                   }
 {                                                                              }
-{  Esta biblioteca Ã© distribuÃ­da na expectativa de que seja Ãºtil, porÃ©m, SEM   }
-{ NENHUMA GARANTIA; nem mesmo a garantia implÃ­cita de COMERCIABILIDADE OU      }
-{ ADEQUAÃ‡ÃƒO A UMA FINALIDADE ESPECÃFICA. Consulte a LicenÃ§a PÃºblica Geral Menor}
-{ do GNU para mais detalhes. (Arquivo LICENÃ‡A.TXT ou LICENSE.TXT)              }
+{  Esta biblioteca é distribuída na expectativa de que seja útil, porém, SEM   }
+{ NENHUMA GARANTIA; nem mesmo a garantia implícita de COMERCIABILIDADE OU      }
+{ ADEQUAÇÃO A UMA FINALIDADE ESPECÍFICA. Consulte a Licença Pública Geral Menor}
+{ do GNU para mais detalhes. (Arquivo LICENÇA.TXT ou LICENSE.TXT)              }
 {                                                                              }
-{  VocÃª deve ter recebido uma cÃ³pia da LicenÃ§a PÃºblica Geral Menor do GNU junto}
-{ com esta biblioteca; se nÃ£o, escreva para a Free Software Foundation, Inc.,  }
-{ no endereÃ§o 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
-{ VocÃª tambÃ©m pode obter uma copia da licenÃ§a em:                              }
+{  Você deve ter recebido uma cópia da Licença Pública Geral Menor do GNU junto}
+{ com esta biblioteca; se não, escreva para a Free Software Foundation, Inc.,  }
+{ no endereço 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
+{ Você também pode obter uma copia da licença em:                              }
 { http://www.opensource.org/licenses/lgpl-license.php                          }
 {                                                                              }
-{ Daniel SimÃµes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
-{              PraÃ§a Anita Costa, 34 - TatuÃ­ - SP - 18270-410                  }
+{ Daniel Simões de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
+{              Praça Anita Costa, 34 - Tatuí - SP - 18270-410                  }
 {                                                                              }
 {******************************************************************************}
 
@@ -38,9 +38,9 @@
 |* Historico
 |*
 |* 27/10/2015: Jean Carlo Cantu, Tiago Ravache
-|*  - DoaÃ§Ã£o do componente para o Projeto ACBr
+|*  - Doação do componente para o Projeto ACBr
 |* 29/02/2015: Guilherme Costa
-|*  - nÃ£o estava sendo gerada a tag "tpProc"
+|*  - não estava sendo gerada a tag "tpProc"
 ******************************************************************************}
 {$I ACBr.inc}
 
@@ -61,10 +61,11 @@ type
   TInfoRubrica = class;
   TDadosRubrica = class;
   TIdeRubrica = class;
-  TIdeProcessoCP = class;
-  TIdeProcessoIRRF = class;
-  TIdeProcessoFGTS = class;
-  TIdeProcessoSind = class;
+  TIdeProcessoCPCollection = class;
+  TIdeProcessoCPCollectionItem = class;
+  TIdeProcessoIRRFCollection = class;
+  TIdeProcessoFGTSCollection = class;
+  TIdeProcessoSindCollection = class;
 
   TS1010Collection = class(TOwnedCollection)
    private
@@ -88,6 +89,16 @@ type
     property EvtTabRubrica: TEvtTabRubrica read FEvtTabRubrica write setEvtTabRubrica;
   end;
 
+  TProcessoCollection = class(TCollection)
+  private
+    function GetItem(Index: Integer): TProcesso;
+    procedure SetItem(Index: Integer; Value: TProcesso);
+  public
+    constructor Create(AOwner: TPersistent);
+    function Add: TProcesso;
+    property Items[Index: Integer]: TProcesso read GetItem write SetItem; default;
+  end;
+
   TEvtTabRubrica = class(TeSocialEvento)
    private
     FModoLancamento: TModoLancamento;
@@ -95,13 +106,11 @@ type
     FIdeEvento: TIdeEvento;
     FInfoRubrica: TInfoRubrica;
 
-    {Geradores especÃ­ficos da classe}
+    {Geradores específicos da classe}
     procedure gerarIdeRubrica();
     procedure gerarDadosRubrica();
     procedure gerarIdeProcessoCP();
-    procedure gerarIdeProcessoIRRF();
-    procedure gerarIdeProcessoFGTS();
-    procedure gerarIdeProcessoSIND();
+    procedure gerarProcessos(pChave: string; pProcessoCollection: TProcessoCollection);
   public
     constructor Create(AACBreSocial: TObject);overload;
     destructor Destroy; override;
@@ -144,17 +153,16 @@ type
     FRepDSR: tpSimNao;
     FRep13: tpSimNao;
     FRepFerias: tpSimNao;
-    FRepAviso: tpSimNao; //repResc na versÃ£o 2.0 alterado na 2.1 para repAviso
-    FFatorRubr: double;
+    FRepAviso: tpSimNao; //repResc na versão 2.0 alterado na 2.1 para repAviso
     FObservacao: string;          
-    FIdeProcessoCP: TIdeProcessoCP;
-    FIdeProcessoIRRF: TIdeProcessoIRRF;
-    FIdeProcessoFGTS: TIdeProcessoFGTS;
-    FIdeProcessoSIND: TIdeProcessoSind;
-    function getIdeProcessoCP(): TIdeProcessoCP;
-    function getIdeProcessoIRRF(): TIdeProcessoIRRF;
-    function getIdeProcessoFGTS(): TIdeProcessoFGTS;
-    function getIdeProcessoSIND(): TIdeProcessoSind;
+    FIdeProcessoCP: TIdeProcessoCPCollection;
+    FIdeProcessoIRRF: TIdeProcessoIRRFCollection;
+    FIdeProcessoFGTS: TIdeProcessoFGTSCollection;
+    FIdeProcessoSIND: TIdeProcessoSindCollection;
+    function getIdeProcessoCP(): TIdeProcessoCPCollection;
+    function getIdeProcessoIRRF(): TIdeProcessoIRRFCollection;
+    function getIdeProcessoFGTS(): TIdeProcessoFGTSCollection;
+    function getIdeProcessoSIND(): TIdeProcessoSindCollection;
   public
     constructor create;
     destructor Destroy; override;
@@ -174,12 +182,11 @@ type
     property rep13: tpSimNao read FRep13 write FRep13;
     property repFerias: tpSimNao read FRepFerias write FRepFerias;
     property repAviso: tpSimNao read FRepAviso write FRepAviso;
-    property fatorRubr: double read FFatorRubr write FFatorRubr;
     property observacao: string read FObservacao write FObservacao;    
-    property IdeProcessoCP: TIdeProcessoCP read getIdeProcessoCP write FIdeProcessoCP;
-    property IdeProcessoIRRF: TIdeProcessoIRRF read getIdeProcessoIRRF write FIdeProcessoIRRF;
-    property IdeProcessoFGTS: TIdeProcessoFGTS read getIdeProcessoFGTS write FIdeProcessoFGTS;
-    property IdeProcessoSIND: TIdeProcessoSind read getIdeProcessoSIND write FIdeProcessoSIND;
+    property IdeProcessoCP: TIdeProcessoCPCollection read getIdeProcessoCP write FIdeProcessoCP;
+    property IdeProcessoIRRF: TIdeProcessoIRRFCollection read getIdeProcessoIRRF write FIdeProcessoIRRF;
+    property IdeProcessoFGTS: TIdeProcessoFGTSCollection read getIdeProcessoFGTS write FIdeProcessoFGTS;
+    property IdeProcessoSIND: TIdeProcessoSindCollection read getIdeProcessoSIND write FIdeProcessoSIND;
   end;
 
   TIdeRubrica = class(TPersistent)
@@ -195,36 +202,35 @@ type
     property fimValid: string read FFimValid write FFimValid;
   end;
 
-  TIdeProcessoCP = class(TPersistent)
+  TIdeProcessoCPCollection = class(TCollection)
+  private
+    function GetItem(Index: Integer): TIdeProcessoCPCollectionItem;
+    procedure SetItem(Index: Integer; Value: TIdeProcessoCPCollectionItem);
+  public
+    constructor create(); reintroduce;
+
+    function Add: TIdeProcessoCPCollectionItem;
+    property Items[Index: Integer]: TIdeProcessoCPCollectionItem read GetItem write SetItem;
+  end;
+
+  TIdeProcessoCPCollectionItem = class(TProcesso)
    private
     FtpProc: tpTpProc;
-    FNrProc: string;
     FExtDecisao: TpExtDecisao;
   public
+    constructor create; reintroduce;
+
     property tpProc: tpTpProc read FtpProc write FtpProc;
-    property nrProc: string read FNrProc write FNrProc;
     property ExtDecisao: TpExtDecisao read FExtDecisao write FExtDecisao;
   end;
 
-  TIdeProcessoIRRF = class(TPersistent)
-   private
-    FNrProc: string;
-  public
-    property nrProc: string read FNrProc write FNrProc;
+  TIdeProcessoIRRFCollection = class(TProcessoCollection)
   end;
 
-  TIdeProcessoFGTS = class(TPersistent)
-   private
-    FNrProc: string;
-  public
-    property nrProc: string read FNrProc write FNrProc;
+  TIdeProcessoFGTSCollection = class(TProcessoCollection)
   end;
 
-  TIdeProcessoSind = class(TPersistent)
-   private
-    FNrProc: string;
-  public
-    property nrProc: string read FNrProc write FNrProc;
+  TIdeProcessoSindCollection = class(TProcessoCollection)
   end;
 
 implementation
@@ -304,57 +310,39 @@ begin
     Gerador.wCampo(tcStr, '', 'repFerias', 0, 0, 0, eSSimNaoToStr(InfoRubrica.dadosRubrica.repFerias));
     Gerador.wCampo(tcStr, '', 'repAviso', 0, 0, 0, eSSimNaoToStr(InfoRubrica.dadosRubrica.repAviso));
 
-    if InfoRubrica.dadosRubrica.fatorRubr > 0 then
-      Gerador.wCampo(tcDe2, '', 'fatorRubr', 0, 0,0, InfoRubrica.dadosRubrica.fatorRubr);
-
     if (InfoRubrica.dadosRubrica.observacao <> '') then
       Gerador.wCampo(tcStr, '', 'observacao', 0, 0, 0, InfoRubrica.dadosRubrica.observacao);
     gerarideProcessoCP();
-    gerarideProcessoIRRF();
-    gerarideProcessoFGTS();
-    gerarideProcessoSIND();
+    gerarProcessos('ideProcessoIRRF', InfoRubrica.dadosRubrica.IdeProcessoIRRF);
+    gerarProcessos('ideProcessoFGTS', InfoRubrica.dadosRubrica.IdeProcessoFGTS);
+    gerarProcessos('ideProcessoSIND', InfoRubrica.dadosRubrica.IdeProcessoSIND);
   Gerador.wGrupo('/dadosRubrica');
 end;
 
+procedure TEvtTabRubrica.gerarProcessos(pChave: String; pProcessoCollection: TProcessoCollection);
+var
+  i: Integer;
+begin
+  for i := 0 to pProcessoCollection.Count - 1 do
+    GerarProcessoGenerico(pChave, pProcessoCollection[i]);
+end;
+
 procedure TEvtTabRubrica.gerarIdeProcessoCP;
+var
+  i: integer;
 begin
   if (InfoRubrica.DadosRubrica.ideProcessoCPInst()) then
   begin
-    Gerador.wGrupo('ideProcessoCP');
-      Gerador.wCampo(tcStr, '', 'tpProc', 0, 0, 0, eSTpProcessoToStr(InfoRubrica.DadosRubrica.IdeProcessoCP.tpProc));
-      Gerador.wCampo(tcStr, '', 'nrProc', 0, 0, 0, InfoRubrica.DadosRubrica.IdeProcessoCP.nrProc);
-      Gerador.wCampo(tcStr, '', 'extDecisao', 0, 0, 0, eSExtDecisaoToStr(InfoRubrica.DadosRubrica.IdeProcessoCP.extDecisao));
-    Gerador.wGrupo('/ideProcessoCP');
-  end;
-end;
-
-procedure TEvtTabRubrica.gerarIdeProcessoFGTS;
-begin
-  if (InfoRubrica.DadosRubrica.ideProcessoFGTSInst()) then
-  begin
-    Gerador.wGrupo('ideProcessoFGTS');
-      Gerador.wCampo(tcStr, '', 'nrProc', 0, 0, 0, InfoRubrica.DadosRubrica.IdeProcessoFGTS.nrProc);
-    Gerador.wGrupo('/ideProcessoFGTS');
-  end;
-end;
-
-procedure TEvtTabRubrica.gerarIdeProcessoIRRF;
-begin
-  if (InfoRubrica.DadosRubrica.ideProcessoIRRFInst()) then
-  begin
-    Gerador.wGrupo('ideProcessoIRRF');
-      Gerador.wCampo(tcStr, '', 'nrProc', 0, 0, 0, InfoRubrica.DadosRubrica.IdeProcessoIRRF.nrProc);
-    Gerador.wGrupo('/ideProcessoIRRF');
-  end;
-end;
-
-procedure TEvtTabRubrica.gerarideProcessoSIND;
-begin
-  if (InfoRubrica.DadosRubrica.ideProcessoSINDInst()) then
-  begin
-    Gerador.wGrupo('ideProcessoSIND');
-      Gerador.wCampo(tcStr, '', 'nrProc', 0, 0, 0, InfoRubrica.DadosRubrica.IdeProcessoSIND.nrProc);
-    Gerador.wGrupo('/ideProcessoSIND');
+    for i := 0 to InfoRubrica.DadosRubrica.IdeProcessoCP.Count - 1 do
+    begin
+      Gerador.wGrupo('ideProcessoCP');
+        Gerador.wCampo(tcStr, '', 'tpProc', 0, 0, 0, eSTpProcessoToStr(InfoRubrica.DadosRubrica.IdeProcessoCP.GetItem(i).tpProc));
+        Gerador.wCampo(tcStr, '', 'nrProc', 0, 0, 0, InfoRubrica.DadosRubrica.IdeProcessoCP.GetItem(i).nrProc);
+        Gerador.wCampo(tcStr, '', 'extDecisao', 0, 0, 0, eSExtDecisaoToStr(InfoRubrica.DadosRubrica.IdeProcessoCP.GetItem(i).extDecisao));
+        if InfoRubrica.DadosRubrica.IdeProcessoCP.GetItem(i).codSusp > 0 then
+           Gerador.wCampo(tcInt, '', 'codSusp', 0, 0, 0, InfoRubrica.DadosRubrica.IdeProcessoCP.GetItem(i).codSusp);
+      Gerador.wGrupo('/ideProcessoCP');
+    end;
   end;
 end;
 
@@ -443,6 +431,37 @@ begin
   Result := Assigned(FnovaValidade);
 end;
 
+{ TIdeProcessoCPCollectionItem }
+
+constructor TIdeProcessoCPCollectionItem.create;
+begin
+end;
+
+{ TIdeProcessoCPCollection }
+
+function TIdeProcessoCPCollection.Add: TIdeProcessoCPCollectionItem;
+begin
+  Result := TIdeProcessoCPCollectionItem(inherited Add());
+  Result.Create;
+end;
+
+constructor TIdeProcessoCPCollection.create;
+begin
+  inherited create(TIdeProcessoCPCollectionItem);
+end;
+
+function TIdeProcessoCPCollection.GetItem(
+  Index: Integer): TIdeProcessoCPCollectionItem;
+begin
+  Result := TIdeProcessoCPCollectionItem(Inherited GetItem(Index));
+end;
+
+procedure TIdeProcessoCPCollection.SetItem(Index: Integer;
+  Value: TIdeProcessoCPCollectionItem);
+begin
+  Inherited SetItem(Index, Value);
+end;
+
 { TDadosRubrica }
 
 constructor TDadosRubrica.create;
@@ -462,31 +481,31 @@ begin
   inherited;
 end;
 
-function TDadosRubrica.getIdeProcessoCP: TIdeProcessoCP;
+function TDadosRubrica.getIdeProcessoCP: TIdeProcessoCPCollection;
 begin
   if Not(Assigned(FIdeProcessoCP)) then
-    FIdeProcessoCP := TIdeProcessoCP.Create;
+    FIdeProcessoCP := TIdeProcessoCPCollection.Create;
   Result := FIdeProcessoCP;
 end;
 
-function TDadosRubrica.getIdeProcessoFGTS: TIdeProcessoFGTS;
+function TDadosRubrica.getIdeProcessoFGTS: TIdeProcessoFGTSCollection;
 begin
   if Not(Assigned(FIdeProcessoFGTS)) then
-    FIdeProcessoFGTS := TIdeProcessoFGTS.Create;
+    FIdeProcessoFGTS := TIdeProcessoFGTSCollection.Create(FIdeProcessoFGTS);
   Result := FIdeProcessoFGTS;
 end;
 
-function TDadosRubrica.getIdeProcessoIRRF: TIdeProcessoIRRF;
+function TDadosRubrica.getIdeProcessoIRRF: TIdeProcessoIRRFCollection;
 begin
   if Not(Assigned(FIdeProcessoIRRF)) then
-    FIdeProcessoIRRF := TIdeProcessoIRRF.Create;
+    FIdeProcessoIRRF := TIdeProcessoIRRFCollection.Create(FIdeProcessoIRRF);
   Result := FIdeProcessoIRRF;
 end;
 
-function TDadosRubrica.getIdeProcessoSIND: TIdeProcessoSind;
+function TDadosRubrica.getIdeProcessoSIND: TIdeProcessoSindCollection;
 begin
   if Not(Assigned(FIdeProcessoSIND)) then
-    FIdeProcessoSIND := TIdeProcessoSind.Create;
+    FIdeProcessoSIND := TIdeProcessoSINDCollection.Create(FIdeProcessoSIND);
   Result := FIdeProcessoSIND;
 end;
 
@@ -508,6 +527,31 @@ end;
 function TDadosRubrica.ideProcessoSINDInst: Boolean;
 begin
   Result := Assigned(FIdeProcessoSIND);
+end;
+
+{ TProcessoCollection }
+
+function TProcessoCollection.Add: TProcesso;
+begin
+  Result := TProcesso(inherited Add());
+  Result.Create;
+end;
+
+constructor TProcessoCollection.create(AOwner: TPersistent);
+begin
+  inherited create(TProcesso);
+end;
+
+function TProcessoCollection.GetItem(
+  Index: Integer): TProcesso;
+begin
+  Result := TProcesso(Inherited GetItem(Index));
+end;
+
+procedure TProcessoCollection.SetItem(Index: Integer;
+  Value: TProcesso);
+begin
+  Inherited SetItem(Index, Value);
 end;
 
 end.

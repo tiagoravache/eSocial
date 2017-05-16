@@ -5,32 +5,32 @@
 {                                                                              }
 { Direitos Autorais Reservados (c) 2008 Wemerson Souto                         }
 {                                       Daniel Simoes de Almeida               }
-{                                       Andr√© Ferreira de Moraes               }
+{                                       AndrÈ Ferreira de Moraes               }
 {                                                                              }
 { Colaboradores nesse arquivo:                                                 }
 {                                                                              }
-{  Voc√™ pode obter a √∫ltima vers√£o desse arquivo na pagina do Projeto ACBr     }
+{  VocÍ pode obter a ˙ltima vers„o desse arquivo na pagina do Projeto ACBr     }
 { Componentes localizado em http://www.sourceforge.net/projects/acbr           }
 {                                                                              }
 {                                                                              }
-{  Esta biblioteca √© software livre; voc√™ pode redistribu√≠-la e/ou modific√°-la }
-{ sob os termos da Licen√ßa P√∫blica Geral Menor do GNU conforme publicada pela  }
-{ Free Software Foundation; tanto a vers√£o 2.1 da Licen√ßa, ou (a seu crit√©rio) }
-{ qualquer vers√£o posterior.                                                   }
+{  Esta biblioteca È software livre; vocÍ pode redistribuÌ-la e/ou modific·-la }
+{ sob os termos da LicenÁa P˙blica Geral Menor do GNU conforme publicada pela  }
+{ Free Software Foundation; tanto a vers„o 2.1 da LicenÁa, ou (a seu critÈrio) }
+{ qualquer vers„o posterior.                                                   }
 {                                                                              }
-{  Esta biblioteca √© distribu√≠da na expectativa de que seja √∫til, por√©m, SEM   }
-{ NENHUMA GARANTIA; nem mesmo a garantia impl√≠cita de COMERCIABILIDADE OU      }
-{ ADEQUA√á√ÉO A UMA FINALIDADE ESPEC√çFICA. Consulte a Licen√ßa P√∫blica Geral Menor}
-{ do GNU para mais detalhes. (Arquivo LICEN√áA.TXT ou LICENSE.TXT)              }
+{  Esta biblioteca È distribuÌda na expectativa de que seja ˙til, porÈm, SEM   }
+{ NENHUMA GARANTIA; nem mesmo a garantia implÌcita de COMERCIABILIDADE OU      }
+{ ADEQUA«√O A UMA FINALIDADE ESPECÕFICA. Consulte a LicenÁa P˙blica Geral Menor}
+{ do GNU para mais detalhes. (Arquivo LICEN«A.TXT ou LICENSE.TXT)              }
 {                                                                              }
-{  Voc√™ deve ter recebido uma c√≥pia da Licen√ßa P√∫blica Geral Menor do GNU junto}
-{ com esta biblioteca; se n√£o, escreva para a Free Software Foundation, Inc.,  }
-{ no endere√ßo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
-{ Voc√™ tamb√©m pode obter uma copia da licen√ßa em:                              }
+{  VocÍ deve ter recebido uma cÛpia da LicenÁa P˙blica Geral Menor do GNU junto}
+{ com esta biblioteca; se n„o, escreva para a Free Software Foundation, Inc.,  }
+{ no endereÁo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
+{ VocÍ tambÈm pode obter uma copia da licenÁa em:                              }
 { http://www.opensource.org/licenses/lgpl-license.php                          }
 {                                                                              }
-{ Daniel Sim√µes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
-{              Pra√ßa Anita Costa, 34 - Tatu√≠ - SP - 18270-410                  }
+{ Daniel Simıes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
+{              PraÁa Anita Costa, 34 - TatuÌ - SP - 18270-410                  }
 {                                                                              }
 {******************************************************************************}
 
@@ -38,9 +38,9 @@
 |* Historico
 |*
 |* 27/10/2015: Jean Carlo Cantu, Tiago Ravache
-|*  - Doa√ß√£o do componente para o Projeto ACBr
+|*  - DoaÁ„o do componente para o Projeto ACBr
 |* 01/03/2016: Guilherme Costa
-|*  - Passado o namespace para gera√ß√£o no cabe√ßalho
+|*  - Passado o namespace para geraÁ„o no cabeÁalho
 ******************************************************************************}
 {$I ACBr.inc}
 
@@ -59,7 +59,12 @@ type
   TS1005CollectionItem = class;
   TEvtTabEstab = class;
 
-  {Classes espec√≠ficas deste evento}
+  {Classes especÌficas deste evento}
+  TInfoPCD = class;
+  TInfoEntEducCollection = class;
+  TInfoEntEducCollectionItem = class;
+  TInfoApr = class;
+  TInfoTrab = class;
   TInfoObra = class;
   TinfoCaepf = class; //introduzido no layout2.1
   TDadosEstab = class;
@@ -87,7 +92,64 @@ type
     property TipoEvento: TTipoEvento read FTipoEvento;
     property evtTabEstab: TevtTabEstab read FevtTabEstab write FevtTabEstab;
   end;
-                      
+
+  TInfoEntEducCollection = class(TCollection)
+  private
+    function GetItem(Index: Integer): TInfoEntEducCollectionItem;
+    procedure SetItem(Index: Integer; Value: TInfoEntEducCollectionItem);
+  public
+    constructor Create(AOwner: TPersistent);
+    function Add: TInfoEntEducCollectionItem;
+    property Items[Index: Integer]: TInfoEntEducCollectionItem read GetItem write SetItem; default;
+  end;
+
+  TInfoEntEducCollectionItem = class(TCollectionItem)
+  private
+    FNrInsc: string;
+  published
+    constructor Create; reintroduce;
+    property nrInsc: string read FNrInsc write FNrInsc;
+  end;
+
+  TInfoApr = class(TPersistent)
+    private
+      FContApr: tpContApr;
+      FNrProcJud: string;
+      FContEntEd: tpSimNao;
+      FInfoEntEduc: TInfoEntEducCollection;
+  public
+    constructor Create;
+    destructor Destroy; override;
+    property contApr: tpContApr read FContApr write FContApr;
+    property nrProcJud: String read FNrProcJud write FNrProcJud;
+    property contEntEd: tpSimNao read FContEntEd write FContEntEd;
+    property infoEntEduc: TInfoEntEducCollection read FInfoEntEduc write FInfoEntEduc;
+  end;
+
+  TInfoPCD = class(TPersistent)
+  private
+    FContPCD: tpContPCD;
+    FNrProcJud: string;
+  public
+    property contPCD: tpContPCD read FContPCD write FContPCD;
+    property nrProcJud: string read FNrProcJud write FNrProcJud;
+  end;
+
+  TInfoTrab = class(TPersistent)
+    private
+      FRegPt: tpRegPt;
+      FInfoApr: TInfoApr;
+      FInfoPCD: TInfoPCD;
+      function getInfoPCD: TInfoPCD;
+  public
+    constructor Create;
+    destructor Destroy; override;
+    function infoPCDInst(): Boolean;
+    property regPt: tpRegPt read FRegPt write FRegPt;
+    property infoApr: TInfoApr read FInfoApr write FInfoApr;
+    property infoPCD: TInfoPCD read getInfoPCD write FInfoPCD;
+  end;
+
   TInfoObra = class(TPersistent)
    private
     FIndSubstPatrObra: tpIndSubstPatronalObra;
@@ -106,8 +168,9 @@ type
    private
     FCnaePrep: string;
     FAliqGilrat: TAliqGilRat;
-    FInfoObra: TInfoObra;
     FinfoCaepf : TinfoCaepf;
+    FInfoObra: TInfoObra;
+    FInfoTrab: TInfoTrab;
     function getInfoObra: TInfoObra;
     function getinfoCaepf : TInfoCaepf;
   public
@@ -120,6 +183,7 @@ type
     property aliqGilrat: TAliqGilRat read FAliqGilrat write FAliqGilrat;
     property infoObra: TInfoObra read getInfoObra write FInfoObra;
     property infoCaepf : TinfoCaepf read getinfoCaepf write FinfoCaepf;
+    property infoTrab: TInfoTrab read FInfoTrab write FInfoTrab;
   end;
 
   TIdeEstab = class(TPersistent)
@@ -163,6 +227,10 @@ type
     FInfoEstab: TInfoEstab;
 
     {. Geradores especificos desta classe .}
+    procedure GerarInfoEntEduc();
+    procedure GerarInfoApr();
+    procedure GerarInfoPCD();
+    procedure GerarInfoTrab();
     procedure GerarIdeEstab();
     procedure GerarInfoObra();
     procedure GerarInfoCaepf();
@@ -189,6 +257,7 @@ uses
 constructor TDadosEstab.create;
 begin
   FAliqGilrat := TAliqGilRat.Create;
+  FInfoTrab := TInfoTrab.Create;
   FInfoObra := nil;
   FinfoCaepf := nil;
 end;
@@ -196,6 +265,7 @@ end;
 destructor TDadosEstab.destroy;
 begin
   FAliqGilrat.Free;
+  FInfoTrab.Free;
   FreeAndNil(FInfoObra);
   FreeAndNil(FinfoCaepf);
   inherited;
@@ -223,6 +293,48 @@ end;
 function TDadosEstab.infoObraInst: Boolean;
 begin
   Result := Assigned(FInfoObra);
+end;
+
+{ TInfoApr }
+
+constructor TInfoApr.Create;
+begin
+  inherited;
+  FInfoEntEduc := TInfoEntEducCollection.Create(Self);
+end;
+
+destructor TInfoApr.Destroy;
+begin
+  FInfoEntEduc.Free;
+  inherited;
+end;
+
+{ TInfoTrab }
+
+constructor TInfoTrab.Create;
+begin
+  inherited;
+  FInfoApr := TInfoApr.Create;
+  FInfoPCD := nil;
+end;
+
+destructor TInfoTrab.Destroy;
+begin
+  FInfoApr.Free;
+  FreeAndNil(FInfoPCD);
+  inherited;
+end;
+
+function TInfoTrab.getInfoPCD: TInfoPCD;
+begin
+  if not(Assigned(FInfoPCD)) then
+    FInfoPCD := TInfoPCD.Create;
+  result := FInfoPCD;
+end;
+
+function TInfoTrab.infoPCDInst: boolean;
+begin
+  result := Assigned(FInfoPCD);
 end;
 
 { TInfoEstab }
@@ -291,6 +403,7 @@ begin
     GerarAliqGilRat(infoEstab.DadosEstab.aliqGilrat, 'aliqGilrat');
     GerarInfoCaepf();
     GerarInfoObra();
+    GerarInfoTrab();
   Gerador.wGrupo('/dadosEstab');
 end;
 
@@ -321,6 +434,47 @@ begin
     Gerador.wGrupo('infoObra');
       Gerador.wCampo(tcStr, '', 'indSubstPatrObra', 0, 0, 0, eSIndSubstPatronalObraToStr(infoEstab.DadosEstab.InfoObra.indSubstPatrObra));
     Gerador.wGrupo('/infoObra');
+  end;
+end;
+
+procedure TEvtTabEstab.GerarInfoTrab;
+begin
+  Gerador.wGrupo('infoTrab');
+    Gerador.wCampo(tcInt, '', 'regPt', 1, 1, 1, eStpRegPtToStr(infoEstab.DadosEstab.infoTrab.regPt));
+    GerarInfoApr();
+    GerarInfoPCD();
+  Gerador.wGrupo('/infoTrab');
+end;
+
+procedure TEvtTabEstab.GerarInfoPCD;
+begin
+  if infoEstab.DadosEstab.infoTrab.infoPCDInst() then
+  begin
+    Gerador.wGrupo('infoPCD');
+      Gerador.wCampo(tcInt, '','contPCD', 1, 1, 1, eSTpContPCDToStr(infoEstab.DadosEstab.infoTrab.infoPCD.contPCD));
+      Gerador.wCampo(tcStr, '', 'nrProcJud', 0, 1, 1, infoEstab.DadosEstab.infoTrab.infoPCD.nrProcJud);
+    Gerador.wGrupo('/infoPCD');
+  end;
+end;
+
+procedure TEvtTabEstab.GerarInfoApr;
+begin
+  Gerador.wGrupo('infoApr');
+    Gerador.wCampo(tcInt, '', 'contApr', 1, 1, 1, eStpContAprToStr(infoEstab.DadosEstab.infoTrab.infoApr.contApr));
+    Gerador.wCampo(tcStr, '', 'nrProcJud', 0, 1, 0, infoEstab.DadosEstab.infoTrab.infoApr.nrProcJud);
+    Gerador.wCampo(tcStr, '', 'contEntEd', 0, 1, 0, eSSimNaoToStr(infoEstab.DadosEstab.infoTrab.infoApr.contEntEd));
+    GerarInfoEntEduc();
+  Gerador.wGrupo('/infoApr');
+end;
+
+procedure TEvtTabEstab.GerarInfoEntEduc;
+var i: Integer;
+begin
+  for i := 0 to infoEstab.DadosEstab.infoTrab.infoApr.FInfoEntEduc.Count - 1 do
+  begin
+    Gerador.wGrupo('infoEntEduc');
+      Gerador.wCampo(tcStr, '', 'nrInsc', 0, 0, 0, infoEstab.DadosEstab.infoTrab.infoApr.FInfoEntEduc[i].nrInsc);
+    Gerador.wGrupo('/infoEntEduc');
   end;
 end;
 
@@ -384,6 +538,37 @@ end;
 procedure TS1005Collection.SetItem(Index: Integer; Value: TS1005CollectionItem);
 begin
   inherited SetItem(Index, Value);
+end;
+
+{ TInfoEntEducCollection }
+function TInfoEntEducCollection.Add: TInfoEntEducCollectionItem;
+begin
+  Result := TInfoEntEducCollectionItem(inherited Add);
+  Result.Create;
+end;
+
+constructor TInfoEntEducCollection.Create(AOwner: TPersistent);
+begin
+  inherited Create(TInfoEntEducCollectionItem);
+end;
+
+function TInfoEntEducCollection.GetItem(
+  Index: Integer): TInfoEntEducCollectionItem;
+begin
+  Result := TInfoEntEducCollectionItem(inherited GetItem(Index));
+end;
+
+procedure TInfoEntEducCollection.SetItem(Index: Integer;
+  Value: TInfoEntEducCollectionItem);
+begin
+  inherited SetItem(Index, Value);
+end;
+
+{ TInfoEntEducCollectionItem }
+
+constructor TInfoEntEducCollectionItem.Create;
+begin
+
 end;
 
 end.
