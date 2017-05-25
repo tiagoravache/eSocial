@@ -27,7 +27,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 23
       Width = 190
-      Caption = 'S-1000 InformaÁıes do Empregador'
+      Caption = 'S-1000 Informa√ß√µes do Empregador'
       TabOrder = 0
     end
     object cbS1010: TCheckBox
@@ -43,7 +43,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 86
       Width = 229
-      Caption = 'S-1020 Tabela de LotaÁıes/Departamentos'
+      Caption = 'S-1020 Tabela de Lota√ß√µes/Departamentos'
       TabOrder = 3
     end
     object cbS1030: TCheckBox
@@ -59,7 +59,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 23
       Width = 149
-      Caption = 'S-1040 Tabela de FunÁıes'
+      Caption = 'S-1040 Tabela de Fun√ß√µes'
       TabOrder = 6
     end
     object cbS1080: TCheckBox
@@ -67,7 +67,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 108
       Width = 219
-      Caption = 'S-1080 - Tabela de Operadores Portu·rios'
+      Caption = 'S-1080 - Tabela de Operadores Portu√°rios'
       TabOrder = 10
     end
     object cbS2100: TCheckBox
@@ -75,7 +75,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 129
       Width = 219
-      Caption = 'S-2100 - Cadastramento Inicial do VÌnculo'
+      Caption = 'S-2100 - Cadastramento Inicial do V√≠nculo'
       TabOrder = 11
     end
     object cbS1070: TCheckBox
@@ -99,7 +99,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 44
       Width = 245
-      Caption = 'S-1050 Tabela de Hor·rios/Turnos de Trabalho'
+      Caption = 'S-1050 Tabela de Hor√°rios/Turnos de Trabalho'
       TabOrder = 7
     end
     object cbS1005: TCheckBox
@@ -107,7 +107,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 44
       Width = 325
-      Caption = 'S-1005 Tabela de Estabelecimentos e Obras de ConstruÁ„o Civil'
+      Caption = 'S-1005 Tabela de Estabelecimentos e Obras de Constru√ß√£o Civil'
       TabOrder = 1
     end
     object cbS1035: TCheckBox
@@ -115,7 +115,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 129
       Width = 192
-      Caption = 'S-1035 Tabela de Carreiras P˙blicas'
+      Caption = 'S-1035 Tabela de Carreiras P√∫blicas'
       TabOrder = 5
     end
   end
@@ -125,7 +125,7 @@ object FExemploEsocial: TFExemploEsocial
     Top = 309
     Width = 730
     Align = alTop
-    Caption = ' Eventos N„o PeriÛdicos '
+    Caption = ' Eventos N√£o Peri√≥dicos '
     ClientHeight = 187
     ClientWidth = 726
     TabOrder = 1
@@ -134,7 +134,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 34
       Width = 148
-      Caption = 'S-2200 -  Evento Admiss„o'
+      Caption = 'S-2200 -  Evento Admiss√£o'
       TabOrder = 1
     end
     object cbS2220: TCheckBox
@@ -142,7 +142,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 106
       Width = 260
-      Caption = 'S-2220 -  Monitoramento da Sa˙de do Trabalhador'
+      Caption = 'S-2220 -  Monitoramento da Sa√∫de do Trabalhador'
       TabOrder = 5
     end
     object cbS2240: TCheckBox
@@ -150,7 +150,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 142
       Width = 319
-      Caption = 'S-2240 -  CondiÁıes Ambientais do Trabalho - Fatores de Risco'
+      Caption = 'S-2240 -  Condi√ß√µes Ambientais do Trabalho - Fatores de Risco'
       TabOrder = 7
     end
     object cbS2210: TCheckBox
@@ -158,7 +158,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 88
       Width = 248
-      Caption = 'S-2210 - ComunicaÁ„o de Acidente de Trabalho'
+      Caption = 'S-2210 - Comunica√ß√£o de Acidente de Trabalho'
       TabOrder = 4
     end
     object cbS2250: TCheckBox
@@ -166,7 +166,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 17
       Width = 122
-      Caption = 'S-2250 - Aviso PrÈvio'
+      Caption = 'S-2250 - Aviso Pr√©vio'
       TabOrder = 9
     end
     object cbS2298: TCheckBox
@@ -174,7 +174,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 34
       Width = 127
-      Caption = 'S-2298 - ReintegraÁ„o'
+      Caption = 'S-2298 - Reintegra√ß√£o'
       TabOrder = 11
     end
     object cbAviso: TComboBox
@@ -197,7 +197,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 124
       Width = 163
-      Caption = 'S-3000 - Exclus„o de Eventos'
+      Caption = 'S-3000 - Exclus√£o de Eventos'
       TabOrder = 16
     end
     object cbS4000: TCheckBox
@@ -205,7 +205,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 142
       Width = 356
-      Caption = 'S-4000 - SolicitaÁ„o de TotalizaÁ„o de Eventos, Bases e ContribuiÁıes'
+      Caption = 'S-4000 - Solicita√ß√£o de Totaliza√ß√£o de Eventos, Bases e Contribui√ß√µes'
       TabOrder = 17
     end
     object cbS4999: TCheckBox
@@ -213,7 +213,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 161
       Width = 208
-      Caption = 'S-4999 - Ades„o antecipada ao eSocial'
+      Caption = 'S-4999 - Ades√£o antecipada ao eSocial'
       TabOrder = 18
     end
     object cbS2190: TCheckBox
@@ -221,7 +221,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 17
       Width = 279
-      Caption = 'S-2190 - Admiss„o de Trabalhador - Registro Preliminar'
+      Caption = 'S-2190 - Admiss√£o de Trabalhador - Registro Preliminar'
       TabOrder = 0
     end
     object cbS2205: TCheckBox
@@ -229,7 +229,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 52
       Width = 284
-      Caption = 'S-2205 - AlteraÁ„o de Dados Cadastrais do Trabalhador'
+      Caption = 'S-2205 - Altera√ß√£o de Dados Cadastrais do Trabalhador'
       TabOrder = 2
     end
     object cbS2206: TCheckBox
@@ -237,7 +237,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 70
       Width = 226
-      Caption = 'S-2206 - AlteraÁ„o do Contrato de Trabalho'
+      Caption = 'S-2206 - Altera√ß√£o do Contrato de Trabalho'
       TabOrder = 3
     end
     object cbS2230: TCheckBox
@@ -245,7 +245,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 124
       Width = 172
-      Caption = 'S-2230 - Afstamento Tempor·rio'
+      Caption = 'S-2230 - Afstamento Tempor√°rio'
       TabOrder = 6
     end
     object cbS2241: TCheckBox
@@ -269,7 +269,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 70
       Width = 220
-      Caption = 'S-2300 - Trabalhador Sem VÌnculo - InÌcio'
+      Caption = 'S-2300 - Trabalhador Sem V√≠nculo - In√≠cio'
       TabOrder = 13
     end
     object cbS2305: TCheckBox
@@ -277,7 +277,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 88
       Width = 289
-      Caption = 'S-2305 - Trabalhador Sem VÌnculo - AlteraÁ„o Contratual'
+      Caption = 'S-2305 - Trabalhador Sem V√≠nculo - Altera√ß√£o Contratual'
       TabOrder = 14
     end
     object cbS2399: TCheckBox
@@ -285,7 +285,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 106
       Width = 231
-      Caption = 'S-2399 - Trabalhador Sem VÌnculo - TÈrmino'
+      Caption = 'S-2399 - Trabalhador Sem V√≠nculo - T√©rmino'
       TabOrder = 15
     end
   end
@@ -295,7 +295,7 @@ object FExemploEsocial: TFExemploEsocial
     Top = 168
     Width = 730
     Align = alTop
-    Caption = ' Eventos PeriÛdicos '
+    Caption = ' Eventos Peri√≥dicos '
     ClientHeight = 123
     ClientWidth = 726
     TabOrder = 2
@@ -304,7 +304,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 75
       Width = 280
-      Caption = 'S-1220 - Pagamentos a Benefici·rios N„o Identificados'
+      Caption = 'S-1220 - Pagamentos a Benefici√°rios N√£o Identificados'
       TabOrder = 4
     end
     object cbS1298: TCheckBox
@@ -312,7 +312,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 58
       Width = 230
-      Caption = 'S-1298 - Reabertura dos Eventos PeriÛdicos'
+      Caption = 'S-1298 - Reabertura dos Eventos Peri√≥dicos'
       TabOrder = 9
     end
     object cbS1299: TCheckBox
@@ -320,7 +320,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 75
       Width = 236
-      Caption = 'S-1299 - Fechamento dos Eventos PeriÛdicos'
+      Caption = 'S-1299 - Fechamento dos Eventos Peri√≥dicos'
       TabOrder = 10
     end
     object cbS1300: TCheckBox
@@ -328,7 +328,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 92
       Width = 204
-      Caption = 'S-1300 - ContribuiÁ„o Sindical Patronal'
+      Caption = 'S-1300 - Contribui√ß√£o Sindical Patronal'
       TabOrder = 11
     end
     object cbS1280: TCheckBox
@@ -336,7 +336,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 40
       Width = 316
-      Caption = 'S-1280 - InformaÁıes Complementares aos Eventos PeriÛdicos'
+      Caption = 'S-1280 - Informa√ß√µes Complementares aos Eventos Peri√≥dicos'
       TabOrder = 8
     end
     object cbS1270: TCheckBox
@@ -344,7 +344,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 21
       Width = 320
-      Caption = 'S-1270 - ContrataÁ„o de Trabalhadores Avulsos N„o Portu·rios'
+      Caption = 'S-1270 - Contrata√ß√£o de Trabalhadores Avulsos N√£o Portu√°rios'
       TabOrder = 7
     end
     object cbS1250: TCheckBox
@@ -352,7 +352,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 92
       Width = 201
-      Caption = 'S-1250 - AquisiÁ„o de ProduÁ„o Rural'
+      Caption = 'S-1250 - Aquisi√ß√£o de Produ√ß√£o Rural'
       TabOrder = 5
     end
     object cbS1260: TCheckBox
@@ -360,7 +360,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 3
       Width = 302
-      Caption = 'S-1260 - ComercializaÁ„o da ProduÁ„o Rural Pessoa FÌsica'
+      Caption = 'S-1260 - Comercializa√ß√£o da Produ√ß√£o Rural Pessoa F√≠sica'
       TabOrder = 6
     end
     object cbS1200: TCheckBox
@@ -368,7 +368,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 3
       Width = 199
-      Caption = 'S-1200 RemuneraÁ„o do Trabalhador'
+      Caption = 'S-1200 Remunera√ß√£o do Trabalhador'
       TabOrder = 0
     end
     object cbS1210: TCheckBox
@@ -384,7 +384,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 21
       Width = 244
-      Caption = 'S-1202 - RemuneraÁ„o de trabalhadores RPPS'
+      Caption = 'S-1202 - Remunera√ß√£o de trabalhadores RPPS'
       TabOrder = 1
     end
     object cbS1207: TCheckBox
@@ -392,7 +392,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 19
       Top = 40
       Width = 231
-      Caption = 'S-1207 - BEnefÌcios  Previdenci·rios - RPPS'
+      Caption = 'S-1207 - BEnef√≠cios  Previdenci√°rios - RPPS'
       TabOrder = 2
     end
   end

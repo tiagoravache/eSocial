@@ -5,32 +5,32 @@
 {                                                                              }
 { Direitos Autorais Reservados (c) 2008 Wemerson Souto                         }
 {                                       Daniel Simoes de Almeida               }
-{                                       Andr√© Ferreira de Moraes               }
+{                                       AndrÈ Ferreira de Moraes               }
 {                                                                              }
 { Colaboradores nesse arquivo:                                                 }
 {                                                                              }
-{  Voc√™ pode obter a √∫ltima vers√£o desse arquivo na pagina do Projeto ACBr     }
+{  VocÍ pode obter a ˙ltima vers„o desse arquivo na pagina do Projeto ACBr     }
 { Componentes localizado em http://www.sourceforge.net/projects/acbr           }
 {                                                                              }
 {                                                                              }
-{  Esta biblioteca √© software livre; voc√™ pode redistribu√≠-la e/ou modific√°-la }
-{ sob os termos da Licen√ßa P√∫blica Geral Menor do GNU conforme publicada pela  }
-{ Free Software Foundation; tanto a vers√£o 2.1 da Licen√ßa, ou (a seu crit√©rio) }
-{ qualquer vers√£o posterior.                                                   }
+{  Esta biblioteca È software livre; vocÍ pode redistribuÌ-la e/ou modific·-la }
+{ sob os termos da LicenÁa P˙blica Geral Menor do GNU conforme publicada pela  }
+{ Free Software Foundation; tanto a vers„o 2.1 da LicenÁa, ou (a seu critÈrio) }
+{ qualquer vers„o posterior.                                                   }
 {                                                                              }
-{  Esta biblioteca √© distribu√≠da na expectativa de que seja √∫til, por√©m, SEM   }
-{ NENHUMA GARANTIA; nem mesmo a garantia impl√≠cita de COMERCIABILIDADE OU      }
-{ ADEQUA√á√ÉO A UMA FINALIDADE ESPEC√çFICA. Consulte a Licen√ßa P√∫blica Geral Menor}
-{ do GNU para mais detalhes. (Arquivo LICEN√áA.TXT ou LICENSE.TXT)              }
+{  Esta biblioteca È distribuÌda na expectativa de que seja ˙til, porÈm, SEM   }
+{ NENHUMA GARANTIA; nem mesmo a garantia implÌcita de COMERCIABILIDADE OU      }
+{ ADEQUA«√O A UMA FINALIDADE ESPECÕFICA. Consulte a LicenÁa P˙blica Geral Menor}
+{ do GNU para mais detalhes. (Arquivo LICEN«A.TXT ou LICENSE.TXT)              }
 {                                                                              }
-{  Voc√™ deve ter recebido uma c√≥pia da Licen√ßa P√∫blica Geral Menor do GNU junto}
-{ com esta biblioteca; se n√£o, escreva para a Free Software Foundation, Inc.,  }
-{ no endere√ßo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
-{ Voc√™ tamb√©m pode obter uma copia da licen√ßa em:                              }
+{  VocÍ deve ter recebido uma cÛpia da LicenÁa P˙blica Geral Menor do GNU junto}
+{ com esta biblioteca; se n„o, escreva para a Free Software Foundation, Inc.,  }
+{ no endereÁo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
+{ VocÍ tambÈm pode obter uma copia da licenÁa em:                              }
 { http://www.opensource.org/licenses/lgpl-license.php                          }
 {                                                                              }
-{ Daniel Sim√µes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
-{              Pra√ßa Anita Costa, 34 - Tatu√≠ - SP - 18270-410                  }
+{ Daniel Simıes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
+{              PraÁa Anita Costa, 34 - TatuÌ - SP - 18270-410                  }
 {                                                                              }
 {******************************************************************************}
 
@@ -38,9 +38,9 @@
 |* Historico
 |*
 |* 27/10/2015: Jean Carlo Cantu, Tiago Ravache
-|*  - Doa√ß√£o do componente para o Projeto ACBr
+|*  - DoaÁ„o do componente para o Projeto ACBr
 |* 01/03/2016: Guilherme Costa
-|*  - Passado o namespace para gera√ß√£o do cabe√ßalho
+|*  - Passado o namespace para geraÁ„o do cabeÁalho
 ******************************************************************************}
 {$I ACBr.inc}
 
@@ -58,9 +58,6 @@ type
   TS1270Collection = class;
   TS1270CollectionItem = class;
   TEvtContratAvNP = class;
-  TInfoRemunAvNP=class;
-  TIdeSindItem = class;
-  TIdeSindColecao = class;
   TRemunAvNPItem = class;
   TRemunAvNPColecao = class;
 
@@ -91,11 +88,9 @@ type
   private
     FIdeEvento: TIdeEvento3;
     FIdeEmpregador: TIdeEmpregador;
-    FInfoRemunAvNP: TInfoRemunAvNP;
+    FRemunAvNp: TRemunAvNPColecao;
 
-    {Geradores espec√≠ficos da classe}
-    procedure GerarInfoRemunAvNP();
-    procedure GerarIdeSind();
+    {Geradores especÌficos da classe}
     procedure GerarRemunAvNP(pRemunAvNPColecao: TRemunAvNPColecao);
   public
     constructor Create(AACBreSocial: TObject);overload;
@@ -105,45 +100,8 @@ type
 
     property IdeEvento: TIdeEvento3 read FIdeEvento write FIdeEvento;
     property IdeEmpregador: TIdeEmpregador read FIdeEmpregador write FIdeEmpregador;
-    property InfoRemunAvNP: TInfoRemunAvNP read FInfoRemunAvNP write FInfoRemunAvNP;
+    property remunAvNp: TRemunAvNPColecao read FRemunAvNp write FRemunAvNp;
   end;
-
-  TInfoRemunAvNP=class(TPersistent)
-  private
-    FIdeSind: TIdeSindColecao;
-  public
-    constructor create;
-    destructor destroy; override;
-
-    property IdeSind: TIdeSindColecao read FIdeSind write FIdeSind;
-  end;
-
-  TIdeSindColecao = class(TCollection)
-  private
-    function GetItem(Index: Integer): TIdeSindItem;
-    procedure SetItem(Index: Integer; const Value: TIdeSindItem);
-  public
-    constructor Create(AOwner: TPersistent);
-    function Add: TIdeSindItem;
-    property Items[Index: Integer]: TIdeSindItem read GetItem write SetItem;
-  end;
-
-  TIdeSindItem = class(TCollectionItem)
-  private
-    FcnpjSind: string;
-    FfpasSind: integer;
-    FcodTercs: string;
-    FRemunAvNP: TRemunAvNPColecao;
-  public
-    constructor create; reintroduce;
-    destructor destroy; override;
-
-    property cnpjSind: string read FcnpjSind write FcnpjSind;
-    property fpasSind: integer read FfpasSind write FfpasSind;
-    property codTercs: string read FcodTercs write FcodTercs;
-    property RemunAvNP: TRemunAvNPColecao read FRemunAvNP write FRemunAvNP;
-  end;
-
 
   TRemunAvNPColecao = class(TCollection)
   private
@@ -159,15 +117,25 @@ type
   private
     FtpInsc: TpTpInscEstab;
     FnrInsc: string;
-    FvlrRemun: Double;
-    Fvr13: Double;
-    FvrDescCP: Double;
+    FCodLotacao: string;
+    FVrBcCp00: Double;
+    FVrBcCp15: Double;
+    FVrBcCp20: Double;
+    FVrBcCp25: Double;
+    FVrBcCp13: Double;
+    FVrBcFgts: Double;
+    FVrDescCP: Double;
   public
     property tpInsc: TpTpInscEstab read FtpInsc write FtpInsc;
     property nrInsc: string read FnrInsc write FnrInsc;
-    property vlrRemun: Double read FvlrRemun write FvlrRemun;
-    property vr13: Double read Fvr13 write Fvr13;
-    property vrDescCP: Double read FvrDescCP write FvrDescCP;
+    property codLotacao: string read FCodLotacao write FCodLotacao;
+    property vrBcCp00: Double read FVrBcCp00 write FVrBcCp00;
+    property vrBcCp15: Double read FVrBcCp15 write FVrBcCp15;
+    property vrBcCp20: Double read FVrBcCp20 write FVrBcCp20;
+    property vrBcCp25: Double read FVrBcCp25 write FVrBcCp25;
+    property vrBcCp13: Double read FVrBcCp13 write FVrBcCp13;
+    property vrBcFgts: Double read FVrBcFgts write FVrBcFgts;
+    property vrDescCP: Double read FVrDescCP write FVrDescCP;
   end;
 
 implementation
@@ -217,37 +185,15 @@ begin
   inherited;
   FIdeEvento     := TIdeEvento3.Create;
   FIdeEmpregador := TIdeEmpregador.Create;
-  FInfoRemunAvNP := TInfoRemunAvNP.create;
+  FRemunAvNp     := TRemunAvNPColecao.Create(FRemunAvNp);
 end;
 
 destructor TEvtContratAvNP.Destroy;
 begin
   FIdeEvento.Free;
   FIdeEmpregador.Free;
-  FInfoRemunAvNP.Free;
+  FRemunAvNp.Free;
   inherited;
-end;
-
-procedure TEvtContratAvNP.GerarIdeSind;
-var
-  iIdeSindItem: Integer;
-begin
-  for iIdeSindItem := 0 to InfoRemunAvNP.IdeSind.Count - 1 do
-  begin
-    Gerador.wGrupo('ideSind');
-      Gerador.wCampo(tcStr, '', 'cnpjSind', 0, 0, 0, InfoRemunAvNP.IdeSind.Items[iIdeSindItem].cnpjSind);
-      Gerador.wCampo(tcStr, '', 'fpasSind', 0, 0, 0, InfoRemunAvNP.IdeSind.Items[iIdeSindItem].fpasSind);
-      Gerador.wCampo(tcStr, '', 'codTercs', 0, 0, 0, InfoRemunAvNP.IdeSind.Items[iIdeSindItem].codTercs);
-      GerarRemunAvNP(InfoRemunAvNP.IdeSind.Items[iIdeSindItem].RemunAvNP);
-    Gerador.wGrupo('/ideSind');
-  end;
-end;
-
-procedure TEvtContratAvNP.GerarInfoRemunAvNP;
-begin
-  Gerador.wGrupo('infoRemunAvNP');
-    GerarIdeSind;
-  Gerador.wGrupo('/infoRemunAvNP');
 end;
 
 procedure TEvtContratAvNP.GerarRemunAvNP(pRemunAvNPColecao: TRemunAvNPColecao);
@@ -257,10 +203,15 @@ begin
   for i := 0 to pRemunAvNPColecao.Count - 1 do
   begin
     Gerador.wGrupo('remunAvNP');
-      Gerador.wCampo(tcStr, '', 'tpInsc',   0, 0, 0, eSTpInscEstabToStr(pRemunAvNPColecao.Items[i].tpInsc));
+      Gerador.wCampo(tcInt, '', 'tpInsc',   0, 0, 0, eSTpInscEstabToStr(pRemunAvNPColecao.Items[i].tpInsc));
       Gerador.wCampo(tcStr, '', 'nrInsc',   0, 0, 0, pRemunAvNPColecao.Items[i].nrInsc);
-      Gerador.wCampo(tcDe2, '', 'vlrRemun', 0, 0, 0, pRemunAvNPColecao.Items[i].vlrRemun);
-      Gerador.wCampo(tcDe2, '', 'vr13',     0, 0, 0, pRemunAvNPColecao.Items[i].vr13);
+      Gerador.wCampo(tcStr, '', 'codLotacao',   0, 0, 0, pRemunAvNPColecao.Items[i].codLotacao);
+      Gerador.wCampo(tcDe2, '', 'vrBcCp00', 0, 0, 0, pRemunAvNPColecao.Items[i].vrBcCp00);
+      Gerador.wCampo(tcDe2, '', 'vrBcCp15', 0, 0, 0, pRemunAvNPColecao.Items[i].vrBcCp15);
+      Gerador.wCampo(tcDe2, '', 'vrBcCp20', 0, 0, 0, pRemunAvNPColecao.Items[i].vrBcCp20);
+      Gerador.wCampo(tcDe2, '', 'vrBcCp25', 0, 0, 0, pRemunAvNPColecao.Items[i].vrBcCp25);
+      Gerador.wCampo(tcDe2, '', 'vrBcCp13', 0, 0, 0, pRemunAvNPColecao.Items[i].vrBcCp13);
+      Gerador.wCampo(tcDe2, '', 'vrBcFgts', 0, 0, 0, pRemunAvNPColecao.Items[i].vrBcFgts);
       Gerador.wCampo(tcDe2, '', 'vrDescCP', 0, 0, 0, pRemunAvNPColecao.Items[i].vrDescCP);
     Gerador.wGrupo('/remunAvNP');
   end;
@@ -273,7 +224,7 @@ begin
       Gerador.wGrupo('evtContratAvNP Id="'+GerarChaveEsocial(now, self.ideEmpregador.NrInsc, 0)+'"');
         gerarIdeEvento3(self.IdeEvento);
         gerarIdeEmpregador(self.IdeEmpregador);
-        GerarInfoRemunAvNP;
+        GerarRemunAvNP(remunAvNp);
       Gerador.wGrupo('/evtContratAvNP');
     GerarRodape;
 
@@ -282,55 +233,7 @@ begin
   except on e:exception do
     raise Exception.Create(e.Message);
   end;
-
   Result := (Gerador.ArquivoFormatoXML <> '')
-end;
-
-{ TIdeSindColecao }
-function TIdeSindColecao.Add: TIdeSindItem;
-begin
-  Result := TIdeSindItem(inherited add);
-  Result.Create;
-end;
-
-constructor TIdeSindColecao.create(AOwner: TPersistent);
-begin
-  inherited create(TIdeSindItem)
-end;
-
-function TIdeSindColecao.GetItem(Index: Integer): TIdeSindItem;
-begin
-  Result := TIdeSindItem(inherited GetItem(Index));
-end;
-
-procedure TIdeSindColecao.SetItem(Index: Integer; const Value: TIdeSindItem);
-begin
-  inherited SetItem(Index, Value);
-end;
-
-{ TInfoRemunAvNP }
-constructor TInfoRemunAvNP.create;
-begin
-  inherited;
-  FIdeSind := TIdeSindColecao.Create(self);
-end;
-
-destructor TInfoRemunAvNP.destroy;
-begin
-  FIdeSind.Free;
-  inherited;
-end;
-
-{ TIdeSindItem }
-constructor TIdeSindItem.create;
-begin
-  FRemunAvNP := TRemunAvNPColecao.Create(self);
-end;
-
-destructor TIdeSindItem.destroy;
-begin
-  FRemunAvNP.Free;
-  inherited;
 end;
 
 { TRemunAvNPColecao }

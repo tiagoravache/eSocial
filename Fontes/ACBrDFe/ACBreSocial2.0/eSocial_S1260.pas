@@ -5,32 +5,32 @@
 {                                                                              }
 { Direitos Autorais Reservados (c) 2008 Wemerson Souto                         }
 {                                       Daniel Simoes de Almeida               }
-{                                       Andr√© Ferreira de Moraes               }
+{                                       AndrÈ Ferreira de Moraes               }
 {                                                                              }
 { Colaboradores nesse arquivo:                                                 }
 {                                                                              }
-{  Voc√™ pode obter a √∫ltima vers√£o desse arquivo na pagina do Projeto ACBr     }
+{  VocÍ pode obter a ˙ltima vers„o desse arquivo na pagina do Projeto ACBr     }
 { Componentes localizado em http://www.sourceforge.net/projects/acbr           }
 {                                                                              }
 {                                                                              }
-{  Esta biblioteca √© software livre; voc√™ pode redistribu√≠-la e/ou modific√°-la }
-{ sob os termos da Licen√ßa P√∫blica Geral Menor do GNU conforme publicada pela  }
-{ Free Software Foundation; tanto a vers√£o 2.1 da Licen√ßa, ou (a seu crit√©rio) }
-{ qualquer vers√£o posterior.                                                   }
+{  Esta biblioteca È software livre; vocÍ pode redistribuÌ-la e/ou modific·-la }
+{ sob os termos da LicenÁa P˙blica Geral Menor do GNU conforme publicada pela  }
+{ Free Software Foundation; tanto a vers„o 2.1 da LicenÁa, ou (a seu critÈrio) }
+{ qualquer vers„o posterior.                                                   }
 {                                                                              }
-{  Esta biblioteca √© distribu√≠da na expectativa de que seja √∫til, por√©m, SEM   }
-{ NENHUMA GARANTIA; nem mesmo a garantia impl√≠cita de COMERCIABILIDADE OU      }
-{ ADEQUA√á√ÉO A UMA FINALIDADE ESPEC√çFICA. Consulte a Licen√ßa P√∫blica Geral Menor}
-{ do GNU para mais detalhes. (Arquivo LICEN√áA.TXT ou LICENSE.TXT)              }
+{  Esta biblioteca È distribuÌda na expectativa de que seja ˙til, porÈm, SEM   }
+{ NENHUMA GARANTIA; nem mesmo a garantia implÌcita de COMERCIABILIDADE OU      }
+{ ADEQUA«√O A UMA FINALIDADE ESPECÕFICA. Consulte a LicenÁa P˙blica Geral Menor}
+{ do GNU para mais detalhes. (Arquivo LICEN«A.TXT ou LICENSE.TXT)              }
 {                                                                              }
-{  Voc√™ deve ter recebido uma c√≥pia da Licen√ßa P√∫blica Geral Menor do GNU junto}
-{ com esta biblioteca; se n√£o, escreva para a Free Software Foundation, Inc.,  }
-{ no endere√ßo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
-{ Voc√™ tamb√©m pode obter uma copia da licen√ßa em:                              }
+{  VocÍ deve ter recebido uma cÛpia da LicenÁa P˙blica Geral Menor do GNU junto}
+{ com esta biblioteca; se n„o, escreva para a Free Software Foundation, Inc.,  }
+{ no endereÁo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
+{ VocÍ tambÈm pode obter uma copia da licenÁa em:                              }
 { http://www.opensource.org/licenses/lgpl-license.php                          }
 {                                                                              }
-{ Daniel Sim√µes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
-{              Pra√ßa Anita Costa, 34 - Tatu√≠ - SP - 18270-410                  }
+{ Daniel Simıes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
+{              PraÁa Anita Costa, 34 - TatuÌ - SP - 18270-410                  }
 {                                                                              }
 {******************************************************************************}
 
@@ -38,9 +38,9 @@
 |* Historico
 |*
 |* 27/10/2015: Jean Carlo Cantu, Tiago Ravache
-|*  - Doa√ß√£o do componente para o Projeto ACBr
+|*  - DoaÁ„o do componente para o Projeto ACBr
 |* 01/03/2016: Guilherme Costa
-|*  - Altera√ß√µes para valida√ß√£o com o XSD
+|*  - AlteraÁıes para validaÁ„o com o XSD
 ******************************************************************************}
 {$I ACBr.inc}
 
@@ -95,7 +95,7 @@ type
     FIdeEmpregador: TIdeEmpregador;
     FInfoComProd: TInfoComProd;
 
-    {Geradores espec√≠ficos da classe}
+    {Geradores especÌficos da classe}
     procedure GerarInfoComProd();
     procedure GerarIdeEstabel();
     procedure GerarTpComerc(pTpComerc: TTpComercColecao);
@@ -176,11 +176,18 @@ type
     FnrInsc: string;
     FvrComerc: Double;
     FvrRetPR: Double;
+    FNfs: TNfsColecao;
+    function getNfs: TNfsColecao;
   public
+    constructor Create; reintroduce;
+    destructor Destroy; override;
+    function nfsInst: boolean;
+
     property tpInsc: tpTpInsc read FtpInsc write FtpInsc;
     property nrInsc: string read FnrInsc write FnrInsc;
     property vrComerc: Double read FvrComerc write FvrComerc;
     property vrRetPR: Double read FvrRetPR write FvrRetPR;
+    property nfs: TNfsColecao read getNfs write FNfs;
   end;
 
 
@@ -267,7 +274,8 @@ begin
       Gerador.wCampo(tcStr, '', 'tpInsc',  0, 0, 0, eSTpInscricaoToStr(pIdeAdquir.Items[i].tpInsc));
       Gerador.wCampo(tcStr, '', 'nrInsc',  0, 0, 0, pIdeAdquir.Items[i].nrInsc);
       Gerador.wCampo(tcDe2, '', 'vrComerc',    0, 0, 0, pIdeAdquir.Items[i].vrComerc);
-     // Gerador.wCampo(tcDe2, '', 'vrRetPR',  0, 0, 0, pIdeAdquir.Items[i].vrRetPR); -- removido na vers√£o 2.1
+      if pIdeAdquir.Items[i].nfsInst() then
+        GerarNfs(pIdeAdquir.Items[i].nfs);
     Gerador.wGrupo('/ideAdquir');
   end;
 end;
@@ -281,6 +289,7 @@ begin
       Gerador.wGrupo('infoProcJud');
         Gerador.wCampo(tcStr, '', 'tpProc', 0,0,0, pInfoProcJud.Items[i].tpProc);
         Gerador.wCampo(tcStr, '', 'nrProc',   0, 0, 0, pInfoProcJud.Items[i].nrProcJud);
+        Gerador.wCampo(tcInt, '', 'codSusp',   0, 0, 0, pInfoProcJud.Items[i].codSusp);
         Gerador.wCampo(tcDe2, '', 'vrCPSusp',   0, 0, 0, pInfoProcJud.Items[i].vrCPSusp);
         Gerador.wCampo(tcDe2, '', 'vrRatSusp',   0, 0, 0, pInfoProcJud.Items[i].vrRatSusp);
         Gerador.wCampo(tcDe2, '', 'vrSenarSusp',   0, 0, 0, pInfoProcJud.Items[i].vrSenarSusp);        
@@ -377,7 +386,7 @@ end;
 function TIdeAdquirColecao.Add: TIdeAdquirItem;
 begin
   Result := TIdeAdquirItem(inherited Add);
-  Result.Create(Self);
+  Result.Create;
 end;
 
 constructor TIdeAdquirColecao.Create(AOwner: TPersistent);
@@ -394,6 +403,31 @@ procedure TIdeAdquirColecao.SetItem(Index: Integer;
   const Value: TIdeAdquirItem);
 begin
   inherited SetItem(Index, Value);
+end;
+
+{ TIdeAdquirItem }
+
+constructor TIdeAdquirItem.Create;
+begin
+  FNfs := nil;
+end;
+
+destructor TIdeAdquirItem.Destroy;
+begin
+  FreeAndNil(FNfs);
+  inherited;
+end;
+
+function TIdeAdquirItem.getNfs: TNfsColecao;
+begin
+  if not Assigned(FNfs) then
+    FNfs := TNfsColecao.Create(FNfs);
+  Result := FNfs;
+end;
+
+function TIdeAdquirItem.nfsInst: boolean;
+begin
+  result := Assigned(FNfs);
 end;
 
 { TIdeEstabel }

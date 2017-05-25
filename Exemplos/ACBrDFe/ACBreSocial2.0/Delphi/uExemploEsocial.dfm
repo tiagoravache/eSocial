@@ -340,83 +340,83 @@ object FExemploEsocial: TFExemploEsocial
     TabOrder = 2
     object cbS1220: TCheckBox
       Left = 8
-      Top = 74
+      Top = 90
       Width = 289
       Height = 17
       Caption = 'S-1220 - Pagamentos a Benefici'#225'rios N'#227'o Identificados'
       Ctl3D = False
       ParentCtl3D = False
-      TabOrder = 3
+      TabOrder = 4
     end
     object cbS1298: TCheckBox
       Left = 346
-      Top = 56
+      Top = 74
       Width = 289
       Height = 17
       Caption = 'S-1298 - Reabertura dos Eventos Peri'#243'dicos'
       Ctl3D = False
       ParentCtl3D = False
-      TabOrder = 8
+      TabOrder = 9
     end
     object cbS1299: TCheckBox
       Left = 346
-      Top = 74
+      Top = 90
       Width = 289
       Height = 17
       Caption = 'S-1299 - Fechamento dos Eventos Peri'#243'dicos'
       Ctl3D = False
       ParentCtl3D = False
-      TabOrder = 9
+      TabOrder = 10
     end
     object cbS1300: TCheckBox
       Left = 346
-      Top = 91
+      Top = 109
       Width = 289
       Height = 15
       Caption = 'S-1300 - Contribui'#231#227'o Sindical Patronal'
       Ctl3D = False
       ParentCtl3D = False
-      TabOrder = 10
+      TabOrder = 11
     end
     object cbS1280: TCheckBox
       Left = 346
-      Top = 37
+      Top = 56
       Width = 321
       Height = 18
       Caption = 'S-1280 - Informa'#231#245'es Complementares aos Eventos Peri'#243'dicos'
       Ctl3D = False
       ParentCtl3D = False
-      TabOrder = 7
+      TabOrder = 8
     end
     object cbS1270: TCheckBox
       Left = 346
-      Top = 19
+      Top = 37
       Width = 332
       Height = 17
       Caption = 'S-1270 - Contrata'#231#227'o de Trabalhadores Avulsos N'#227'o Portu'#225'rios'
       Ctl3D = False
       ParentCtl3D = False
-      TabOrder = 6
+      TabOrder = 7
     end
     object cbS1250: TCheckBox
       Left = 8
-      Top = 91
+      Top = 109
       Width = 332
       Height = 16
       Caption = 'S-1250 - Aquisi'#231#227'o de Produ'#231#227'o Rural'
       Ctl3D = False
       ParentCtl3D = False
-      TabOrder = 4
+      TabOrder = 5
     end
     object cbS1260: TCheckBox
-      Left = 8
-      Top = 108
+      Left = 346
+      Top = 19
       Width = 332
       Height = 17
       Caption = 'S-1260 - Comercializa'#231#227'o da Produ'#231#227'o Rural Pessoa F'#237'sica'
       Ctl3D = False
       ParentCtl3D = False
-      TabOrder = 5
+      TabOrder = 6
     end
     object cbS1200: TCheckBox
       Left = 8
@@ -428,11 +428,11 @@ object FExemploEsocial: TFExemploEsocial
     end
     object cbS1210: TCheckBox
       Left = 8
-      Top = 56
+      Top = 74
       Width = 273
       Height = 17
       Caption = 'S-1210 - Pagamentos de Rendimentos do Trabalho'
-      TabOrder = 2
+      TabOrder = 3
     end
     object cbS1202: TCheckBox
       Left = 8
@@ -441,6 +441,14 @@ object FExemploEsocial: TFExemploEsocial
       Height = 17
       Caption = 'S-1202 - Remunera'#231#227'o de trabalhadores RPPS'
       TabOrder = 1
+    end
+    object cbS1207: TCheckBox
+      Left = 8
+      Top = 56
+      Width = 265
+      Height = 17
+      Caption = 'S-1207 - Benef'#237'cios  Previdenci'#225'rios - RPPS'
+      TabOrder = 2
     end
   end
   object GroupBox4: TGroupBox

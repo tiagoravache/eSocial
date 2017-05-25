@@ -151,7 +151,9 @@ type
   TDetOperCollectionItem = class;
   TDetOperCollection = class;
   TInfoSaudeColet = class;
-
+  TRemunPerCollectionItem = class;
+  TNfsItem = class;
+  TNfsColecao = class;
 
   TeSocial = class(TPersistent)
   private
@@ -1100,13 +1102,15 @@ type
     constructor Create;
     function Add: TRubricaCollectionItem;
     property Items[Index: Integer]: TRubricaCollectionItem read GetItem write SetItem;
+      default;
   end;
 
   TRubricaCollectionItem = class(TCollectionItem)
-   private
+  protected
     FCodRubr: string;
     FIdeTabRubr: string;
     FQtdRubr: Double;
+    FFatorRubr: Double;
     FVrUnit: Double;
     FVrRubr: Double;
   public
@@ -1114,6 +1118,7 @@ type
     property codRubr: string read FCodRubr write FCodRubr;
     property ideTabRubr: string read FIdeTabRubr write FIdeTabRubr;
     property qtdRubr: Double read FQtdRubr write FQtdRubr;
+    property fatorRubr: Double read FFatorRubr write FFatorRubr;
     property vrUnit: Double read FVrUnit write FVrUnit;
     property vrRubr: Double read FVrRubr write FVrRubr;
   end;
@@ -1265,10 +1270,12 @@ type
   private
     FTpTrib: tpTpTributo;
     FNrProcJud: string;
+    FCodSusp: integer;
   published
     constructor create; reintroduce;
     property tpTrib: tpTpTributo read FTpTrib write FTpTrib;
     property nrProcJud: string read FNrProcJud write FNrProcJud;
+    property codSusp: Integer read FCodSusp write FCodSusp;
   end;
 
 
@@ -1379,18 +1386,18 @@ type
   end;
 
   TdetVerbasItem = class(TCollectionItem)
-    private
-      FcodRubr : String;
-      FideTabRubr: String;
-      FqtdRubr: Double;
-      FvrUnit: Double;
-      FvrRubr: Double;
-    public
-      property codRubr: String read FcodRubr write FcodRubr;
-      property ideTabRubr: String read FideTabRubr write FideTabRubr;
-      property qtdRubr: Double read FqtdRubr write FqtdRubr;
-      property vrUnit: Double read FvrUnit write FvrUnit;
-      property vrRubr: DOuble read FvrRubr write FvrRubr;
+  protected
+    FcodRubr : String;
+    FideTabRubr: String;
+    FqtdRubr: Double;
+    FvrUnit: Double;
+    FvrRubr: Double;
+  public
+    property codRubr: String read FcodRubr write FcodRubr;
+    property ideTabRubr: String read FideTabRubr write FideTabRubr;
+    property qtdRubr: Double read FqtdRubr write FqtdRubr;
+    property vrUnit: Double read FvrUnit write FvrUnit;
+    property vrRubr: DOuble read FvrRubr write FvrRubr;
   end;
 
   TinfoSimples = class(TPersistent)
@@ -1416,6 +1423,7 @@ type
     FtpProc : tpTpProc;
     FtpTrib : tpTpTributo;
     FnrProcJud: string;//em S1250 o campo é nrProcJUD e em S1260 é apenas nrProc - deixado nrProcJud para reutilização da classe
+    FCodSusp: Integer;
     FvrCPNRet: Double;
     FvrRatNRet: Double;
     FvrSenarNRet: Double;
@@ -1426,6 +1434,7 @@ type
     property tpProc: tpTpProc read FtpProc write FtpProc;
     property tpTrib: tpTpTributo read FtpTrib write FtpTrib;
     property nrProcJud: string read FnrProcJud write FnrProcJud;
+    property codSusp: Integer read FCodSusp write FCodSusp;
     property vrCPNRet: Double read FvrCPNRet write FvrCPNRet;
     property vrRatNRet: Double read FvrRatNRet write FvrRatNRet;
     property vrSenarNRet: Double read FvrSenarNRet write FvrSenarNRet;
@@ -1472,17 +1481,15 @@ type
   TDetPlanoCollectionItem = class(TCollectionItem)
    private
     FCpfDep: string;
-    FDtNasctoDep: TDate;
+    FDtNascto: TDate;
     FNmDep: string;
-    FRelDep: tpRelDependencia;
     FVlrPgDep: Double;
   public
     constructor create; reintroduce;
 
     property cpfDep: string read FCpfDep write FCpfDep;
-    property dtNasctoDep: TDate read FDtNasctoDep write FDtNasctoDep;
+    property dtNascto: TDate read FDtNascto write FDtNascto;
     property nmDep: string read FNmDep write FNmDep;
-    property relDep: tpRelDependencia read FRelDep write FRelDep;
     property vlrPgDep: Double read FVlrPgDep write FVlrPgDep;
   end;
 
@@ -1519,6 +1526,52 @@ type
     destructor Destroy;
 
     property detOper: TDetOperCollection read FDetOper write FDetOper;
+  end;
+
+  TRemunPerCollectionItem = class(TCollectionItem)
+  private
+    FMatricula: string;
+    FItensRemun: TRubricaCollection;
+    FInfoSaudeColet: TInfoSaudeColet;
+    function getInfoSaudeColet: TInfoSaudeColet;
+  public
+    constructor Create; reintroduce;
+    destructor Destroy; override;
+    function infoSaudeColetInst(): boolean;
+
+    property matricula: string read FMatricula write FMatricula;
+    property itensRemun: TRubricaCollection read FItensRemun write FItensRemun;
+    property infoSaudeColet: TInfoSaudeColet read getInfoSaudeColet
+      write FInfoSaudeColet;
+  end;
+
+  TNfsColecao = class(TCollection)
+  private
+    function GetItem(Index: Integer): TNfsItem;
+    procedure SetItem(Index: Integer; const Value: TNfsItem);
+  public
+    constructor Create(AOwner: TPersistent);
+    function Add: TNfsItem;
+    property Items[Index: Integer]: TNfsItem read GetItem write SetItem;
+  end;
+
+  TNfsItem = class(TCollectionItem)
+  private
+    Fserie: string;
+    FnrDocto: string;
+    FdtEmisNF: TDateTime;
+    FvlrBruto: Double;
+    FvrCPDescPR: Double;
+    FvrRatDescPR: Double;
+    FvrSenarDesc: Double;
+  public
+    property serie: string read Fserie write Fserie;
+    property nrDocto: string read FnrDocto write FnrDocto;
+    property dtEmisNF: TDateTime read FdtEmisNF write FdtEmisNF;
+    property vlrBruto: Double read FvlrBruto write FvlrBruto;
+    property vrCPDescPR: Double read FvrCPDescPR write FvrCPDescPR;
+    property vrRatDescPR: Double read FvrRatDescPR write FvrRatDescPR;
+    property vrSenarDesc: Double read FvrSenarDesc write FvrSenarDesc;
   end;
 
 implementation
@@ -2328,6 +2381,54 @@ end;
 constructor TProcesso.Create;
 begin
 
+end;
+
+{ TRemunPerCollectionItem }
+constructor TRemunPerCollectionItem.Create;
+begin
+  FItensRemun := TRubricaCollection.Create;
+  FInfoSaudeColet := nil;
+end;
+
+destructor TRemunPerCollectionItem.Destroy;
+begin
+  FItensRemun.Free;
+  FreeAndNil(FInfoSaudeColet);
+  inherited;
+end;
+
+function TRemunPerCollectionItem.getInfoSaudeColet: TInfoSaudeColet;
+begin
+  if not (Assigned(FInfoSaudeColet)) then
+    FInfoSaudeColet := TInfoSaudeColet.Create;
+  Result := FInfoSaudeColet;
+end;
+
+function TRemunPerCollectionItem.infoSaudeColetInst: boolean;
+begin
+  Result := Assigned(FInfoSaudeColet);
+end;
+
+{ TNfsColecao }
+function TNfsColecao.Add: TNfsItem;
+begin
+  Result := TNfsItem(inherited Add);
+  //Result.Create;
+end;
+
+constructor TNfsColecao.Create(AOwner: TPersistent);
+begin
+  inherited Create(TNfsItem);
+end;
+
+function TNfsColecao.GetItem(Index: Integer): TNfsItem;
+begin
+  Result := TNfsItem(inherited GetItem(Index));
+end;
+
+procedure TNfsColecao.SetItem(Index: Integer; const Value: TNfsItem);
+begin
+  inherited SetItem(Index, Value);
 end;
 
 end.

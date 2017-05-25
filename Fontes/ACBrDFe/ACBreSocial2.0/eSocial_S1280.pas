@@ -5,32 +5,32 @@
 {                                                                              }
 { Direitos Autorais Reservados (c) 2008 Wemerson Souto                         }
 {                                       Daniel Simoes de Almeida               }
-{                                       Andr√© Ferreira de Moraes               }
+{                                       AndrÈ Ferreira de Moraes               }
 {                                                                              }
 { Colaboradores nesse arquivo:                                                 }
 {                                                                              }
-{  Voc√™ pode obter a √∫ltima vers√£o desse arquivo na pagina do Projeto ACBr     }
+{  VocÍ pode obter a ˙ltima vers„o desse arquivo na pagina do Projeto ACBr     }
 { Componentes localizado em http://www.sourceforge.net/projects/acbr           }
 {                                                                              }
 {                                                                              }
-{  Esta biblioteca √© software livre; voc√™ pode redistribu√≠-la e/ou modific√°-la }
-{ sob os termos da Licen√ßa P√∫blica Geral Menor do GNU conforme publicada pela  }
-{ Free Software Foundation; tanto a vers√£o 2.1 da Licen√ßa, ou (a seu crit√©rio) }
-{ qualquer vers√£o posterior.                                                   }
+{  Esta biblioteca È software livre; vocÍ pode redistribuÌ-la e/ou modific·-la }
+{ sob os termos da LicenÁa P˙blica Geral Menor do GNU conforme publicada pela  }
+{ Free Software Foundation; tanto a vers„o 2.1 da LicenÁa, ou (a seu critÈrio) }
+{ qualquer vers„o posterior.                                                   }
 {                                                                              }
-{  Esta biblioteca √© distribu√≠da na expectativa de que seja √∫til, por√©m, SEM   }
-{ NENHUMA GARANTIA; nem mesmo a garantia impl√≠cita de COMERCIABILIDADE OU      }
-{ ADEQUA√á√ÉO A UMA FINALIDADE ESPEC√çFICA. Consulte a Licen√ßa P√∫blica Geral Menor}
-{ do GNU para mais detalhes. (Arquivo LICEN√áA.TXT ou LICENSE.TXT)              }
+{  Esta biblioteca È distribuÌda na expectativa de que seja ˙til, porÈm, SEM   }
+{ NENHUMA GARANTIA; nem mesmo a garantia implÌcita de COMERCIABILIDADE OU      }
+{ ADEQUA«√O A UMA FINALIDADE ESPECÕFICA. Consulte a LicenÁa P˙blica Geral Menor}
+{ do GNU para mais detalhes. (Arquivo LICEN«A.TXT ou LICENSE.TXT)              }
 {                                                                              }
-{  Voc√™ deve ter recebido uma c√≥pia da Licen√ßa P√∫blica Geral Menor do GNU junto}
-{ com esta biblioteca; se n√£o, escreva para a Free Software Foundation, Inc.,  }
-{ no endere√ßo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
-{ Voc√™ tamb√©m pode obter uma copia da licen√ßa em:                              }
+{  VocÍ deve ter recebido uma cÛpia da LicenÁa P˙blica Geral Menor do GNU junto}
+{ com esta biblioteca; se n„o, escreva para a Free Software Foundation, Inc.,  }
+{ no endereÁo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
+{ VocÍ tambÈm pode obter uma copia da licenÁa em:                              }
 { http://www.opensource.org/licenses/lgpl-license.php                          }
 {                                                                              }
-{ Daniel Sim√µes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
-{              Pra√ßa Anita Costa, 34 - Tatu√≠ - SP - 18270-410                  }
+{ Daniel Simıes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
+{              PraÁa Anita Costa, 34 - TatuÌ - SP - 18270-410                  }
 {                                                                              }
 {******************************************************************************}
 
@@ -38,9 +38,9 @@
 |* Historico
 |*
 |* 27/10/2015: Jean Carlo Cantu, Tiago Ravache
-|*  - Doa√ß√£o do componente para o Projeto ACBr
+|*  - DoaÁ„o do componente para o Projeto ACBr
 |* 01/03/2016: Guilherme Costa
-|*  - Passado o namespace para gera√ß√£o do cabe√ßalho
+|*  - Passado o namespace para geraÁ„o do cabeÁalho
 ******************************************************************************}
 {$I ACBr.inc}
 
@@ -62,7 +62,6 @@ type
   TInfoSubstPatrOpPortColecao = class;
   TInfoSubstPatr = class;
   TInfoAtivConcom = class;
-  TInfoDeson = class;
 
   TS1280Collection = class(TOwnedCollection)
   private
@@ -92,10 +91,9 @@ type
     FIdeEmpregador: TIdeEmpregador;
     FInfoSubstPatr: TInfoSubstPatr;
     FInfoAtivConcom: TInfoAtivConcom;
-    FInfoDeson: TInfoDeson;
+    FInfoSubstPatrOpPort: TInfoSubstPatrOpPortColecao;
 
-    {Geradores espec√≠ficos da classe}
-    procedure GerarInfoDeson();
+    {Geradores especÌficos da classe}
     procedure GerarInfoSubstPatr();
     procedure GerarInfoSubstPatrOpPort();
     procedure GerarInfoAtivConcom();
@@ -107,34 +105,25 @@ type
 
     property IdeEvento: TIdeEvento3 read FIdeEvento write FIdeEvento;
     property IdeEmpregador: TIdeEmpregador read FIdeEmpregador write FIdeEmpregador;
-    property InfoDeson: TInfoDeson read FInfoDeson write FInfoDeson;
     property InfoSubstPatr: TInfoSubstPatr read FInfoSubstPatr write FInfoSubstPatr;
     property InfoAtivConcom: TInfoAtivConcom read FInfoAtivConcom write FInfoAtivConcom;
+    property InfoSubstPatrOpPort: TInfoSubstPatrOpPortColecao read FInfoSubstPatrOpPort write FInfoSubstPatrOpPort;
   end;
 
   TInfoSubstPatr = class(TPersistent)
   private
     FindSubstPatr: tpIndSubstPatrOpPort;
     FpercRedContrib: double;
-    FInfoSubstPatrOpPort: TInfoSubstPatrOpPortColecao;
   public
-    constructor create;
-    destructor destroy; override;
-
     property indSubstPatr: tpIndSubstPatrOpPort read FindSubstPatr write FindSubstPatr;
     property percRedContrib: double read FpercRedContrib write FpercRedContrib;
-    property InfoSubstPatrOpPort: TInfoSubstPatrOpPortColecao read FInfoSubstPatrOpPort write FInfoSubstPatrOpPort;
   end;
 
   TInfoSubstPatrOpPortItem = class(TCollectionItem)
   private
     FcnpjOpPortuario : string;
-    FindSubstPatrOpPort : tpIndSubstPatrOpPort;
-    FpercRedContribOpPort : Double;
   published
     property cnpjOpPortuario: string read FcnpjOpPortuario write FcnpjOpPortuario;
-    property indSubstPatrOpPort: tpIndSubstPatrOpPort read FindSubstPatrOpPort write FindSubstPatrOpPort;
-    property percRedContribOpPort: Double read FpercRedContribOpPort write FpercRedContribOpPort;
   end;
 
   TInfoSubstPatrOpPortColecao = class(TCollection)
@@ -154,13 +143,6 @@ type
   public
     property fatorMes: Double read FfatorMes write FfatorMes;
     property fator13: Double read Ffator13 write Ffator13;
-  end;
-
-  TInfoDeson = class(TPersistent)
-  private
-    FpercRed11774: Double;
-  public
-    property percRed11774: Double read FpercRed11774 write FpercRed11774;
   end;
 
 
@@ -211,8 +193,8 @@ begin
   inherited;
   FIdeEvento := TIdeEvento3.Create;
   FIdeEmpregador := TIdeEmpregador.Create;
-  FInfoDeson :=  TInfoDeson.Create;
   FInfoSubstPatr := TInfoSubstPatr.Create;
+  FInfoSubstPatrOpPort := TInfoSubstPatrOpPortColecao.Create;
   FInfoAtivConcom := TInfoAtivConcom.Create;
 end;
 
@@ -220,8 +202,8 @@ destructor TEvtInfoComplPer.destroy;
 begin
   FIdeEvento.Free;
   FIdeEmpregador.Free;
-  FInfoDeson.Free;
   FInfoSubstPatr.Free;
+  FInfoSubstPatrOpPort.Free;
   FInfoAtivConcom.Free;
   inherited;
 end;
@@ -234,19 +216,11 @@ begin
   Gerador.wGrupo('/infoAtivConcom');
 end;
 
-procedure TEvtInfoComplPer.GerarInfoDeson;
-begin
-  Gerador.wGrupo('infoDeson');
-    Gerador.wCampo(tcDe4, '', 'percRed11774', 0, 0, 0,  InfoDeson.percRed11774);
-  Gerador.wGrupo('/infoDeson');
-end;
-
 procedure TEvtInfoComplPer.GerarInfoSubstPatr;
 begin
   Gerador.wGrupo('infoSubstPatr');
     Gerador.wCampo(tcStr, '', 'indSubstPatr', 0, 0, 0,  eSIndSubstPatrOpPortStr(InfoSubstPatr.indSubstPatr));
     Gerador.wCampo(tcDe2, '', 'percRedContrib', 0, 0, 0,  InfoSubstPatr.percRedContrib);
-    GerarInfoSubstPatrOpPort;
   Gerador.wGrupo('/infoSubstPatr');
 end;
 
@@ -255,13 +229,11 @@ var
   iInfoSubstPatrOpPortItem: Integer;
   objInfoSubstPatrOpPortItem: TInfoSubstPatrOpPortItem;
 begin
-  for iInfoSubstPatrOpPortItem := 0 to InfoSubstPatr.InfoSubstPatrOpPort.Count - 1 do
+  for iInfoSubstPatrOpPortItem := 0 to InfoSubstPatrOpPort.Count - 1 do
   begin
-    objInfoSubstPatrOpPortItem := InfoSubstPatr.InfoSubstPatrOpPort.Items[iInfoSubstPatrOpPortItem];
+    objInfoSubstPatrOpPortItem := InfoSubstPatrOpPort.Items[iInfoSubstPatrOpPortItem];
     Gerador.wGrupo('infoSubstPatrOpPort');
       Gerador.wCampo(tcStr, '', 'cnpjOpPortuario', 0, 0, 0,  objInfoSubstPatrOpPortItem.cnpjOpPortuario);
-      Gerador.wCampo(tcStr, '', 'indSubstPatrOpPort', 0, 0, 0,  eSIndSubstPatrOpPortStr(objInfoSubstPatrOpPortItem.indSubstPatrOpPort));
-      Gerador.wCampo(tcDe2, '', 'percRedContribOpPort', 0, 0, 0,  objInfoSubstPatrOpPortItem.percRedContribOpPort);
     Gerador.wGrupo('/infoSubstPatrOpPort');
   end;
 end;
@@ -273,8 +245,8 @@ begin
       Gerador.wGrupo('evtInfoComplPer Id="'+GerarChaveEsocial(now, self.ideEmpregador.NrInsc, 0)+'"');
         gerarIdeEvento3(self.IdeEvento);
         gerarIdeEmpregador(self.IdeEmpregador);
-        //GerarInfoDeson; -- removido na vers√£o 2.1
         GerarInfoSubstPatr;
+        GerarInfoSubstPatrOpPort;
         GerarInfoAtivConcom;
       Gerador.wGrupo('/evtInfoComplPer');
     GerarRodape;
@@ -307,19 +279,6 @@ end;
 procedure TInfoSubstPatrOpPortColecao.SetItem(Index: Integer; const Value: TInfoSubstPatrOpPortItem);
 begin
   inherited SetItem(Index, Value);
-end;
-
-{ TInfoSubstPatr }
-constructor TInfoSubstPatr.create;
-begin
-  inherited;
-  FInfoSubstPatrOpPort := TInfoSubstPatrOpPortColecao.Create;
-end;
-
-destructor TInfoSubstPatr.destroy;
-begin
-  FInfoSubstPatrOpPort.Free;
-  inherited;
 end;
 
 end.

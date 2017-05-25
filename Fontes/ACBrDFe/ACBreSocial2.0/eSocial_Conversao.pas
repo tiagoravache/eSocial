@@ -79,7 +79,7 @@ type
 
 
   TTipoEvento             = (teS1000, teS1005, teS1010, teS1020, teS1030, teS1035, teS1040, teS1050,
-                             teS1060, teS1070, teS1080, teS2100, teS1200, teS1202, teS1210,
+                             teS1060, teS1070, teS1080, teS2100, teS1200, teS1202, teS1207, teS1210,
                              teS1220, teS1250, teS1260, teS1270, teS1280, teS1298, teS1299,
                              teS1300, teS2190, teS2200, teS2205, teS2206, teS2210, teS2220,
                              teS2230, teS2240, teS2241, teS2250, teS2298, teS2299, teS2300,
@@ -261,8 +261,8 @@ type
 
   tpLocalAmb              = (laEstabProprioEmpregador, laEstabTerceiro);
 
-  tpTpAcConv              = (tacAcordoColTrab, tacComissaoConcPrevia, tacConvencaoColTrab,
-                             tacSetencNormativa, tacConversaoLicenSaudeAcidTrabalho);
+  tpTpAcConv              = (tacAcordoColTrab, tacLegislacaoFederalEstadualMunicipalDistrital, tacConvencaoColTrab,
+                             tacSetencNormativa, tacConversaoLicenSaudeAcidTrabalho, tacOutrasVerbas);
 
   tpIndSusp               = (siLiminarMandadoSeguranca, siDepositoJudicial, siDepositoAdministrativo, siAntecipacaoTutela, siLiminarMedidaCautelar,
                              siSentencaMandadoSegurancaFavoravelContribuinte, siSentencaAcaoOrdinariaFavContribuinteConfirmadaPeloTRF,
@@ -744,9 +744,9 @@ implementation
 
 const
 
-  TTipoEventoString   : array[0..40] of String =('S-1000', 'S-1005', 'S-1010', 'S-1020', 'S-1030', 'S-1035',
+  TTipoEventoString   : array[0..41] of String =('S-1000', 'S-1005', 'S-1010', 'S-1020', 'S-1030', 'S-1035',
                                                  'S-1040', 'S-1050', 'S-1060', 'S-1070', 'S-1080',
-                                                 'S-2100', 'S-1200', 'S-1202', 'S-1210', 'S-1220',
+                                                 'S-2100', 'S-1200', 'S-1202', 'S-1207', 'S-1210', 'S-1220',
                                                  'S-1250', 'S-1260', 'S-1270', 'S-1280', 'S-1298',
                                                  'S-1299', 'S-1300', 'S-2190', 'S-2200', 'S-2205',
                                                  'S-2206', 'S-2210', 'S-2220', 'S-2230', 'S-2240',

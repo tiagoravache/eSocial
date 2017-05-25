@@ -1,46 +1,46 @@
-Ôªø{******************************************************************************}
+{******************************************************************************}
 { Projeto: Componente ACBreSocial                                              }
 {  Biblioteca multiplataforma de componentes Delphi para envio dos eventos do  }
 { eSocial - http://www.esocial.gov.br/                                         }
-{                                                                              }
+
 { Direitos Autorais Reservados (c) 2008 Wemerson Souto                         }
 {                                       Daniel Simoes de Almeida               }
-{                                       Andr√© Ferreira de Moraes               }
-{                                                                              }
+{                                       AndrÈ Ferreira de Moraes               }
+
 { Colaboradores nesse arquivo:                                                 }
-{                                                                              }
-{  Voc√™ pode obter a √∫ltima vers√£o desse arquivo na pagina do Projeto ACBr     }
+
+{  VocÍ pode obter a ˙ltima vers„o desse arquivo na pagina do Projeto ACBr     }
 { Componentes localizado em http://www.sourceforge.net/projects/acbr           }
-{                                                                              }
-{                                                                              }
-{  Esta biblioteca √© software livre; voc√™ pode redistribu√≠-la e/ou modific√°-la }
-{ sob os termos da Licen√ßa P√∫blica Geral Menor do GNU conforme publicada pela  }
-{ Free Software Foundation; tanto a vers√£o 2.1 da Licen√ßa, ou (a seu crit√©rio) }
-{ qualquer vers√£o posterior.                                                   }
-{                                                                              }
-{  Esta biblioteca √© distribu√≠da na expectativa de que seja √∫til, por√©m, SEM   }
-{ NENHUMA GARANTIA; nem mesmo a garantia impl√≠cita de COMERCIABILIDADE OU      }
-{ ADEQUA√á√ÉO A UMA FINALIDADE ESPEC√çFICA. Consulte a Licen√ßa P√∫blica Geral Menor}
-{ do GNU para mais detalhes. (Arquivo LICEN√áA.TXT ou LICENSE.TXT)              }
-{                                                                              }
-{  Voc√™ deve ter recebido uma c√≥pia da Licen√ßa P√∫blica Geral Menor do GNU junto}
-{ com esta biblioteca; se n√£o, escreva para a Free Software Foundation, Inc.,  }
-{ no endere√ßo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
-{ Voc√™ tamb√©m pode obter uma copia da licen√ßa em:                              }
+
+
+{  Esta biblioteca È software livre; vocÍ pode redistribuÌ-la e/ou modific·-la }
+{ sob os termos da LicenÁa P˙blica Geral Menor do GNU conforme publicada pela  }
+{ Free Software Foundation; tanto a vers„o 2.1 da LicenÁa, ou (a seu critÈrio) }
+{ qualquer vers„o posterior.                                                   }
+
+{  Esta biblioteca È distribuÌda na expectativa de que seja ˙til, porÈm, SEM   }
+{ NENHUMA GARANTIA; nem mesmo a garantia implÌcita de COMERCIABILIDADE OU      }
+{ ADEQUA«√O A UMA FINALIDADE ESPECÕFICA. Consulte a LicenÁa P˙blica Geral Menor}
+{ do GNU para mais detalhes. (Arquivo LICEN«A.TXT ou LICENSE.TXT)              }
+
+{  VocÍ deve ter recebido uma cÛpia da LicenÁa P˙blica Geral Menor do GNU junto}
+{ com esta biblioteca; se n„o, escreva para a Free Software Foundation, Inc.,  }
+{ no endereÁo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
+{ VocÍ tambÈm pode obter uma copia da licenÁa em:                              }
 { http://www.opensource.org/licenses/lgpl-license.php                          }
-{                                                                              }
-{ Daniel Sim√µes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
-{              Pra√ßa Anita Costa, 34 - Tatu√≠ - SP - 18270-410                  }
-{                                                                              }
+
+{ Daniel Simıes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
+{              PraÁa Anita Costa, 34 - TatuÌ - SP - 18270-410                  }
+
 {******************************************************************************}
 
 {******************************************************************************
 |* Historico
 |*
 |* 27/10/2015: Jean Carlo Cantu, Tiago Ravache
-|*  - Doa√ß√£o do componente para o Projeto ACBr
+|*  - DoaÁ„o do componente para o Projeto ACBr
 |* 01/03/2016: Guilherme Costa
-|*  - Altera√ß√µes para valida√ß√£o com o XSD
+|*  - AlteraÁıes para validaÁ„o com o XSD
 ******************************************************************************}
 {$I ACBr.inc}
 
@@ -49,235 +49,649 @@ unit eSocial_S1202;
 interface
 
 uses
-  SysUtils, Classes, eSocial_Common, eSocial_Conversao, pcnConversao, ACBreSocialGerador,
-  Controls;
+  SysUtils, Classes,
+  eSocial_Common, eSocial_Conversao,
+  pcnConversao, ACBrUtil, Dialogs,
+  ACBreSocialGerador, Controls;
 
 type
 
-  TEvtRmnRPPS = class;
-  TS1202CollectionItem = class;
-  TS1202Collection = class;
-
-  //classes especificas do 1202
-  TeS1202IdeTrabalhador = class;
-  TInfoPerApur = class;
-  TInfoPerAnt = class;
-  TItensRemunCollection= class;
-  TRecPgtosPerApurCollectionItem = class;
-  TRecPgtosPerApurCollection = class;
-  TRecPgtosPerAntCollectionItem = class;
-  TRecPgtosPerAntCollection = class;
+  TRemunPer1202Collection = class;
+  TRemunPer1202CollectionItem = class;
+  TIdeEstabCollection = class;
+  TIdeEstabCollectionItem = class;
   TIdePeriodoCollectionItem = class;
   TIdePeriodoCollection = class;
-  TRemunPerCollection = class;
-  TRemunPerCollectionItem = class;
-  TRemunPerApur = class;
-  TRemunPerAnt = class;
+  TIdeADCCollectionItem = class;
+  TIdeADCCollection = class;
+  TInfoPerAnt = class;
+  TInfoPerApur = class;
+  TeS1202IdeTrabalhador = class;
+  TEvtRemunRPPS = class;
+  TS1202CollectionItem = class;
+  TS1202Collection = class;
+  TDMDevCollection = class;
+  TDMDevCollectionItem = class;
 
 
   TS1202Collection = class(TOwnedCollection)
   private
-    function GetItem(Index: Integer): TS1202CollectionItem;
-    procedure SetItem(Index: Integer; Value: TS1202CollectionItem);
+    function GetItem(Index: integer): TS1202CollectionItem;
+    procedure SetItem(Index: integer; Value: TS1202CollectionItem);
   public
     function Add: TS1202CollectionItem;
-    property Items[Index: Integer]: TS1202CollectionItem read GetItem write SetItem; default;
+    property Items[Index: integer]: TS1202CollectionItem read GetItem write SetItem;
+      default;
   end;
 
   TS1202CollectionItem = class(TCollectionItem)
   private
     FTipoEvento: TTipoEvento;
-    FEvtRmnRPPS: TEvtRmnRPPS;
-    procedure seTEvtRmnRPPS(const Value: TEvtRmnRPPS);
+    FEvtRmnRPPS: TEvtRemunRPPS;
+    procedure seTEvtRemunRPPS(const Value: TEvtRemunRPPS);
   public
     constructor Create(AOwner: TComponent); reintroduce;
     destructor Destroy; override;
   published
     property TipoEvento: TTipoEvento read FTipoEvento;
-    property EvtRmnRPPS: TEvtRmnRPPS read FEvtRmnRPPS write seTEvtRmnRPPS;
+    property evtRmnRPPS: TEvtRemunRPPS read FEvtRmnRPPS write seTEvtRemunRPPS;
   end;
 
-  TEvtRmnRPPS = class(TeSocialEvento)
+  TDMDevCollection = class(TCollection)
   private
-    FIdeEvento: TIdeEvento3;
-    FIdeEmpregador: TIdeEmpregador;
-    FIdeTrabalhador: TeS1202IdeTrabalhador;
-
-    procedure GerarIdeTrabalhador();
-    procedure GerarInfoPerApur();
-    procedure GerarInfoPerAnt();
-    procedure GerarRecPgtoPerApur(oRecPgtoPerApur: TRecPgtosPerApurCollection);
-    procedure GerarRecPgtoPerAnt(oRecPgtoPerAnt: TRecPgtosPerAntCollection);
-    procedure GerarRemunPer(objRemunPer: TRemunPerCollection; nomeRemunPer: string = 'remunPerApur');
-    procedure GerarIdePeriodo(objIdePeriodo: TIdePeriodoCollection);
+    function GetItem(Index: integer): TDMDevCollectionItem;
+    procedure SetItem(Index: integer; Value: TDMDevCollectionItem);
   public
-    constructor Create(AACBreSocial: TObject);overload;
-    destructor  Destroy; override;
-    function GerarXML: boolean; override;
+    constructor Create(); reintroduce;
 
-    property ideEvento: TIdeEvento3 read FIdeEvento write FIdeEvento;
-    property ideEmpregador: TIdeEmpregador read FIdeEmpregador write FIdeEmpregador;
-    property ideTrabalhador: TeS1202IdeTrabalhador read FIdeTrabalhador write FIdeTrabalhador;
+    function Add: TDMDevCollectionItem;
+    property Items[Index: integer]: TDMDevCollectionItem read GetItem write SetItem;
+      default;
   end;
 
-  TeS1202IdeTrabalhador = class(TideTrabalhador2) //S-1202
-   private
-    FQtdDepIRRF: Integer;
-    FProcJudTrab: TProcJudTrabCollection;
+
+  TDMDevCollectionItem = class(TCollectionItem)
+  private
+    FIdeDmDev: string;
     FInfoPerApur: TInfoPerApur;
     FInfoPerAnt: TInfoPerAnt;
-
     function getInfoPerApur: TInfoPerApur;
     function getInfoPerAnt: TInfoPerAnt;
   public
-    constructor create;
+    constructor Create; reintroduce;
     destructor Destroy; override;
-
-    function infoPerApurInst(): Boolean;
-    function infoPerAntInst(): Boolean;
-
-    property qtdDepIRRF: Integer read FqtdDepIRRF write FqtdDepIRRF;
-    property procJudTrab: TProcJudTrabCollection read FProcJudTrab write FProcJudTrab;
+    function infoPerApurInst(): boolean;
+    function infoPerAntInst(): boolean;
+  published
+    property ideDmDev: string read FIdeDmDev write FIdeDmDev;
     property infoPerApur: TInfoPerApur read getInfoPerApur write FInfoPerApur;
     property infoPerAnt: TInfoPerAnt read getInfoPerAnt write FInfoPerAnt;
   end;
 
-  TInfoPerApur = class(TPersistent)
+  TEvtRemunRPPS = class(TeSocialEvento)
   private
-     FRecPgtos: TRecPgtosPerApurCollection;
+    FIdeEvento: TIdeEvento3;
+    FIdeEmpregador: TIdeEmpregador;
+    FIdeTrabalhador: TeS1202IdeTrabalhador;
+    FDMDev: TDMDevCollection;
+    {Geradores especÌficos desta classe}
+
+    procedure GerarIdeEstab(objIdeEstab: TIdeEstabCollection;
+      nomeRemunPer: string = 'remunPerApur');
+    procedure GerarRemunPer(objRemunPer: TRemunPer1202Collection;
+      nomeRemunPer: string = 'remunPerApur');
+    procedure GerarIdePeriodo(objIdePeriodo: TIdePeriodoCollection);
+    procedure GerarIdeADC(objIdeADC: TideADCCollection);
+
+    procedure GerarIdeTrabalhador();
+    procedure GerarDmDev();
+    procedure GerarInfoPerApur(pInfoPerApur: TInfoPerApur);
+    procedure GerarInfoPerAnt(pInfoPerAnt: TInfoPerAnt);
   public
-    constructor create;
+    constructor Create(AACBreSocial: TObject); overload;
     destructor Destroy; override;
-    property recPgtos: TRecPgtosPerApurCollection read FRecPgtos write FRecPgtos;
+
+    function GerarXML: boolean; override;
+
+    property ideEvento: TIdeEvento3 read FIdeEvento write FIdeEvento;
+    property ideEmpregador: TIdeEmpregador read FIdeEmpregador write FIdeEmpregador;
+    property ideTrabalhador: TeS1202IdeTrabalhador
+      read FIdeTrabalhador write FIdeTrabalhador;
+    property dmDev: TDMDevCollection read FDMDev write FDMDev;
+  end;
+
+  TRemunPer1202Collection = class(TCollection)
+  private
+    FNomeGrupoXML: string;
+    function GetItem(Index: integer): TRemunPer1202CollectionItem;
+    procedure SetItem(Index: integer; Value: TRemunPer1202CollectionItem);
+  public
+    constructor Create(); reintroduce;
+    function Add: TRemunPer1202CollectionItem;
+    property Items[Index: integer]: TRemunPer1202CollectionItem read GetItem write SetItem;
+    property grupoXML: string read FNomeGrupoXML;
+  end;
+
+  TRemunPer1202CollectionItem = class(TRemunPerCollectionItem)
+  private
+    FCodCateg: Integer;
+  public
+    property codCateg: Integer read FCodCateg write FCodCateg;
+  end;
+
+  TIdeEstabCollection = class(TCollection)
+  private
+    function GetItem(Index: integer): TIdeEstabCollectionItem;
+    procedure SetItem(Index: integer; Value: TIdeEstabCollectionItem);
+  public
+    constructor Create; reintroduce;
+    function Add: TIdeEstabCollectionItem;
+    property Items[Index: integer]: TIdeEstabCollectionItem
+      read GetItem write SetItem;
+  end;
+
+  TIdeEstabCollectionItem = class(TCollectionItem)
+  private
+    FTpInsc: TpTpInsc;
+    FNrInsc: string;
+    FRemunPerApur: TRemunPer1202Collection;
+    FRemunPerAnt: TRemunPer1202Collection;
+  public
+    constructor Create; reintroduce;
+    destructor Destroy; override;
+
+    property tpInsc: TpTPInsc read FTpInsc write FTpInsc;
+    property nrInsc: string read FNrInsc write FNrInsc;
+    property remunPerApur: TRemunPer1202Collection read FRemunPerApur write FRemunPerApur;
+    property remunPerAnt: TRemunPer1202Collection read FRemunPerAnt write FRemunPerAnt;
+  end;
+
+  TIdePeriodoCollection = class(TCollection)
+  private
+    function GetItem(Index: integer): TIdePeriodoCollectionItem;
+    procedure SetItem(Index: integer; Value: TIdePeriodoCollectionItem);
+  public
+    constructor Create; reintroduce;
+    function Add: TIdePeriodoCollectionItem;
+    property Items[Index: integer]: TIdePeriodoCollectionItem read GetItem write SetItem;
+  end;
+
+  TIdePeriodoCollectionItem = class(TCollectionItem)
+  private
+    FPerRef: string;
+    FIdeEstab: TIdeEstabCollection;
+  public
+    constructor Create; reintroduce;
+    destructor Destroy; override;
+    property perRef: string read FPerRef write FPerRef;
+    property ideEstab: TIdeEstabCollection read FIdeEstab write FIdeEstab;
+  end;
+
+  TIdeADCCollection = class(TCollection)
+  private
+    function GetItem(Index: integer): TIdeADCCollectionItem;
+    procedure SetItem(Index: integer; Value: TIdeADCCollectionItem);
+  public
+    constructor Create; reintroduce;
+    function add: TIdeADCCollectionItem;
+    property Items[Index: integer]: TIdeADCCollectionItem read GetItem write SetItem;
+  end;
+
+  TIdeADCCollectionItem = class(TCollectionItem)
+  private
+    FDtLei: TDate;
+    FNrLei: string;
+    FDtEf: TDate;
+    FIdePeriodo: TIdePeriodoCollection;
+  public
+    constructor Create; reintroduce;
+
+    property DtLei: TDate read FDtLei write FDtLei;
+    property nrLei: string read FNrLei write FNrLei;
+    property DtEf: TDate read FDtEf write FDtEf;
+    property idePeriodo: TIdePeriodoCollection read FIdePeriodo write FIdePeriodo;
   end;
 
   TInfoPerAnt = class(TPersistent)
   private
-    FRecPgtos: TRecPgtosPerAntCollection;
+    FIdeADC: TIdeADCCollection;
   public
-    constructor create;
+    constructor Create;
     destructor Destroy; override;
-    property recPgtos: TRecPgtosPerAntCollection read FRecPgtos write FRecPgtos;
+    property ideADC: TIdeADCCollection read FIdeADC write FIdeADC;
   end;
 
-
-  TItensRemunCollection = class(TRubricaCollection);
-
-
-  TRecPgtosPerApurCollection = class(TCollection)
+  TInfoPerApur = class(TPersistent)
   private
-    function GetItem(Index: Integer): TRecPgtosPerApurCollectionItem;
-    procedure SetItem(Index: Integer; Value: TRecPgtosPerApurCollectionItem);
+    FIdeEstab: TIdeEstabCollection;
   public
-    constructor create; reintroduce;
-    function Add: TRecPgtosPerApurCollectionItem;
-    property Items[Index: Integer]: TRecPgtosPerApurCollectionItem read GetItem write SetItem;
+    constructor Create;
+    destructor Destroy; override;
+    property ideEstab: TIdeEstabCollection read FIdeEstab write FIdeEstab;
   end;
 
-  TRecPgtosPerApurCollectionItem = class(TReciboPagamento)
+  TeS1202IdeTrabalhador = class(TideTrabalhador2)
   private
-    FRemunPerApur :TRemunPerCollection;
+    FQtdDepFP: integer;
+    FProcJudTrab: TProcJudTrabCollection;
+    function getProcJudTrab: TProcJudTrabCollection;
   public
-    constructor create; reintroduce;
-    destructor destroy; override;
-    property remunPerApur: TRemunPerCollection read FRemunPerApur write FRemunPerApur;
+    constructor Create;
+    destructor Destroy; override;
+    function procJudTrabInst: boolean;
+
+    property qtdDepFP: Integer read FQtdDepFP write FQtdDepFP;
+    property procJudTrab: TProcJudTrabCollection read getProcJudTrab write FProcJudTrab;
   end;
-
-
-  TRecPgtosPerAntCollection = class(TCollection)
-  private
-    function GetItem(Index: Integer): TRecPgtosPerAntCollectionItem;
-    procedure SetItem(Index: Integer; Value: TRecPgtosPerAntCollectionItem);
-  public
-    constructor create; reintroduce;
-    function Add: TRecPgtosPerAntCollectionItem;
-    property Items[Index: Integer]: TRecPgtosPerAntCollectionItem read GetItem write SetItem;
-  end;
-
-  TRecPgtosPerAntCollectionItem = class(TReciboPagamento)
-  private
-    FIdePeriodo: TIdePeriodoCollection;
-  public
-    constructor create; reintroduce;
-    destructor destroy; override;
-    property idePeriodo: TIdePeriodoCollection read FIdePeriodo write FIdePeriodo;
-  end;
-
-  TIdePeriodoCollection = class(TCollection)
-   private
-    function GetItem(Index: Integer): TIdePeriodoCollectionItem;
-    procedure SetItem(Index: Integer; Value: TIdePeriodoCollectionItem);
-  public
-    constructor create; reintroduce;
-    function Add: TIdePeriodoCollectionItem;
-    property Items[Index: Integer]: TIdePeriodoCollectionItem read GetItem write SetItem;
-  end;
-
-  TIdePeriodoCollectionItem = class(TCollectionItem)
-   private
-    FPerRef: string;
-    FRemunPerAnt :TRemunPerCollection;
-  public
-    constructor create; reintroduce;
-    destructor destroy; override;
-    property perRef: string read FPerRef write FPerRef;
-    property remunPerAnt: TRemunPerCollection read FRemunPerAnt write FRemunPerAnt;
-  end;
-
-  TRemunPerCollection = class(TCollection)
-   private
-    function GetItem(Index: Integer): TRemunPerCollectionItem;
-    procedure SetItem(Index: Integer; Value: TRemunPerCollectionItem);
-  public
-    constructor create(); reintroduce;
-    function Add: TRemunPerCollectionItem;
-    property Items[Index: Integer]: TRemunPerCollectionItem read GetItem write SetItem;
-  end;
-
-  TRemunPerCollectionItem = class(TCollectionItem)
-   private
-    FMatricula: string;
-    FCodCateg: Integer;
-    FItensRemun: TItensRemunCollection;
-    FInfoSaudeColet: TInfoSaudeColet;
-    FPensaoAlim: TPensaoAlimCollection;
-    function getInfoSaudeColet: TInfoSaudeColet;
-  public
-    constructor create;
-    destructor destroy; override;
-    function infoSaudeColetInst(): Boolean;
-
-    property matricula: string read FMatricula write FMatricula;
-    property codCateg: Integer read FCodCateg write FCodCateg;
-    property itensRemun: TItensRemunCollection read FItensRemun write FItensRemun;
-    property infoSaudeColet: TInfoSaudeColet read getInfoSaudeColet write FInfoSaudeColet;
-    property pensaoAlim: TPensaoAlimCollection read FPensaoAlim write FPensaoAlim;
-  end;
-
-  TRemunPerApur = class(TRemunPerCollection);
-
-  TRemunPerAnt = class(TRemunPerCollection);
-
 
 implementation
 
-uses
-  eSocial_Periodicos;
+
+{ TRemunPer1202Collection }
+function TRemunPer1202Collection.Add: TRemunPer1202CollectionItem;
+begin
+  Result := TRemunPer1202CollectionItem(inherited Add);
+  Result.Create;
+end;
+
+constructor TRemunPer1202Collection.Create();
+begin
+  inherited Create(TRemunPer1202CollectionItem);
+end;
+
+function TRemunPer1202Collection.GetItem(Index: integer): TRemunPer1202CollectionItem;
+begin
+  Result := TRemunPer1202CollectionItem(inherited GetItem(Index));
+end;
+
+procedure TRemunPer1202Collection.SetItem(Index: integer; Value: TRemunPer1202CollectionItem);
+begin
+  inherited SetItem(Index, Value);
+end;
+
+{ TIdeEstabCollectionItem }
+
+constructor TIdeEstabCollectionItem.Create;
+begin
+  FRemunPerApur := TRemunPer1202Collection.Create;
+  FRemunPerAnt := TRemunPer1202Collection.Create;
+end;
+
+destructor TIdeEstabCollectionItem.Destroy;
+begin
+  FRemunPerApur.Free;
+  FRemunPerAnt.Free;
+  inherited;
+end;
+
+{ TIdeEstabCollection }
+function TIdeEstabCollection.Add: TIdeEstabCollectionItem;
+begin
+  Result := TIdeEstabCollectionItem(inherited Add);
+  Result.Create;
+end;
+
+constructor TIdeEstabCollection.Create;
+begin
+  inherited Create(TIdeEstabCollectionItem);
+end;
+
+function TIdeEstabCollection.GetItem(Index: integer): TIdeEstabCollectionItem;
+begin
+  Result := TIdeEstabCollectionItem(inherited GetItem(Index));
+end;
+
+procedure TIdeEstabCollection.SetItem(Index: integer;
+  Value: TIdeEstabCollectionItem);
+begin
+  inherited SetItem(Index, Value);
+end;
+
+{ TIdePeriodoCollectionItem }
+constructor TIdePeriodoCollectionItem.Create;
+begin
+  FIdeEstab := TIdeEstabCollection.Create;
+end;
+
+destructor TIdePeriodoCollectionItem.Destroy;
+begin
+  FIdeEstab.Free;
+  inherited;
+end;
+
+{ TIdePeriodoCollection }
+function TIdePeriodoCollection.Add: TIdePeriodoCollectionItem;
+begin
+  Result := TIdePeriodoCollectionItem(inherited Add);
+  Result.Create;
+end;
+
+constructor TIdePeriodoCollection.Create;
+begin
+  inherited Create(TIdePeriodoCollectionItem);
+end;
+
+function TIdePeriodoCollection.GetItem(Index: integer): TIdePeriodoCollectionItem;
+begin
+  Result := TIdePeriodoCollectionItem(inherited GetItem(Index));
+end;
+
+procedure TIdePeriodoCollection.SetItem(Index: integer;
+  Value: TIdePeriodoCollectionItem);
+begin
+  inherited SetItem(Index, Value);
+end;
+
+{ TIdeADCCollectionItem }
+constructor TIdeADCCollectionItem.Create;
+begin
+  FIdePeriodo := TIdePeriodoCollection.Create;
+end;
+
+
+{ TIdeADCCollection }
+function TIdeADCCollection.add: TIdeADCCollectionItem;
+begin
+  Result := TIdeADCCollectionItem(inherited add);
+  Result.Create;
+end;
+
+constructor TIdeADCCollection.Create;
+begin
+  inherited Create(TIdeADCCollectionItem);
+end;
+
+function TIdeADCCollection.GetItem(Index: integer): TIdeADCCollectionItem;
+begin
+  Result := TIdeADCCollectionItem(inherited GetItem(Index));
+end;
+
+procedure TIdeADCCollection.SetItem(Index: integer; Value: TIdeADCCollectionItem);
+begin
+  inherited SetItem(Index, Value);
+end;
+
+{ TInfoPerAnt }
+constructor TInfoPerAnt.Create;
+begin
+  inherited;
+  FIdeADC := TIdeADCCollection.Create;
+end;
+
+destructor TInfoPerAnt.Destroy;
+begin
+  FIdeADC.Free;
+  inherited;
+end;
+
+{ TInfoPerApur }
+constructor TInfoPerApur.Create;
+begin
+  inherited;
+  FIdeEstab := TIdeEstabCollection.Create;
+end;
+
+destructor TInfoPerApur.Destroy;
+begin
+  FIdeEstab.Free;
+  inherited;
+end;
+
+{ TideTrabalhador }
+constructor TeS1202IdeTrabalhador.Create;
+begin
+  FProcJudTrab := nil;
+end;
+
+destructor TeS1202IdeTrabalhador.Destroy;
+begin
+  FreeAndNil(FProcJudTrab);
+  inherited;
+end;
+
+function TeS1202IdeTrabalhador.getProcJudTrab: TProcJudTrabCollection;
+begin
+  if not Assigned(FProcJudTrab) then
+    FProcJudTrab := TProcJudTrabCollection.Create;
+  Result := FProcJudTrab;
+end;
+
+function TeS1202IdeTrabalhador.procJudTrabInst: boolean;
+begin
+  result := Assigned(FProcJudTrab);
+end;
+
+{ TDMDevCollection }
+
+constructor TDMDevCollection.Create;
+begin
+  inherited Create(TDMDevCollectionItem);
+end;
+
+function TDMDevCollection.Add: TDMDevCollectionItem;
+begin
+  Result := TDMDevCollectionItem(inherited add());
+  Result.Create;
+end;
+
+function TDMDevCollection.GetItem(Index: integer): TDMDevCollectionItem;
+begin
+  Result := TDMDevCollectionItem(inherited GetItem(Index));
+end;
+
+procedure TDMDevCollection.SetItem(Index: integer; Value: TDMDevCollectionItem);
+begin
+  inherited SetItem(Index, Value);
+end;
+
+{ TDMDevCollectionItem }
+
+constructor TDMDevCollectionItem.Create;
+begin
+  FInfoPerApur := nil;
+  FInfoPerAnt := nil;
+end;
+
+destructor TDMDevCollectionItem.Destroy;
+begin
+  FreeAndNil(FInfoPerApur);
+  FreeAndNil(FInfoPerAnt);
+  inherited;
+end;
+
+function TDMDevCollectionItem.getInfoPerApur: TInfoPerApur;
+begin
+  if not (Assigned(FInfoPerApur)) then
+    FInfoPerApur := TInfoPerApur.Create;
+  Result := FInfoPerApur;
+end;
+
+function TDMDevCollectionItem.infoPerApurInst: boolean;
+begin
+  Result := Assigned(FInfoPerApur);
+end;
+
+function TDMDevCollectionItem.getInfoPerAnt: TInfoPerAnt;
+begin
+  if not (Assigned(FInfoPerAnt)) then
+    FInfoPerAnt := TInfoPerAnt.Create;
+  Result := FInfoPerAnt;
+end;
+
+
+function TDMDevCollectionItem.infoPerAntInst: boolean;
+begin
+  Result := Assigned(FInfoPerAnt);
+end;
+
+{ TEvtRemunRPPS }
+constructor TEvtRemunRPPS.Create(AACBreSocial: TObject);
+begin
+  inherited;
+  FIdeEvento := TIdeEvento3.Create;
+  FIdeEmpregador := TIdeEmpregador.Create;
+  FIdeTrabalhador := TeS1202IdeTrabalhador.Create;
+  FDMDev := TDMDevCollection.Create;
+end;
+
+destructor TEvtRemunRPPS.Destroy;
+begin
+  FIdeEvento.Free;
+  FIdeEmpregador.Free;
+  FIdeTrabalhador.Free;
+  FDMDev.Free;
+  inherited;
+end;
+
+procedure TEvtRemunRPPS.GerarIdeADC(objIdeADC: TideADCCollection);
+var
+  iIdeADC: integer;
+begin
+  for iIdeADC := 0 to objIdeADC.Count - 1 do
+  begin
+    Gerador.wGrupo('ideADC');
+    Gerador.wCampo(tcDat, '', 'dtLei', 0, 0, 0, objIdeADC.Items[iIdeADC].DtLei);
+    Gerador.wCampo(tcStr, '', 'nrLei', 0, 0, 0, objIdeADC.Items[iIdeADC].nrLei);
+    Gerador.wCampo(tcDat, '', 'dtEf', 0, 0, 0, objIdeADC.Items[iIdeADC].DtEf);
+    GerarIdePeriodo(objIdeADC.Items[iIdeADC].idePeriodo);
+    Gerador.wGrupo('/ideADC');
+  end;
+end;
+
+procedure TEvtRemunRPPS.GerarIdeEstab(objIdeEstab: TIdeEstabCollection;
+  nomeRemunPer: string = 'remunPerApur');
+var
+  iIdeEstab: integer;
+begin
+  for iIdeEstab := 0 to objIdeEstab.Count - 1 do
+  begin
+    Gerador.wGrupo('ideEstab');
+    Gerador.wCampo(tcInt, '', 'tpInsc', 0, 0, 0,
+      eSTpInscricaoToStr(objIdeEstab.Items[iIdeEstab].tpInsc));
+    Gerador.wCampo(tcStr, '', 'nrInsc', 0, 0, 0,
+      objIdeEstab.Items[iIdeEstab].nrInsc);
+    if nomeRemunPer = 'remunPerApur' then
+      GerarRemunPer(objIdeEstab.Items[iIdeEstab].remunPerApur, nomeRemunPer)
+    else
+      GerarRemunPer(objIdeEstab.Items[iIdeEstab].remunPerAnt, nomeRemunPer);
+    Gerador.wGrupo('/ideEstab');
+  end;
+end;
+
+procedure TEvtRemunRPPS.GerarIdePeriodo(objIdePeriodo: TIdePeriodoCollection);
+var
+  iIdePeriodo: integer;
+begin
+  for iIdePeriodo := 0 to objIdePeriodo.Count - 1 do
+  begin
+    Gerador.wGrupo('idePeriodo');
+    Gerador.wCampo(tcStr, '', 'perRef', 0, 0, 0,
+      objIdePeriodo.Items[iIdePeriodo].perRef);
+    GerarIdeEstab(objIdePeriodo.Items[iIdePeriodo].ideEstab, 'remunPerAnt');
+    Gerador.wGrupo('/idePeriodo');
+  end;
+end;
+
+procedure TEvtRemunRPPS.GerarIdeTrabalhador;
+begin
+  Gerador.wGrupo('ideTrabalhador');
+  Gerador.wCampo(tcStr, '', 'cpfTrab', 0, 0, 0, ideTrabalhador.cpfTrab);
+  Gerador.wCampo(tcStr, '', 'nisTrab', 0, 0, 0, ideTrabalhador.nisTrab);
+  Gerador.wCampo(tcInt, '', 'qtdDepFP', 0, 0, 0, ideTrabalhador.qtdDepFP);
+  if ideTrabalhador.procJudTrabInst() then
+    GerarProcJudTrab(ideTrabalhador.procJudTrab);
+  Gerador.wGrupo('/ideTrabalhador');
+end;
+
+procedure TEvtRemunRPPS.GerarInfoPerAnt(pInfoPerAnt: TInfoPerAnt);
+begin
+  Gerador.wGrupo('infoPerAnt');
+  GerarIdeADC(pInfoPerAnt.ideADC);
+  Gerador.wGrupo('/infoPerAnt');
+end;
+
+procedure TEvtRemunRPPS.GerarDmDev;
+var
+  i: integer;
+begin
+  for i := 0 to dmDev.Count - 1 do
+  begin
+    Gerador.wGrupo('dmDev');
+      Gerador.wCampo(tcStr, '', 'ideDmDev', 0, 0, 0, dmDev[i].ideDmDev);
+      if (dmDev[i].infoPerApurInst()) then
+        GerarInfoPerApur(dmDev[i].infoPerApur);
+      if (dmDev[i].infoPerAntInst()) then
+        GerarInfoPerAnt(dmDev[i].infoPerAnt);
+    Gerador.wGrupo('/dmDev');
+  end;
+end;
+
+procedure TEvtRemunRPPS.GerarInfoPerApur(pInfoPerApur: TInfoPerApur);
+begin
+  Gerador.wGrupo('infoPerApur');
+    GerarIdeEstab(pInfoPerApur.ideEstab);
+  Gerador.wGrupo('/infoPerApur');
+end;
+
+procedure TEvtRemunRPPS.GerarRemunPer(objRemunPer: TRemunPer1202Collection;
+  nomeRemunPer: string = 'remunPerApur');
+var
+  iRemunPer: integer;
+begin
+  for iRemunPer := 0 to objRemunPer.Count - 1 do
+  begin
+    Gerador.wGrupo(nomeRemunPer);
+    Gerador.wCampo(tcStr, '', 'matricula', 0, 0, 0,
+      objRemunPer.Items[iRemunPer].matricula);
+    Gerador.wCampo(tcInt, '', 'codCateg', 0, 0, 0,
+      objRemunPer.Items[iRemunPer].codCateg);
+    GerarItensRemun(objRemunPer.Items[iRemunPer].itensRemun, 'itensRemun');
+    if (nomeRemunPer = 'remunPerApur') then
+    begin
+      if objRemunPer.Items[iRemunPer].infoSaudeColetInst() then
+        GerarInfoSaudeColet(objRemunPer.Items[iRemunPer].infoSaudeColet);
+    end;
+    Gerador.wGrupo('/' + nomeRemunPer);
+  end;
+end;
+
+function TEvtRemunRPPS.GerarXML: boolean;
+begin
+  try
+    GerarCabecalho('evtRmnRPPS');
+    Gerador.wGrupo('evtRmnRPPS Id="' + GerarChaveEsocial(now,
+      self.ideEmpregador.NrInsc, 0) + '"');
+    GerarIdeEvento3(Self.IdeEvento);
+    GerarIdeEmpregador(Self.ideEmpregador);
+    GerarIdeTrabalhador();
+    GerarDmDev();
+    Gerador.wGrupo('/evtRmnRPPS');
+    GerarRodape;
+
+    XML := Assinar(Gerador.ArquivoFormatoXML, 'evtRmnRPPS');
+    Validar('evtRmnRPPS');
+  except
+    on e: Exception do
+      raise Exception.Create(e.Message);
+  end;
+
+  Result := (Gerador.ArquivoFormatoXML <> '');
+end;
 
 { TS1202CollectionItem }
 constructor TS1202CollectionItem.Create(AOwner: TComponent);
 begin
   FTipoEvento := teS1202;
-  FEvtRmnRPPS := TEvtRmnRPPS.Create(AOwner);
+  FEvtRmnRPPS := TEvtRemunRPPS.Create(AOwner);
 end;
 
 destructor TS1202CollectionItem.Destroy;
 begin
-  FEvtRmnRPPS.free;
+  FEvtRmnRPPS.Free;
   inherited;
 end;
 
-procedure TS1202CollectionItem.setEvtRmnRPPS(const Value: TEvtRmnRPPS);
+procedure TS1202CollectionItem.seTEvtRemunRPPS(const Value: TEvtRemunRPPS);
 begin
   FEvtRmnRPPS.Assign(Value);
 end;
@@ -289,386 +703,14 @@ begin
   Result.Create(TComponent(Self.Owner));
 end;
 
-function TS1202Collection.GetItem(Index: Integer): TS1202CollectionItem;
+function TS1202Collection.GetItem(Index: integer): TS1202CollectionItem;
 begin
   Result := TS1202CollectionItem(inherited GetItem(Index));
 end;
 
-procedure TS1202Collection.SetItem(Index: Integer; Value: TS1202CollectionItem);
+procedure TS1202Collection.SetItem(Index: integer; Value: TS1202CollectionItem);
 begin
   inherited SetItem(Index, Value);
-end;
-
-{ TEvtRemun }
-constructor TEvtRmnRPPS.Create(AACBreSocial: TObject);
-begin
-  inherited;
-  FIdeEvento := TIdeEvento3.Create;
-  FIdeEmpregador := TIdeEmpregador.Create;
-  FIdeTrabalhador := TeS1202IdeTrabalhador.Create;
-end;
-
-destructor TEvtRmnRPPS.Destroy;
-begin
-  FIdeEvento.Free;
-  FIdeEmpregador.Free;
-  FIdeTrabalhador.Free;
-  inherited;
-end;
-
-procedure TEvtRmnRPPS.GerarIdePeriodo(objIdePeriodo: TIdePeriodoCollection);
-var
-  iIdePeriodo: Integer;
-begin
-  for iIdePeriodo := 0 to objIdePeriodo.Count - 1 do
-  begin
-    Gerador.wGrupo('idePeriodo');
-      Gerador.wCampo(tcStr, '', 'perRef', 0, 0, 0, objIdePeriodo.Items[iIdePeriodo].perRef);
-      GerarRemunPer(objIdePeriodo.Items[iIdePeriodo].remunPerAnt, 'remunPerAnt');
-    Gerador.wGrupo('/idePeriodo');
-  end;
-end;
-
-procedure TEvtRmnRPPS.GerarIdeTrabalhador;
-begin
-  Gerador.wGrupo('ideTrabalhador');
-    Gerador.wCampo(tcStr, '', 'cpfTrab', 0, 0, 0, ideTrabalhador.cpfTrab);
-    Gerador.wCampo(tcStr, '', 'nisTrab', 0, 0, 0, ideTrabalhador.nisTrab);
-    Gerador.wCampo(tcInt, '', 'qtdDepIRRF', 0, 0, 1, ideTrabalhador.qtdDepIRRF);
-
-    GerarProcJudTrab(ideTrabalhador.procJudTrab);
-    GerarInfoPerApur();
-    GerarInfoPerAnt();
-  Gerador.wGrupo('/ideTrabalhador');
-
-end;
-
-function TEvtRmnRPPS.GerarXML: boolean;
-var
-  SL : TSTringList;
-begin
-  try
-    SL := TStringList.Create;
-    GerarCabecalho('evtRemunRPPS');
-      Gerador.wGrupo('evtRmnRPPS Id="'+GerarChaveEsocial(now, self.ideEmpregador.NrInsc, 0)+'"');
-      //Gerador.wGrupo('evtRmnRPPS');
-        //GerarIdVersao(Self);
-        GerarIdeEvento3(Self.IdeEvento);
-        GerarIdeEmpregador(Self.ideEmpregador);
-        gerarIdeTrabalhador();
-      Gerador.wGrupo('/evtRmnRPPS');
-    GerarRodape;
-
-    XML := Assinar(Gerador.ArquivoFormatoXML, 'evtRmnRPPS');
-    SL.Add(XML);
-    SL.SaveToFile('c:\teste.xml');
-    Validar('evtRemunRPPS');
-  except on e:exception do
-    raise Exception.Create(e.Message);
-  end;
-  SL.Free;
-  Result := (Gerador.ArquivoFormatoXML <> '')
-end;
-
-
-{ TeS1202IdeTrabalhador }
-
-constructor TeS1202IdeTrabalhador.Create;
-begin
-  inherited;
-  FProcJudTrab := TProcJudTrabCollection.create;
-  FInfoPerApur := TInfoPerApur.Create;
-end;
-
-destructor TeS1202IdeTrabalhador.Destroy;
-begin
-  FProcJudTrab.Free;
-  FInfoPerApur.Free;
-  inherited;
-end;
-
-procedure TEvtRmnRPPS.GerarInfoPerAnt;
-begin
-  Gerador.wGrupo('infoPerAnt');
-    GerarRecPgtoPerAnt(ideTrabalhador.infoPerAnt.recPgtos);
-  Gerador.wGrupo('/infoPerAnt');
-end;
-
-procedure TEvtRmnRPPS.GerarInfoPerApur;
-begin
-  Gerador.wGrupo('infoPerApur');
-    GerarRecPgtoPerApur(ideTrabalhador.infoPerApur.recPgtos);
-  Gerador.wGrupo('/infoPerApur');
-end;
-
-procedure TEvtRmnRPPS.GerarRecPgtoPerAnt(oRecPgtoPerAnt: TRecPgtosPerAntCollection);
-var
-  iRecPqtosPerAnt: Integer;
-begin
-  for iRecPqtosPerAnt := 0 to oRecPgtoPerAnt.Count - 1 do
-  begin
-    Gerador.wGrupo('recPgtos');
-      Gerador.wCampo(tcInt, '', 'ideRecPgto', 0, 0, 0, oRecPgtoPerAnt.Items[iRecPqtosPerAnt].ideRecPgto);
-      Gerador.wCampo(tcDe2, '', 'vrRec', 0, 0, 0, oRecPgtoPerAnt.Items[iRecPqtosPerAnt].vrRec);
-      GerarIdePeriodo(oRecPgtoPerAnt.Items[iRecPqtosPerAnt].idePeriodo);
-    Gerador.wGrupo('/recPgtos');
-  end;
-
-end;
-
-procedure TEvtRmnRPPS.GerarRecPgtoPerApur(oRecPgtoPerApur: TRecPgtosPerApurCollection);
-var
-  iRecPqtosPerApur: Integer;
-begin
-  for iRecPqtosPerApur := 0 to oRecPgtoPerApur.Count - 1 do
-  begin
-    Gerador.wGrupo('recPgtos');
-      Gerador.wCampo(tcInt, '', 'ideRecPgto', 0, 0, 0, oRecPgtoPerApur.Items[iRecPqtosPerApur].ideRecPgto);
-      Gerador.wCampo(tcDe2, '', 'vrRec', 0, 0, 0, oRecPgtoPerApur.Items[iRecPqtosPerApur].vrRec);
-      GerarRemunPer(oRecPgtoPerApur.Items[iRecPqtosPerApur].remunPerApur);
-    Gerador.wGrupo('/recPgtos');
-  end;
-end;
-
-procedure TEvtRmnRPPS.GerarRemunPer(objRemunPer: TRemunPerCollection;
-  nomeRemunPer: string);
-var
-  iRemunPer: Integer;
-begin
-  for iRemunPer := 0 to objRemunPer.Count - 1 do
-  begin
-    Gerador.wGrupo(nomeRemunPer);
-      Gerador.wCampo(tcStr, '', 'matricula', 0, 0, 0, objRemunPer.Items[iRemunPer].matricula);
-      Gerador.wCampo(tcInt, '', 'codCateg', 0, 0, 0, objRemunPer.Items[iRemunPer].codCateg);
-
-      GerarItensRemun(objRemunPer.Items[iRemunPer].itensRemun, 'itensRemun');
-      if (nomeRemunPer = 'remunPerApur') then
-      begin
-        if objRemunPer.Items[iRemunPer].infoSaudeColetInst() then
-          GerarInfoSaudeColet(objRemunPer.Items[iRemunPer].infoSaudeColet);
-      end;
-      GerarPensaoAlim(objRemunPer.Items[iRemunPer].pensaoAlim);
-    Gerador.wGrupo('/' + nomeRemunPer);
-  end;
-end;
-
-function TeS1202IdeTrabalhador.getInfoPerAnt: TInfoPerAnt;
-begin
-  if Not(Assigned(FInfoPerAnt)) then
-    FInfoPerAnt := TInfoPerAnt.create;
-  Result := FInfoPerAnt;
-end;
-
-function TeS1202IdeTrabalhador.getInfoPerApur: TInfoPerApur;
-begin
-  if Not(Assigned(FInfoPerApur)) then
-    FInfoPerApur := TInfoPerApur.create;
-  Result := FInfoPerApur;
-end;
-
-function TeS1202IdeTrabalhador.infoPerAntInst: Boolean;
-begin
-  Result := Assigned(FInfoPerAnt);
-end;
-
-function TeS1202IdeTrabalhador.infoPerApurInst: Boolean;
-begin
-   Result := Assigned(FInfoPerApur);
-end;
-
-{ TInfoPerApur }
-
-constructor TInfoPerApur.create;
-begin
-  inherited;
-  FRecPgtos := TRecPgtosPerApurCollection.Create;
-end;
-
-destructor TInfoPerApur.Destroy;
-begin
-  FRecPgtos.Free;
-  inherited;
-end;
-
-{ TRecPgtosPerApurCollection }
-function TRecPgtosPerApurCollection.Add: TRecPgtosPerApurCollectionItem;
-begin
-  Result := TRecPgtosPerApurCollectionItem(inherited Add);
-  Result.create;
-end;
-
-constructor TRecPgtosPerApurCollection.create;
-begin
-  inherited create(TRecPgtosPerApurCollectionItem)
-end;
-
-function TRecPgtosPerApurCollection.GetItem(
-  Index: Integer): TRecPgtosPerApurCollectionItem;
-begin
-  Result := TRecPgtosPerApurCollectionItem(inherited GetItem(Index));
-end;
-
-procedure TRecPgtosPerApurCollection.SetItem(Index: Integer;
-  Value: TRecPgtosPerApurCollectionItem);
-begin
-  inherited SetItem(Index, Value);
-end;
-
-{ TInfoPerAnt }
-constructor TInfoPerAnt.create;
-begin
-  inherited;
-  FRecPgtos := TRecPgtosPerAntCollection.Create;
-end;
-
-destructor TInfoPerAnt.Destroy;
-begin
-  FRecPgtos.Free;
-  inherited;
-end;
-
-{ TRecPgtosPerAntCollection }
-function TRecPgtosPerAntCollection.Add: TRecPgtosPerAntCollectionItem;
-begin
-  Result := TRecPgtosPerAntCollectionItem(inherited Add);
-  Result.create;
-end;
-
-constructor TRecPgtosPerAntCollection.create;
-begin
-  inherited create(TRecPgtosPerAntCollectionItem)
-end;
-
-function TRecPgtosPerAntCollection.GetItem(
-  Index: Integer): TRecPgtosPerAntCollectionItem;
-begin
-  Result := TRecPgtosPerAntCollectionItem(inherited GetItem(Index));
-end;
-
-procedure TRecPgtosPerAntCollection.SetItem(Index: Integer;
-  Value: TRecPgtosPerAntCollectionItem);
-begin
-  inherited SetItem(Index, Value);
-end;
-
-
-{ TRecPgtosPerAntCollectionItem }
-
-constructor TRecPgtosPerAntCollectionItem.create;
-begin
-  inherited;
-  FIdePeriodo := TIdePeriodoCollection.create;
-end;
-
-destructor TRecPgtosPerAntCollectionItem.destroy;
-begin
-  FIdePeriodo.Free;
-  inherited;
-end;
-
-{ TIdePeriodoCollection }
-
-function TIdePeriodoCollection.Add: TIdePeriodoCollectionItem;
-begin
-  Result := TIdePeriodoCollectionItem(inherited Add);
-  Result.create;
-end;
-
-constructor TIdePeriodoCollection.create;
-begin
-  inherited create(TIdePeriodoCollectionItem);
-end;
-
-function TIdePeriodoCollection.GetItem(
-  Index: Integer): TIdePeriodoCollectionItem;
-begin
-  Result := TIdePeriodoCollectionItem(inherited GetItem(Index));
-end;
-
-procedure TIdePeriodoCollection.SetItem(Index: Integer;
-  Value: TIdePeriodoCollectionItem);
-begin
-  inherited SetItem(Index, Value);
-end;
-
-{ TIdePeriodoCollectionItem }
-
-constructor TIdePeriodoCollectionItem.create;
-begin
-  FRemunPerAnt := TRemunPerCollection.create;
-end;
-
-destructor TIdePeriodoCollectionItem.destroy;
-begin
-  FRemunPerAnt.Free;
-  inherited;
-end;
-
-{ TRemunPerCollection }
-
-function TRemunPerCollection.Add: TRemunPerCollectionItem;
-begin
-  Result := TRemunPerCollectionItem(inherited Add);
-  Result.create;
-end;
-
-constructor TRemunPerCollection.create;
-begin
-  inherited create(TRemunPerCollectionItem);
-end;
-
-function TRemunPerCollection.GetItem(Index: Integer): TRemunPerCollectionItem;
-begin
-  Result := TRemunPerCollectionItem(inherited GetItem(Index));
-end;
-
-procedure TRemunPerCollection.SetItem(Index: Integer;
-  Value: TRemunPerCollectionItem);
-begin
-  inherited SetItem(Index, Value);
-end;
-
-{ TRemunPerCollectionItem }
-
-constructor TRemunPerCollectionItem.create;
-begin
-  FItensRemun := TItensRemunCollection.Create;
-  FInfoSaudeColet := nil;
-  FPensaoAlim := TPensaoAlimCollection.create;
-end;
-
-destructor TRemunPerCollectionItem.destroy;
-begin
-  FItensRemun.Free;
-  FreeAndNil(FInfoSaudeColet);
-  FPensaoAlim.Free;
-  inherited;
-end;
-
-function TRemunPerCollectionItem.getInfoSaudeColet: TInfoSaudeColet;
-begin
-  if Not(Assigned(FInfoSaudeColet)) then
-    FInfoSaudeColet := TInfoSaudeColet.create;
-  Result := FInfoSaudeColet;
-end;
-
-function TRemunPerCollectionItem.infoSaudeColetInst: Boolean;
-begin
-  Result := Assigned(FInfoSaudeColet);
-end;
-
-{ TRecPgtosPerApurCollectionItem }
-
-constructor TRecPgtosPerApurCollectionItem.create;
-begin
-  inherited;
-  FRemunPerApur := TRemunPerCollection.Create;
-end;
-
-destructor TRecPgtosPerApurCollectionItem.destroy;
-begin
-  FRemunPerApur.Free;
-  inherited;
 end;
 
 end.

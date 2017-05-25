@@ -5,32 +5,32 @@
 {                                                                              }
 { Direitos Autorais Reservados (c) 2008 Wemerson Souto                         }
 {                                       Daniel Simoes de Almeida               }
-{                                       Andr√© Ferreira de Moraes               }
+{                                       AndrÈ Ferreira de Moraes               }
 {                                                                              }
 { Colaboradores nesse arquivo:                                                 }
 {                                                                              }
-{  Voc√™ pode obter a √∫ltima vers√£o desse arquivo na pagina do Projeto ACBr     }
+{  VocÍ pode obter a ˙ltima vers„o desse arquivo na pagina do Projeto ACBr     }
 { Componentes localizado em http://www.sourceforge.net/projects/acbr           }
 {                                                                              }
 {                                                                              }
-{  Esta biblioteca √© software livre; voc√™ pode redistribu√≠-la e/ou modific√°-la }
-{ sob os termos da Licen√ßa P√∫blica Geral Menor do GNU conforme publicada pela  }
-{ Free Software Foundation; tanto a vers√£o 2.1 da Licen√ßa, ou (a seu crit√©rio) }
-{ qualquer vers√£o posterior.                                                   }
+{  Esta biblioteca È software livre; vocÍ pode redistribuÌ-la e/ou modific·-la }
+{ sob os termos da LicenÁa P˙blica Geral Menor do GNU conforme publicada pela  }
+{ Free Software Foundation; tanto a vers„o 2.1 da LicenÁa, ou (a seu critÈrio) }
+{ qualquer vers„o posterior.                                                   }
 {                                                                              }
-{  Esta biblioteca √© distribu√≠da na expectativa de que seja √∫til, por√©m, SEM   }
-{ NENHUMA GARANTIA; nem mesmo a garantia impl√≠cita de COMERCIABILIDADE OU      }
-{ ADEQUA√á√ÉO A UMA FINALIDADE ESPEC√çFICA. Consulte a Licen√ßa P√∫blica Geral Menor}
-{ do GNU para mais detalhes. (Arquivo LICEN√áA.TXT ou LICENSE.TXT)              }
+{  Esta biblioteca È distribuÌda na expectativa de que seja ˙til, porÈm, SEM   }
+{ NENHUMA GARANTIA; nem mesmo a garantia implÌcita de COMERCIABILIDADE OU      }
+{ ADEQUA«√O A UMA FINALIDADE ESPECÕFICA. Consulte a LicenÁa P˙blica Geral Menor}
+{ do GNU para mais detalhes. (Arquivo LICEN«A.TXT ou LICENSE.TXT)              }
 {                                                                              }
-{  Voc√™ deve ter recebido uma c√≥pia da Licen√ßa P√∫blica Geral Menor do GNU junto}
-{ com esta biblioteca; se n√£o, escreva para a Free Software Foundation, Inc.,  }
-{ no endere√ßo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
-{ Voc√™ tamb√©m pode obter uma copia da licen√ßa em:                              }
+{  VocÍ deve ter recebido uma cÛpia da LicenÁa P˙blica Geral Menor do GNU junto}
+{ com esta biblioteca; se n„o, escreva para a Free Software Foundation, Inc.,  }
+{ no endereÁo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
+{ VocÍ tambÈm pode obter uma copia da licenÁa em:                              }
 { http://www.opensource.org/licenses/lgpl-license.php                          }
 {                                                                              }
-{ Daniel Sim√µes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
-{              Pra√ßa Anita Costa, 34 - Tatu√≠ - SP - 18270-410                  }
+{ Daniel Simıes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
+{              PraÁa Anita Costa, 34 - TatuÌ - SP - 18270-410                  }
 {                                                                              }
 {******************************************************************************}
 
@@ -38,9 +38,9 @@
 |* Historico
 |*
 |* 27/10/2015: Jean Carlo Cantu, Tiago Ravache
-|*  - Doa√ß√£o do componente para o Projeto ACBr
+|*  - DoaÁ„o do componente para o Projeto ACBr
 |* 01/03/2016: Guilherme Costa
-|*  - Altera√ß√µes para valida√ß√£o com o XSD
+|*  - AlteraÁıes para validaÁ„o com o XSD
 ******************************************************************************}
 {$I ACBr.inc}
 
@@ -64,9 +64,6 @@ type
   TTpAquisColecao = class;
   TIdeProdutorItem = class;
   TIdeProdutorColecao = class;
-  TNfsItem = class;
-  TNfsColecao = class;
-
 
   TS1250Collection = class(TOwnedCollection)
   private
@@ -96,12 +93,11 @@ type
     FIdeEmpregador: TIdeEmpregador;
     FInfoAquisProd: TInfoAquisProd;
 
-    {Geradores espec√≠ficos da classe}
+    {Geradores especÌficos da classe}
     procedure GerarInfoAquisProd();
     procedure GerarIdeEstabAdquir();
     procedure GerarTpAquis(pTpAquis: TTpAquisColecao);
     procedure GerarIdeProdutor(pIdeProdutor: TIdeProdutorColecao);
-    procedure GerarNfs(pNfs: TNfsColecao);
     procedure GerarInfoProcJud(pInfoProcJud: TInfoProcJudCollection);
   public
     constructor Create(AACBreSocial: TObject);overload;
@@ -197,36 +193,6 @@ type
 
     property Nfs: TNfsColecao read FNfs write FNfs;
     property InfoProcJud: TInfoProcJudCollection read FInfoProcJud write FInfoProcJud;
-  end;
-
-
-  TNfsColecao = class(TCollection)
-  private
-    function GetItem(Index: Integer): TNfsItem;
-    procedure SetItem(Index: Integer; const Value: TNfsItem);
-  public
-    constructor Create(AOwner: TPersistent);
-    function Add: TNfsItem;
-    property Items[Index: Integer]: TNfsItem read GetItem write SetItem;
-  end;
-
-  TNfsItem = class(TCollectionItem)
-  private
-    Fserie: string;
-    FnrDocto: string;
-    FdtEmisNF: TDateTime;
-    FvlrBruto: Double;
-    FvrCPDescPR: Double;
-    FvrRatDescPR: Double;
-    FvrSenarDesc: Double;
-  public
-    property serie: string read Fserie write Fserie;
-    property nrDocto: string read FnrDocto write FnrDocto;
-    property dtEmisNF: TDateTime read FdtEmisNF write FdtEmisNF;
-    property vlrBruto: Double read FvlrBruto write FvlrBruto;
-    property vrCPDescPR: Double read FvrCPDescPR write FvrCPDescPR;
-    property vrRatDescPR: Double read FvrRatDescPR write FvrRatDescPR;
-    property vrSenarDesc: Double read FvrSenarDesc write FvrSenarDesc;
   end;
 
 implementation
@@ -332,29 +298,12 @@ begin
     begin
       Gerador.wGrupo('infoProcJud');
         Gerador.wCampo(tcStr, '', 'nrProcJud',   0, 0, 0, pInfoProcJud.Items[i].nrProcJud);
+        Gerador.wCampo(tcInt, '', 'codSusp',   0, 0, 0, pInfoProcJud.Items[i].codSusp);
         Gerador.wCampo(tcDe2, '', 'vrCPNRet',    0, 0, 0, pInfoProcJud.Items[i].vrCPNRet);
         Gerador.wCampo(tcDe2, '', 'vrRatNRet',   0, 0, 0, pInfoProcJud.Items[i].vrRatNRet);
         Gerador.wCampo(tcDe2, '', 'vrSenarNRet', 0, 0, 0,pInfoProcJud.Items[i].vrSenarNRet);
       Gerador.wGrupo('/infoProcJud');
     end;
-end;
-
-procedure TEvtAqProd.GerarNfs(pNfs: TNfsColecao);
-var
-  i: integer;
-begin
-  for i := 0 to pNfs.Count - 1 do
-  begin
-    Gerador.wGrupo('nfs');
-      Gerador.wCampo(tcStr, '', 'serie',       0, 0, 0, pNfs.Items[i].serie);
-      Gerador.wCampo(tcStr, '', 'nrDocto',     0, 0, 0, pNfs.Items[i].nrDocto);
-      Gerador.wCampo(tcDat, '', 'dtEmisNF',    0, 0, 0, pNfs.Items[i].dtEmisNF);
-      Gerador.wCampo(tcDe2, '', 'vlrBruto',    0, 0, 0, pNfs.Items[i].vlrBruto);
-      Gerador.wCampo(tcDe2, '', 'vrCPDescPR',  0, 0, 0, pNfs.Items[i].vrCPDescPR);
-      Gerador.wCampo(tcDe2, '', 'vrRatDescPR', 0, 0, 0, pNfs.Items[i].vrRatDescPR);
-      Gerador.wCampo(tcDe2, '', 'vrSenarDesc', 0, 0, 0, pNfs.Items[i].vrSenarDesc);
-    Gerador.wGrupo('/nfs');
-  end;
 end;
 
 procedure TEvtAqProd.GerarTpAquis(pTpAquis: TTpAquisColecao);
@@ -375,7 +324,7 @@ end;
 function TEvtAqProd.GerarXML: boolean;
 begin
   try
-    GerarCabecalho('evtAquisProd');
+    GerarCabecalho('evtAqProd');
       Gerador.wGrupo('evtAqProd Id="'+GerarChaveEsocial(now, self.ideEmpregador.NrInsc, 0)+'"');
         gerarIdeEvento3(self.IdeEvento);
         gerarIdeEmpregador(self.IdeEmpregador);
@@ -384,7 +333,7 @@ begin
     GerarRodape;
 
     XML := Assinar(Gerador.ArquivoFormatoXML, 'evtAqProd');
-    Validar('evtAquisProd');
+    Validar('evtAqProd');
   except on e:exception do
     raise Exception.Create(e.Message);
   end;
@@ -487,28 +436,6 @@ begin
   FNfs.Free;
   FInfoProcJud.Free;
   inherited;
-end;
-
-{ TNfsColecao }
-function TNfsColecao.Add: TNfsItem;
-begin
-  Result := TNfsItem(inherited Add);
-  //Result.Create;
-end;
-
-constructor TNfsColecao.Create(AOwner: TPersistent);
-begin
-  inherited Create(TNfsItem);
-end;
-
-function TNfsColecao.GetItem(Index: Integer): TNfsItem;
-begin
-  Result := TNfsItem(inherited GetItem(Index));
-end;
-
-procedure TNfsColecao.SetItem(Index: Integer; const Value: TNfsItem);
-begin
-  inherited SetItem(Index, Value);
 end;
 
 end.

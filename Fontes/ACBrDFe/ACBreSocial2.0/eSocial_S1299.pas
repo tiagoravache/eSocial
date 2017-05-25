@@ -5,32 +5,32 @@
 {                                                                              }
 { Direitos Autorais Reservados (c) 2008 Wemerson Souto                         }
 {                                       Daniel Simoes de Almeida               }
-{                                       Andr√© Ferreira de Moraes               }
+{                                       AndrÈ Ferreira de Moraes               }
 {                                                                              }
 { Colaboradores nesse arquivo:                                                 }
 {                                                                              }
-{  Voc√™ pode obter a √∫ltima vers√£o desse arquivo na pagina do Projeto ACBr     }
+{  VocÍ pode obter a ˙ltima vers„o desse arquivo na pagina do Projeto ACBr     }
 { Componentes localizado em http://www.sourceforge.net/projects/acbr           }
 {                                                                              }
 {                                                                              }
-{  Esta biblioteca √© software livre; voc√™ pode redistribu√≠-la e/ou modific√°-la }
-{ sob os termos da Licen√ßa P√∫blica Geral Menor do GNU conforme publicada pela  }
-{ Free Software Foundation; tanto a vers√£o 2.1 da Licen√ßa, ou (a seu crit√©rio) }
-{ qualquer vers√£o posterior.                                                   }
+{  Esta biblioteca È software livre; vocÍ pode redistribuÌ-la e/ou modific·-la }
+{ sob os termos da LicenÁa P˙blica Geral Menor do GNU conforme publicada pela  }
+{ Free Software Foundation; tanto a vers„o 2.1 da LicenÁa, ou (a seu critÈrio) }
+{ qualquer vers„o posterior.                                                   }
 {                                                                              }
-{  Esta biblioteca √© distribu√≠da na expectativa de que seja √∫til, por√©m, SEM   }
-{ NENHUMA GARANTIA; nem mesmo a garantia impl√≠cita de COMERCIABILIDADE OU      }
-{ ADEQUA√á√ÉO A UMA FINALIDADE ESPEC√çFICA. Consulte a Licen√ßa P√∫blica Geral Menor}
-{ do GNU para mais detalhes. (Arquivo LICEN√áA.TXT ou LICENSE.TXT)              }
+{  Esta biblioteca È distribuÌda na expectativa de que seja ˙til, porÈm, SEM   }
+{ NENHUMA GARANTIA; nem mesmo a garantia implÌcita de COMERCIABILIDADE OU      }
+{ ADEQUA«√O A UMA FINALIDADE ESPECÕFICA. Consulte a LicenÁa P˙blica Geral Menor}
+{ do GNU para mais detalhes. (Arquivo LICEN«A.TXT ou LICENSE.TXT)              }
 {                                                                              }
-{  Voc√™ deve ter recebido uma c√≥pia da Licen√ßa P√∫blica Geral Menor do GNU junto}
-{ com esta biblioteca; se n√£o, escreva para a Free Software Foundation, Inc.,  }
-{ no endere√ßo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
-{ Voc√™ tamb√©m pode obter uma copia da licen√ßa em:                              }
+{  VocÍ deve ter recebido uma cÛpia da LicenÁa P˙blica Geral Menor do GNU junto}
+{ com esta biblioteca; se n„o, escreva para a Free Software Foundation, Inc.,  }
+{ no endereÁo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
+{ VocÍ tambÈm pode obter uma copia da licenÁa em:                              }
 { http://www.opensource.org/licenses/lgpl-license.php                          }
 {                                                                              }
-{ Daniel Sim√µes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
-{              Pra√ßa Anita Costa, 34 - Tatu√≠ - SP - 18270-410                  }
+{ Daniel Simıes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
+{              PraÁa Anita Costa, 34 - TatuÌ - SP - 18270-410                  }
 {                                                                              }
 {******************************************************************************}
 
@@ -38,9 +38,9 @@
 |* Historico
 |*
 |* 27/10/2015: Jean Carlo Cantu, Tiago Ravache
-|*  - Doa√ß√£o do componente para o Projeto ACBr
+|*  - DoaÁ„o do componente para o Projeto ACBr
 |* 01/03/2016: Guilherme Costa
-|*  - Passado o namespace para gera√ß√£o do cabe√ßalho
+|*  - Passado o namespace para geraÁ„o do cabeÁalho
 ******************************************************************************}
 {$I ACBr.inc}
 
@@ -59,7 +59,6 @@ type
   TS1299CollectionItem = class;
   TEvtFechaEvPer = class;
   TIdeRespInf = class;
-  TInfoApur = class;
   TInfoFech= class;
   TInfoExercAnt = class;
 
@@ -90,12 +89,10 @@ type
     FIdeEvento: TIdeEvento3;
     FIdeEmpregador: TIdeEmpregador;
     FIdeRespInf : TIdeRespInf;
-    FInfoApur: TInfoApur;
     FInfoFech: TInfoFech;
 
-    {Geradores espec√≠ficos da classe}
+    {Geradores especÌficos da classe}
     procedure GerarIdeRespInf;
-    procedure GerarInfoApur;
     procedure GerarInfoFech;
     procedure GerarInfoExercAnt;
   public
@@ -107,7 +104,6 @@ type
     property IdeEvento: TIdeEvento3 read FIdeEvento write FIdeEvento;
     property IdeEmpregador: TIdeEmpregador read FIdeEmpregador write FIdeEmpregador;
     property IdeRespInf: TIdeRespInf read FIdeRespInf write FIdeRespInf;
-    property InfoApur: TInfoApur read FInfoApur write FInfoApur;
     property InfoFech: TInfoFech read FInfoFech write FInfoFech;
   end;
 
@@ -124,18 +120,10 @@ type
     property email: string read Femail write Femail;
   end;
 
-  TInfoApur = class
-  private
-    FindApurAliqFap : TpIndApurAliqFap;
-  public
-    property indApurAliqFap: TpIndApurAliqFap read FindApurAliqFap write FindApurAliqFap;
-  end;
-
   TInfoFech = class
   private
     FevtRemun: TpSimNao;
     FevtPgtos: TpSimNao;
-    FevtPgtosNI: TpSimNao;
     FevtAqProd: TpSimNao;
     FevtComProd: TpSimNao;
     FevtContratAvNP: TpSimNao;
@@ -148,7 +136,6 @@ type
 
     property evtRemun: TpSimNao read FevtRemun write FevtRemun;
     property evtPgtos: TpSimNao read FevtPgtos write FevtPgtos;
-    property evtPgtosNI: TpSimNao read FevtPgtosNI write FevtPgtosNI;
     property evtAqProd: TpSimNao read FevtAqProd write FevtAqProd;
     property evtComProd: TpSimNao read FevtComProd write FevtComProd;
     property evtContratAvNP: TpSimNao read FevtContratAvNP write FevtContratAvNP;
@@ -211,7 +198,6 @@ begin
   FIdeEvento := TIdeEvento3.Create;
   FIdeEmpregador := TIdeEmpregador.Create;
   FIdeRespInf := TIdeRespInf.Create;
-  FInfoApur := TInfoApur.Create;
   FInfoFech := TInfoFech.Create;
 end;
 
@@ -220,7 +206,6 @@ begin
   FIdeEvento.Free;
   FIdeEmpregador.Free;
   FIdeRespInf.Free;
-  FInfoApur.Free;
   FInfoFech.Free;
   inherited;
 end;
@@ -235,13 +220,6 @@ begin
   Gerador.wGrupo('/ideRespInf');
 end;
 
-procedure TEvtFechaEvPer.GerarInfoApur;
-begin
-  Gerador.wGrupo('infoApur');
-    Gerador.wCampo(tcStr, '', 'indApurAliqFap', 0, 0, 0, eSIndApurAliqFapToStr(self.InfoApur.indApurAliqFap));
-  Gerador.wGrupo('/infoApur');
-end;
-
 procedure TEvtFechaEvPer.GerarInfoExercAnt;
 begin
   Gerador.wGrupo('infoExercAnt');
@@ -254,7 +232,6 @@ begin
   Gerador.wGrupo('infoFech');
     Gerador.wCampo(tcStr, '', 'evtRemun', 0, 0, 0, eSSimNaoToStr(self.InfoFech.evtRemun));
     Gerador.wCampo(tcStr, '', 'evtPgtos', 0, 0, 0, eSSimNaoToStr(self.InfoFech.evtPgtos));
-    Gerador.wCampo(tcStr, '', 'evtPgtosNI', 0, 0, 0, eSSimNaoToStr(self.InfoFech.evtPgtosNI));
     Gerador.wCampo(tcStr, '', 'evtAqProd', 0, 0, 0, eSSimNaoToStr(self.InfoFech.evtAqProd));
     Gerador.wCampo(tcStr, '', 'evtComProd', 0, 0, 0, eSSimNaoToStr(self.InfoFech.evtComProd));
     Gerador.wCampo(tcStr, '', 'evtContratAvNP', 0, 0, 0, eSSimNaoToStr(self.InfoFech.evtContratAvNP));
@@ -262,7 +239,6 @@ begin
 
     if ((eSSimNaoToStr(self.InfoFech.evtRemun)        = 'N') and
         (eSSimNaoToStr(self.InfoFech.evtPgtos)        = 'N') and
-        (eSSimNaoToStr(self.InfoFech.evtPgtosNI)      = 'N') and
         (eSSimNaoToStr(self.InfoFech.evtAqProd)       = 'N') and
         (eSSimNaoToStr(self.InfoFech.evtComProd)      = 'N') and
         (eSSimNaoToStr(self.InfoFech.evtContratAvNP)  = 'N') and
@@ -284,7 +260,6 @@ begin
         GerarIdeEvento3(self.IdeEvento, False);
         gerarIdeEmpregador(self.IdeEmpregador);
         GerarIdeRespInf;
-        GerarInfoApur;
         GerarInfoFech;
       Gerador.wGrupo('/evtFechaEvPer');
     GerarRodape;
