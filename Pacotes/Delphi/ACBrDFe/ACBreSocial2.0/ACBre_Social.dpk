@@ -45,7 +45,6 @@
 package ACBre_Social;
 
 {$R *.res}
-{$R *.otares}
 {$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
 {$ALIGN 8}
 {$ASSERTIONS ON}
@@ -138,6 +137,7 @@ contains
   eSocial_S2399 in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S2399.pas',
   eSocial_S3000 in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S3000.pas',
   eSocial_S4000 in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S4000.pas',
-  eSocial_S4999 in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S4999.pas';
+  eSocial_S4999 in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S4999.pas',
+  eSocial_S1207 in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1207.pas';
 
 end.
