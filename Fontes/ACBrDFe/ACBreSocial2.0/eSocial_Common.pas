@@ -1,4 +1,3 @@
-{******************************************************************************}
 { Projeto: Componente ACBreSocial                                              }
 {  Biblioteca multiplataforma de componentes Delphi para envio dos eventos do  }
 { eSocial - http://www.esocial.gov.br/                                         }
@@ -154,6 +153,13 @@ type
   TRemunPerCollectionItem = class;
   TNfsItem = class;
   TNfsColecao = class;
+  TFiliacaoSindicalItem = class;
+  TEpcEpi = class;
+  TEpcCollection = class;
+  TEpcCollectionItem = class;
+  TRemunOutrEmprCollectionItem = class;
+  TRemunOutrEmprCollection = class;
+  TInfoMV = class;
 
   TeSocial = class(TPersistent)
   private
@@ -419,7 +425,7 @@ type
     function GetItem(Index: Integer): TEpiCollectionItem;
     procedure SetItem(Index: Integer; Value: TEpiCollectionItem);
   public
-    constructor Create(AOwner: TPersistent);
+    constructor Create; reintroduce;
     function Add: TEpiCollectionItem;
     property Items[Index: Integer]: TEpiCollectionItem read GetItem write SetItem; default;
   end;
@@ -427,7 +433,7 @@ type
   TEpiCollectionItem = class(TCollectionItem)
   private
     FcaEPI: string;
-    FeficaciaEpi : tpSimNao;
+    FeficEpi : tpSimNao;
     FperiodicTroca: tpSimNao;
     FcondFuncto: tpSimNao;
     Fhigienizacao: tpSimNao;
@@ -436,7 +442,7 @@ type
   public
     constructor create; reintroduce;
     property caEPI: string read FcaEPI write FcaEPI;
-    property eficaciaEpi : tpSimNao read FeficaciaEpi write FeficaciaEpi;
+    property eficEpi : tpSimNao read FeficEpi write FeficEpi;
     property medProtecao: tpSimNao read FmedProtecao write FmedProtecao;
     property condFuncto: tpSimNao read FcondFuncto write FcondFuncto;
     property przValid : tpSimNao read FprzValid write FprzValid;
@@ -472,7 +478,17 @@ type
     property DtOpcFGTS: TDateTime read FDtOpcFGTS write FDtOpcFGTS;
   end;
 
-  TFiliacaoSindical = class
+  TFiliacaoSindical = class(TCollection)
+  private
+    function GetItem(Index: Integer): TFiliacaoSindicalItem;
+    procedure SetItem(Index: Integer; const Value: TFiliacaoSindicalItem);
+  public
+    constructor Create; reintroduce;
+    function Add: TFiliacaoSindicalItem;
+    property Items[Index: Integer]: TFiliacaoSindicalItem read GetItem write SetItem; default;
+  end;
+
+  TFiliacaoSindicalItem = class(TCollectionItem)
   private
     FCnpjSindTrab: string;
   public
@@ -782,15 +798,23 @@ type
 
   TSucessaoVinc = class
   private
-    FCnpj: string;
+    FCnpjEmpregAnt: string;
     FMatricAnt: string;
     FDtIniVinculo: TDateTime;
     FObservacao: string;
+    FAfastamento: TAfastamento;
+
+    function getAfastamento: TAfastamento;
   public
-    property Cnpj: string read FCnpj write FCnpj;
+    constructor Create;
+    destructor Destroy;
+    function afastamentoInst: boolean;
+
+    property cnpjEmpregAnt: string read FCnpjEmpregAnt write FCnpjEmpregAnt;
     property MatricAnt: string read FMatricAnt write FMatricAnt;
     property DtIniVinculo: TDateTime read FDtIniVinculo write FDtIniVinculo;
     property Observacao: string read FObservacao write FObservacao;
+    property afastamento: TAfastamento read getAfastamento write FAfastamento;
   end;
 
   TOC = class
@@ -825,7 +849,7 @@ type
     FSexo: string;
     FRacaCor: integer;
     FEstCiv: integer;
-    FGrauInstr: integer;
+    FGrauInstr: string;
     FNmSoc: string;
     FIndPriEmpr: tpSimNao;
 
@@ -847,7 +871,7 @@ type
     property Sexo: string read FSexo write FSexo;
     property RacaCor: integer read FRacaCor write FRacaCor;
     property EstCiv: integer read FEstCiv write FEstCiv;
-    property GrauInstr: integer read FGrauInstr write FGrauInstr;
+    property GrauInstr: string read FGrauInstr write FGrauInstr;
     property nmSoc: string read FNmSoc write FNmSoc;
     property IndPriEmpr: tpSimNao read FIndPriEmpr write FIndPriEmpr;
     property Nascimento: TNascimento read FNascimento write FNascimento;
@@ -875,9 +899,10 @@ type
 
   TTrabTemporario = class(TPersistent)
   private
-    FHipLeg: tpMtvContrat;
+    FHipLeg: integer;
     FJustContr: string;
     FTpInclContr: tpInclContr;
+    FJustProrr: string;
 
     FIdeTomadorServ: TIdeTomadorServ;
     FIdeTrabSubstituido: TIdeTrabSubstituidoCollection;
@@ -885,9 +910,10 @@ type
     constructor Create;
     destructor Destroy; override;
 
-    property hipLeg: tpMtvContrat read FHipLeg write FHipLeg;
+    property hipLeg: integer read FHipLeg write FHipLeg;
     property justContr: string read FJustContr write FJustContr;
     property tpinclContr: tpinclContr read FTpInclContr write FTpInclContr;
+    property justProrr: string read FJustProrr write FJustProrr;
     property IdeTomadorServ: TIdeTomadorServ read FIdeTomadorServ write FIdeTomadorServ;
     property IdeTrabSubstituido: TIdeTrabSubstituidoCollection read FIdeTrabSubstituido write FIdeTrabSubstituido;
   end;
@@ -1162,7 +1188,7 @@ type
    public
      constructor create; reintroduce;
      function Add: TideEstabLotItem;
-     property Items[Index: Integer]: TideEstabLotItem read GetItem write SetItem;
+     property Items[Index: Integer]: TideEstabLotItem read GetItem write SetItem; default;
   end;
 
   TideEstabLotItem = class(TCollectionItem)
@@ -1170,18 +1196,27 @@ type
       FtpInsc : tpTpInsc;
       FnrInsc : String;
       FcodLotacao : String;
-      FdetVerbas : TdetVerbasCollection;
+      FdetVerbas : TRubricaCollection;
+      FInfoSaudeColet: TInfoSaudeColet;
       FinfoAgNocivo : TInfoAgNocivo;
       FinfoSimples : TinfoSimples;
+
+      function getInfoSaudeColect: TInfoSaudeColet;
+      function getInfoAgNocivo: TInfoAgNocivo;
+      function getInfoSimples: TinfoSimples;
     public
       constructor Create; reintroduce;
+      function infoSaudeColetInst: boolean;
+      function infoAgNocivoInst: boolean;
+      function infoSimplesInst: Boolean;
 
       property tpInsc : tpTpInsc read FtpInsc write FtpInsc;
       property nrInsc : string read FnrInsc write FnrInsc;
       property codLotacao : string read FcodLotacao write FcodLotacao;
-      property detVerbas : TdetVerbasCollection read FdetVerbas write FdetVerbas;
-      property infoAgNocivo : TInfoAgNocivo read FinfoAgNocivo write FinfoAgNocivo;
-      property infoSimples : TinfoSimples read FinfoSimples write FinfoSimples;
+      property detVerbas : TRubricaCollection read FdetVerbas write FdetVerbas;
+      property infoSaudeColet: TInfoSaudeColet read getInfoSaudeColect write FInfoSaudeColet;
+      property infoAgNocivo : TInfoAgNocivo read getInfoAgNocivo write FinfoAgNocivo;
+      property infoSimples : TinfoSimples read getInfoSimples write FinfoSimples;
   end;
 
   TInfoAmbCollection = class(TCollection)
@@ -1220,6 +1255,47 @@ type
       property dscAtivDes : String read FdscAtivDes write FdscAtivDes;
   end;
 
+  TEpcCollection = class(TCollection)
+  private
+    function GetItem(Index: Integer): TEpcCollectionItem;
+    procedure SetItem(Index: Integer; Value: TEpcCollectionItem);
+  public
+    constructor create; reintroduce;
+
+    function Add: TEpcCollectionItem;
+    property Items[Index: Integer]: TEpcCollectionItem read GetItem write SetItem; default;
+  end;
+
+  TEpcCollectionItem = class(TCollectionItem)
+  private
+    FDscEpc: string;
+    FEficEpc: tpSimNao;
+  public
+    property dscEpc: String read FDscEpc write FDscEpc;
+    property eficEpc: tpSimNao read FEficEpc write FEficEpc;
+  end;
+
+  TEpcEpi = class(TPersistent)
+  private
+    FUtilizEPC: tpUtilizEPC;
+    FUtilizEPI: tpUtilizEPI;
+    FEPC: TEpcCollection;
+    FEpi: TEpiCollection;
+
+    function getEpc: TEpcCollection;
+    function getEpi: TEpiCollection;
+  public
+    constructor Create; reintroduce;
+    destructor Destroy; override;
+    function epcInst: boolean;
+    function epiInst: boolean;
+
+    property utilizEPC: tpUtilizEPC read FUtilizEPC write FUtilizEPC;
+    property utilizEPI: tpUtilizEPI read FUtilizEPI write FUtilizEPI;
+    property epc: TEpcCollection read getEpc write FEPC;
+    property epi: TEpiCollection read getEpi write FEpi;
+  end;
+
   TFatRiscoCollection = class(TCollection)
     private
       function GetItem(Index: Integer): TFatRiscoItem;
@@ -1236,14 +1312,14 @@ type
       FcodFatRis : String;
       FintConc : String;
       FtecMedicao : String;
-      FutilizEPI : Integer;
+      FEpcEpi: TEpcEpi;
     public
       constructor create; reintroduce;
 
       property codFatRis: String read FcodFatRis write FcodFatRis;
       property intConc : String read FintConc write FintConc;
       property tecMedicao: String read FtecMedicao write FtecMedicao;
-      property utilizEPI : Integer read FutilizEPI write FutilizEPI;
+      property epcEpi: TEpcEpi read FEpcEpi write FEpcEpi;
   end;
 
   TcargoFuncao = class(TPersistent)
@@ -1363,17 +1439,22 @@ type
       property dtFimQuar: TDate read FdtFimQuar write FdtFimQuar;
   end;
 
-  TVerbasResc = class(TPersistent)
+    TVerbasResc = class(TPersistent)
     private
-      FRecPgtos : TRecPgtosCollection;
-      FProcJudTrab : TinfoProcJudCollection;
+      FProcJudTrab : TProcJudTrabCollection;
+      FInfoMV: TInfoMV;
+
+      function getProcJudTrab: TProcJudTrabCollection;
+      function getInfoMV: TInfoMV;
     public
       constructor Create;
-      destructor Destroy; override;
+      destructor Destroy;
+      function procJudTrabInst: boolean;
+      function infoMVInst: boolean;
 
-      property RecPgtos: TRecPgtosCollection read FRecPgtos write FRecPgtos;
-      property ProcJudTrab: TinfoProcJudCollection read FProcJudTrab write FProcJudTrab;
-  end;
+      property procJudTrab: TProcJudTrabCollection read getProcJudTrab write FProcJudTrab;
+      property infoMV: TInfoMV read getInfoMV write FInfoMV;
+    end;
 
   TdetVerbasCollection = class(TCollection)
      private
@@ -1572,6 +1653,43 @@ type
     property vrCPDescPR: Double read FvrCPDescPR write FvrCPDescPR;
     property vrRatDescPR: Double read FvrRatDescPR write FvrRatDescPR;
     property vrSenarDesc: Double read FvrSenarDesc write FvrSenarDesc;
+  end;
+
+  TRemunOutrEmprCollection = class(TCollection)
+  private
+    function GetItem(Index: integer): TRemunOutrEmprCollectionItem;
+    procedure SetItem(Index: integer; Value: TRemunOutrEmprCollectionItem);
+  public
+    constructor Create; reintroduce;
+    function add: TRemunOutrEmprCollectionItem;
+    property Items[Index: integer]: TRemunOutrEmprCollectionItem
+      read GetItem write SetItem;
+  end;
+
+  TRemunOutrEmprCollectionItem = class(TCollectionItem)
+  private
+    FTpInsc: tpTpInsc;
+    FNrInsc: string;
+    FCodCateg: integer;
+    FVlrRemunOE: double;
+  public
+    constructor Create; reintroduce;
+    property tpInsc: tpTpInsc read FTpInsc write FTpInsc;
+    property nrInsc: string read FNrInsc write FNrInsc;
+    property codCateg: integer read FCodCateg write FCodCateg;
+    property vlrRemunOE: double read FVlrRemunOE write FVlrRemunOE;
+  end;
+
+  TInfoMV = class(TPersistent)
+  private
+    FIndMV: tpIndMV;
+    FRemunOutrEmpr: TRemunOutrEmprCollection;
+  public
+    constructor Create;
+    destructor Destroy; override;
+    property indMV: tpIndMV read FIndMV write FIndMV;
+    property remunOutrEmpr: TRemunOutrEmprCollection
+      read FRemunOutrEmpr write FRemunOutrEmpr;
   end;
 
 implementation
@@ -1829,6 +1947,30 @@ begin
   inherited;
 end;
 
+{ TSucessaoVinc }
+
+constructor TSucessaoVinc.Create;
+begin
+  FAfastamento := nil;
+end;
+
+destructor TSucessaoVinc.Destroy;
+begin
+  FreeAndNil(FAfastamento);
+end;
+
+function TSucessaoVinc.getAfastamento: TAfastamento;
+begin
+  if not Assigned(FAfastamento) then
+    FAfastamento := TAfastamento.Create;
+  Result := FAfastamento;
+end;
+
+function TSucessaoVinc.afastamentoInst: boolean;
+begin
+  result := Assigned(FAfastamento);
+end;
+
 { TVinculo }
 constructor TVinculo.Create;
 begin
@@ -1851,6 +1993,28 @@ begin
   inherited;
 end;
 
+{ TEpcCollection }
+
+function TEpcCollection.Add: TEpcCollectionItem;
+begin
+  Result := TEpcCollectionItem(inherited Add);
+end;
+
+constructor TEpcCollection.Create;
+begin
+  inherited Create(TEpcCollectionItem);
+end;
+
+function TEpcCollection.GetItem(Index: Integer): TEpcCollectionItem;
+begin
+  Result := TEpcCollectionItem(inherited GetItem(Index));
+end;
+
+procedure TEpcCollection.SetItem(Index: Integer; Value: TEpcCollectionItem);
+begin
+  inherited SetItem(Index, Value);
+end;
+
 { TEpiCollection }
 function TEpiCollection.Add: TEpiCollectionItem;
 begin
@@ -1858,7 +2022,7 @@ begin
   Result.Create;
 end;
 
-constructor TEpiCollection.Create(AOwner: TPersistent);
+constructor TEpiCollection.Create;
 begin
   inherited Create(TEpiCollectionItem);
 end;
@@ -2015,6 +2179,7 @@ end;
 
 constructor TFatRiscoItem.create;
 begin
+  FEpcEpi := TEpcEpi.Create;
 end;
 
 { TInfoAmbCollection }
@@ -2046,7 +2211,7 @@ constructor TInfoAmbItem.create;
 begin
   FInfoAtiv := TInfoAtiv.Create;
   FFatRisco := TFatRiscoCollection.Create;
-  FEPI      := TEpiCollection.Create(Self);
+  FEPI      := TEpiCollection.Create;
 end;
 
 procedure TInfoAmbItem.setEPI(const Value: TEpiCollection);
@@ -2084,18 +2249,40 @@ end;
 
 { TVerbasResc }
 
-constructor TVerbasResc.create;
+constructor TVerbasResc.Create;
 begin
-  inherited;
-  FRecPgtos := TRecPgtosCollection.Create;
-  FProcJudTrab := TinfoProcJudCollection.Create(Self);
+  FProcJudTrab := nil;
+  FInfoMV := nil;
 end;
 
 destructor TVerbasResc.Destroy;
 begin
-  FRecPgtos.Free;
-  FProcJudTrab.Free;
-  inherited;
+  FreeAndNil(FProcJudTrab);
+  FreeAndNil(FInfoMV);
+end;
+
+function TVerbasResc.getProcJudTrab: TProcJudTrabCollection;
+begin
+  if not assigned(FProcJudTrab) then
+    FProcJudTrab := TProcJudTrabCollection.Create;
+  Result := FProcJudTrab;
+end;
+
+function TVerbasResc.getInfoMV: TInfoMV;
+begin
+  if not assigned(FInfoMV) then
+    FInfoMV := TInfoMV.Create;
+  Result := FInfoMV;
+end;
+
+function TVerbasResc.procJudTrabInst: boolean;
+begin
+  result := Assigned(FProcJudTrab);
+end;
+
+function TVerbasResc.infoMVInst: boolean;
+begin
+  result := Assigned(FInfoMV);
 end;
 
 { TInfoProcJudCollection }
@@ -2180,9 +2367,46 @@ end;
 
 constructor TideEstabLotItem.Create;
 begin
-  FdetVerbas := TdetVerbasCollection.Create(Self);
-  FinfoAgNocivo := TInfoAgNocivo.Create;
-  FinfoSimples := TinfoSimples.Create;
+  FdetVerbas := TRubricaCollection.Create;
+  FInfoSaudeColet := nil;
+  FinfoAgNocivo := nil;
+  FinfoSimples := nil;
+end;
+
+function TideEstabLotItem.getInfoAgNocivo: TInfoAgNocivo;
+begin
+  if not assigned(FinfoAgNocivo) then
+    FinfoAgNocivo := TInfoAgNocivo.Create;
+  result := FinfoAgNocivo;
+end;
+
+function TideEstabLotItem.getInfoSimples: TinfoSimples;
+begin
+  if not assigned(FinfoSimples) then
+    FinfoSimples := TinfoSimples.Create;
+  Result := FinfoSimples;
+end;
+
+function TideEstabLotItem.getInfoSaudeColect: TInfoSaudeColet;
+begin
+  if not Assigned(FInfoSaudeColet) then
+    FInfoSaudeColet := TInfoSaudeColet.Create;
+  result := FInfoSaudeColet;
+end;
+
+function TideEstabLotItem.infoSaudeColetInst: boolean;
+begin
+  result := Assigned(FInfoSaudeColet);
+end;
+
+function TideEstabLotItem.infoAgNocivoInst: boolean;
+begin
+  result := assigned(FinfoAgNocivo);
+end;
+
+function TideEstabLotItem.infoSimplesInst: boolean;
+begin
+  result := Assigned(FinfoSimples);
 end;
 
 { TProcJudTrab }
@@ -2431,5 +2655,106 @@ begin
   inherited SetItem(Index, Value);
 end;
 
-end.
+{ TFiliacaoSindical }
 
+function TFiliacaoSindical.Add: TFiliacaoSindicalItem;
+begin
+  result := TFiliacaoSindicalItem(inherited Add);
+  //Result.Create;
+end;
+
+constructor TFiliacaoSindical.Create;
+begin
+  inherited Create(TFiliacaoSindicalItem)
+end;
+
+function TFiliacaoSindical.GetItem(Index: Integer): TFiliacaoSindicalItem;
+begin
+  Result := TFiliacaoSindicalItem(inherited GetItem(Index));
+end;
+
+procedure TFiliacaoSindical.SetItem(Index: Integer; const Value: TFiliacaoSindicalItem);
+begin
+  inherited SetItem(Index, Value);
+end;
+
+{ TEpcEpi }
+
+constructor TEpcEpi.Create;
+begin
+  FEPC := nil;
+  FEpi := nil;
+end;
+
+destructor TEpcEpi.Destroy;
+begin
+  FreeAndNil(FEPC);
+  FreeAndNil(FEpi);
+end;
+
+function TEpcEpi.getEpc: TEpcCollection;
+begin
+  if not Assigned(FEPC) then
+    FEPC := TEpcCollection.Create;
+  Result := FEPC;
+end;
+
+function TEpcEpi.epcInst: boolean;
+begin
+  result := Assigned(FEPC);
+end;
+
+function TEpcEpi.getEpi: TEpiCollection;
+begin
+  if not Assigned(FEpi) then
+    FEpi := TEpiCollection.Create;
+  result := FEpi;
+end;
+
+function TEpcEpi.epiInst: boolean;
+begin
+  result := Assigned(FEpi);
+end;
+
+{ TRemunOutrEmpr }
+constructor TRemunOutrEmprCollectionItem.Create;
+begin
+end;
+
+{ TRemunOutrEmprCollection }
+function TRemunOutrEmprCollection.add: TRemunOutrEmprCollectionItem;
+begin
+  Result := TRemunOutrEmprCollectionItem(inherited add);
+  Result.Create;
+end;
+
+constructor TRemunOutrEmprCollection.Create;
+begin
+  inherited Create(TRemunOutrEmprCollectionItem);
+end;
+
+function TRemunOutrEmprCollection.GetItem(Index: integer):
+TRemunOutrEmprCollectionItem;
+begin
+  Result := TRemunOutrEmprCollectionItem(inherited GetItem(Index));
+end;
+
+procedure TRemunOutrEmprCollection.SetItem(Index: integer;
+  Value: TRemunOutrEmprCollectionItem);
+begin
+  inherited SetItem(Index, Value);
+end;
+
+{ TInfoMV }
+constructor TInfoMV.Create;
+begin
+  FRemunOutrEmpr := TRemunOutrEmprCollection.Create;
+end;
+
+destructor TInfoMV.Destroy;
+begin
+  FRemunOutrEmpr.Free;
+  inherited;
+end;
+
+end.

@@ -5,32 +5,32 @@
 {                                                                              }
 { Direitos Autorais Reservados (c) 2008 Wemerson Souto                         }
 {                                       Daniel Simoes de Almeida               }
-{                                       Andr√© Ferreira de Moraes               }
+{                                       AndrÈ Ferreira de Moraes               }
 {                                                                              }
 { Colaboradores nesse arquivo:                                                 }
 {                                                                              }
-{  Voc√™ pode obter a √∫ltima vers√£o desse arquivo na pagina do Projeto ACBr     }
+{  VocÍ pode obter a ˙ltima vers„o desse arquivo na pagina do Projeto ACBr     }
 { Componentes localizado em http://www.sourceforge.net/projects/acbr           }
 {                                                                              }
 {                                                                              }
-{  Esta biblioteca √© software livre; voc√™ pode redistribu√≠-la e/ou modific√°-la }
-{ sob os termos da Licen√ßa P√∫blica Geral Menor do GNU conforme publicada pela  }
-{ Free Software Foundation; tanto a vers√£o 2.1 da Licen√ßa, ou (a seu crit√©rio) }
-{ qualquer vers√£o posterior.                                                   }
+{  Esta biblioteca È software livre; vocÍ pode redistribuÌ-la e/ou modific·-la }
+{ sob os termos da LicenÁa P˙blica Geral Menor do GNU conforme publicada pela  }
+{ Free Software Foundation; tanto a vers„o 2.1 da LicenÁa, ou (a seu critÈrio) }
+{ qualquer vers„o posterior.                                                   }
 {                                                                              }
-{  Esta biblioteca √© distribu√≠da na expectativa de que seja √∫til, por√©m, SEM   }
-{ NENHUMA GARANTIA; nem mesmo a garantia impl√≠cita de COMERCIABILIDADE OU      }
-{ ADEQUA√á√ÉO A UMA FINALIDADE ESPEC√çFICA. Consulte a Licen√ßa P√∫blica Geral Menor}
-{ do GNU para mais detalhes. (Arquivo LICEN√áA.TXT ou LICENSE.TXT)              }
+{  Esta biblioteca È distribuÌda na expectativa de que seja ˙til, porÈm, SEM   }
+{ NENHUMA GARANTIA; nem mesmo a garantia implÌcita de COMERCIABILIDADE OU      }
+{ ADEQUA«√O A UMA FINALIDADE ESPECÕFICA. Consulte a LicenÁa P˙blica Geral Menor}
+{ do GNU para mais detalhes. (Arquivo LICEN«A.TXT ou LICENSE.TXT)              }
 {                                                                              }
-{  Voc√™ deve ter recebido uma c√≥pia da Licen√ßa P√∫blica Geral Menor do GNU junto}
-{ com esta biblioteca; se n√£o, escreva para a Free Software Foundation, Inc.,  }
-{ no endere√ßo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
-{ Voc√™ tamb√©m pode obter uma copia da licen√ßa em:                              }
+{  VocÍ deve ter recebido uma cÛpia da LicenÁa P˙blica Geral Menor do GNU junto}
+{ com esta biblioteca; se n„o, escreva para a Free Software Foundation, Inc.,  }
+{ no endereÁo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
+{ VocÍ tambÈm pode obter uma copia da licenÁa em:                              }
 { http://www.opensource.org/licenses/lgpl-license.php                          }
 {                                                                              }
-{ Daniel Sim√µes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
-{              Pra√ßa Anita Costa, 34 - Tatu√≠ - SP - 18270-410                  }
+{ Daniel Simıes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
+{              PraÁa Anita Costa, 34 - TatuÌ - SP - 18270-410                  }
 {                                                                              }
 {******************************************************************************}
 
@@ -38,9 +38,9 @@
 |* Historico
 |*
 |* 27/10/2015: Jean Carlo Cantu, Tiago Ravache
-|*  - Doa√ß√£o do componente para o Projeto ACBr
+|*  - DoaÁ„o do componente para o Projeto ACBr
 |* 01/03/2016: Guilherme Costa
-|*  - Altera√ß√µes para valida√ß√£o com o XSD
+|*  - AlteraÁıes para validaÁ„o com o XSD
 ******************************************************************************}
 {$I ACBr.inc}
 
@@ -61,8 +61,10 @@ type
   TinfoAfastamento = class;
   TiniAfastamento = class;
   TaltAfastamento = class;
+  TAltEmpr = class;
   TfimAfastamento = class;
   TinfoAtestado = class;
+  TinfoAtestadoItem = class;
   TinfoCessao = class;
   TinfoMandSind = class;
 
@@ -101,6 +103,7 @@ type
       procedure GerarInfoCessao(objInfoCessao: TinfoCessao);
       procedure GerarInfoMandSind(objInfoMandSind: TInfoMandSind);
       procedure GerarAltAfast(objAltAfast: TaltAfastamento);
+      procedure GerarAltEmpr(pAltEmpr: TAltEmpr);
       procedure GerarFimAfast(objFimAfast: TfimAfastamento);
     public
       constructor Create(AACBreSocial: TObject);overload;
@@ -130,38 +133,54 @@ type
 
   tiniAfastamento = class(TAfastamento)
     private
-//      FcodMotAfast: String;--Herda de TAfastamento v 2.1
+      FInfoMesmoMtv: tpSimNao;
       FtpAcidTransito: tpTpAcidTransito;
       FObservacao: String;
       FinfoAtestado: TinfoAtestado;
       FinfoCessao: TinfoCessao;
       FinfoMandSind: TinfoMandSind;
-//      procedure setinfoAtestado(const Value: TinfoAtestado);
-//      procedure setinfoCessao(const Value: TinfoCessao);
+
+      function getInfoAtestado: TinfoAtestado;
     public
       constructor create;
       destructor  destroy; override;
 
-//      property codMotAfast: String read FcodMotAfast write FcodMotAfast; -- Herda de TAfastamento v 2.1
+      function infoAtestadoInst: boolean;
+
+      property infoMesmoMtv: tpSimNao read FInfoMesmoMtv write FInfoMesmoMtv;
       property tpAcidTransito: tpTpAcidTransito read FtpAcidTransito write FtpAcidTransito;
       property Observacao: String read FObservacao write FObservacao;
-      property infoAtestado: TinfoAtestado read FinfoAtestado write FinfoAtestado;
+      property infoAtestado: TinfoAtestado read getInfoAtestado write FinfoAtestado;
       property infoCessao: TinfoCessao read FinfoCessao write FinfoCessao;
       property infoMandSind : TinfoMandSind read FinfoMandSind write FinfoMandSind;
   end;
 
-  TinfoAtestado = class(TPersistent)
+  TinfoAtestado = class(TCollection)
+  private
+    function GetItem(Index: Integer): TinfoAtestadoItem;
+    procedure SetItem(Index: Integer; Value: TinfoAtestadoItem);
+  public
+    constructor create(); reintroduce;
+    function Add: TinfoAtestadoItem;
+    property Items[Index: Integer]: TinfoAtestadoItem read GetItem write SetItem; default;
+  end;
+
+  TinfoAtestadoItem = class(TCollectionItem)
     private
       FcodCID : String;
       FqtDiasAfast : Integer;
       FEmitente : TEmitente;
+
+      function getEmitente: TEmitente;
     public
       constructor create;
       destructor  destroy; override;
 
+      function emitenteInst: boolean;
+
       property codCID: String read FCodCId write FcodCID;
       property qtDiasAfast: Integer read FqtDiasAfast write FqtDiasAfast;
-      property Emitente: TEmitente read FEmitente write FEmitente;
+      property Emitente: TEmitente read getEmitente write FEmitente;
   end;
 
   TinfoCessao = class(TPersistent)
@@ -182,28 +201,59 @@ type
       property infOnusRemun: tpOnusRemun read FinfOnusRemun write FinfOnusRemun;
   end;
 
-  TaltAfastamento = class(TPersistent) //altera√ß√£o do motivo do afastamento
+  TAltEmpr = class(TPersistent)
+  private
+    FCodCID: string;
+    FQtdDiasAfast: Integer;
+    FNmEmit: string;
+    FIdeOC: tpIdeOC;
+    FNrOc: string;
+    FUfOc: tpuf;
+  public
+    property codCID: String read FCodCID write FCodCID;
+    property qtdDiasAfast: integer read FQtdDiasAfast write FQtdDiasAfast;
+    property nmEmit: string read FNmEmit write FNmEmit;
+    property ideOC: tpIdeOC read FIdeOC write FIdeOC;
+    property nrOc: String read FNrOc write FNrOc;
+    property ufOC: tpuf read FUfOc write FUfOc;
+  end;
+
+  TaltAfastamento = class(TPersistent) //alteraÁ„o do motivo do afastamento
     private
       FdtAltMot: TDateTime;
       FcodMotAnt : String;
       FcodMotAfast: String;
+      FInfoMesmoMtv: tpSimNao;
       FindEfRetroativo: tpSimNao;
+      FOrigAlt: tpOrigemAltAfast;
+      FNrProcJud: string;
+      FAltEmpr: TAltEmpr;
+
+      function getAltEmpr: TAltEmpr;
     public
+      constructor Create; reintroduce;
+      destructor Destroy; override;
+      function altEmprInst: boolean;
+
       property dtAltMot: TDateTime read FdtAltMot write FdtAltMot;
       property codMotAnt: String read FcodMotAnt write FcodMotAnt;
       property codMotAfast: String read FcodMotAfast write FcodMotAfast;
+      property infoMesmoMtv: tpSimNao read FInfoMesmoMtv write FInfoMesmoMtv;
       property indEfRetroativo: tpSimNao read FindEfRetroativo write FindEfRetroativo;
+      property origAlt: tpOrigemAltAfast read FOrigAlt write FOrigAlt;
+      property nrProcJud: string read FNrProcJud write FNrProcJud;
+      property altEmpr: TAltEmpr read getAltEmpr write FAltEmpr;
   end;
 
   TfimAfastamento = class(TPersistent)
     private
       FdtTermAfast : TDateTime;
       FcodMotAfast : String;
-      FObservacao  : String;
+      FInfoMesmoMtv  : tpSimNao;
     public
       property dtTermAfast: TDateTime read FdtTermAfast write FdtTermAfast;
       property codMotAfast: String read FcodMotAfast write FcodMotAfast;
-      property Observacao: String read FObservacao write FObservacao;
+      property infoMesmoMtv: tpSimNao read FInfoMesmoMtv write FInfoMesmoMtv;
   end;
 
 
@@ -275,9 +325,10 @@ begin
     Gerador.wGrupo('iniAfastamento');
       Gerador.wCampo(tcDat, '', 'dtIniAfast', 0,0,0, objInfoAfast.iniAfastamento.DtIniAfast);
       Gerador.wCampo(tcStr, '', 'codMotAfast', 0,0,0, objInfoAfast.iniAfastamento.codMotAfast);
+      Gerador.wCampo(tcStr, '', 'infoMesmoMtv', 0,0,0, eSSimNaoToStr(objInfoAfast.iniAfastamento.infoMesmoMtv));
       Gerador.wCampo(tcStr, '', 'tpAcidTransito', 0,0,0, objInfoAfast.iniAfastamento.tpAcidTransito);
       Gerador.wCampo(tcStr, '', 'observacao', 0,0,0, objInfoAfast.iniAfastamento.Observacao);
-      if Assigned(objInfoAfast.iniAfastamento.infoAtestado) then
+      if objInfoAfast.iniAfastamento.infoAtestadoInst then
         GerarInfoAtestado(objInfoAfast.iniAfastamento.infoAtestado);
       if Assigned(objInfoAfast.iniAfastamento.infoCessao) then
         GerarInfoCessao(objInfoAfast.iniAfastamento.infoCessao);
@@ -290,17 +341,18 @@ begin
 end;
 
 procedure TEvtAfastTemp.GerarInfoAtestado(objInfoAtestado: TinfoAtestado);
+var
+  i: Integer;
 begin
-  Gerador.wGrupo('infoAtestado');
-    Gerador.wCampo(tcStr, '', 'codCID', 0,0,0, objInfoAtestado.codCID);
-    Gerador.wCampo(tcInt, '', 'qtdDiasAfast', 0,0,0, objInfoAtestado.qtDiasAfast);
-    Gerador.wGrupo('emitente');
-      Gerador.wCampo(tcStr, '', 'nmEmit', 0,0,0, objInfoAtestado.Emitente.nmEmit);
-      Gerador.wCampo(tcStr, '', 'ideOC', 0,0,0, objInfoAtestado.Emitente.ideOC);
-      Gerador.wCampo(tcStr, '', 'nrOc', 0,0,0, objInfoAtestado.Emitente.nrOc);
-      Gerador.wCampo(tcStr, '', 'ufOC', 0,0,0, objInfoAtestado.Emitente.ufOC);
-    Gerador.wGrupo('/emitente');
-  Gerador.wGrupo('/infoAtestado');
+  for i := 0 to objInfoAtestado.Count - 1 do
+  begin
+    Gerador.wGrupo('infoAtestado');
+      Gerador.wCampo(tcStr, '', 'codCID', 0,0,0, objInfoAtestado[i].codCID);
+      Gerador.wCampo(tcInt, '', 'qtdDiasAfast', 0,0,0, objInfoAtestado[i].qtDiasAfast);
+      if objInfoAtestado[i].emitenteInst then
+        gerarEmitente(objInfoAtestado[i].Emitente);
+    Gerador.wGrupo('/infoAtestado');
+  end;
 end;
 
 procedure TEvtAfastTemp.GerarInfoCessao(objInfoCessao: TinfoCessao);
@@ -341,17 +393,34 @@ begin
   Result := (Gerador.ArquivoFormatoXML <> '')
 end;
 
+procedure TEvtAfastTemp.GerarAltEmpr(pAltEmpr: TAltEmpr);
+begin
+  Gerador.wGrupo('altEmpr');
+    Gerador.wCampo(tcStr, '', 'codCID', 0,0,0, pAltEmpr.codCID);
+    Gerador.wCampo(tcInt, '', 'qtdDiasAfast', 0,0,0, pAltEmpr.qtdDiasAfast);
+    Gerador.wCampo(tcStr, '', 'nmEmit', 0,0,0, pAltEmpr.nmEmit);
+    Gerador.wCampo(tcInt, '', 'ideOC', 0,0,0, eSIdeOCToStr(pAltEmpr.ideOC));
+    Gerador.wCampo(tcStr, '', 'nrOc', 0,0,0, pAltEmpr.nrOc);
+    Gerador.wCampo(tcStr, '', 'ufOC', 0,0,0, eSufToStr(pAltEmpr.ufOC));
+  Gerador.wGrupo('/altEmpr');
+end;
+
 procedure TEvtAfastTemp.GerarAltAfast(objAltAfast: TaltAfastamento);
 begin
   if (Assigned(objAltAfast)) then
   begin
-      Gerador.wGrupo('altAfastamento');
-        Gerador.wCampo(tcDat, '', 'dtAltMot', 0,0,0, objAltAfast.dtAltMot);
-        Gerador.wCampo(tcStr, '', 'codMotAnt', 0,0,0, objAltAfast.codMotAnt);
-        Gerador.wCampo(tcStr, '', 'codMotAfast', 0,0,0, objAltAfast.codMotAfast);
-        Gerador.wCampo(tcStr, '', 'indEfRetroativo', 0,0,0, eSSimNaoToStr(objAltAfast.indEfRetroativo));
-      Gerador.wGrupo('/altAfastamento');
-    end;
+    Gerador.wGrupo('altAfastamento');
+      Gerador.wCampo(tcDat, '', 'dtAltMot', 0,0,0, objAltAfast.dtAltMot);
+      Gerador.wCampo(tcStr, '', 'codMotAnt', 0,0,0, objAltAfast.codMotAnt);
+      Gerador.wCampo(tcStr, '', 'codMotAfast', 0,0,0, objAltAfast.codMotAfast);
+      Gerador.wCampo(tcStr, '', 'infoMesmoMtv', 0,0,0, eSSimNaoToStr(objAltAfast.infoMesmoMtv));
+      Gerador.wCampo(tcStr, '', 'indEfRetroativo', 0,0,0, eSSimNaoToStr(objAltAfast.indEfRetroativo));
+      Gerador.wCampo(tcInt, '', 'origAlt', 0,0,0, eSTpOrigemAltAfastToStr(objAltAfast.origAlt));
+      Gerador.wCampo(tcStr, '', 'nrProcJud', 0,0,0, objAltAfast.nrProcJud);
+      if objAltAfast.altEmprInst then
+        GerarAltEmpr(objAltAfast.altEmpr);
+    Gerador.wGrupo('/altAfastamento');
+  end;
 end;
 
 procedure TEvtAfastTemp.GerarFimAfast(objFimAfast: TfimAfastamento);
@@ -361,7 +430,7 @@ begin
       Gerador.wGrupo('fimAfastamento');
         Gerador.wCampo(tcDat, '', 'dtTermAfast', 0,0,0, objFimAfast.dtTermAfast);
         Gerador.wCampo(tcStr, '', 'codMotAfast', 0,0,0, objFimAfast.codMotAfast);
-        Gerador.wCampo(tcStr, '', 'observacao', 0,0,0, objFimAfast.Observacao);
+        Gerador.wCampo(tcStr, '', 'infoMesmoMtv', 0,0,0, eSSimNaoToStr(objFimAfast.infoMesmoMtv));
       Gerador.wGrupo('/fimAfastamento');
     end;
 end;
@@ -389,41 +458,105 @@ end;
 constructor tiniAfastamento.create;
 begin
   inherited;
-  FinfoAtestado := TinfoAtestado.Create;
+  FinfoAtestado := nil;
   FinfoCessao := TinfoCessao.Create;
   FinfoMandSind := TinfoMandSind.Create;
 end;
 
 destructor tiniAfastamento.destroy;
 begin
-  FInfoAtestado.Free;
+  FreeAndNil(FInfoAtestado);
   FinfoCessao.Free;
   FinfoMandSind.Free;
   inherited;
 end;
 
-//procedure tiniAfastamento.setinfoAtestado(const Value: TinfoAtestado);
-//begin
-//  FinfoAtestado.Assign(Value);
-//end;
-//
-//procedure tiniAfastamento.setinfoCessao(const Value: TinfoCessao);
-//begin
-//  FinfoCessao.Assign(Value);
-//end;
+function tiniAfastamento.getInfoAtestado: TinfoAtestado;
+begin
+  if not Assigned(FinfoAtestado) then
+    FinfoAtestado := TinfoAtestado.create;
+  Result := FinfoAtestado;
+end;
+
+function tiniAfastamento.infoAtestadoInst: boolean;
+begin
+  result := Assigned(FinfoAtestado);
+end;
 
 { TinfoAtestado }
 
-constructor TinfoAtestado.create;
+function TinfoAtestado.Add: TinfoAtestadoItem;
 begin
-  inherited;
-  FEmitente := TEmitente.Create;
+  Result := TinfoAtestadoItem(inherited add());
+  Result.Create;
 end;
 
-destructor TinfoAtestado.destroy;
+constructor TinfoAtestado.create;
 begin
-  FEmitente.Free;
+  Inherited create(TinfoAtestadoItem);
+end;
+
+function TinfoAtestado.GetItem(
+  Index: Integer): TinfoAtestadoItem;
+begin
+  Result := TinfoAtestadoItem(inherited GetItem(Index));
+end;
+
+procedure TinfoAtestado.SetItem(Index: Integer;
+  Value: TinfoAtestadoItem);
+begin
+  inherited SetItem(Index, Value);
+end;
+
+{ TinfoAtestadoItem }
+
+constructor TinfoAtestadoItem.create;
+begin
+  FEmitente := nil;
+end;
+
+destructor TinfoAtestadoItem.destroy;
+begin
+  FreeAndNil(FEmitente);
   inherited;
+end;
+
+function TinfoAtestadoItem.getEmitente: TEmitente;
+begin
+  if not assigned(FEmitente) then
+    FEmitente := TEmitente.Create;
+  Result := FEmitente;
+end;
+
+function TinfoAtestadoItem.emitenteInst: boolean;
+begin
+  result := Assigned(FEmitente);
+end;
+
+{ TaltAfastamento }
+
+constructor TaltAfastamento.Create;
+begin
+  inherited;
+  FAltEmpr := nil;
+end;
+
+destructor TaltAfastamento.Destroy;
+begin
+  FreeAndNil(FAltEmpr);
+  inherited;
+end;
+
+function TaltAfastamento.getAltEmpr: TAltEmpr;
+begin
+  if not Assigned(FAltEmpr) then
+    FAltEmpr := TAltEmpr.Create;
+  Result := FAltEmpr;
+end;
+
+function TaltAfastamento.altEmprInst: boolean;
+begin
+  result := Assigned(FAltEmpr);
 end;
 
 end.

@@ -2,36 +2,36 @@
 { Projeto: Componente ACBreSocial                                              }
 {  Biblioteca multiplataforma de componentes Delphi para envio dos eventos do  }
 { eSocial - http://www.esocial.gov.br/                                         }
-{                                                                              }
+
 { Direitos Autorais Reservados (c) 2008 Wemerson Souto                         }
 {                                       Daniel Simoes de Almeida               }
 {                                       André Ferreira de Moraes               }
-{                                                                              }
+
 { Colaboradores nesse arquivo:                                                 }
-{                                                                              }
+
 {  Você pode obter a última versão desse arquivo na pagina do Projeto ACBr     }
 { Componentes localizado em http://www.sourceforge.net/projects/acbr           }
-{                                                                              }
-{                                                                              }
+
+
 {  Esta biblioteca é software livre; você pode redistribuí-la e/ou modificá-la }
 { sob os termos da Licença Pública Geral Menor do GNU conforme publicada pela  }
 { Free Software Foundation; tanto a versão 2.1 da Licença, ou (a seu critério) }
 { qualquer versão posterior.                                                   }
-{                                                                              }
+
 {  Esta biblioteca é distribuída na expectativa de que seja útil, porém, SEM   }
 { NENHUMA GARANTIA; nem mesmo a garantia implícita de COMERCIABILIDADE OU      }
 { ADEQUAÇÃO A UMA FINALIDADE ESPECÍFICA. Consulte a Licença Pública Geral Menor}
 { do GNU para mais detalhes. (Arquivo LICENÇA.TXT ou LICENSE.TXT)              }
-{                                                                              }
+
 {  Você deve ter recebido uma cópia da Licença Pública Geral Menor do GNU junto}
 { com esta biblioteca; se não, escreva para a Free Software Foundation, Inc.,  }
 { no endereço 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
 { Você também pode obter uma copia da licença em:                              }
 { http://www.opensource.org/licenses/lgpl-license.php                          }
-{                                                                              }
+
 { Daniel Simões de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
 {              Praça Anita Costa, 34 - Tatuí - SP - 18270-410                  }
-{                                                                              }
+
 {******************************************************************************}
 
 {******************************************************************************
@@ -68,9 +68,6 @@ type
   TInfoPerApur = class;
   TeS1200IdeTrabalhador = class;
   TInfoComplem = class;
-  TRemunOutrEmprCollectionItem = class;
-  TRemunOutrEmprCollection = class;
-  TInfoMV = class;
   TEvtRemun = class;
   TS1200CollectionItem = class;
   TS1200Collection = class;
@@ -151,9 +148,7 @@ type
     procedure GerarIdePeriodo(objIdePeriodo: TIdePeriodoCollection);
     procedure GerarIdeADC(objIdeADC: TideADCCollection);
 
-    procedure GerarRemunOutrEmpr(objRemunOutrEmpr: TRemunOutrEmprCollection);
     procedure GerarIdeTrabalhador();
-    procedure GerarInfoMV();
     procedure GerarInfoComplem();
     procedure GerarDmDev();
     procedure GerarInfoPerApur(pInfoPerApur: TInfoPerApur);
@@ -327,43 +322,6 @@ type
     property codCBO: string read FCodCBO write FCodCBO;
     property natAtividade: tpNatAtividade read FNatAtividade write FNatAtividade;
     property qtdDiasTrab: integer read FQtdDiasTrab write FQtdDiasTrab;
-  end;
-
-  TRemunOutrEmprCollection = class(TCollection)
-  private
-    function GetItem(Index: integer): TRemunOutrEmprCollectionItem;
-    procedure SetItem(Index: integer; Value: TRemunOutrEmprCollectionItem);
-  public
-    constructor Create; reintroduce;
-    function add: TRemunOutrEmprCollectionItem;
-    property Items[Index: integer]: TRemunOutrEmprCollectionItem
-      read GetItem write SetItem;
-  end;
-
-  TRemunOutrEmprCollectionItem = class(TCollectionItem)
-  private
-    FTpInsc: tpTpInsc;
-    FNrInsc: string;
-    FCodCateg: integer;
-    FVlrRemunOE: double;
-  public
-    constructor Create; reintroduce;
-    property tpInsc: tpTpInsc read FTpInsc write FTpInsc;
-    property nrInsc: string read FNrInsc write FNrInsc;
-    property codCateg: integer read FCodCateg write FCodCateg;
-    property vlrRemunOE: double read FVlrRemunOE write FVlrRemunOE;
-  end;
-
-  TInfoMV = class(TPersistent)
-  private
-    FIndMV: tpIndMV;
-    FRemunOutrEmpr: TRemunOutrEmprCollection;
-  public
-    constructor Create;
-    destructor Destroy; override;
-    property indMV: tpIndMV read FIndMV write FIndMV;
-    property remunOutrEmpr: TRemunOutrEmprCollection
-      read FRemunOutrEmpr write FRemunOutrEmpr;
   end;
 
 implementation
@@ -597,47 +555,6 @@ begin
   Result := Assigned(FInfoMV);
 end;
 
-{ TRemunOutrEmpr }
-constructor TRemunOutrEmprCollectionItem.Create;
-begin
-end;
-
-{ TRemunOutrEmprCollection }
-function TRemunOutrEmprCollection.add: TRemunOutrEmprCollectionItem;
-begin
-  Result := TRemunOutrEmprCollectionItem(inherited add);
-  Result.Create;
-end;
-
-constructor TRemunOutrEmprCollection.Create;
-begin
-  inherited Create(TRemunOutrEmprCollectionItem);
-end;
-
-function TRemunOutrEmprCollection.GetItem(Index: integer):
-TRemunOutrEmprCollectionItem;
-begin
-  Result := TRemunOutrEmprCollectionItem(inherited GetItem(Index));
-end;
-
-procedure TRemunOutrEmprCollection.SetItem(Index: integer;
-  Value: TRemunOutrEmprCollectionItem);
-begin
-  inherited SetItem(Index, Value);
-end;
-
-{ TInfoMV }
-constructor TInfoMV.Create;
-begin
-  FRemunOutrEmpr := TRemunOutrEmprCollection.Create;
-end;
-
-destructor TInfoMV.Destroy;
-begin
-  FRemunOutrEmpr.Free;
-  inherited;
-end;
-
 { TDMDevCollection }
 
 constructor TDMDevCollection.Create;
@@ -798,7 +715,7 @@ begin
   Gerador.wCampo(tcStr, '', 'cpfTrab', 0, 0, 0, ideTrabalhador.cpfTrab);
   Gerador.wCampo(tcStr, '', 'nisTrab', 0, 0, 0, ideTrabalhador.nisTrab);
   if (ideTrabalhador.infoMVInst()) then
-    GerarInfoMV();
+    GerarInfoMV(ideTrabalhador.infoMV);
   if (ideTrabalhador.infoComplemInst()) then
     GerarInfoComplem();
   if (ideTrabalhador.procJudTrabInst()) then
@@ -817,15 +734,6 @@ begin
   Gerador.wCampo(tcInt, '', 'qtdDiasTrab', 0, 0, 0,
     ideTrabalhador.infoComplem.qtdDiasTrab);
   Gerador.wGrupo('/infoComplem');
-end;
-
-procedure TEvtRemun.GerarInfoMV;
-begin
-  Gerador.wGrupo('infoMV');
-  Gerador.wCampo(tcStr, '', 'indMV', 0, 0, 0,
-    eSIndMVToStr(ideTrabalhador.infoMV.indMV));
-  GerarRemunOutrEmpr(ideTrabalhador.infoMV.remunOutrEmpr);
-  Gerador.wGrupo('/infoMV');
 end;
 
 procedure TEvtRemun.GerarInfoPerAnt(pInfoPerAnt: TInfoPerAnt);
@@ -857,25 +765,6 @@ begin
   Gerador.wGrupo('infoPerApur');
   GerarIdeEstabLot(pInfoPerApur.ideEstabLot);
   Gerador.wGrupo('/infoPerApur');
-end;
-
-procedure TEvtRemun.GerarRemunOutrEmpr(objRemunOutrEmpr: TRemunOutrEmprCollection);
-var
-  iRemunOutrEmpr: integer;
-begin
-  for iRemunOutrEmpr := 0 to objRemunOutrEmpr.Count - 1 do
-  begin
-    Gerador.wGrupo('remunOutrEmpr');
-    Gerador.wCampo(tcStr, '', 'tpInsc', 0, 0, 0,
-      eSTpInscricaoToStr(objRemunOutrEmpr.Items[iRemunOutrEmpr].tpInsc));
-    Gerador.wCampo(tcStr, '', 'nrInsc', 0, 0, 0,
-      objRemunOutrEmpr.Items[iRemunOutrEmpr].nrInsc);
-    Gerador.wCampo(tcStr, '', 'codCateg', 0, 0, 0,
-      objRemunOutrEmpr.Items[iRemunOutrEmpr].codCateg);
-    Gerador.wCampo(tcDe2, '', 'vlrRemunOE', 0, 0, 0,
-      objRemunOutrEmpr.Items[iRemunOutrEmpr].vlrRemunOE);
-    Gerador.wGrupo('/remunOutrEmpr');
-  end;
 end;
 
 procedure TEvtRemun.GerarRemunPer(objRemunPer: TRemunPer1200Collection;

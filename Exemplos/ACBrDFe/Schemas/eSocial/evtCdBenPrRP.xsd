@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.esocial.gov.br/schema/evt/evtCdBenPrRP/v02_02_01" targetNamespace="http://www.esocial.gov.br/schema/evt/evtCdBenPrRP/v02_02_01" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.esocial.gov.br/schema/evt/evtCdBenPrRP/v02_02_02" targetNamespace="http://www.esocial.gov.br/schema/evt/evtCdBenPrRP/v02_02_02" elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
   <xs:element name="eSocial">
     <xs:complexType>
@@ -96,7 +96,7 @@ Validação: Só pode ser informado se já houver informação anterior de benef
                                 <xs:documentation>Tipo de benefício previdenciário, conforme tabela 25</xs:documentation>
                               </xs:annotation>
                               <xs:restriction base="xs:byte">
-                                <xs:pattern value="\d(1,2}"/>
+                                <xs:pattern value="\d{1,2}"/>
                               </xs:restriction>
                             </xs:simpleType>
                           </xs:element>
@@ -593,7 +593,7 @@ Validação: Só pode ser informado se já houver informação anterior de benef
             <xs:documentation>Tipo de benefício previdenciário, conforme tabela 25</xs:documentation>
           </xs:annotation>
           <xs:restriction base="xs:byte">
-            <xs:pattern value="\d(1,2}"/>
+            <xs:pattern value="\d{1,2}"/>
           </xs:restriction>
         </xs:simpleType>
       </xs:element>

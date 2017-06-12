@@ -63,6 +63,8 @@ type
   TaltExpRisco = class;
   TfimExpRisco = class;
   TExpRisco = class;
+  TRespRegCollection = class;
+  TRespRegItem = class;
 
   TS2240Collection = class(TOwnedCollection)
   private
@@ -99,7 +101,10 @@ type
     procedure GerarfimExpRisco(objfimExpRisco: TfimExpRisco);
     procedure GerarInfoAmb(objInfoAmb : TinfoAmbCollection);
     procedure GerarFatRisco(objFatRisco: TFatRiscoCollection);
-    procedure GerarEPI(objEPI: TEpiCollectionItem);
+    procedure GerarEpcEpi(pEpcEpi: TEpcEpi);
+    procedure GerarEpc(pEpc: TEpcCollection);
+    procedure GerarEPI(objEPI: TEpiCollection);
+    procedure GerarRespReg(pRespReg: TRespRegCollection);
   public
     constructor Create(AACBreSocial: TObject);overload;
     destructor  Destroy; override;
@@ -112,11 +117,38 @@ type
     property infoExpRisco: TinfoExpRisco read FinfoExpRisco write FinfoExpRisco;
   end;
 
+  TRespRegCollection = class(TCollection)
+  private
+    function GetItem(Index: Integer): TRespRegItem;
+    procedure SetItem(Index: Integer; Value: TRespRegItem);
+  public
+    constructor create; reintroduce;
+
+    function Add: TRespRegItem;
+    property Items[Index: Integer]: TRespRegItem read GetItem write SetItem; default;
+  end;
+
+  TRespRegItem = class(TCollectionItem)
+  private
+    FDtIni: TDate;
+    FDtFim: TDate;
+    FNisResp: string;
+    FNrOc: string;
+    FUfOC: tpuf;
+  public
+    property dtIni: TDate read FDtIni write FDtIni;
+    property dtFim: TDate read FDtFim write FDtFim;
+    property nisResp: string read FNisResp write FNisResp;
+    property nrOc: string read FNrOc write FNrOc;
+    property ufOC: tpuf read FUfOC write FUfOC;
+  end;
+
   TinfoExpRisco = class
     private
       FiniExpRisco : TiniExpRisco;
       FaltExpRisco : TaltExpRisco;
       FfimExpRisco : TfimExpRisco;
+      FRespReg: TRespRegCollection;
     public
       constructor Create;
       destructor  Destroy; override;
@@ -124,6 +156,7 @@ type
       property iniExpRisco: TiniExpRisco read FiniExpRisco write FiniExpRisco;
       property altExpRisco: TaltExpRisco read FaltExpRisco write FaltExpRisco;
       property fimExpRisco: TfimExpRisco read FfimExpRisco write FfimExpRisco;
+      property respReg: TRespRegCollection read FRespReg write FRespReg;
   end;
 
   TExpRisco = class(TPersistent)
@@ -227,17 +260,47 @@ begin
   Gerador.wGrupo('/altExpRisco');
 end;
 
-procedure TEvtExpRisco.GerarEPI(objEPI: TEpiCollectionItem);
+procedure TEvtExpRisco.GerarEPI(objEPI: TEpiCollection);
+var
+  i: integer;
 begin
-  Gerador.wGrupo('epi');
-    Gerador.wCampo(tcStr, '', 'caEPI', 0,0,0, objEPI.caEPI);
-    Gerador.wCampo(tcStr, '', 'eficaciaEpi', 0,0,0, eSSimNaoToStr(objEPI.eficaciaEpi));
-    Gerador.wCampo(tcStr, '', 'medProtecao', 0,0,0, eSSimNaoToStr(objEPI.medProtecao));
-    Gerador.wCampo(tcStr, '', 'condFuncto', 0,0,0, eSSimNaoToStr(objEPI.condFuncto));
-    Gerador.wCampo(tcStr, '', 'przValid', 0,0,0, eSSimNaoToStr(objEPI.przValid));
-    Gerador.wCampo(tcStr, '', 'periodicTroca', 0,0,0, eSSimNaoToStr(objEPI.periodicTroca));
-    Gerador.wCampo(tcStr, '', 'higienizacao', 0,0,0, eSSimNaoToStr(objEPI.higienizacao));
-  Gerador.wGrupo('/epi');
+  for i := 0 to objEPI.Count -1 do
+  begin
+    Gerador.wGrupo('epi');
+      Gerador.wCampo(tcStr, '', 'caEPI', 0,0,0, objEPI[i].caEPI);
+      Gerador.wCampo(tcStr, '', 'eficEpi', 0,0,0, eSSimNaoToStr(objEPI[i].eficEpi));
+      Gerador.wCampo(tcStr, '', 'medProtecao', 0,0,0, eSSimNaoToStr(objEPI[i].medProtecao));
+      Gerador.wCampo(tcStr, '', 'condFuncto', 0,0,0, eSSimNaoToStr(objEPI[i].condFuncto));
+      Gerador.wCampo(tcStr, '', 'przValid', 0,0,0, eSSimNaoToStr(objEPI[i].przValid));
+      Gerador.wCampo(tcStr, '', 'periodicTroca', 0,0,0, eSSimNaoToStr(objEPI[i].periodicTroca));
+      Gerador.wCampo(tcStr, '', 'higienizacao', 0,0,0, eSSimNaoToStr(objEPI[i].higienizacao));
+    Gerador.wGrupo('/epi');
+  end;
+end;
+
+procedure TEvtExpRisco.GerarEpc(pEpc: TEpcCollection);
+var
+  i: integer;
+begin
+  for i := 0 to pEpc.Count - 1 do
+  begin
+    Gerador.wGrupo('epc');
+      Gerador.wCampo(tcStr, '', 'dscEpc', 0,0,0, pEpc[i].dscEpc);
+      Gerador.wCampo(tcStr, '', 'eficEpc', 0,0,0, eSSimNaoToStr(pEpc[i].eficEpc));
+    Gerador.wGrupo('/epc');
+  end;
+end;
+
+procedure TEvtExpRisco.GerarEpcEpi(pEpcEpi: TEpcEpi);
+begin
+  Gerador.wGrupo('epcEpi');
+    Gerador.wCampo(tcInt, '', 'utilizEPC', 0,0,0, eStpUtilizEPCToStr(pEpcEpi.utilizEPC));
+    Gerador.wCampo(tcInt, '', 'utilizEPI', 0,0,0, eStpUtilizEPIToStr(pEpcEpi.utilizEPI));
+    if pEpcEpi.epcInst then
+      GerarEpc(pEpcEpi.epc);
+    if pEpcEpi.epiInst then
+      GerarEPI(pEpcEpi.epi);
+  Gerador.wGrupo('/epcEpi');
 end;
 
 procedure TEvtExpRisco.GerarFatRisco(objFatRisco: TFatRiscoCollection);
@@ -250,7 +313,7 @@ begin
       Gerador.wCampo(tcStr, '', 'codFatRis', 0,0,0, objFatRisco.Items[i].codFatRis);
       Gerador.wCampo(tcStr, '', 'intConc', 0,0,0, objFatRisco.Items[i].intConc);
       Gerador.wCampo(tcStr, '', 'tecMedicao', 0,0,0, objFatRisco.Items[i].tecMedicao);
-      Gerador.wCampo(tcStr, '', 'utilizEPI', 0,0,0, objFatRisco.Items[i].utilizEPI);
+      GerarEpcEpi(objFatRisco.Items[i].epcEpi);
     Gerador.wGrupo('/fatRisco');
   end;
 end;
@@ -266,9 +329,6 @@ begin
     begin
       Gerador.wGrupo('infoAmb');
         Gerador.wCampo(tcStr, '', 'codAmb', 0,0,0, objfimExpRisco.InfoAmb.items[i].codAmb);
-        Gerador.wGrupo('infoAtiv');
-         Gerador.wCampo(tcStr, '', 'dscAtivDes', 0,0,0, objfimExpRisco.InfoAmb.items[i].InfoAtiv.dscAtivDes);
-        Gerador.wGrupo('/infoAtiv');
       Gerador.wGrupo('/infoAmb');
     end;
   Gerador.wGrupo('/fimExpRisco');
@@ -286,9 +346,23 @@ begin
         Gerador.wCampo(tcStr, '', 'dscAtivDes', 0,0,0, objInfoAmb.items[j].InfoAtiv.dscAtivDes);
       Gerador.wGrupo('/infoAtiv');
       GerarFatRisco(objInfoAmb.items[j].FatRisco);
-      for i := 0 to objInfoAmb.items[j].EPI.Count -1 do
-        GerarEPI(objInfoAmb.items[j].EPI.Items[i]);
     Gerador.wGrupo('/infoAmb');
+  end;
+end;
+
+procedure TEvtExpRisco.GerarRespReg(pRespReg: TRespRegCollection);
+var
+  i: integer;
+begin
+  for i := 0 to pRespReg.Count - 1 do
+  begin
+    Gerador.wGrupo('respReg');
+      Gerador.wCampo(tcDat, '', 'dtIni', 0,0,0, pRespReg[i].dtIni);
+      Gerador.wCampo(tcDat, '', 'dtFim', 0,0,0, pRespReg[i].dtFim);
+      Gerador.wCampo(tcStr, '', 'nisResp', 0,0,0, pRespReg[i].nisResp);
+      Gerador.wCampo(tcStr, '', 'nrOc', 0,0,0, pRespReg[i].nrOc);
+      Gerador.wCampo(tcStr, '', 'ufOC', 0,0,0, eSufToStr(pRespReg[i].ufOC));
+    Gerador.wGrupo('/respReg');
   end;
 end;
 
@@ -301,6 +375,7 @@ begin
       GeraraltExpRisco(objInfoExpRisco.altExpRisco);
     if (objInfoExpRisco.fimExpRisco.dtFimCondicao > 0) then
       GerarfimExpRisco(objInfoExpRisco.fimExpRisco);
+    GerarRespReg(objInfoExpRisco.respReg);
   Gerador.wGrupo('/infoExpRisco');
 end;
 
@@ -380,6 +455,7 @@ begin
   FiniExpRisco := TiniExpRisco.Create;
   FaltExpRisco := TaltExpRisco.Create;
   FfimExpRisco := TfimExpRisco.Create;
+  FRespReg := TRespRegCollection.Create;
 end;
 
 destructor TinfoExpRisco.destroy;
@@ -387,7 +463,33 @@ begin
   FiniExpRisco.Free;
   FaltExpRisco.Free;
   FfimExpRisco.Free;
+  FRespReg.Free;
   inherited;
+end;
+
+
+{ TRespRegCollection }
+
+constructor TRespRegCollection.Create;
+begin
+  Inherited create(TRespRegItem);
+end;
+
+function TRespRegCollection.Add: TRespRegItem;
+begin
+  Result := TRespRegItem(inherited Add);
+//  Result.Create;
+end;
+
+function TRespRegCollection.GetItem(Index: Integer): TRespRegItem;
+begin
+  Result := TRespRegItem(inherited GetItem(Index));
+end;
+
+procedure TRespRegCollection.SetItem(Index: Integer;
+  Value: TRespRegItem);
+begin
+  inherited SetItem(Index, Value);
 end;
 
 end.

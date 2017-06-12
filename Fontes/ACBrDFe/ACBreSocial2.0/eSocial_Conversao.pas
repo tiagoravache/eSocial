@@ -83,9 +83,9 @@ type
                              teS1220, teS1250, teS1260, teS1270, teS1280, teS1298, teS1299,
                              teS1300, teS2190, teS2200, teS2205, teS2206, teS2210, teS2220,
                              teS2230, teS2240, teS2241, teS2250, teS2298, teS2299, teS2300,
-                             teS2305, teS2399, teS3000, teS4000, teS4999);
+                             teS2306, teS2399, teS2400, teS3000, teS4000, teS4999);
 
-  TpTpAmb                 = (taProducao );
+  TpTpAmb                 = (taProducao, taProducaoRestritaDadosReais, taProducaoRestritaDadosFicticios);
 
   tpSimNao                = (tpSim, tpNao);
 
@@ -257,7 +257,9 @@ type
 
   tpContagemEsp           = (ceNao, ceProfInfantilFundamentalMedio, ceProfEnsSuperiorMagistradoMembroMinisPublicoTribContas, ceAtividadedeRisco);
 
-  tpUtilizEPC             = (uEPCNaoAplica, uEPCNaoUtilizado, uEPCEficaz, uEPCNaoEficaz);
+  tpUtilizEPC             = (uEPCNaoAplica, uEPCNaoUtilizado, uEPCUtilizado);
+
+  tpUtilizEPI             = (uEPINaoAplica, uEPINaoUtilizado, uEPIUtilizado);
 
   tpLocalAmb              = (laEstabProprioEmpregador, laEstabTerceiro);
 
@@ -287,7 +289,7 @@ type
                              tdMenorPobreAte21AnosQueCrieEduqueComGuardaJudicial, tdPessoaAbsolutamenteIncapaz,
                              tdExConjugeQueRecebaPensaoAlimentos);
 
-  tpTpRegTrab             = (trCLT, trRJP);
+  tpTpRegTrab             = (trCLT, trEstatutario);
 
   tpTpRegPrev             = (rpRGPS, rpRPPS, rpRPPE);
 
@@ -388,6 +390,16 @@ type
   tpInclContr             = (icLocaisSemFiliais, icEstudoDeMercado, icContratacaoSuperior3Meses);
 
   tpPlanRP                = (prpPlanoPrevidenciarioOuUnico, prpPlanoFinanceiro);
+
+  tpMtvAlt                = (maPromocao, maReadaptacao, maAproveitamento, maOutros);
+
+  tpOrigemAltAfast        = (oaaPorIniciativaDoEmpregador, oaaRevisaoAdministrativa, oaaDeterminacaoJudicial);
+
+  tpPensaoAlim            = (paNaoExistePensaoAlimenticia, paPercentualDePensaoAlimenticia, paValorDePensaoAlimenticia,
+                             paPercentualeValordePensaoAlimenticia);
+
+  tpCumprParcialAviso     = (cpaCumprimentoTotal, cpaCumprimentoParcialNovoEmprego, cpaCumprimentoParcialEmpregador);
+
 
   function EnumeradoToStr2(const t: variant; const AString:
     array of string ): variant;
@@ -590,6 +602,9 @@ type
   function eStpUtilizEPCToStr(const t: tpUtilizEPC): string;
   function eSStrTotpUtilizEPC(var ok: Boolean; const s: string): tpUtilizEPC;
 
+  function eStpUtilizEPIToStr(const t: tpUtilizEPI): string;
+  function eSStrTotpUtilizEPI(var ok: Boolean; const s: string): tpUtilizEPI;
+
   function eSLocalAmbToStr(const t: tpLocalAmb): string;
   function eSStrToLocalAmb(var ok: Boolean; const s: string): tpLocalAmb;
 
@@ -740,29 +755,47 @@ type
   function eSTpPlanRPToStr(const t: tpPlanRP): string;
   function eSStrToTpPlanRP(var ok: boolean; const s: string): tpPlanRP;
 
+  function eSTpMtvAltToStr(const t: tpMtvAlt): string;
+  function eSStrToTpMtvAlt(var ok: boolean; const s: string): tpMtvAlt;
+
+  function eSTpOrigemAltAfastToStr(const t: tpOrigemAltAfast): string;
+  function eSStrToTpOrigemAltAfast(var ok: boolean; const s: string): tpOrigemAltAfast;
+
+  function eSTpPensaoAlimToStr(const t: tpPensaoAlim): string;
+  function eSStrToTpPensaoAlim(var ok: boolean; const s: string): tpPensaoAlim;
+
+  function eSTpCumprParcialAvisoToStr(const t: tpCumprParcialAviso): string;
+  function eSStrToTpCumprParcialAviso(var ok: boolean; const s: string): tpCumprParcialAviso;
+
+  function eSModoLancamentoToStr(const t: TModoLancamento): string;
+  function eSStrToModoLancamento(var ok: boolean; const s: string): TModoLancamento;
+
 implementation
 
 const
 
-  TTipoEventoString   : array[0..41] of String =('S-1000', 'S-1005', 'S-1010', 'S-1020', 'S-1030', 'S-1035',
+  TTipoEventoString   : array[0..42] of String =('S-1000', 'S-1005', 'S-1010', 'S-1020', 'S-1030', 'S-1035',
                                                  'S-1040', 'S-1050', 'S-1060', 'S-1070', 'S-1080',
                                                  'S-2100', 'S-1200', 'S-1202', 'S-1207', 'S-1210', 'S-1220',
                                                  'S-1250', 'S-1260', 'S-1270', 'S-1280', 'S-1298',
                                                  'S-1299', 'S-1300', 'S-2190', 'S-2200', 'S-2205',
                                                  'S-2206', 'S-2210', 'S-2220', 'S-2230', 'S-2240',
                                                  'S-2241', 'S-2250', 'S-2298', 'S-2299', 'S-2300',
-                                                 'S-2305', 'S-2399', 'S-3000', 'S-4000', 'S-4999' );
+                                                 'S-2306', 'S-2399', 'S-2400','S-3000', 'S-4000', 'S-4999' );
 
   TUFString           : array[0..26] of String = ('AC','AL','AP','AM','BA','CE','DF','ES','GO',
                                                   'MA','MT','MS','MG','PA','PB','PR','PE','PI',
                                                   'RJ','RN','RS','RO','RR','SC','SP','SE','TO');
 
+  TModoLancamentoString : array[0..2] of String = ('inclusao', 'alteracao', 'exclusao');
 
   TSiglasMinString    : array[0..4] of string = ('CNAS','MEC','MS','MDS','LEI');
 
   TSimNaoString       : array[0..1] of string = ('S','N' );
 
   TIndicativoContratacaoPCD : array[0..3] of string = ('0', '1', '2', '9' );
+
+  TMotivoAlteracaoCargoFuncao: array[0..3] of string = ('1', '2', '3', '9');
 
   TGenericosString0_1 : array[0..1] of string = ('0','1' );
   TGenericosString0_2 : array[0..2] of string = ('0','1','2' );
@@ -829,11 +862,11 @@ end;
 
 function eStpAmbToStr(const t: TptpAmb ): string;
 begin
-  result := EnumeradoToStr2(t,TGenericosString1 );
+  result := EnumeradoToStr2(t,TGenericosString1_3 );
 end;
 function eSStrTotpAmb(var ok: boolean; const s: string): TptpAmb;
 begin
-  result  := TptpAmb( StrToEnumerado2(ok , s, TGenericosString1 ) );
+  result  := TptpAmb( StrToEnumerado2(ok , s, TGenericosString1_3 ) );
 end;
 
 function eSProcEmiToStr(const t: TpprocEmi ): string;
@@ -1399,7 +1432,7 @@ begin
 end;
 function eSStrToIndSusp(var ok: Boolean; const s: string): tpIndSusp;
 begin
-  result := tpIndSusp( StrToEnumerado2(ok , s,[ '01', '04', '05', '08', '09', '10',
+  result := tpIndSusp( StrToEnumerado2(ok , s,[ '01', '02', '03', '04', '05', '08', '09', '10',
                                                 '11', '12', '13', '14', '90', '92'] ));
 end;
 
@@ -1810,11 +1843,20 @@ end;
 
 function eStpUtilizEPCToStr(const t: tpUtilizEPC): string;
 begin
-  result := EnumeradoToStr2(t, TGenericosString0_3);
+  result := EnumeradoToStr2(t, TGenericosString0_2);
 end;
 function eSStrTotpUtilizEPC(var ok: Boolean; const s: string): tpUtilizEPC;
 begin
-  result := tpUtilizEPC( StrToEnumerado2(ok , s, TGenericosString0_3 ));
+  result := tpUtilizEPC( StrToEnumerado2(ok , s, TGenericosString0_2 ));
+end;
+
+function eStpUtilizEPIToStr(const t: tpUtilizEPI): string;
+begin
+  result := EnumeradoToStr2(t, TGenericosString0_2);
+end;
+function eSStrTotpUtilizEPI(var ok: Boolean; const s: string): tpUtilizEPI;
+begin
+  result := tpUtilizEPI( StrToEnumerado2(ok , s, TGenericosString0_2 ));
 end;
 
 function eSLocalAmbToStr(const t: tpLocalAmb): string;
@@ -1872,6 +1914,56 @@ end;
 function eSStrTotpNivelEstagio(var ok: Boolean; const s: string): tpNivelEstagio;
 begin
   Result := tpNivelEstagio(StrToEnumerado2(ok, s, TGenericosString1_4));
+end;
+
+function eSTpMtvAltToStr(const t: tpMtvAlt): string;
+begin
+  result := EnumeradoToStr2(t, TMotivoAlteracaoCargoFuncao);
+end;
+
+function eSStrToTpMtvAlt(var ok: boolean; const s: string): tpMtvAlt;
+begin
+  Result := tpMtvAlt(StrToEnumerado2(ok, s, TMotivoAlteracaoCargoFuncao));
+end;
+
+function eSTpOrigemAltAfastToStr(const t: tpOrigemAltAfast): string;
+begin
+  result := EnumeradoToStr2(t, TGenericosString1_3);
+end;
+
+function eSStrToTpOrigemAltAfast(var ok: boolean; const s: string): tpOrigemAltAfast;
+begin
+  Result := tpOrigemAltAfast(StrToEnumerado2(ok, s, TGenericosString1_3));
+end;
+
+function eSTpPensaoAlimToStr(const t: tpPensaoAlim): string;
+begin
+  result := EnumeradoToStr2(t, TGenericosString0_3);
+end;
+
+function eSStrToTpPensaoAlim(var ok: boolean; const s: string): tpPensaoAlim;
+begin
+  Result := tpPensaoAlim(StrToEnumerado2(ok, s, TGenericosString0_3));
+end;
+
+function eSTpCumprParcialAvisoToStr(const t: tpCumprParcialAviso): string;
+begin
+  result := EnumeradoToStr2(t, TGenericosString0_2);
+end;
+
+function eSStrToTpCumprParcialAviso(var ok: boolean; const s: string): tpCumprParcialAviso;
+begin
+  Result := tpCumprParcialAviso(StrToEnumerado2(ok, s, TGenericosString0_2));
+end;
+
+function eSModoLancamentoToStr(const t: TModoLancamento): string;
+begin
+  result := EnumeradoToStr2(t, TModoLancamentoString);
+end;
+
+function eSStrToModoLancamento(var ok: boolean; const s: string): TModoLancamento;
+begin
+  Result := TModoLancamento(StrToEnumerado2(ok, s, TModoLancamentoString));
 end;
 
 end.

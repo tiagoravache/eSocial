@@ -133,7 +133,7 @@ contains
   eSocial_S2298 in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S2298.pas',
   eSocial_S2299 in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S2299.pas',
   eSocial_S2300 in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S2300.pas',
-  eSocial_S2305 in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S2305.pas',
+  eSocial_S2306 in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S2306.pas',
   eSocial_S2399 in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S2399.pas',
   eSocial_S3000 in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S3000.pas',
   eSocial_S4000 in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S4000.pas',
@@ -141,3 +141,4 @@ contains
   eSocial_S1207 in '..\..\..\..\Fontes\ACBrDFe\ACBreSocial2.0\eSocial_S1207.pas';
 
 end.
+

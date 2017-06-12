@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.esocial.gov.br/schema/evt/evtTabProcesso/v02_02_01" targetNamespace="http://www.esocial.gov.br/schema/evt/evtTabProcesso/v02_02_01" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.esocial.gov.br/schema/evt/evtTabProcesso/v02_02_02" targetNamespace="http://www.esocial.gov.br/schema/evt/evtTabProcesso/v02_02_02" elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
   <xs:element name="eSocial">
     <xs:complexType>
@@ -295,7 +295,7 @@
       </xs:element>
       <xs:element name="infoSusp" minOccurs="0" maxOccurs="99">
         <xs:annotation>
-          <xs:documentation>Informações de suspensão de exigibilidade de tributos e FGTS em virtude de processo judicial. Só deve ser preenchido este grupo se o processo se refere a contestações relacionadas a contribuição previdenciária, IRRF e FGTS.</xs:documentation>
+          <xs:documentation>Informações de suspensão de exigibilidade de tributos e FGTS em virtude de processo judicial.</xs:documentation>
         </xs:annotation>
         <xs:complexType>
           <xs:sequence>

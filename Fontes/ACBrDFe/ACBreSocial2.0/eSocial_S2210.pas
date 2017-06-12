@@ -5,32 +5,32 @@
 {                                                                              }
 { Direitos Autorais Reservados (c) 2008 Wemerson Souto                         }
 {                                       Daniel Simoes de Almeida               }
-{                                       Andr√© Ferreira de Moraes               }
+{                                       AndrÈ Ferreira de Moraes               }
 {                                                                              }
 { Colaboradores nesse arquivo:                                                 }
 {                                                                              }
-{  Voc√™ pode obter a √∫ltima vers√£o desse arquivo na pagina do Projeto ACBr     }
+{  VocÍ pode obter a ˙ltima vers„o desse arquivo na pagina do Projeto ACBr     }
 { Componentes localizado em http://www.sourceforge.net/projects/acbr           }
 {                                                                              }
 {                                                                              }
-{  Esta biblioteca √© software livre; voc√™ pode redistribu√≠-la e/ou modific√°-la }
-{ sob os termos da Licen√ßa P√∫blica Geral Menor do GNU conforme publicada pela  }
-{ Free Software Foundation; tanto a vers√£o 2.1 da Licen√ßa, ou (a seu crit√©rio) }
-{ qualquer vers√£o posterior.                                                   }
+{  Esta biblioteca È software livre; vocÍ pode redistribuÌ-la e/ou modific·-la }
+{ sob os termos da LicenÁa P˙blica Geral Menor do GNU conforme publicada pela  }
+{ Free Software Foundation; tanto a vers„o 2.1 da LicenÁa, ou (a seu critÈrio) }
+{ qualquer vers„o posterior.                                                   }
 {                                                                              }
-{  Esta biblioteca √© distribu√≠da na expectativa de que seja √∫til, por√©m, SEM   }
-{ NENHUMA GARANTIA; nem mesmo a garantia impl√≠cita de COMERCIABILIDADE OU      }
-{ ADEQUA√á√ÉO A UMA FINALIDADE ESPEC√çFICA. Consulte a Licen√ßa P√∫blica Geral Menor}
-{ do GNU para mais detalhes. (Arquivo LICEN√áA.TXT ou LICENSE.TXT)              }
+{  Esta biblioteca È distribuÌda na expectativa de que seja ˙til, porÈm, SEM   }
+{ NENHUMA GARANTIA; nem mesmo a garantia implÌcita de COMERCIABILIDADE OU      }
+{ ADEQUA«√O A UMA FINALIDADE ESPECÕFICA. Consulte a LicenÁa P˙blica Geral Menor}
+{ do GNU para mais detalhes. (Arquivo LICEN«A.TXT ou LICENSE.TXT)              }
 {                                                                              }
-{  Voc√™ deve ter recebido uma c√≥pia da Licen√ßa P√∫blica Geral Menor do GNU junto}
-{ com esta biblioteca; se n√£o, escreva para a Free Software Foundation, Inc.,  }
-{ no endere√ßo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
-{ Voc√™ tamb√©m pode obter uma copia da licen√ßa em:                              }
+{  VocÍ deve ter recebido uma cÛpia da LicenÁa P˙blica Geral Menor do GNU junto}
+{ com esta biblioteca; se n„o, escreva para a Free Software Foundation, Inc.,  }
+{ no endereÁo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
+{ VocÍ tambÈm pode obter uma copia da licenÁa em:                              }
 { http://www.opensource.org/licenses/lgpl-license.php                          }
 {                                                                              }
-{ Daniel Sim√µes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
-{              Pra√ßa Anita Costa, 34 - Tatu√≠ - SP - 18270-410                  }
+{ Daniel Simıes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
+{              PraÁa Anita Costa, 34 - TatuÌ - SP - 18270-410                  }
 {                                                                              }
 {******************************************************************************}
 
@@ -38,7 +38,7 @@
 |* Historico
 |*
 |* 27/10/2015: Jean Carlo Cantu, Tiago Ravache
-|*  - Doa√ß√£o do componente para o Projeto ACBr
+|*  - DoaÁ„o do componente para o Projeto ACBr
 |* 01/03/2016: Guilherme Costa
 |*  - Alterado alguns atributos e nome de tag
 ******************************************************************************}
@@ -133,12 +133,12 @@ type
   TCat = class(TPersistent)
   private
     FdtAcid: TDateTime;
-    FTpAcid: tpTpAcid;
+    FTpAcid: string;
     FhrAcid: string;
     FhrsTrabAntesAcid: string;
     FtpCat: tpTpCat;
- //   FindCatParcial: tpSimNao;--removida na vers√£o 2.1
     FindCatObito: tpSimNao;
+    FDtObito: TDate;
     FindComunPolicia: tpSimNao;
     FcodSitGeradora: integer;
     FiniciatCAT: tpIniciatCAT;
@@ -154,12 +154,12 @@ type
     destructor Destroy; override;
 
     property dtAcid: TDateTime read FdtAcid write FdtAcid;
-    property TpAcid: tpTpAcid read FTpAcid write FTpAcid;
+    property TpAcid: string read FTpAcid write FTpAcid;
     property hrAcid: string read FhrAcid write FhrAcid;
     property hrsTrabAntesAcid: string read FhrsTrabAntesAcid write FhrsTrabAntesAcid;
     property tpCat: tpTpCat read FtpCat write FtpCat;
-//    property indCatParcial: tpSimNao read FindCatParcial write FindCatParcial; -- removido na vers√£o 2.1
     property indCatObito: tpSimNao read FindCatObito write FindCatObito;
+    property dtOBito: TDate read FDtObito write FDtObito;
     property indComunPolicia: tpSimNao read FindComunPolicia write FindComunPolicia;
     property codSitGeradora: integer read FcodSitGeradora write FcodSitGeradora;
     property iniciatCAT: tpIniciatCAT read FiniciatCAT write FiniciatCAT;
@@ -259,6 +259,8 @@ type
     FcodMunic: Integer;
     Fuf: tpuf;
     FcnpjLocalAcid: string;
+    FPais: string;
+    FCodPostal: string;
   public
     property tpLocal: tpTpLocal read FtpLocal write FtpLocal;
     property dscLocal: string read FdscLocal write FdscLocal;
@@ -267,6 +269,8 @@ type
     property codMunic: Integer read FcodMunic write FcodMunic;
     property uf: tpuf read Fuf write Fuf;
     property cnpjLocalAcid: string read FcnpjLocalAcid write FcnpjLocalAcid;
+    property pais: string read FPais write FPais;
+    property codPostal: string read FCodPostal write FCodPostal;
   end;
 
 implementation
@@ -429,12 +433,12 @@ procedure TEvtCAT.GerarCAT;
 begin
   Gerador.wGrupo('cat');
     Gerador.wCampo(tcDat, '', 'dtAcid', 0, 0, 0, self.Cat.dtAcid);
-    Gerador.wCampo(tcStr, '', 'tpAcid', 0, 0, 0, eSTpAcidToStr(self.Cat.tpAcid));
+    Gerador.wCampo(tcStr, '', 'tpAcid', 0, 0, 0, self.Cat.tpAcid);
     Gerador.wCampo(tcStr, '', 'hrAcid', 0, 0, 0, self.Cat.hrAcid);
     Gerador.wCampo(tcStr, '', 'hrsTrabAntesAcid', 0, 0, 0, self.Cat.hrsTrabAntesAcid);
     Gerador.wCampo(tcStr, '', 'tpCat', 0, 0, 0, eSTpCatToStr(self.Cat.tpCat));
-   // Gerador.wCampo(tcStr, '', 'indCatParcial', 0, 0, 0, eSSimNaoToStr(self.Cat.indCatParcial)); -- removido na vers√£o 2.1
     Gerador.wCampo(tcStr, '', 'indCatObito', 0, 0, 0, eSSimNaoToStr(self.Cat.indCatObito));
+    Gerador.wCampo(tcDat, '', 'dtObito', 0, 0, 0, self.Cat.dtOBito);
     Gerador.wCampo(tcStr, '', 'indComunPolicia', 0, 0, 0, eSSimNaoToStr(self.Cat.indComunPolicia));
     Gerador.wCampo(tcStr, '', 'codSitGeradora', 0, 0, 0, self.Cat.codSitGeradora);
     Gerador.wCampo(tcStr, '', 'iniciatCAT', 0, 0, 0, eSIniciatCATToStr(self.Cat.iniciatCAT));
@@ -473,8 +477,10 @@ begin
     Gerador.wCampo(tcStr, '', 'dscLograd', 0, 0, 0, self.Cat.LocalAcidente.dscLograd);
     Gerador.wCampo(tcStr, '', 'nrLograd', 0, 0, 0, self.Cat.LocalAcidente.nrLograd);
     Gerador.wCampo(tcStr, '', 'codMunic', 0, 0, 0, self.Cat.LocalAcidente.codMunic);
-    Gerador.wCampo(tcStr, '', 'uf', 0, 0, 0, self.Cat.LocalAcidente.uf);
+    Gerador.wCampo(tcStr, '', 'uf', 0, 0, 0, eSufToStr(self.Cat.LocalAcidente.uf));
     Gerador.wCampo(tcStr, '', 'cnpjLocalAcid', 0, 0, 0, self.Cat.LocalAcidente.cnpjLocalAcid);
+    Gerador.wCampo(tcStr, '', 'pais', 0, 0, 0, self.Cat.LocalAcidente.pais);
+    Gerador.wCampo(tcStr, '', 'codPostal', 0, 0, 0, self.Cat.LocalAcidente.codPostal);
   Gerador.wGrupo('/localAcidente');
 end;
 

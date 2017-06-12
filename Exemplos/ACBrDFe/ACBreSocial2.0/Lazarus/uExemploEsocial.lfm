@@ -14,18 +14,18 @@ object FExemploEsocial: TFExemploEsocial
   LCLVersion = '1.6.0.4'
   object GroupBox1: TGroupBox
     Left = 0
-    Height = 168
+    Height = 152
     Top = 0
     Width = 730
     Align = alTop
     Caption = ' Eventos de Tabela '
-    ClientHeight = 150
+    ClientHeight = 134
     ClientWidth = 726
     TabOrder = 0
     object cbS1000: TCheckBox
       Left = 8
       Height = 19
-      Top = 23
+      Top = 2
       Width = 190
       Caption = 'S-1000 Informações do Empregador'
       TabOrder = 0
@@ -33,7 +33,7 @@ object FExemploEsocial: TFExemploEsocial
     object cbS1010: TCheckBox
       Left = 8
       Height = 19
-      Top = 65
+      Top = 44
       Width = 150
       Caption = 'S-1010 Tabela de Rubricas'
       TabOrder = 2
@@ -41,7 +41,7 @@ object FExemploEsocial: TFExemploEsocial
     object cbS1020: TCheckBox
       Left = 8
       Height = 19
-      Top = 86
+      Top = 65
       Width = 229
       Caption = 'S-1020 Tabela de Lotações/Departamentos'
       TabOrder = 3
@@ -49,7 +49,7 @@ object FExemploEsocial: TFExemploEsocial
     object cbS1030: TCheckBox
       Left = 8
       Height = 19
-      Top = 108
+      Top = 87
       Width = 141
       Caption = 'S-1030 Tabela de Cargos'
       TabOrder = 4
@@ -57,7 +57,7 @@ object FExemploEsocial: TFExemploEsocial
     object cbS1040: TCheckBox
       Left = 346
       Height = 19
-      Top = 23
+      Top = 2
       Width = 149
       Caption = 'S-1040 Tabela de Funções'
       TabOrder = 6
@@ -65,7 +65,7 @@ object FExemploEsocial: TFExemploEsocial
     object cbS1080: TCheckBox
       Left = 346
       Height = 19
-      Top = 108
+      Top = 87
       Width = 219
       Caption = 'S-1080 - Tabela de Operadores Portuários'
       TabOrder = 10
@@ -73,7 +73,7 @@ object FExemploEsocial: TFExemploEsocial
     object cbS2100: TCheckBox
       Left = 346
       Height = 19
-      Top = 129
+      Top = 108
       Width = 219
       Caption = 'S-2100 - Cadastramento Inicial do Vínculo'
       TabOrder = 11
@@ -81,7 +81,7 @@ object FExemploEsocial: TFExemploEsocial
     object cbS1070: TCheckBox
       Left = 346
       Height = 19
-      Top = 86
+      Top = 65
       Width = 163
       Caption = 'S-1070 - Tabela de Processos'
       TabOrder = 9
@@ -89,7 +89,7 @@ object FExemploEsocial: TFExemploEsocial
     object cbS1060: TCheckBox
       Left = 346
       Height = 19
-      Top = 65
+      Top = 44
       Width = 217
       Caption = 'S-1060 Tabela de Ambientes de Trabalho'
       TabOrder = 8
@@ -97,7 +97,7 @@ object FExemploEsocial: TFExemploEsocial
     object cbS1050: TCheckBox
       Left = 346
       Height = 19
-      Top = 44
+      Top = 23
       Width = 245
       Caption = 'S-1050 Tabela de Horários/Turnos de Trabalho'
       TabOrder = 7
@@ -105,7 +105,7 @@ object FExemploEsocial: TFExemploEsocial
     object cbS1005: TCheckBox
       Left = 8
       Height = 19
-      Top = 44
+      Top = 23
       Width = 325
       Caption = 'S-1005 Tabela de Estabelecimentos e Obras de Construção Civil'
       TabOrder = 1
@@ -113,7 +113,7 @@ object FExemploEsocial: TFExemploEsocial
     object cbS1035: TCheckBox
       Left = 8
       Height = 19
-      Top = 129
+      Top = 108
       Width = 192
       Caption = 'S-1035 Tabela de Carreiras Públicas'
       TabOrder = 5
@@ -121,12 +121,12 @@ object FExemploEsocial: TFExemploEsocial
   end
   object GroupBox2: TGroupBox
     Left = 0
-    Height = 205
-    Top = 309
+    Height = 229
+    Top = 288
     Width = 730
     Align = alTop
     Caption = ' Eventos Não Periódicos '
-    ClientHeight = 187
+    ClientHeight = 211
     ClientWidth = 726
     TabOrder = 1
     object cbS2200: TCheckBox
@@ -162,9 +162,9 @@ object FExemploEsocial: TFExemploEsocial
       TabOrder = 4
     end
     object cbS2250: TCheckBox
-      Left = 346
+      Left = 8
       Height = 19
-      Top = 17
+      Top = 184
       Width = 122
       Caption = 'S-2250 - Aviso Prévio'
       TabOrder = 9
@@ -172,15 +172,15 @@ object FExemploEsocial: TFExemploEsocial
     object cbS2298: TCheckBox
       Left = 346
       Height = 19
-      Top = 34
+      Top = 17
       Width = 127
       Caption = 'S-2298 - Reintegração'
       TabOrder = 11
     end
     object cbAviso: TComboBox
-      Left = 469
+      Left = 143
       Height = 21
-      Top = 14
+      Top = 184
       Width = 145
       ItemHeight = 13
       ItemIndex = 0
@@ -198,7 +198,7 @@ object FExemploEsocial: TFExemploEsocial
       Top = 124
       Width = 163
       Caption = 'S-3000 - Exclusão de Eventos'
-      TabOrder = 16
+      TabOrder = 17
     end
     object cbS4000: TCheckBox
       Left = 346
@@ -206,7 +206,8 @@ object FExemploEsocial: TFExemploEsocial
       Top = 142
       Width = 356
       Caption = 'S-4000 - Solicitação de Totalização de Eventos, Bases e Contribuições'
-      TabOrder = 17
+      Enabled = False
+      TabOrder = 18
     end
     object cbS4999: TCheckBox
       Left = 346
@@ -214,7 +215,8 @@ object FExemploEsocial: TFExemploEsocial
       Top = 161
       Width = 208
       Caption = 'S-4999 - Adesão antecipada ao eSocial'
-      TabOrder = 18
+      Enabled = False
+      TabOrder = 19
     end
     object cbS2190: TCheckBox
       Left = 8
@@ -259,7 +261,7 @@ object FExemploEsocial: TFExemploEsocial
     object cbS2299: TCheckBox
       Left = 346
       Height = 19
-      Top = 52
+      Top = 34
       Width = 127
       Caption = 'S-2299 - Desligamento'
       TabOrder = 12
@@ -267,36 +269,44 @@ object FExemploEsocial: TFExemploEsocial
     object cbS2300: TCheckBox
       Left = 346
       Height = 19
-      Top = 70
+      Top = 52
       Width = 220
       Caption = 'S-2300 - Trabalhador Sem Vínculo - Início'
       TabOrder = 13
     end
-    object cbS2305: TCheckBox
+    object cbS2306: TCheckBox
       Left = 346
       Height = 19
-      Top = 88
+      Top = 70
       Width = 289
-      Caption = 'S-2305 - Trabalhador Sem Vínculo - Alteração Contratual'
+      Caption = 'S-2306 - Trabalhador Sem Vínculo - Alteração Contratual'
       TabOrder = 14
     end
     object cbS2399: TCheckBox
       Left = 346
       Height = 19
-      Top = 106
+      Top = 88
       Width = 231
       Caption = 'S-2399 - Trabalhador Sem Vínculo - Término'
       TabOrder = 15
     end
+    object cbS2400: TCheckBox
+      Left = 346
+      Height = 19
+      Top = 106
+      Width = 287
+      Caption = 'S-2400 - Cadastro de Benefícios Previdenciários - RPPS'
+      TabOrder = 16
+    end
   end
   object GroupBox3: TGroupBox
     Left = 0
-    Height = 141
-    Top = 168
+    Height = 136
+    Top = 152
     Width = 730
     Align = alTop
     Caption = ' Eventos Periódicos '
-    ClientHeight = 123
+    ClientHeight = 118
     ClientWidth = 726
     TabOrder = 2
     object cbS1220: TCheckBox
@@ -305,6 +315,7 @@ object FExemploEsocial: TFExemploEsocial
       Top = 75
       Width = 280
       Caption = 'S-1220 - Pagamentos a Beneficiários Não Identificados'
+      Enabled = False
       TabOrder = 4
     end
     object cbS1298: TCheckBox
@@ -409,7 +420,7 @@ object FExemploEsocial: TFExemploEsocial
     object btnGerar: TButton
       Left = 291
       Height = 25
-      Top = 25
+      Top = 16
       Width = 109
       Caption = 'Gerar Arquivos'
       OnClick = btnGerarClick

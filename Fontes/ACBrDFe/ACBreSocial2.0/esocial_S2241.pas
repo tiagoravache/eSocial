@@ -332,8 +332,6 @@ begin
   begin
     Gerador.wGrupo('fatRisco');
       Gerador.wCampo(tcStr, '', 'codFatRis', 0,0,0, objFatRisco.items[i].codFatRis);
-      Gerador.wCampo(tcStr, '', 'intConc', 0,0,0, objFatRisco.items[i].intConc);
-      Gerador.wCampo(tcStr, '', 'tecMedicao', 0,0,0, objFatRisco.items[i].tecMedicao);
     Gerador.wGrupo('/fatRisco');
   end;
 end;
@@ -399,7 +397,7 @@ end;
 function TEvtInsApo.GerarXML: boolean;
 begin
   try
-    GerarCabecalho('evtInsPerApo');
+    GerarCabecalho('evtInsApo');
       Gerador.wGrupo('evtInsApo Id="'+GerarChaveEsocial(now, self.ideEmpregador.NrInsc, 0)+'"');//versao="'+Self.versao+'"
         //gerarIdVersao(self);
         gerarIdeEvento2(self.IdeEvento);
@@ -413,7 +411,7 @@ begin
     GerarRodape;
 
     XML := Assinar(Gerador.ArquivoFormatoXML, 'evtInsApo');
-    Validar('evtInsPerApo');
+    Validar('evtInsApo');
   except on e:exception do
     raise Exception.Create(e.Message);
   end;

@@ -5,32 +5,32 @@
 {                                                                              }
 { Direitos Autorais Reservados (c) 2008 Wemerson Souto                         }
 {                                       Daniel Simoes de Almeida               }
-{                                       Andr√© Ferreira de Moraes               }
+{                                       AndrÈ Ferreira de Moraes               }
 {                                                                              }
 { Colaboradores nesse arquivo:                                                 }
 {                                                                              }
-{  Voc√™ pode obter a √∫ltima vers√£o desse arquivo na pagina do Projeto ACBr     }
+{  VocÍ pode obter a ˙ltima vers„o desse arquivo na pagina do Projeto ACBr     }
 { Componentes localizado em http://www.sourceforge.net/projects/acbr           }
 {                                                                              }
 {                                                                              }
-{  Esta biblioteca √© software livre; voc√™ pode redistribu√≠-la e/ou modific√°-la }
-{ sob os termos da Licen√ßa P√∫blica Geral Menor do GNU conforme publicada pela  }
-{ Free Software Foundation; tanto a vers√£o 2.1 da Licen√ßa, ou (a seu crit√©rio) }
-{ qualquer vers√£o posterior.                                                   }
+{  Esta biblioteca È software livre; vocÍ pode redistribuÌ-la e/ou modific·-la }
+{ sob os termos da LicenÁa P˙blica Geral Menor do GNU conforme publicada pela  }
+{ Free Software Foundation; tanto a vers„o 2.1 da LicenÁa, ou (a seu critÈrio) }
+{ qualquer vers„o posterior.                                                   }
 {                                                                              }
-{  Esta biblioteca √© distribu√≠da na expectativa de que seja √∫til, por√©m, SEM   }
-{ NENHUMA GARANTIA; nem mesmo a garantia impl√≠cita de COMERCIABILIDADE OU      }
-{ ADEQUA√á√ÉO A UMA FINALIDADE ESPEC√çFICA. Consulte a Licen√ßa P√∫blica Geral Menor}
-{ do GNU para mais detalhes. (Arquivo LICEN√áA.TXT ou LICENSE.TXT)              }
+{  Esta biblioteca È distribuÌda na expectativa de que seja ˙til, porÈm, SEM   }
+{ NENHUMA GARANTIA; nem mesmo a garantia implÌcita de COMERCIABILIDADE OU      }
+{ ADEQUA«√O A UMA FINALIDADE ESPECÕFICA. Consulte a LicenÁa P˙blica Geral Menor}
+{ do GNU para mais detalhes. (Arquivo LICEN«A.TXT ou LICENSE.TXT)              }
 {                                                                              }
-{  Voc√™ deve ter recebido uma c√≥pia da Licen√ßa P√∫blica Geral Menor do GNU junto}
-{ com esta biblioteca; se n√£o, escreva para a Free Software Foundation, Inc.,  }
-{ no endere√ßo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
-{ Voc√™ tamb√©m pode obter uma copia da licen√ßa em:                              }
+{  VocÍ deve ter recebido uma cÛpia da LicenÁa P˙blica Geral Menor do GNU junto}
+{ com esta biblioteca; se n„o, escreva para a Free Software Foundation, Inc.,  }
+{ no endereÁo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
+{ VocÍ tambÈm pode obter uma copia da licenÁa em:                              }
 { http://www.opensource.org/licenses/lgpl-license.php                          }
 {                                                                              }
-{ Daniel Sim√µes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
-{              Pra√ßa Anita Costa, 34 - Tatu√≠ - SP - 18270-410                  }
+{ Daniel Simıes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
+{              PraÁa Anita Costa, 34 - TatuÌ - SP - 18270-410                  }
 {                                                                              }
 {******************************************************************************}
 
@@ -38,8 +38,8 @@
 |* Historico
 |*
 |* 27/10/2015: Jean Carlo Cantu, Tiago Ravache
-|*  - Doa√ß√£o do componente para o Projeto ACBr
-|* 01/03/2016: Altera√ß√µes para valida√ß√£o com o XSD
+|*  - DoaÁ„o do componente para o Projeto ACBr
+|* 01/03/2016: AlteraÁıes para validaÁ„o com o XSD
 ******************************************************************************}
 {$I ACBr.inc}
 
@@ -59,6 +59,8 @@ type
   TS2206CollectionItem = class;
   TEvtAltContratual = class;
   TAltContratual = class;
+  TServPubl = class;
+  TInfoContratoS2206 = class;
 
   TS2206Collection = class(TOwnedCollection)
     private
@@ -90,11 +92,14 @@ type
       FAltContratual: TAltContratual;
       function  GetAltContratual : TAltContratual;
 
-      {Geradores da Classe - Necess√°rios pois os geradores de ACBreSocialGerador
-       possuem campos excedentes que n√£o se aplicam ao S2206}
+      {Geradores da Classe - Necess·rios pois os geradores de ACBreSocialGerador
+       possuem campos excedentes que n„o se aplicam ao S2206}
       procedure GerarAltContratual(objAltContratual: TAltContratual);
       procedure GerarInfoCeletista(objInfoCeletista : TInfoCeletista);
-      procedure GerarInfoContrato(ObjInfoContrato : TInfoContrato);
+      procedure GerarInfoEstaturario(pInfoEstatutario: TInfoEstatutario);
+      procedure GerarInfoContrato(ObjInfoContrato : TInfoContratoS2206);
+      procedure GerarTrabTemp(pTrabTemp: TTrabTemporario);
+      procedure GerarServPubl(pServPubl: TServPubl);
     public
       constructor Create(AACBreSocial: TObject);overload;
       destructor destroy; override;
@@ -107,20 +112,44 @@ type
       property AltContratual : TAltContratual read GetAltContratual write FAltContratual;
   end;
 
+  TServPubl = class(TPersistent)
+  private
+    FMtvAlter: tpMtvAlt;
+  public
+    property mtvAlter: tpMtvAlt read FMtvAlter write FMtvAlter;
+  end;
+
+  TInfoContratoS2206 = class(TInfoContrato)
+  private
+    FServPubl: TServPubl;
+
+    function getServPubl: TServPubl;
+  public
+    constructor Create; reintroduce;
+    destructor Destroy; override;
+    function servPublInst: boolean;
+
+    property servPubl: TServPubl read getServPubl write FServPubl;
+  end;
+
   TAltContratual = class(TPersistent)
     private
       FdtAlteracao : TDateTime;
+      FDtEf: TDate;
+      FDscAlt: string;
       FVinculo     : TVinculo;
       FinfoRegimeTrab : TinfoRegimeTrab;
-      FinfoContrato   : TinfoContrato;
+      FinfoContrato   : TInfoContratoS2206;
     public
       constructor Create;
       destructor  destroy; override;
     published
       property dtALteracao : TDateTime read FdtAlteracao write FdtAlteracao;
+      property dtEf: TDate read FDtEf write FDtEf;
+      property dscAlt: string read FDscAlt write FDscAlt;
       property Vinculo : TVInculo read FVinculo write FVinculo;
       property infoRegimeTrab : TinfoRegimeTrab read FinfoRegimeTrab write FinfoRegimeTrab;
-      property infoContrato : TinfoContrato read FinfoContrato write FinfoContrato;
+      property infoContrato : TInfoContratoS2206 read FinfoContrato write FinfoContrato;
   end;
 
 implementation
@@ -185,16 +214,36 @@ begin
   inherited;
 end;
 
+procedure TEvtAltContratual.GerarInfoEstaturario(pInfoEstatutario: TInfoEstatutario);
+begin
+  Gerador.wGrupo('infoEstaturario');
+    Gerador.wCampo(tcInt, '', 'tpPlanRP', 0, 0, 0, eSTpPlanRPToStr(pInfoEstatutario.tpPlanRP));
+  Gerador.wGrupo('/infoEstaturario');
+end;
+
 procedure TEvtAltContratual.GerarAltContratual(objAltContratual: TAltContratual);
 begin
   Gerador.wGrupo('altContratual');
     Gerador.wCampo(tcDat, '', 'dtAlteracao', 0, 0, 0, objAltContratual.dtALteracao);
     GerarVinculo(objAltContratual.Vinculo, 3);
     Gerador.wGrupo('infoRegimeTrab');
-      GerarInfoCeletista(objAltContratual.infoRegimeTrab.InfoCeletista);
+      if objAltContratual.infoRegimeTrab.InfoCeletista.cnpjSindCategProf <> '' then
+        GerarInfoCeletista(objAltContratual.infoRegimeTrab.InfoCeletista)
+      else
+        GerarInfoEstaturario(objAltContratual.infoRegimeTrab.InfoEstatutario);
     Gerador.wGrupo('/infoRegimeTrab');
     GerarInfoContrato(objAltContratual.InfoContrato);
   Gerador.wGrupo('/altContratual');
+end;
+
+procedure TEvtAltContratual.GerarTrabTemp(pTrabTemp: TTrabTemporario);
+begin
+  if pTrabTemp.justProrr <> '' then
+  begin
+    Gerador.wGrupo('trabTemp');
+      Gerador.wCampo(tcStr, '', 'justProrr', 0,0,0, pTrabTemp.justProrr);
+    Gerador.wGrupo('/trabTemp');
+  end;
 end;
 
 procedure TEvtAltContratual.GerarInfoCeletista(objInfoCeletista: TInfoCeletista);
@@ -204,10 +253,18 @@ begin
     Gerador.wCampo(tcStr, '', 'natAtividade', 0,0,0, objInfoCeletista.NatAtividade);
     Gerador.wCampo(tcStr, '', 'dtBase', 0,0,0, objInfoCeletista.dtBase);
     Gerador.wCampo(tcStr, '', 'cnpjSindCategProf', 0,0,0, objInfoCeletista.cnpjSindCategProf);
+    GerarTrabTemp(objInfoCeletista.TrabTemporario);
   Gerador.wGrupo('/infoCeletista');
 end;
 
-procedure TEvtAltContratual.GerarInfoContrato(ObjInfoContrato: TInfoContrato);
+procedure TEvtAltContratual.GerarServPubl(pServPubl: TServPubl);
+begin
+  Gerador.wGrupo('servPubl');
+    Gerador.wCampo(tcInt, '', 'mtvAlter', 0, 0, 0, eSTpMtvAltToStr(pServPubl.mtvAlter));
+  Gerador.wGrupo('/servPubl');
+end;
+
+procedure TEvtAltContratual.GerarInfoContrato(ObjInfoContrato: TInfoContratoS2206);
 begin
   Gerador.wGrupo('infoContrato');
     if (objInfoContrato.CodCargo <> '')  then
@@ -216,13 +273,17 @@ begin
     if (objInfoContrato.CodFuncao <> '') then
       Gerador.wCampo(tcStr, '', 'codFuncao  ', 0, 0, 0, objInfoContrato.CodFuncao);
 
-    Gerador.wCampo(tcStr, '', 'codCateg  ', 0, 0, 0, objInfoContrato.CodCateg);
+    Gerador.wCampo(tcInt, '', 'codCateg  ', 0, 0, 0, objInfoContrato.CodCateg);
+    Gerador.wCampo(tcStr, '', 'codCarreira  ', 0, 0, 0, objInfoContrato.codCarreira);
+    Gerador.wCampo(tcDat, '', 'dtIngrCarr  ', 0, 0, 0, objInfoContrato.dtIngrCarr);
     GerarRemuneracao(objInfoContrato.Remuneracao);
     GerarDuracao(objInfoContrato.Duracao);
     GerarLocalTrabalho(objInfoContrato.LocalTrabalho);
     GerarHorContratual(objInfoContrato.HorContratual);
     GerarFiliacaoSindical(objInfoContrato.FiliacaoSindical);
     GerarAlvaraJudicial(objInfoContrato.AlvaraJudicial);
+    if objInfoContrato.servPublInst then
+       GerarServPubl(objInfoContrato.servPubl);
   Gerador.wGrupo('/infoContrato');
 end;
 
@@ -262,7 +323,7 @@ begin
   inherited;
   FVinculo := TVinculo.Create;
   FinfoRegimeTrab := TinfoRegimeTrab.Create;
-  FinfoContrato   := TinfoContrato.Create;
+  FinfoContrato   := TInfoContratoS2206.Create;
 end;
 
 destructor TAltContratual.destroy;
@@ -271,6 +332,32 @@ begin
   FinfoRegimeTrab.Free;
   FinfoContrato.Free;
   inherited;
+end;
+
+{ TInfoContratoS2206 }
+
+constructor TInfoContratoS2206.Create;
+begin
+  inherited;
+  FServPubl := nil;
+end;
+
+destructor TInfoContratoS2206.Destroy;
+begin
+  FreeAndNil(FServPubl);
+  inherited;
+end;
+
+function TInfoContratoS2206.getServPubl: TServPubl;
+begin
+  if not Assigned(FServPubl) then
+    FServPubl := TServPubl.Create;
+  Result := FServPubl;
+end;
+
+function TInfoContratoS2206.servPublInst: boolean;
+begin
+  result := Assigned(FServPubl);
 end;
 
 end.

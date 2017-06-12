@@ -9,8 +9,6 @@ uses
   ACBrCAPICOM_TLB, ACBrMSXML2_TLB, JwaWinCrypt, ActiveX,
   {$IFDEF FPC}
     LResources, Controls, Graphics, Dialogs,
-  {$ELSE}
-    Activex,
   {$ENDIF}
     StrUtils,
     Sysutils;
@@ -922,7 +920,7 @@ function ValidaMSXML(XML: AnsiString; out Msg: AnsiString;
 var
   DOMDocument: IXMLDOMDocument2;
   ParseError: IXMLDOMParseError;
-  Schema: XMLSchemaCache;
+  Schema: msXMLSchemaCache;
   Tipo, I: Integer;
   schema_filename: String;
 begin

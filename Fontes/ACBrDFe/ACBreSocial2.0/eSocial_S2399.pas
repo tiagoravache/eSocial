@@ -5,32 +5,32 @@
 {                                                                              }
 { Direitos Autorais Reservados (c) 2008 Wemerson Souto                         }
 {                                       Daniel Simoes de Almeida               }
-{                                       Andr√© Ferreira de Moraes               }
+{                                       AndrÈ Ferreira de Moraes               }
 {                                                                              }
 { Colaboradores nesse arquivo:                                                 }
 {                                                                              }
-{  Voc√™ pode obter a √∫ltima vers√£o desse arquivo na pagina do Projeto ACBr     }
+{  VocÍ pode obter a ˙ltima vers„o desse arquivo na pagina do Projeto ACBr     }
 { Componentes localizado em http://www.sourceforge.net/projects/acbr           }
 {                                                                              }
 {                                                                              }
-{  Esta biblioteca √© software livre; voc√™ pode redistribu√≠-la e/ou modific√°-la }
-{ sob os termos da Licen√ßa P√∫blica Geral Menor do GNU conforme publicada pela  }
-{ Free Software Foundation; tanto a vers√£o 2.1 da Licen√ßa, ou (a seu crit√©rio) }
-{ qualquer vers√£o posterior.                                                   }
+{  Esta biblioteca È software livre; vocÍ pode redistribuÌ-la e/ou modific·-la }
+{ sob os termos da LicenÁa P˙blica Geral Menor do GNU conforme publicada pela  }
+{ Free Software Foundation; tanto a vers„o 2.1 da LicenÁa, ou (a seu critÈrio) }
+{ qualquer vers„o posterior.                                                   }
 {                                                                              }
-{  Esta biblioteca √© distribu√≠da na expectativa de que seja √∫til, por√©m, SEM   }
-{ NENHUMA GARANTIA; nem mesmo a garantia impl√≠cita de COMERCIABILIDADE OU      }
-{ ADEQUA√á√ÉO A UMA FINALIDADE ESPEC√çFICA. Consulte a Licen√ßa P√∫blica Geral Menor}
-{ do GNU para mais detalhes. (Arquivo LICEN√áA.TXT ou LICENSE.TXT)              }
+{  Esta biblioteca È distribuÌda na expectativa de que seja ˙til, porÈm, SEM   }
+{ NENHUMA GARANTIA; nem mesmo a garantia implÌcita de COMERCIABILIDADE OU      }
+{ ADEQUA«√O A UMA FINALIDADE ESPECÕFICA. Consulte a LicenÁa P˙blica Geral Menor}
+{ do GNU para mais detalhes. (Arquivo LICEN«A.TXT ou LICENSE.TXT)              }
 {                                                                              }
-{  Voc√™ deve ter recebido uma c√≥pia da Licen√ßa P√∫blica Geral Menor do GNU junto}
-{ com esta biblioteca; se n√£o, escreva para a Free Software Foundation, Inc.,  }
-{ no endere√ßo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
-{ Voc√™ tamb√©m pode obter uma copia da licen√ßa em:                              }
+{  VocÍ deve ter recebido uma cÛpia da LicenÁa P˙blica Geral Menor do GNU junto}
+{ com esta biblioteca; se n„o, escreva para a Free Software Foundation, Inc.,  }
+{ no endereÁo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
+{ VocÍ tambÈm pode obter uma copia da licenÁa em:                              }
 { http://www.opensource.org/licenses/lgpl-license.php                          }
 {                                                                              }
-{ Daniel Sim√µes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
-{              Pra√ßa Anita Costa, 34 - Tatu√≠ - SP - 18270-410                  }
+{ Daniel Simıes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
+{              PraÁa Anita Costa, 34 - TatuÌ - SP - 18270-410                  }
 {                                                                              }
 {******************************************************************************}
 
@@ -38,9 +38,9 @@
 |* Historico
 |*
 |* 27/10/2015: Jean Carlo Cantu, Tiago Ravache
-|*  - Doa√ß√£o do componente para o Projeto ACBr
+|*  - DoaÁ„o do componente para o Projeto ACBr
 |* 01/03/2016: Guilherme Costa
-|*  - Altera√ß√µes para valida√ß√£o com o XSD
+|*  - AlteraÁıes para validaÁ„o com o XSD
 ******************************************************************************}
 {$I ACBr.inc}
 
@@ -59,6 +59,9 @@ type
   TS2399CollectionItem = class;
   TEvtTSVTermino = class;
   TInfoTSVTermino = class;
+  TVerbasRescS2399 = class;
+  TDmDevCollectionItem = class;
+  TDmDevCollection = class;
 
 
   TS2399Collection = class(TOwnedCollection)
@@ -90,15 +93,9 @@ type
       FIdeTrabSemVInc : TideTrabSemVinc;
       FInfoTSVTermino: TInfoTSVTermino;
       procedure GerarInfoTSVTermino(obj: TInfoTSVTermino);
-      procedure GerarVerbasResc(obj: TVerbasResc);
-      procedure GerarRecPgtos(obj: TRecPgtosCollection);
-      procedure GerarQuarentena(obj: TQuarentena);
+      procedure GerarVerbasResc(obj: TVerbasRescS2399);
       procedure GerarIdeTrabSemVinc(obj: TIdeTrabSemVinc);
-      procedure GerarIdeEstabLot(obj : TIdeEstabLotCollection);
-      procedure GerarProcJudTrab(obj: TinfoProcJudCollection);
-      procedure GerarDetVerbas(obj: TdetVerbasCollection);
-      procedure GerarInfoAgNocivo(obj: TinfoAgNocivo);
-      procedure GerarInfoSimples(obj: TinfoSimples);
+      procedure GerarDmDev(pDmDev: TDmDevCollection);
      public
       constructor Create(AACBreSocial: TObject);overload;
       destructor Destroy; override;
@@ -115,8 +112,7 @@ type
     private
       FdtTerm : TDateTime;
       FmtvDesligTSV : string;
-      FverbasResc : TVerbasResc;
-      FrecPgtos : TRecPgtosCollection;
+      FverbasResc : TVerbasRescS2399;
       Fquarentena : TQuarentena;
     public
       constructor Create;
@@ -124,9 +120,39 @@ type
 
       property dtTerm : TDateTime read FdtTerm write FdtTerm;
       property mtvDesligTSV : string read FmtvDesligTSV write FmtvDesligTSV;
-      property verbasResc : TVerbasResc read FverbasResc write FverbasResc;
-      property recpgtos : TRecPgtosCollection read FrecPgtos write FrecPgtos;
+      property verbasResc : TVerbasRescS2399 read FverbasResc write FverbasResc;
       property quarentena : TQuarentena read Fquarentena write Fquarentena;
+  end;
+
+  TDmDevCollection = class(TCollection)
+  private
+    function GetItem(Index: Integer): TDMDevCollectionItem;
+    procedure SetItem(Index: Integer; Value: TDMDevCollectionItem);
+  public
+    constructor Create; reintroduce;
+
+    function Add: TDMDevCollectionItem;
+    property Items[Index: Integer]: TDMDevCollectionItem read GetItem write SetItem; default;
+  end;
+
+  TDmDevCollectionItem = class(TCollectionItem)
+  private
+    FIdeDmDev: string;
+    FIdeEstabLot: TideEstabLotCollection;
+  public
+    constructor Create; reintroduce;
+
+    property ideDmDev: string read FIdeDmDev write FIdeDmDev;
+    property ideEstabLot: TideEstabLotCollection read FIdeEstabLot write FIdeEstabLot;
+  end;
+
+  TVerbasRescS2399 = class(TVerbasResc)
+  private
+    FDmDev: TDmDevCollection;
+  public
+    constructor Create; reintroduce;
+
+    property dmDev: TDmDevCollection read FDmDev write FDmDev;
   end;
 
 implementation
@@ -191,38 +217,6 @@ begin
   inherited;
 end;
 
-procedure TEvtTSVTermino.GerarDetVerbas(obj: TdetVerbasCollection);
-var
-  i: Integer;
-begin
-  for i := 0 to obj.Count - 1 do
-    begin
-      Gerador.wGrupo('detVerbas');
-        Gerador.wCampo(tcStr, '', 'codRubr', 0,0,0, obj.Items[i].codRubr);
-        Gerador.wCampo(tcStr, '', 'ideTabRubr', 0,0,0, obj.Items[i].ideTabRubr);
-        Gerador.wCampo(tcStr, '', 'qtdRubr', 0,0,0, obj.Items[i].qtdRubr);
-        Gerador.wCampo(tcDe2, '', 'vrUnit', 0,0,0, obj.Items[i].vrUnit);
-        Gerador.wCampo(tcDe2, '', 'vrRubr', 0,0,0, obj.Items[i].vrRubr);
-      Gerador.wGrupo('/detVerbas');
-    end;
-end;
-
-procedure TEvtTSVTermino.GerarIdeEstabLot(obj: TIdeEstabLotCollection);
-var
-  i : integer;
-begin
-  for i := 0 to obj.Count - 1 do
-    begin
-      Gerador.wGrupo('ideEstabLot');
-        Gerador.wCampo(tcStr, '', 'tpInsc', 0,0,0, obj.Items[i].tpInsc);
-        Gerador.wCampo(tcStr, '', 'nrInsc', 0,0,0, obj.Items[i].nrInsc);
-        Gerador.wCampo(tcStr, '', 'codLotacao', 0,0,0, obj.Items[i].codLotacao);
-        GerarDetVerbas(obj.Items[i].detVerbas);
-        GerarInfoAgNocivo(obj.Items[i].infoAgNocivo);
-      Gerador.wGrupo('/ideEstabLot');
-    end;
-end;
-
 procedure TEvtTSVTermino.GerarIdeTrabSemVinc(obj: TIdeTrabSemVinc);
 begin
   Gerador.wGrupo('ideTrabSemVinculo');
@@ -230,20 +224,6 @@ begin
     Gerador.wCampo(tcStr, '', 'nisTrab', 0,0,0, obj.nisTrab);
     Gerador.wCampo(tcStr, '', 'codCateg', 0,0,0, obj.codCateg);
   Gerador.wGrupo('/ideTrabSemVinculo');
-end;
-
-procedure TEvtTSVTermino.GerarInfoAgNocivo(obj: TinfoAgNocivo);
-begin
-  Gerador.wGrupo('infoAgNocivo');
-    Gerador.wCampo(tcStr, '', 'grauExp', 0,0,0, obj.grauExp);
-  Gerador.wGrupo('/infoAgNocivo');
-end;
-
-procedure TEvtTSVTermino.GerarInfoSimples(obj: TinfoSimples);
-begin
-  Gerador.wGrupo('infoSimples');
-    Gerador.wCampo(tcStr, '', 'indSimples', 0,0,0, obj.indSimples);
-  Gerador.wGrupo('/infoSimples');
 end;
 
 procedure TEvtTSVTermino.GerarInfoTSVTermino(obj: TInfoTSVTermino);
@@ -256,45 +236,26 @@ begin
   Gerador.wGrupo('/infoTSVTermino');
 end;
 
-procedure TEvtTSVTermino.GerarProcJudTrab(obj: TinfoProcJudCollection);
+procedure TEvtTSVTermino.GerarDmDev(pDmDev: TDmDevCollection);
 var
-  i : Integer;
+  i: integer;
 begin
-  for i := 0 to obj.Count - 1 do
-    begin
-      Gerador.wGrupo('procJutTrab');
-        Gerador.wCampo(tcStr, '', 'tpTrib', 0,0,0, obj.Items[i].tpTrib);
-        Gerador.wCampo(tcDe2, '', 'nrProcJud', 0,0,0, obj.items[i].nrProcJud);
-      Gerador.wGrupo('/procJutTrab');
-    end;
+  for i := 0 to pDmDev.Count - 1 do
+  begin
+    Gerador.wGrupo('dmDev');
+      Gerador.wCampo(tcStr, '', 'ideDmDev', 0,0,0, pDmDev[i].ideDmDev);
+      GerarIdeEstabLot(pDmDev[i].ideEstabLot);
+    Gerador.wGrupo('/dmDev');
+  end;
 end;
 
-procedure TEvtTSVTermino.GerarQuarentena(obj: TQuarentena);
-begin
-  Gerador.wGrupo('quarentena');
-    Gerador.wCampo(tcDat, '', 'dtFimQuar', 0,0,0, obj.dtFimQuar);
-  Gerador.wGrupo('/quarentena');
-end;
-
-procedure TEvtTSVTermino.GerarRecPgtos(obj: TRecPgtosCollection);
-var
-  i : Integer;
-begin
-  for i := 0 to obj.Count - 1 do
-    begin
-      Gerador.wGrupo('recPgtos');
-        Gerador.wCampo(tcStr, '', 'ideRecPgto', 0,0,0, obj.Items[i].IdeRecPgto);
-        Gerador.wCampo(tcDe2, '', 'vlrPgto', 0,0,0, obj.items[i].vlrPgto);
-        GerarIdeEstabLot(obj.Items[i].ideEstabLot);
-      Gerador.wGrupo('/recPgtos');
-    end;
-end;
-
-procedure TEvtTSVTermino.GerarVerbasResc(obj: TVerbasResc);
+procedure TEvtTSVTermino.GerarVerbasResc(obj: TVerbasRescS2399);
 begin
   Gerador.wGrupo('verbasResc');
-    GerarRecPgtos(obj.RecPgtos);
-    GerarInfoSimples(obj.RecPgtos.Items[0].ideEstabLot.Items[0].infoSimples);
+    GerarDmDev(obj.dmDev);
+    GerarProcJudTrab(obj.ProcJudTrab);
+    if obj.infoMVInst then
+      GerarInfoMV(obj.infoMV);
   Gerador.wGrupo('/verbasResc');
 end;
 
@@ -323,17 +284,54 @@ end;
 constructor TinfoTSVTermino.Create;
 begin
   inherited;
-  FverbasResc := TVerbasResc.Create;
-  FrecPgtos   := TRecPgtosCollection.create;
+  FverbasResc := TVerbasRescS2399.Create;
   Fquarentena := TQuarentena.Create;
 end;
 
 destructor TinfoTSVTermino.Destroy;
 begin
   FverbasResc.Free;
-  FrecPgtos.Free;
   Fquarentena.Free;
   inherited;
 end;
+
+{ TDmDevCollection }
+
+constructor TDmDevCollection.Create;
+begin
+  inherited Create(TDMDevCollectionItem);
+end;
+
+function TDmDevCollection.Add: TDMDevCollectionItem;
+begin
+  Result := TDMDevCollectionItem(inherited Add);
+  Result.Create;
+end;
+
+function TDmDevCollection.GetItem(Index: Integer): TDMDevCollectionItem;
+begin
+  Result := TDMDevCollectionItem(inherited GetItem(Index));
+end;
+
+procedure TDmDevCollection.SetItem(Index: Integer; Value: TDMDevCollectionItem);
+begin
+  inherited SetItem(Index, Value);
+end;
+
+{ TDMDevCollectionItem }
+
+constructor TDMDevCollectionItem.Create;
+begin
+  FIdeEstabLot := TideEstabLotCollection.Create;
+end;
+
+{ TVerbasRescS2399 }
+
+constructor TVerbasRescS2399.Create;
+begin
+  inherited;
+  FDmDev := TDmDevCollection.Create;
+end;
+
 
 end.

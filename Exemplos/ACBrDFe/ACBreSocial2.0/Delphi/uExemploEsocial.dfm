@@ -2,7 +2,7 @@ object FExemploEsocial: TFExemploEsocial
   Left = 344
   Top = 178
   Caption = 'Exemplo eSocial'
-  ClientHeight = 565
+  ClientHeight = 594
   ClientWidth = 730
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -144,7 +144,7 @@ object FExemploEsocial: TFExemploEsocial
     Left = 0
     Top = 299
     Width = 730
-    Height = 188
+    Height = 212
     Align = alTop
     Caption = ' Eventos N'#227'o Peri'#243'dicos '
     TabOrder = 1
@@ -189,8 +189,8 @@ object FExemploEsocial: TFExemploEsocial
       TabOrder = 4
     end
     object cbS2250: TCheckBox
-      Left = 346
-      Top = 17
+      Left = 8
+      Top = 183
       Width = 233
       Height = 17
       Caption = 'S-2250 - Aviso Pr'#233'vio'
@@ -200,7 +200,7 @@ object FExemploEsocial: TFExemploEsocial
     end
     object cbS2298: TCheckBox
       Left = 346
-      Top = 34
+      Top = 17
       Width = 153
       Height = 17
       Caption = 'S-2298 - Reintegra'#231#227'o'
@@ -209,8 +209,8 @@ object FExemploEsocial: TFExemploEsocial
       TabOrder = 11
     end
     object cbAviso: TComboBox
-      Left = 469
-      Top = 14
+      Left = 134
+      Top = 181
       Width = 145
       Height = 21
       Style = csDropDownList
@@ -229,7 +229,7 @@ object FExemploEsocial: TFExemploEsocial
       Caption = 'S-3000 - Exclus'#227'o de Eventos'
       Ctl3D = False
       ParentCtl3D = False
-      TabOrder = 16
+      TabOrder = 17
     end
     object cbS4000: TCheckBox
       Left = 346
@@ -240,8 +240,9 @@ object FExemploEsocial: TFExemploEsocial
         'S-4000 - Solicita'#231#227'o de Totaliza'#231#227'o de Eventos, Bases e Contribu' +
         'i'#231#245'es'
       Ctl3D = False
+      Enabled = False
       ParentCtl3D = False
-      TabOrder = 17
+      TabOrder = 18
     end
     object cbS4999: TCheckBox
       Left = 346
@@ -250,8 +251,9 @@ object FExemploEsocial: TFExemploEsocial
       Height = 17
       Caption = 'S-4999 - Ades'#227'o antecipada ao eSocial'
       Ctl3D = False
+      Enabled = False
       ParentCtl3D = False
-      TabOrder = 18
+      TabOrder = 19
     end
     object cbS2190: TCheckBox
       Left = 8
@@ -299,7 +301,7 @@ object FExemploEsocial: TFExemploEsocial
     end
     object cbS2299: TCheckBox
       Left = 346
-      Top = 52
+      Top = 34
       Width = 135
       Height = 17
       Caption = 'S-2299 - Desligamento'
@@ -307,27 +309,35 @@ object FExemploEsocial: TFExemploEsocial
     end
     object cbS2300: TCheckBox
       Left = 346
-      Top = 70
+      Top = 52
       Width = 233
       Height = 17
       Caption = 'S-2300 - Trabalhador Sem V'#237'nculo - In'#237'cio'
       TabOrder = 13
     end
-    object cbS2305: TCheckBox
+    object cbS2306: TCheckBox
       Left = 346
-      Top = 88
+      Top = 70
       Width = 311
       Height = 17
-      Caption = 'S-2305 - Trabalhador Sem V'#237'nculo - Altera'#231#227'o Contratual'
+      Caption = 'S-2306 - Trabalhador Sem V'#237'nculo - Altera'#231#227'o Contratual'
       TabOrder = 14
     end
     object cbS2399: TCheckBox
       Left = 346
-      Top = 106
+      Top = 88
       Width = 248
       Height = 17
       Caption = 'S-2399 - Trabalhador Sem V'#237'nculo - T'#233'rmino'
       TabOrder = 15
+    end
+    object cbS2400: TCheckBox
+      Left = 346
+      Top = 106
+      Width = 321
+      Height = 17
+      Caption = 'S-2400 - Cadastro de Benef'#237'cios Previd'#234'nci'#225'rios - RPPS'
+      TabOrder = 16
     end
   end
   object GroupBox3: TGroupBox
@@ -345,6 +355,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 17
       Caption = 'S-1220 - Pagamentos a Benefici'#225'rios N'#227'o Identificados'
       Ctl3D = False
+      Enabled = False
       ParentCtl3D = False
       TabOrder = 4
     end
@@ -453,12 +464,13 @@ object FExemploEsocial: TFExemploEsocial
   end
   object GroupBox4: TGroupBox
     Left = 0
-    Top = 488
+    Top = 517
     Width = 730
     Height = 77
     Align = alBottom
     Caption = ' Dados Adicionais '
     TabOrder = 3
+    ExplicitTop = 488
     object btnGerar: TButton
       Left = 290
       Top = 25
@@ -471,6 +483,9 @@ object FExemploEsocial: TFExemploEsocial
   end
   object ACBreSocial1: TACBreSocial
     Configuracoes.Geral.SSLLib = libCapicom
+    Configuracoes.Geral.SSLCryptLib = cryCapicom
+    Configuracoes.Geral.SSLHttpLib = httpWinINet
+    Configuracoes.Geral.SSLXmlSignLib = xsMsXmlCapicom
     Configuracoes.Geral.FormatoAlerta = 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'
     Configuracoes.Arquivos.PathSalvar = 'C:\teste_esocial\'
     Configuracoes.Arquivos.PathSchemas = '..\..\schemas\eSocial\'

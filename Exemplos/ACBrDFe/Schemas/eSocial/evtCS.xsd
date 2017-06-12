@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.esocial.gov.br/schema/evt/evtCS/v02_02_01" targetNamespace="http://www.esocial.gov.br/schema/evt/evtCS/v02_02_01" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.esocial.gov.br/schema/evt/evtCS/v02_02_02" targetNamespace="http://www.esocial.gov.br/schema/evt/evtCS/v02_02_02" elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
   <xs:element name="eSocial">
     <xs:complexType>
@@ -205,7 +205,7 @@
                         </xs:sequence>
                       </xs:complexType>
                     </xs:element>
-                    <xs:element name="ideEstab" maxOccurs="9999">
+                    <xs:element name="ideEstab" minOccurs="0" maxOccurs="9999">
                       <xs:annotation>
                         <xs:documentation>Informações de identificação do estabelecimento ou obra de construção civil.</xs:documentation>
                       </xs:annotation>
@@ -998,17 +998,6 @@ Informações desse grupo conforme informado pelo contribuinte em S-1260.</xs:do
                                     <xs:restriction base="xs:decimal">
                                       <xs:totalDigits value="14"/>
                                       <xs:fractionDigits value="2"/>
-                                    </xs:restriction>
-                                  </xs:simpleType>
-                                </xs:element>
-                                <xs:element name="codLotacao" minOccurs="0">
-                                  <xs:simpleType>
-                                    <xs:annotation>
-                                      <xs:documentation>Código da Lotação</xs:documentation>
-                                    </xs:annotation>
-                                    <xs:restriction base="xs:string">
-                                      <xs:minLength value="1"/>
-                                      <xs:maxLength value="30"/>
                                     </xs:restriction>
                                   </xs:simpleType>
                                 </xs:element>

@@ -1,36 +1,36 @@
-Ôªø{******************************************************************************}
+{******************************************************************************}
 { Projeto: Componente ACBreSocial                                              }
 {  Biblioteca multiplataforma de componentes Delphi para envio dos eventos do  }
 { eSocial - http://www.esocial.gov.br/                                         }
 {                                                                              }
 { Direitos Autorais Reservados (c) 2008 Wemerson Souto                         }
 {                                       Daniel Simoes de Almeida               }
-{                                       Andr√© Ferreira de Moraes               }
+{                                       AndrÈ Ferreira de Moraes               }
 {                                                                              }
 { Colaboradores nesse arquivo:                                                 }
 {                                                                              }
-{  Voc√™ pode obter a √∫ltima vers√£o desse arquivo na pagina do Projeto ACBr     }
+{  VocÍ pode obter a ˙ltima vers„o desse arquivo na pagina do Projeto ACBr     }
 { Componentes localizado em http://www.sourceforge.net/projects/acbr           }
 {                                                                              }
 {                                                                              }
-{  Esta biblioteca √© software livre; voc√™ pode redistribu√≠-la e/ou modific√°-la }
-{ sob os termos da Licen√ßa P√∫blica Geral Menor do GNU conforme publicada pela  }
-{ Free Software Foundation; tanto a vers√£o 2.1 da Licen√ßa, ou (a seu crit√©rio) }
-{ qualquer vers√£o posterior.                                                   }
+{  Esta biblioteca È software livre; vocÍ pode redistribuÌ-la e/ou modific·-la }
+{ sob os termos da LicenÁa P˙blica Geral Menor do GNU conforme publicada pela  }
+{ Free Software Foundation; tanto a vers„o 2.1 da LicenÁa, ou (a seu critÈrio) }
+{ qualquer vers„o posterior.                                                   }
 {                                                                              }
-{  Esta biblioteca √© distribu√≠da na expectativa de que seja √∫til, por√©m, SEM   }
-{ NENHUMA GARANTIA; nem mesmo a garantia impl√≠cita de COMERCIABILIDADE OU      }
-{ ADEQUA√á√ÉO A UMA FINALIDADE ESPEC√çFICA. Consulte a Licen√ßa P√∫blica Geral Menor}
-{ do GNU para mais detalhes. (Arquivo LICEN√áA.TXT ou LICENSE.TXT)              }
+{  Esta biblioteca È distribuÌda na expectativa de que seja ˙til, porÈm, SEM   }
+{ NENHUMA GARANTIA; nem mesmo a garantia implÌcita de COMERCIABILIDADE OU      }
+{ ADEQUA«√O A UMA FINALIDADE ESPECÕFICA. Consulte a LicenÁa P˙blica Geral Menor}
+{ do GNU para mais detalhes. (Arquivo LICEN«A.TXT ou LICENSE.TXT)              }
 {                                                                              }
-{  Voc√™ deve ter recebido uma c√≥pia da Licen√ßa P√∫blica Geral Menor do GNU junto}
-{ com esta biblioteca; se n√£o, escreva para a Free Software Foundation, Inc.,  }
-{ no endere√ßo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
-{ Voc√™ tamb√©m pode obter uma copia da licen√ßa em:                              }
+{  VocÍ deve ter recebido uma cÛpia da LicenÁa P˙blica Geral Menor do GNU junto}
+{ com esta biblioteca; se n„o, escreva para a Free Software Foundation, Inc.,  }
+{ no endereÁo 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          }
+{ VocÍ tambÈm pode obter uma copia da licenÁa em:                              }
 { http://www.opensource.org/licenses/lgpl-license.php                          }
 {                                                                              }
-{ Daniel Sim√µes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
-{              Pra√ßa Anita Costa, 34 - Tatu√≠ - SP - 18270-410                  }
+{ Daniel Simıes de Almeida  -  daniel@djsystem.com.br  -  www.djsystem.com.br  }
+{              PraÁa Anita Costa, 34 - TatuÌ - SP - 18270-410                  }
 {                                                                              }
 {******************************************************************************}
 
@@ -38,9 +38,9 @@
 |* Historico
 |*
 |* 27/10/2015: Jean Carlo Cantu, Tiago Ravache
-|*  - Doa√ß√£o do componente para o Projeto ACBr
+|*  - DoaÁ„o do componente para o Projeto ACBr
 |* 01/03/2016: Guilherme Costa
-|*  - Altera√ß√µes para valida√ß√£o com o XSD
+|*  - AlteraÁıes para validaÁ„o com o XSD
 ******************************************************************************}
 {$I ACBr.inc}
 
@@ -62,9 +62,6 @@ type
   TExameColecaoItem = class;
   TExameColecao = class;
   TRespMonit = class;
-  TMonitBiolog = class;
-  TResultMonitItem = class;
-  TResultMonitColecao = class;
   TMedico = class;
   TCrm = class;
   TIdeServSaude = class;
@@ -104,9 +101,7 @@ type
     procedure gerarCRM;
     procedure gerarAso;
     procedure gerarIdeServSaude;
-    procedure gerarMonitBiolog;
-    procedure gerarRespMonit;
-    procedure gerarResultMonit;
+    procedure gerarRespMonit(pRespMonit: TRespMonit);
   public
     constructor Create(AACBreSocial: TObject); overload;
     destructor Destroy; override;
@@ -126,7 +121,6 @@ type
     FResAso: tpResAso;
 
     FExame: TExameColecao;
-    FMonitBiolog: TMonitBiolog;
     FIdeServSaude: TIdeServSaude;
   public
     constructor create;
@@ -136,7 +130,6 @@ type
     property tpAso: tpTpAso read FtpAso write FtpAso;
     property ResAso: tpResAso read FResAso write FResAso;
     property Exame: TExameColecao read FExame write FExame;
-    property MonitBiolog: TMonitBiolog read FMonitBiolog write FMonitBiolog;
     property IdeServSaude: TIdeServSaude read FIdeServSaude write FIdeServSaude;
   end;
 
@@ -144,9 +137,26 @@ type
   private
     FDtExm: TDateTime;
     FProcRealizado: integer;
+    FObsProc: string;
+    FInterprExm: tpInterprExm;
+    FOrdExame: tpOrdExame;
+    FDtIniMonit: TDate;
+    FDtFimMonit: TDate;
+    FIndResult: tpIndResult;
+    FRespMonit: TRespMonit;
   public
+    constructor Create; reintroduce;
+    destructor Destroy; override;
+
     property DtExm: TDateTime read FDtExm write FDtExm;
     property ProcRealizado: integer read FProcRealizado write FProcRealizado;
+    property obsProc: string read FObsProc write FObsProc;
+    property interprExm: tpInterprExm read FInterprExm write FInterprExm;
+    property ordExame: tpOrdExame read FOrdExame write FOrdExame;
+    property dtIniMonit: TDate read FDtIniMonit write FDtIniMonit;
+    property dtFimMonit: TDate read FDtFimMonit write FDtFimMonit;
+    property indResult: tpIndResult read FIndResult write FIndResult;
+    property respMonit: TRespMonit read FRespMonit write FRespMonit;
   end;
 
   TExameColecao = class(TCollection)
@@ -168,49 +178,6 @@ type
     property NisResp: string read FNisResp write FNisResp;
     property NrConsClasse: string read FNrConsClasse write FNrConsClasse;
     property UfConsClasse: tpuf read FUfConsClasse write FUfConsClasse;
-  end;
-
-  TMonitBiolog = class(TPersistent)
-  private
-    FResultMonit: TResultMonitColecao;
-    FRespMonit: TRespMonit;
-  public
-    constructor create;
-    destructor destroy; override;
-
-    property ResultMonit: TResultMonitColecao read FResultMonit write FResultMonit;
-    property RespMonit: TRespMonit read FRespMonit write FRespMonit;
-  end;
-
-  TResultMonitItem = class(TCollectionItem)
-  private
-    FCodAgntQuim: string;
-    FmatBiolog: TpMatBiolog;
-    FcodAnalise: string;
-    FinterprExm: tpInterprExm;
-    FordExame: tpOrdExame;
-    FdtIniMonit: TDateTime;
-    FdtFimMonit: TDateTime;
-    FindResult: tpIndResult;
-  published
-    property CodAgntQuim: string read FCodAgntQuim write FCodAgntQuim;
-    property MatBiolog: TpMatBiolog read FmatBiolog write FmatBiolog;
-    property codAnalise: string read FcodAnalise write FcodAnalise;
-    property interprExm: tpInterprExm read FinterprExm write FinterprExm;
-    property ordExame: tpOrdExame read FordExame write FordExame;
-    property dtIniMonit: TDateTime read FdtIniMonit write FdtIniMonit;
-    property dtFimMonit: TDateTime read FdtFimMonit write FdtFimMonit;
-    property indResult: tpIndResult read FindResult write FindResult;
-  end;
-
-  TResultMonitColecao = class(TCollection)
-  private
-    function GetItem(Index: Integer): TResultMonitItem;
-    procedure SetItem(Index: Integer; const Value: TResultMonitItem);
-  public
-    constructor Create(AOwner: TPersistent);
-    function Add: TResultMonitItem;
-    property Items[Index: Integer]: TResultMonitItem read GetItem write SetItem;
   end;
 
   TIdeServSaude = class
@@ -301,14 +268,12 @@ constructor TAso.create;
 begin
   inherited;
   FExame := TExameColecao.Create(self);
-  FMonitBiolog := TMonitBiolog.Create;
   FIdeServSaude := TIdeServSaude.create;
 end;
 
 destructor TAso.destroy;
 begin
   FExame.Free;
-  FMonitBiolog.Free;
   FIdeServSaude.Free;
   inherited;
 end;
@@ -318,6 +283,7 @@ end;
 function TExameColecao.Add: TExameColecaoItem;
 begin
   Result := TExameColecaoItem(inherited Add);
+  Result.Create;
 end;
 
 constructor TExameColecao.Create(AOwner: TPersistent);
@@ -336,44 +302,17 @@ begin
   inherited SetItem(Index, Value);
 end;
 
-{ TMonitBiologica }
+{ TExameColecaoItem }
 
-constructor TMonitBiolog.create;
+constructor TExameColecaoItem.Create;
 begin
-  inherited;
-  FResultMonit := TResultMonitColecao.Create(self);
-  FRespMonit := TRespMonit.Create();
+  FRespMonit := TRespMonit.Create;
 end;
 
-destructor TMonitBiolog.destroy;
+destructor TExameColecaoItem.Destroy;
 begin
-  FResultMonit.Free;
   FRespMonit.Free;
   inherited;
-end;
-
-{ TResultMonitoracaoColecao }
-
-function TResultMonitColecao.Add: TResultMonitItem;
-begin
-  Result := TResultMonitItem(inherited Add);
-end;
-
-constructor TResultMonitColecao.Create(AOwner: TPersistent);
-begin
-  inherited Create(TResultMonitItem);
-end;
-
-function TResultMonitColecao.GetItem(
-  Index: Integer): TResultMonitItem;
-begin
-  Result := TResultMonitItem(inherited GetItem(Index));
-end;
-
-procedure TResultMonitColecao.SetItem(Index: Integer;
-  const Value: TResultMonitItem);
-begin
-  inherited SetItem(Index, Value);
 end;
 
 { TEvtASO }
@@ -403,7 +342,6 @@ begin
     Gerador.wCampo(tcStr, '', 'tpAso', 0, 0, 0, eSTpAsoToStr(self.Aso.tpAso));
     Gerador.wCampo(tcStr, '', 'resAso', 0, 0, 0, eSResAsoToStr(self.Aso.ResAso));
     gerarExame;
-    gerarMonitBiolog;
     gerarIdeServSaude;
   Gerador.wGrupo('/aso');
 end;
@@ -427,6 +365,13 @@ begin
     Gerador.wGrupo('exame');
       Gerador.wCampo(tcDat, '', 'dtExm', 0, 0, 0, self.Aso.Exame.Items[iContador].dtExm);
       Gerador.wCampo(tcStr, '', 'procRealizado', 0, 0, 0, self.Aso.Exame.Items[iContador].procRealizado);
+      Gerador.wCampo(tcStr, '', 'obsProc', 0, 0, 0, self.Aso.Exame.Items[iContador].obsProc);
+      Gerador.wCampo(tcInt, '', 'interprExm', 0, 0, 0, eSInterprExmToStr(self.Aso.Exame.Items[iContador].interprExm));
+      Gerador.wCampo(tcInt, '', 'ordExame', 0, 0, 0, eSOrdExameToStr(self.Aso.Exame.Items[iContador].ordExame));
+      Gerador.wCampo(tcDat, '', 'dtIniMonit', 0, 0, 0, self.Aso.Exame.Items[iContador].dtIniMonit);
+      Gerador.wCampo(tcDat, '', 'dtFimMonit', 0, 0, 0, self.Aso.Exame.Items[iContador].dtFimMonit);
+      Gerador.wCampo(tcInt, '', 'indResult', 0, 0, 0, eSIndResultToStr(self.Aso.Exame.Items[iContador].indResult));
+      gerarRespMonit(self.Aso.Exame.Items[iContador].respMonit);
     Gerador.wGrupo('/exame');
   end;
 end;
@@ -453,46 +398,15 @@ begin
   Gerador.wGrupo('/medico');
 end;
 
-procedure TEvtASO.gerarMonitBiolog;
-begin
-  Gerador.wGrupo('monitBiolog');
-    gerarResultMonit;
-    gerarRespMonit;
-  Gerador.wGrupo('/monitBiolog');
-end;
-
-procedure TEvtASO.gerarRespMonit;
+procedure TEvtASO.gerarRespMonit(pRespMonit: TRespMonit);
 begin
   Gerador.wGrupo('respMonit');
-    Gerador.wCampo(tcStr, '', 'nisResp', 0, 0, 0, self.Aso.MonitBiolog.RespMonit.nisResp);
-    Gerador.wCampo(tcStr, '', 'nrConsClasse', 0, 0, 0, self.Aso.MonitBiolog.RespMonit.NrConsClasse);
+    Gerador.wCampo(tcStr, '', 'nisResp', 0, 0, 0, pRespMonit.nisResp);
+    Gerador.wCampo(tcStr, '', 'nrConsClasse', 0, 0, 0, pRespMonit.NrConsClasse);
 
-    if (eSufToStr(self.Aso.MonitBiolog.RespMonit.UfConsClasse) <> '') then
-      Gerador.wCampo(tcStr, '', 'ufConsClasse', 0, 0, 0, eSufToStr(self.Aso.MonitBiolog.RespMonit.UfConsClasse));
+    if (eSufToStr(pRespMonit.UfConsClasse) <> '') then
+      Gerador.wCampo(tcStr, '', 'ufConsClasse', 0, 0, 0, eSufToStr(pRespMonit.UfConsClasse));
   Gerador.wGrupo('/respMonit');
-end;
-
-procedure TEvtASO.gerarResultMonit;
-var
-  iContador: integer;
-begin
-  for iCOntador:= 0 to self.Aso.MonitBiolog.ResultMonit.Count-1 do
-  begin
-    Gerador.wGrupo('resultMonit');
-      Gerador.wCampo(tcStr, '', 'codAgntQuim', 0, 0, 0, self.Aso.MonitBiolog.ResultMonit.Items[iContador].codAgntQuim);
-      Gerador.wCampo(tcStr, '', 'matBiolog', 0, 0, 0, eSMatBiologToStr(self.Aso.MonitBiolog.ResultMonit.Items[iContador].matBiolog));
-      Gerador.wCampo(tcStr, '', 'codAnalise', 0, 0, 0, self.Aso.MonitBiolog.ResultMonit.Items[iContador].codAnalise);
-      Gerador.wCampo(tcStr, '', 'interprExm', 0, 0, 0, eSInterprExmToStr(self.Aso.MonitBiolog.ResultMonit.Items[iContador].interprExm));
-      Gerador.wCampo(tcStr, '', 'ordExame', 0, 0, 0, eSOrdExameToStr(self.Aso.MonitBiolog.ResultMonit.Items[iContador].ordExame));
-      Gerador.wCampo(tcDat, '', 'dtIniMonit', 0, 0, 0, self.Aso.MonitBiolog.ResultMonit.Items[iContador].dtIniMonit);
-
-      if (DateToStr(self.Aso.MonitBiolog.ResultMonit.Items[iContador].dtFimMonit) <> dDataBrancoNula) then
-        Gerador.wCampo(tcDat, '', 'dtFimMonit', 0, 0, 0, self.Aso.MonitBiolog.ResultMonit.Items[iContador].dtFimMonit);
-
-      if (eSIndResultToStr(self.Aso.MonitBiolog.ResultMonit.Items[iContador].indResult) <> '') then
-        Gerador.wCampo(tcStr, '', 'indResult', 0, 0, 0, eSIndResultToStr(self.Aso.MonitBiolog.ResultMonit.Items[iContador].indResult));
-    Gerador.wGrupo('/resultMonit');
-  end;
 end;
 
 function TEvtASO.GerarXML: boolean;
