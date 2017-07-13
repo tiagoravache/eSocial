@@ -2,7 +2,7 @@ object FExemploEsocial: TFExemploEsocial
   Left = 344
   Top = 178
   Caption = 'Exemplo eSocial'
-  ClientHeight = 594
+  ClientHeight = 602
   ClientWidth = 730
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -88,6 +88,7 @@ object FExemploEsocial: TFExemploEsocial
       Height = 17
       Caption = 'S-2100 - Cadastramento Inicial do V'#237'nculo'
       Ctl3D = False
+      Enabled = False
       ParentCtl3D = False
       TabOrder = 11
     end
@@ -142,12 +143,13 @@ object FExemploEsocial: TFExemploEsocial
   end
   object GroupBox2: TGroupBox
     Left = 0
-    Top = 299
+    Top = 310
     Width = 730
     Height = 212
     Align = alTop
     Caption = ' Eventos N'#227'o Peri'#243'dicos '
     TabOrder = 1
+    ExplicitTop = 299
     object cbS2200: TCheckBox
       Left = 8
       Top = 34
@@ -344,7 +346,7 @@ object FExemploEsocial: TFExemploEsocial
     Left = 0
     Top = 158
     Width = 730
-    Height = 141
+    Height = 152
     Align = alTop
     Caption = ' Eventos Peri'#243'dicos '
     TabOrder = 2
@@ -367,7 +369,7 @@ object FExemploEsocial: TFExemploEsocial
       Caption = 'S-1298 - Reabertura dos Eventos Peri'#243'dicos'
       Ctl3D = False
       ParentCtl3D = False
-      TabOrder = 9
+      TabOrder = 10
     end
     object cbS1299: TCheckBox
       Left = 346
@@ -377,7 +379,7 @@ object FExemploEsocial: TFExemploEsocial
       Caption = 'S-1299 - Fechamento dos Eventos Peri'#243'dicos'
       Ctl3D = False
       ParentCtl3D = False
-      TabOrder = 10
+      TabOrder = 11
     end
     object cbS1300: TCheckBox
       Left = 346
@@ -387,11 +389,11 @@ object FExemploEsocial: TFExemploEsocial
       Caption = 'S-1300 - Contribui'#231#227'o Sindical Patronal'
       Ctl3D = False
       ParentCtl3D = False
-      TabOrder = 11
+      TabOrder = 12
     end
     object cbS1280: TCheckBox
       Left = 346
-      Top = 56
+      Top = 37
       Width = 321
       Height = 18
       Caption = 'S-1280 - Informa'#231#245'es Complementares aos Eventos Peri'#243'dicos'
@@ -401,7 +403,7 @@ object FExemploEsocial: TFExemploEsocial
     end
     object cbS1270: TCheckBox
       Left = 346
-      Top = 37
+      Top = 19
       Width = 332
       Height = 17
       Caption = 'S-1270 - Contrata'#231#227'o de Trabalhadores Avulsos N'#227'o Portu'#225'rios'
@@ -420,8 +422,8 @@ object FExemploEsocial: TFExemploEsocial
       TabOrder = 5
     end
     object cbS1260: TCheckBox
-      Left = 346
-      Top = 19
+      Left = 8
+      Top = 129
       Width = 332
       Height = 17
       Caption = 'S-1260 - Comercializa'#231#227'o da Produ'#231#227'o Rural Pessoa F'#237'sica'
@@ -461,16 +463,26 @@ object FExemploEsocial: TFExemploEsocial
       Caption = 'S-1207 - Benef'#237'cios  Previdenci'#225'rios - RPPS'
       TabOrder = 2
     end
+    object cbS1295: TCheckBox
+      Left = 346
+      Top = 56
+      Width = 381
+      Height = 17
+      Caption = 
+        'S-1295 - Solicita'#231#227'o de Totaliza'#231#227'o para Pagamento em Conting'#234'nc' +
+        'ia'
+      TabOrder = 9
+    end
   end
   object GroupBox4: TGroupBox
     Left = 0
-    Top = 517
+    Top = 525
     Width = 730
     Height = 77
     Align = alBottom
     Caption = ' Dados Adicionais '
     TabOrder = 3
-    ExplicitTop = 488
+    ExplicitTop = 517
     object btnGerar: TButton
       Left = 290
       Top = 25
@@ -482,17 +494,16 @@ object FExemploEsocial: TFExemploEsocial
     end
   end
   object ACBreSocial1: TACBreSocial
-    Configuracoes.Geral.SSLLib = libCapicom
-    Configuracoes.Geral.SSLCryptLib = cryCapicom
-    Configuracoes.Geral.SSLHttpLib = httpWinINet
-    Configuracoes.Geral.SSLXmlSignLib = xsMsXmlCapicom
+    Configuracoes.Geral.SSLLib = libWinCrypt
+    Configuracoes.Geral.SSLCryptLib = cryWinCrypt
+    Configuracoes.Geral.SSLHttpLib = httpWinHttp
+    Configuracoes.Geral.SSLXmlSignLib = xsMsXml
     Configuracoes.Geral.FormatoAlerta = 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'
     Configuracoes.Arquivos.PathSalvar = 'C:\teste_esocial\'
     Configuracoes.Arquivos.PathSchemas = '..\..\schemas\eSocial\'
     Configuracoes.WebServices.UF = 'SP'
     Configuracoes.WebServices.AguardarConsultaRet = 0
     Configuracoes.WebServices.QuebradeLinha = '|'
-    Configuracoes.Certificados.NumeroSerie = '388555B6980CDFBB'
     Left = 648
     Top = 32
   end

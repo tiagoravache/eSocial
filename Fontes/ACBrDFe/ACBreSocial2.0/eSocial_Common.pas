@@ -1,3 +1,4 @@
+{******************************************************************************}
 { Projeto: Componente ACBreSocial                                              }
 {  Biblioteca multiplataforma de componentes Delphi para envio dos eventos do  }
 { eSocial - http://www.esocial.gov.br/                                         }
@@ -160,6 +161,7 @@ type
   TRemunOutrEmprCollectionItem = class;
   TRemunOutrEmprCollection = class;
   TInfoMV = class;
+  TIdeRespInf = class;
 
   TeSocial = class(TPersistent)
   private
@@ -742,11 +744,11 @@ type
   TProcesso = class(TCollectionItem)
   protected
     FNrProc: String;
-    FCodSusp: Integer;
+    FCodSusp: String;
   public
     constructor create; reintroduce;
     property nrProc: string read FNrProc write FNrProc;
-    property codSusp: Integer read FCodSusp write FCodSusp;
+    property codSusp: String read FCodSusp write FCodSusp;
   end;
 
   TProcAdmJudFap = class(TProcesso)
@@ -802,19 +804,15 @@ type
     FMatricAnt: string;
     FDtIniVinculo: TDateTime;
     FObservacao: string;
-    FAfastamento: TAfastamento;
 
-    function getAfastamento: TAfastamento;
   public
     constructor Create;
     destructor Destroy;
-    function afastamentoInst: boolean;
 
     property cnpjEmpregAnt: string read FCnpjEmpregAnt write FCnpjEmpregAnt;
     property MatricAnt: string read FMatricAnt write FMatricAnt;
     property DtIniVinculo: TDateTime read FDtIniVinculo write FDtIniVinculo;
     property Observacao: string read FObservacao write FObservacao;
-    property afastamento: TAfastamento read getAfastamento write FAfastamento;
   end;
 
   TOC = class
@@ -1561,6 +1559,7 @@ type
 
   TDetPlanoCollectionItem = class(TCollectionItem)
    private
+    FTpDep: string;
     FCpfDep: string;
     FDtNascto: TDate;
     FNmDep: string;
@@ -1568,6 +1567,7 @@ type
   public
     constructor create; reintroduce;
 
+    property tpDep: string read FTpDep write FTpDep;
     property cpfDep: string read FCpfDep write FCpfDep;
     property dtNascto: TDate read FDtNascto write FDtNascto;
     property nmDep: string read FNmDep write FNmDep;
@@ -1690,6 +1690,19 @@ type
     property indMV: tpIndMV read FIndMV write FIndMV;
     property remunOutrEmpr: TRemunOutrEmprCollection
       read FRemunOutrEmpr write FRemunOutrEmpr;
+  end;
+
+  TIdeRespInf = class
+  private
+    FnmResp: string;
+    FcpfResp: string;
+    Ftelefone: string;
+    Femail: string;
+  public
+    property nmResp: string read FnmResp write FnmResp;
+    property cpfResp: string read FcpfResp write FcpfResp;
+    property telefone: string read Ftelefone write Ftelefone;
+    property email: string read Femail write Femail;
   end;
 
 implementation
@@ -1951,24 +1964,12 @@ end;
 
 constructor TSucessaoVinc.Create;
 begin
-  FAfastamento := nil;
+
 end;
 
 destructor TSucessaoVinc.Destroy;
 begin
-  FreeAndNil(FAfastamento);
-end;
 
-function TSucessaoVinc.getAfastamento: TAfastamento;
-begin
-  if not Assigned(FAfastamento) then
-    FAfastamento := TAfastamento.Create;
-  Result := FAfastamento;
-end;
-
-function TSucessaoVinc.afastamentoInst: boolean;
-begin
-  result := Assigned(FAfastamento);
 end;
 
 { TVinculo }

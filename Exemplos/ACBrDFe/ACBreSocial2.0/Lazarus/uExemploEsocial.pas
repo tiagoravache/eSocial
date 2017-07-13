@@ -59,6 +59,7 @@ type
     cbS1035: TCheckBox;
     cbS1207: TCheckBox;
     cbS2400: TCheckBox;
+    cbS1295: TCheckBox;
     GroupBox1: TGroupBox;
     GroupBox2: TGroupBox;
     GroupBox3: TGroupBox;
@@ -87,6 +88,7 @@ type
     procedure GerareSocial1260;
     procedure GerareSocial1270;
     procedure GerareSocial1280;
+    procedure GerareSocial1295;
     procedure GerareSocial1298;
     procedure GerareSocial1299;
     procedure GerareSocial1300;
@@ -151,7 +153,6 @@ begin
       evtInfoEmpregador.InfoEmpregador.InfoCadastro.IndDesFolha := TpIndDesFolha(1);
       evtInfoEmpregador.InfoEmpregador.InfoCadastro.IndOptRegEletron :=
         TpIndOptRegEletron(1);
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.MultTabRubricas := tpSimNao(1);
       evtInfoEmpregador.InfoEmpregador.InfoCadastro.IndEtt := tpSimNao(1);
 
       evtInfoEmpregador.InfoEmpregador.InfoCadastro.InfoOp.nrSiafi := '12345';
@@ -160,7 +161,7 @@ begin
       evtInfoEmpregador.InfoEmpregador.InfoCadastro.InfoOp.infoEnte.uf := tpuf(ufSP);
       evtInfoEmpregador.InfoEmpregador.InfoCadastro.InfoOp.infoEnte.vrSubteto := 100.00;
 
-      evtInfoEmpregador.InfoEmpregador.InfoCadastro.dadosIsencao.IdeMinLei := tpSiglaMin(1);
+      evtInfoEmpregador.InfoEmpregador.InfoCadastro.dadosIsencao.IdeMinLei := 'Sigla Min';
       evtInfoEmpregador.InfoEmpregador.InfoCadastro.dadosIsencao.NrCertif := '1111';
       evtInfoEmpregador.InfoEmpregador.InfoCadastro.dadosIsencao.DtEmisCertif := date;
       evtInfoEmpregador.InfoEmpregador.InfoCadastro.dadosIsencao.DtVencCertif := date;
@@ -235,11 +236,11 @@ begin
 
       evtTabEstab.infoEstab.DadosEstab.aliqGilrat.ProcAdmJudRat.tpProc := tpTpProc(1);
       evtTabEstab.infoEstab.DadosEstab.aliqGilrat.ProcAdmJudRat.nrProc := '20150512';
-      evtTabEstab.infoEstab.DadosEstab.aliqGilrat.ProcAdmJudRat.codSusp := 1;
+      evtTabEstab.infoEstab.DadosEstab.aliqGilrat.ProcAdmJudRat.codSusp := '1';
 
       evtTabEstab.infoEstab.DadosEstab.aliqGilrat.ProcAdmJudFap.tpProc := tpTpProc(1);
       evtTabEstab.infoEstab.DadosEstab.aliqGilrat.ProcAdmJudFap.nrProc := '20150512';
-      evtTabEstab.infoEstab.DadosEstab.aliqGilrat.ProcAdmJudFap.codSusp := 2;
+      evtTabEstab.infoEstab.DadosEstab.aliqGilrat.ProcAdmJudFap.codSusp := '2';
 
       evtTabEstab.infoEstab.DadosEstab.infoCaepf.tpCaepf := tcContrIndividual;
 
@@ -305,25 +306,25 @@ begin
       begin
         nrProc     := '1020';
         ExtDecisao := tpExtDecisao(1);
-        codSusp := 1;
+        codSusp := '1';
       end;
 
       with evtTabRubrica.infoRubrica.DadosRubrica.IdeProcessoIRRF.add do
       begin
         nrProc := '1020';
-        codSusp := 2;
+        codSusp := '2';
       end;
 
       with evtTabRubrica.infoRubrica.DadosRubrica.IdeProcessoFGTS.add do
       begin
         nrProc := '50740';
-        codSusp := 3;
+        codSusp := '3';
       end;
 
       with evtTabRubrica.infoRubrica.DadosRubrica.IdeProcessoSIND.add do
       begin
         nrProc := '50';
-        codSusp := 4;
+        codSusp := '4';
       end;
 
       if (EvtTabRubrica.ModoLancamento = mlAlteracao) then
@@ -371,14 +372,14 @@ begin
       begin
         codTerc   := '1111';
         nrProcJud := '1234567891239-1345';
-        codSusp := 1;
+        codSusp := '1';
       end;
 
       with evtTabLotacao.infoLotacao.dadosLotacao.fPasLotacao.infoProcJudTerceiros.procJudTerceiro.Add do
       begin
         codTerc   := '2222';
         nrProcJud := '1234567891239-1345';
-        codSusp := 2;
+        codSusp := '2';
       end;
 
       evtTabLotacao.infoLotacao.DadosLotacao.InfoEmprParcial.tpInscContrat := tpTpInscContratante(0);
@@ -633,7 +634,7 @@ begin
 
       with evtTabProcesso.InfoProcesso.DadosProc.infoSusp.add do
       begin
-        codSusp := 1;
+        codSusp := '1';
         indSusp := tpIndSusp(0);
         dtDecisao := now;
         indDeposito := tpNao;
@@ -941,6 +942,10 @@ begin
     evtRemun.ideTrabalhador.infoComplem.natAtividade := navUrbano;
     evtRemun.ideTrabalhador.infoComplem.qtdDiasTrab  := 10;
 
+    evtRemun.ideTrabalhador.infoComplem.sucessaoVinc.cnpjEmpregAnt := '12345678987654';
+    evtRemun.ideTrabalhador.infoComplem.sucessaoVinc.matricAnt := '123';
+    evtRemun.ideTrabalhador.infoComplem.sucessaoVinc.dtIniVinculo := now;
+    evtRemun.ideTrabalhador.infoComplem.sucessaoVinc.observacao := 'obs sucessao vinc';
     //os dados abaixo só devem ser informados em caso do processo existir e houver decisão que incida sobre as
     //  contribuições
     with evtRemun.ideTrabalhador.procJudTrab.Add do
@@ -966,7 +971,7 @@ begin
           with itensRemun.Add do
           begin
             codRubr := '987654';
-            //ideTabRubr := 'E380'; deve ser preenchido apenas quando multTabRubricas = S
+            ideTabRubr := 'E380';
             qtdRubr := 100;
             fatorRubr := 50;
             vrUnit  := 3296.35;
@@ -979,6 +984,7 @@ begin
             vrPgTit  := 1.50;
             with detPlano.Add do
             begin
+              tpDep    := '03';
               cpfDep   := '01234567898';
               nmDep    := 'José das Areias';
               dtNascto := Date;
@@ -994,6 +1000,7 @@ begin
         dtAcConv := now;
         tpAcConv := tacLegislacaoFederalEstadualMunicipalDistrital;
         dtEfAcConv := now;
+        compAcConv := '2017-01';
         dsc := 'Dissídio';
         with idePeriodo.Add do
         begin
@@ -1010,7 +1017,7 @@ begin
               with itensRemun.Add do
               begin
                 codRubr := '987654';
-                //ideTabRubr := 'E380'; deve ser preenchido apenas quando multTabRubricas = S
+                ideTabRubr := 'E380';
                 qtdRubr := 100;
                 fatorRubr := 50;
                 vrUnit  := 3296.35;
@@ -1071,7 +1078,7 @@ begin
           with itensRemun.Add do
           begin
             codRubr := '987654';
-            //ideTabRubr := 'E380'; deve ser preenchido apenas quando multTabRubricas = S
+            ideTabRubr := 'E380';
             qtdRubr := 100;
             fatorRubr := 50;
             vrUnit  := 3296.35;
@@ -1085,6 +1092,7 @@ begin
             vrPgTit  := 1.50;
             with detPlano.Add do
             begin
+              tpDep    := '03';
               cpfDep   := '01234567898';
               dtNascto := now;
               nmDep    := 'José das Areias';
@@ -1112,7 +1120,7 @@ begin
               with itensRemun.Add do
               begin
                 codRubr := '987654';
-                //ideTabRubr := 'E380'; deve ser preenchido apenas quando multTabRubricas = S
+                ideTabRubr := 'E380';
                 qtdRubr := 100;
                 fatorRubr := 50;
                 vrUnit  := 3296.35;
@@ -1154,14 +1162,14 @@ begin
       with itens.add do
       begin
         codRubr := '1';
-        //ideTabRubr:='0';
+        ideTabRubr:='E07';
         vrRubr := 110.53;
       end;
 
       with itens.add do
       begin
         codRubr := '2';
-        //ideTabRubr:='0';
+        ideTabRubr:='E08';
         vrRubr := 2568.89;
       end;
     end;
@@ -1278,7 +1286,6 @@ begin
       with detPgtoAnt.add do
       begin
         codCateg := 111;
-        perRef := '2017-01';
         with infoPgtoAnt.add do
         begin
           tpBcIRRF := tpCodIncIRRF(0);
@@ -1728,6 +1735,33 @@ begin
   end;
 end;
 
+procedure TFExemploEsocial.GerareSocial1295;
+begin
+  with ACBreSocial1.Eventos.Periodicos.S1295.Add do
+  begin
+
+    evtTotConting.id     := '1';
+//    EvtFechaEvPer.Versao := '2.0';
+
+    evtTotConting.IdeEvento.indRetif    := tpIndRetificacao(0);
+    evtTotConting.IdeEvento.NrRecibo    := '65.5454.987798798798';
+    evtTotConting.IdeEvento.IndApuracao := tpIndApuracao(iapuMensal);
+    evtTotConting.IdeEvento.perApur     := '2015-06';
+    evtTotConting.IdeEvento.TpAmb       := TpTpAmb(2);
+    evtTotConting.IdeEvento.ProcEmi     := TpProcEmi(0);
+    evtTotConting.IdeEvento.VerProc     := '1.0';
+
+    evtTotConting.IdeEmpregador.TpInsc := tpTpInsc(1);
+    evtTotConting.IdeEmpregador.NrInsc := '0123456789';
+
+    evtTotConting.IdeRespInf.nmResp   := 'Responsavel teste';
+    evtTotConting.IdeRespInf.cpfResp  := '12345678950';
+    evtTotConting.IdeRespInf.telefone := '46 - 22222222';
+    evtTotConting.IdeRespInf.email    := 'Responsavelteste@email.com';
+
+  end;
+end;
+
 procedure TFExemploEsocial.GerareSocial1298;
 begin
   with ACBreSocial1.Eventos.Periodicos.S1298.Add do
@@ -1776,8 +1810,6 @@ begin
     EvtFechaEvPer.InfoFech.evtContratAvNP  := tpSimNao(1);
     EvtFechaEvPer.InfoFech.evtInfoComplPer := tpSimNao(0);
     EvtFechaEvPer.InfoFech.compSemMovto    := '07-2015';
-
-    EvtFechaEvPer.InfoFech.InfoExercAnt.movFinancSocios := tpSimNao(0);
   end;
 end;
 
@@ -2044,8 +2076,8 @@ begin
     EvtAdmissao.Vinculo.SucessaoVinc.DtIniVinculo                  := Date;
     EvtAdmissao.Vinculo.SucessaoVinc.Observacao                    := 'transferido';
 
-    EvtAdmissao.Vinculo.SucessaoVinc.afastamento.DtIniAfast := now;
-    EvtAdmissao.Vinculo.SucessaoVinc.afastamento.codMotAfast := '01';
+    EvtAdmissao.Vinculo.afastamento.DtIniAfast := now;
+    EvtAdmissao.Vinculo.afastamento.codMotAfast := '01';
   end;
 end;
 
@@ -3370,6 +3402,9 @@ begin
 
   if (cbS1280.checked) then
     GerareSocial1280;
+
+  if (cbS1295.checked) then
+    GerareSocial1295;
 
   if (cbS1298.checked) then
     GerareSocial1298;

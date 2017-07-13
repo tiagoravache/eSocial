@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.esocial.gov.br/schema/evt/evtTabRubrica/v02_02_02" targetNamespace="http://www.esocial.gov.br/schema/evt/evtTabRubrica/v02_02_02" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.esocial.gov.br/schema/evt/evtTabRubrica/v02_03_00" targetNamespace="http://www.esocial.gov.br/schema/evt/evtTabRubrica/v02_03_00" elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
   <xs:element name="eSocial">
     <xs:complexType>
@@ -168,7 +168,7 @@
           </xs:restriction>
         </xs:simpleType>
       </xs:element>
-      <xs:element name="ideTabRubr" minOccurs="0">
+      <xs:element name="ideTabRubr">
         <xs:simpleType>
           <xs:annotation>
             <xs:documentation>Identificador da tabela de rubricas</xs:documentation>
@@ -244,6 +244,7 @@
           </xs:annotation>
           <xs:restriction base="xs:string">
             <xs:length value="2"/>
+            <xs:pattern value="\d{2}"/>
           </xs:restriction>
         </xs:simpleType>
       </xs:element>
@@ -254,6 +255,7 @@
           </xs:annotation>
           <xs:restriction base="xs:string">
             <xs:length value="2"/>
+            <xs:pattern value="\d{2}"/>
           </xs:restriction>
         </xs:simpleType>
       </xs:element>
@@ -264,6 +266,7 @@
           </xs:annotation>
           <xs:restriction base="xs:string">
             <xs:length value="2"/>
+            <xs:pattern value="\d{2}"/>
           </xs:restriction>
         </xs:simpleType>
       </xs:element>
@@ -274,6 +277,7 @@
           </xs:annotation>
           <xs:restriction base="xs:string">
             <xs:length value="2"/>
+            <xs:pattern value="\d{2}"/>
           </xs:restriction>
         </xs:simpleType>
       </xs:element>
@@ -370,7 +374,7 @@
                 </xs:restriction>
               </xs:simpleType>
             </xs:element>
-            <xs:element name="codSusp" minOccurs="0">
+            <xs:element name="codSusp">
               <xs:simpleType>
                 <xs:annotation>
                   <xs:documentation>Código do Indicativo da Suspensão</xs:documentation>
@@ -400,7 +404,7 @@
                 </xs:restriction>
               </xs:simpleType>
             </xs:element>
-            <xs:element name="codSusp" minOccurs="0">
+            <xs:element name="codSusp">
               <xs:simpleType>
                 <xs:annotation>
                   <xs:documentation>Código do Indicativo da Suspensão</xs:documentation>
@@ -430,7 +434,7 @@
                 </xs:restriction>
               </xs:simpleType>
             </xs:element>
-            <xs:element name="codSusp" minOccurs="0">
+            <xs:element name="codSusp">
               <xs:simpleType>
                 <xs:annotation>
                   <xs:documentation>Código do Indicativo da Suspensão</xs:documentation>
@@ -460,7 +464,7 @@
                 </xs:restriction>
               </xs:simpleType>
             </xs:element>
-            <xs:element name="codSusp" minOccurs="0">
+            <xs:element name="codSusp">
               <xs:simpleType>
                 <xs:annotation>
                   <xs:documentation>Código do Indicativo da Suspensão</xs:documentation>

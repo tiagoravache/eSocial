@@ -339,8 +339,8 @@ begin
         Gerador.wCampo(tcStr, '', 'tpProc', 0, 0, 0, eSTpProcessoToStr(InfoRubrica.DadosRubrica.IdeProcessoCP.GetItem(i).tpProc));
         Gerador.wCampo(tcStr, '', 'nrProc', 0, 0, 0, InfoRubrica.DadosRubrica.IdeProcessoCP.GetItem(i).nrProc);
         Gerador.wCampo(tcStr, '', 'extDecisao', 0, 0, 0, eSExtDecisaoToStr(InfoRubrica.DadosRubrica.IdeProcessoCP.GetItem(i).extDecisao));
-        if InfoRubrica.DadosRubrica.IdeProcessoCP.GetItem(i).codSusp > 0 then
-           Gerador.wCampo(tcInt, '', 'codSusp', 0, 0, 0, InfoRubrica.DadosRubrica.IdeProcessoCP.GetItem(i).codSusp);
+        if trim(InfoRubrica.DadosRubrica.IdeProcessoCP.GetItem(i).codSusp) <> '' then
+           Gerador.wCampo(tcStr, '', 'codSusp', 0, 0, 0, InfoRubrica.DadosRubrica.IdeProcessoCP.GetItem(i).codSusp);
       Gerador.wGrupo('/ideProcessoCP');
     end;
   end;

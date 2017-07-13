@@ -73,6 +73,7 @@ type
   TS1200Collection = class;
   TDMDevCollection = class;
   TDMDevCollectionItem = class;
+  TSucessaoVinc = class;
 
 
   TS1200Collection = class(TOwnedCollection)
@@ -150,6 +151,7 @@ type
 
     procedure GerarIdeTrabalhador();
     procedure GerarInfoComplem();
+    procedure GerarSucessaoVinc();
     procedure GerarDmDev();
     procedure GerarInfoPerApur(pInfoPerApur: TInfoPerApur);
     procedure GerarInfoPerAnt(pInfoPerAnt: TInfoPerAnt);
@@ -258,16 +260,20 @@ type
   private
     FDtAcConv: TDate;
     FTpAcConv: tpTpAcConv;
+    FCompAcConv: String;
     FDtEfAcConv: TDate;
     FDSC: string;
+    FRemunSuc: tpSimNao;
     FIdePeriodo: TIdePeriodoCollection;
   public
     constructor Create; reintroduce;
 
     property dtAcConv: TDate read FDtAcConv write FDtAcConv;
     property tpAcConv: tpTpAcConv read FTpAcConv write FTpAcConv;
+    property compAcConv: String read FCompAcConv write FCompAcConv;
     property dtEfAcConv: TDate read FDtEfAcConv write FDtEfAcConv;
     property dsc: string read FDSC write FDSC;
+    property remunSuc: tpSimNao read FRemunSuc write FRemunSuc;
     property idePeriodo: TIdePeriodoCollection read FIdePeriodo write FIdePeriodo;
   end;
 
@@ -309,6 +315,20 @@ type
     property procJudTrab: TProcJudTrabCollection read getInfoProcJudTrab write FProcJudTrab;
   end;
 
+  TSucessaoVinc = class(TPersistent)
+  private
+    FCnpjEmpregAnt: string;
+    FMatricAnt: string;
+    FDtIniVinculo: TDateTime;
+    FObservacao: string;
+  public
+
+    property cnpjEmpregAnt: string read FCnpjEmpregAnt write FCnpjEmpregAnt;
+    property matricAnt: string read FMatricAnt write FMatricAnt;
+    property dtIniVinculo: TDateTime read FDtIniVinculo write FDtIniVinculo;
+    property observacao: string read FObservacao write FObservacao;
+  end;
+
   TInfoComplem = class(TPersistent)
   private
     FNmTrab: string;
@@ -316,12 +336,20 @@ type
     FCodCBO: string;
     FNatAtividade: tpNatAtividade;
     FQtdDiasTrab: integer;
+    FSucessaoVinc: TSucessaoVinc;
+
+    function getSucessaoVinc: TSucessaoVinc;
   public
+    constructor Create;
+    destructor Destroy; override;
+    function sucessaoVincInst: Boolean;
+
     property nmTrab: string read FNmTrab write FNmTrab;
     property dtNascto: TDate read FDtNascto write FDtNascto;
     property codCBO: string read FCodCBO write FCodCBO;
     property natAtividade: tpNatAtividade read FNatAtividade write FNatAtividade;
     property qtdDiasTrab: integer read FQtdDiasTrab write FQtdDiasTrab;
+    property sucessaoVinc: TSucessaoVinc read getSucessaoVinc write FSucessaoVinc;
   end;
 
 implementation
@@ -503,6 +531,31 @@ begin
   inherited;
 end;
 
+{ TInfoComplem }
+
+constructor TInfoComplem.Create;
+begin
+  inherited;
+  FSucessaoVinc := nil;
+end;
+
+destructor TInfoComplem.Destroy;
+begin
+  FreeAndNil(FSucessaoVinc);
+end;
+
+function TInfoComplem.getSucessaoVinc: TSucessaoVinc;
+begin
+  if not Assigned(FSucessaoVinc) then
+    FSucessaoVinc := TSucessaoVinc.Create;
+  Result := FSucessaoVinc;
+end;
+
+function TInfoComplem.sucessaoVincInst: Boolean;
+begin
+  result := Assigned(FSucessaoVinc);
+end;
+
 { TideTrabalhador }
 constructor TeS1200IdeTrabalhador.Create;
 begin
@@ -647,9 +700,11 @@ begin
     Gerador.wCampo(tcDat, '', 'dtAcConv', 0, 0, 0, objIdeADC.Items[iIdeADC].dtAcConv);
     Gerador.wCampo(tcStr, '', 'tpAcConv', 0, 0, 0,
       eSTpAcConvToStr(objIdeADC.Items[iIdeADC].tpAcConv));
+    Gerador.wCampo(tcStr, '', 'compAcConv', 0, 0, 0,objIdeADC.Items[iIdeADC].compAcConv);
     Gerador.wCampo(tcDat, '', 'dtEfAcConv', 0, 0, 0,
       objIdeADC.Items[iIdeADC].dtEfAcConv);
     Gerador.wCampo(tcStr, '', 'dsc', 0, 0, 0, objIdeADC.Items[iIdeADC].dsc);
+    Gerador.wCampo(tcStr, '', 'remunSuc', 0, 0, 0, eSSimNaoToStr(objIdeADC.Items[iIdeADC].remunSuc));
     GerarIdePeriodo(objIdeADC.Items[iIdeADC].idePeriodo);
     Gerador.wGrupo('/ideADC');
   end;
@@ -723,6 +778,16 @@ begin
   Gerador.wGrupo('/ideTrabalhador');
 end;
 
+procedure TEvtRemun.GerarSucessaoVinc;
+begin
+  Gerador.wGrupo('sucessaoVinc');
+    Gerador.wCampo(tcStr, '', 'cnpjEmpregAnt', 0, 0, 0, ideTrabalhador.infoComplem.sucessaoVinc.cnpjEmpregAnt);
+    Gerador.wCampo(tcStr, '', 'matricAnt', 0, 0, 0, ideTrabalhador.infoComplem.sucessaoVinc.MatricAnt);
+    Gerador.wCampo(tcDat, '', 'dtIniVinculo', 0, 0, 0, ideTrabalhador.infoComplem.sucessaoVinc.DtIniVinculo);
+    Gerador.wCampo(tcStr, '', 'observacao', 0, 0, 0, ideTrabalhador.infoComplem.sucessaoVinc.Observacao);
+  Gerador.wGrupo('/sucessaoVinc');
+end;
+
 procedure TEvtRemun.GerarInfoComplem;
 begin
   Gerador.wGrupo('infoComplem');
@@ -733,6 +798,8 @@ begin
     eSNatAtividadeToStr(ideTrabalhador.infoComplem.natAtividade));
   Gerador.wCampo(tcInt, '', 'qtdDiasTrab', 0, 0, 0,
     ideTrabalhador.infoComplem.qtdDiasTrab);
+  if ideTrabalhador.infoComplem.sucessaoVincInst() then
+    GerarSucessaoVinc();
   Gerador.wGrupo('/infoComplem');
 end;
 

@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.esocial.gov.br/schema/evt/evtAdmissao/v02_02_02" targetNamespace="http://www.esocial.gov.br/schema/evt/evtAdmissao/v02_02_02" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.esocial.gov.br/schema/evt/evtAdmissao/v02_03_00" targetNamespace="http://www.esocial.gov.br/schema/evt/evtAdmissao/v02_03_00" elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
   <xs:element name="eSocial">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="evtAdmissao">
           <xs:annotation>
-            <xs:documentation>Evento Admissão / Ingresso de Trabalhador</xs:documentation>
+            <xs:documentation>Evento Cadastramento Inicial do Vínculo e Admissão / Ingresso de Trabalhador</xs:documentation>
           </xs:annotation>
           <xs:complexType>
             <xs:sequence>
@@ -467,6 +467,16 @@
                         </xs:restriction>
                       </xs:simpleType>
                     </xs:element>
+                    <xs:element name="cadIni">
+                      <xs:simpleType>
+                        <xs:annotation>
+                          <xs:documentation>Indicativo de cadastramento inicial</xs:documentation>
+                        </xs:annotation>
+                        <xs:restriction base="xs:string">
+                          <xs:pattern value="[N|S]"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
                     <xs:element name="infoRegimeTrab">
                       <xs:annotation>
                         <xs:documentation>Informações do regime trabalhista</xs:documentation>
@@ -653,7 +663,7 @@ O preenchimento é obrigatório se a inscrição do estabelecimento vinculado fo
                                         </xs:element>
                                         <xs:element name="ideTrabSubstituido" minOccurs="0" maxOccurs="9">
                                           <xs:annotation>
-                                            <xs:documentation>Identificação do trabalhador substituído.</xs:documentation>
+                                            <xs:documentation>Identificação do(s) trabalhador(es) substituído(s)</xs:documentation>
                                           </xs:annotation>
                                           <xs:complexType>
                                             <xs:sequence>
@@ -818,7 +828,7 @@ O preenchimento é obrigatório se a inscrição do estabelecimento vinculado fo
                               </xs:restriction>
                             </xs:simpleType>
                           </xs:element>
-                          <xs:element name="matricAnt">
+                          <xs:element name="matricAnt" minOccurs="0">
                             <xs:simpleType>
                               <xs:annotation>
                                 <xs:documentation>Matrícula no empregador anterior</xs:documentation>
@@ -850,34 +860,53 @@ O preenchimento é obrigatório se a inscrição do estabelecimento vinculado fo
                               </xs:restriction>
                             </xs:simpleType>
                           </xs:element>
-                          <xs:element name="afastamento" minOccurs="0">
-                            <xs:annotation>
-                              <xs:documentation>Informações do trabalhador transferido que esteja afastado. Preenchimento exclusivo em caso de trabalhador que esteja afastado no momento da transferência por sucessão.</xs:documentation>
-                            </xs:annotation>
-                            <xs:complexType>
-                              <xs:sequence>
-                                <xs:element name="dtIniAfast">
-                                  <xs:simpleType>
-                                    <xs:annotation>
-                                      <xs:documentation>Data de início do afastamento</xs:documentation>
-                                    </xs:annotation>
-                                    <xs:restriction base="xs:date">
-                                    </xs:restriction>
-                                  </xs:simpleType>
-                                </xs:element>
-                                <xs:element name="codMotAfast">
-                                  <xs:simpleType>
-                                    <xs:annotation>
-                                      <xs:documentation>Código do motivo de afastamento</xs:documentation>
-                                    </xs:annotation>
-                                    <xs:restriction base="xs:string">
-                                      <xs:length value="2"/>
-                                      <xs:pattern value="\d{2}"/>
-                                    </xs:restriction>
-                                  </xs:simpleType>
-                                </xs:element>
-                              </xs:sequence>
-                            </xs:complexType>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="afastamento" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>Informações de afastamento do trabalhador. Preenchimento exclusivo em caso de trabalhador que permaneça afastado na data de início da obrigatoriedade do empregador no eSocial ou no momento da admissão por motivo de transferência em caso sucessão, incorporação, cisão ou fusão.</xs:documentation>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="dtIniAfast">
+                            <xs:simpleType>
+                              <xs:annotation>
+                                <xs:documentation>Data de início do afastamento</xs:documentation>
+                              </xs:annotation>
+                              <xs:restriction base="xs:date">
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="codMotAfast">
+                            <xs:simpleType>
+                              <xs:annotation>
+                                <xs:documentation>Código do motivo de afastamento</xs:documentation>
+                              </xs:annotation>
+                              <xs:restriction base="xs:string">
+                                <xs:length value="2"/>
+                                <xs:pattern value="\d{2}"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="desligamento" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>Informações do desligamento do trabalhador.
+Registro preenchido exclusivamente caso seja necessário enviar cadastramento inicial referente a trabalhador que já tenha sido desligado da empresa antes do início do eSocial (ex: envio para pagamento de diferenças salariais - acordo/dissídio/convenção coletiva - em meses posteriores ao desligamento e sob vigência do eSocial)</xs:documentation>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="dtDeslig">
+                            <xs:simpleType>
+                              <xs:annotation>
+                                <xs:documentation>Data do Desligamento</xs:documentation>
+                              </xs:annotation>
+                              <xs:restriction base="xs:date">
+                              </xs:restriction>
+                            </xs:simpleType>
                           </xs:element>
                         </xs:sequence>
                       </xs:complexType>
@@ -1585,7 +1614,6 @@ O preenchimento é obrigatório se a inscrição do estabelecimento vinculado fo
             <xs:documentation>Número de Inscrição no CPF</xs:documentation>
           </xs:annotation>
           <xs:restriction base="xs:string">
-            <xs:length value="11"/>
             <xs:pattern value="\d{11}"/>
           </xs:restriction>
         </xs:simpleType>
@@ -1608,16 +1636,6 @@ O preenchimento é obrigatório se a inscrição do estabelecimento vinculado fo
           </xs:annotation>
           <xs:restriction base="xs:string">
             <xs:length value="1"/>
-            <xs:pattern value="[N|S]"/>
-          </xs:restriction>
-        </xs:simpleType>
-      </xs:element>
-      <xs:element name="depPlan">
-        <xs:simpleType>
-          <xs:annotation>
-            <xs:documentation>Dependente plano de saúde</xs:documentation>
-          </xs:annotation>
-          <xs:restriction base="xs:string">
             <xs:pattern value="[N|S]"/>
           </xs:restriction>
         </xs:simpleType>
@@ -1797,6 +1815,16 @@ O preenchimento é obrigatório se a inscrição do estabelecimento vinculado fo
                 </xs:restriction>
               </xs:simpleType>
             </xs:element>
+            <xs:element name="clauAsseg" minOccurs="0">
+              <xs:simpleType>
+                <xs:annotation>
+                  <xs:documentation>Indicativo de cláusula asseguratória</xs:documentation>
+                </xs:annotation>
+                <xs:restriction base="xs:string">
+                  <xs:pattern value="[N|S]"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
@@ -1808,7 +1836,7 @@ O preenchimento é obrigatório se a inscrição do estabelecimento vinculado fo
           <xs:sequence>
             <xs:element name="localTrabGeral" type="TLocalTrab" minOccurs="0">
               <xs:annotation>
-                <xs:documentation>Estabelecimento (CNPJ, CNO, CAEPF) onde o trabalhador (exceto doméstico) exercerá suas atividades. Caso o trabalhador exerça suas atividades em instalações de terceiros, este campo deve ser preenchido com o estabelecimento do próprio empregador ao qual o trabalhador esteja vinculado.</xs:documentation>
+                <xs:documentation>Estabelecimento (CNPJ, CNO, CAEPF) onde o trabalhador (exceto doméstico e temporário) exercerá suas atividades. Caso o trabalhador exerça suas atividades em instalações de terceiros, este campo deve ser preenchido com o estabelecimento do próprio empregador ao qual o trabalhador esteja vinculado.</xs:documentation>
               </xs:annotation>
             </xs:element>
             <xs:element name="localTrabDom" type="TEnderecoBrasil" minOccurs="0">
@@ -1868,7 +1896,7 @@ O preenchimento é obrigatório se a inscrição do estabelecimento vinculado fo
                 </xs:restriction>
               </xs:simpleType>
             </xs:element>
-            <xs:element name="horario" type="THorario" maxOccurs="99">
+            <xs:element name="horario" type="THorario" minOccurs="0" maxOccurs="99">
               <xs:annotation>
                 <xs:documentation>Informações diárias do horário contratual</xs:documentation>
               </xs:annotation>

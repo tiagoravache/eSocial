@@ -470,12 +470,13 @@ end;
 procedure TEvtTabEstab.GerarInfoEntEduc;
 var i: Integer;
 begin
-  for i := 0 to infoEstab.DadosEstab.infoTrab.infoApr.FInfoEntEduc.Count - 1 do
-  begin
-    Gerador.wGrupo('infoEntEduc');
-      Gerador.wCampo(tcStr, '', 'nrInsc', 0, 0, 0, infoEstab.DadosEstab.infoTrab.infoApr.FInfoEntEduc[i].nrInsc);
-    Gerador.wGrupo('/infoEntEduc');
-  end;
+  if ASSIGNED(infoEstab.DadosEstab.infoTrab.infoApr.FInfoEntEduc) then
+    for i := 0 to infoEstab.DadosEstab.infoTrab.infoApr.FInfoEntEduc.Count - 1 do
+    begin
+      Gerador.wGrupo('infoEntEduc');
+        Gerador.wCampo(tcStr, '', 'nrInsc', 0, 0, 0, infoEstab.DadosEstab.infoTrab.infoApr.FInfoEntEduc[i].nrInsc);
+      Gerador.wGrupo('/infoEntEduc');
+    end;
 end;
 
 function TEvtTabEstab.GerarXML: boolean;

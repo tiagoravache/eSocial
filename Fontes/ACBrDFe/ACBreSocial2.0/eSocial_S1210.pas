@@ -334,14 +334,12 @@ type
   TDetPgtoAntItem = class(TCollectionItem)
   private
     FCodCateg: Integer;
-    FPerRef: string;
     FInfoPgtoAnt: TInfoPgtoAntCollection;
   public
     constructor Create; reintroduce;
     destructor Destroy; override;
 
     property codCateg: Integer read FCodCateg write FCodCateg;
-    property perRef: string read FPerRef write FPerRef;
     property infoPgtoAnt: TInfoPgtoAntCollection read FInfoPgtoAnt write FInfoPgtoAnt;
   end;
 
@@ -535,7 +533,6 @@ begin
   begin
     Gerador.wGrupo('detPgtoAnt');
       Gerador.wCampo(tcInt, '', 'codCateg', 0, 0, 0, pDetPgtoAnt[i].codCateg);
-      Gerador.wCampo(tcStr, '', 'perRef', 0, 0, 0, pDetPgtoAnt[i].perRef);
       GerarInfoPgtoAnt(pDetPgtoAnt[i].infoPgtoAnt);
     Gerador.wGrupo('/detPgtoAnt');
   end;

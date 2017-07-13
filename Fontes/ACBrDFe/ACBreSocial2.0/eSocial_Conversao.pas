@@ -80,7 +80,7 @@ type
 
   TTipoEvento             = (teS1000, teS1005, teS1010, teS1020, teS1030, teS1035, teS1040, teS1050,
                              teS1060, teS1070, teS1080, teS2100, teS1200, teS1202, teS1207, teS1210,
-                             teS1220, teS1250, teS1260, teS1270, teS1280, teS1298, teS1299,
+                             teS1220, teS1250, teS1260, teS1270, teS1280, teS1295, teS1298, teS1299,
                              teS1300, teS2190, teS2200, teS2205, teS2206, teS2210, teS2220,
                              teS2230, teS2240, teS2241, teS2250, teS2298, teS2299, teS2300,
                              teS2306, teS2399, teS2400, teS3000, teS4000, teS4999);
@@ -127,6 +127,10 @@ type
                              cicNaoeBasedeCalculoAcordoInternacionalPrevidenciaSocial,
                              cicBasedeCalculodoSalariodeContribuicaoMensal,
                              cicBasedeCalculodaContribPrevsobre13oSalario,
+                             cicBasedeCalculodaContribExclusivaEmpregadorMensal,
+                             cicBasedeCalculodaContribExclusivaEmpregador13oSalario,
+                             cicBasedeCalculodaContribExclusivaSeguradoMensal,
+                             cicBasedeCalculodaContribExclusivaSegurado13oSalario,
                              cicBasedeCalculodaContribPrevSalMaternidade,
                              cicBasedeCalculodaContribPrevSalMaternidade13oSalario,
                              ciBasedeCalcContribPrevAuxilioDoencaRegPropriodePrevSocial,
@@ -145,6 +149,7 @@ type
                              cicIncidsuspensajudicialBCSalMaternidade13oSalario);
 
   tpCodIncIRRF            = (ciiNaoeBasedeCalculo, ciiNaoeBasedeCalculoAcordoInternacional,
+                             ciiOutrasVerbasNaoConsideradas,
                              ciiBasedeCalculoIRRFRemMensal, ciiBasedeCalculoIRRF13oSalario,
                              ciiBasedeCalculoIRRFFerias, ciiBasedeCalculoIRRFPLR, ciiBasedeCalculoIRRFRRA,
                              ciiValorIRRFRemMensal, ciiValorIRRF13oSalario, ciiValorIRRFFerias, ciiValorIRRFPLR,
@@ -381,7 +386,7 @@ type
 
   tpOpcConsult            = (ocContribPrevCPF, ocIRporCPF, ocTotContribSociais, ocTotIRRF);
 
-  tpRegPt                 = (rpNaoUtiliza, rpManual, rpMecanico, rpEletronico, rpNaoEletronicoAlternativo, rpEletronicoAlternativo);
+  tpRegPt                 = (rpNaoUtiliza, rpManual, rpMecanico, rpEletronico, rpNaoEletronicoAlternativo, rpEletronicoAlternativo, rpEletronicoOutros);
 
   tpContApr               = (caDispensado, caDispensadoParcialmente, caObrigado);
 
@@ -774,10 +779,10 @@ implementation
 
 const
 
-  TTipoEventoString   : array[0..42] of String =('S-1000', 'S-1005', 'S-1010', 'S-1020', 'S-1030', 'S-1035',
+  TTipoEventoString   : array[0..43] of String =('S-1000', 'S-1005', 'S-1010', 'S-1020', 'S-1030', 'S-1035',
                                                  'S-1040', 'S-1050', 'S-1060', 'S-1070', 'S-1080',
                                                  'S-2100', 'S-1200', 'S-1202', 'S-1207', 'S-1210', 'S-1220',
-                                                 'S-1250', 'S-1260', 'S-1270', 'S-1280', 'S-1298',
+                                                 'S-1250', 'S-1260', 'S-1270', 'S-1280', 'S-1295', 'S-1298',
                                                  'S-1299', 'S-1300', 'S-2190', 'S-2200', 'S-2205',
                                                  'S-2206', 'S-2210', 'S-2220', 'S-2230', 'S-2240',
                                                  'S-2241', 'S-2250', 'S-2298', 'S-2299', 'S-2300',
@@ -802,6 +807,7 @@ const
   TGenericosString0_3 : array[0..3] of string = ('0','1','2','3' );
   TGenericosString0_4 : array[0..4] of string = ('0','1','2','3','4' );
   TGenericosString0_5 : array[0..5] of string = ('0','1','2','3','4','5' );
+  TGenericosString0_6 : array[0..6] of string = ('0','1','2','3','4','5','6' );
 
   TGenericosString1   : array[0..0] of string = ('1');
   TGenericosString1_2 : array[0..1] of string = ('1','2' );
@@ -814,6 +820,8 @@ const
   TGenericosString1_9 : array[0..8] of string = ('1','2','3','4','5','6','7','8','9' );
 
   TGenericosStringA_E : array[0..4] of string = ('A','B','C','D','E');
+
+  TGenericosStringA_F : array[0..5] of string = ('A','B','C','D','E','F');
 
   TGenericosStringO_N : array[0..1] of string = ('O', 'N');
 
@@ -907,12 +915,12 @@ end;
 
 function eSTpRegPtToStr(const t: tpRegPt): string;
 begin
-  result := EnumeradoToStr2(t, TGenericosString0_5 );
+  result := EnumeradoToStr2(t, TGenericosString0_6 );
 end;
 
 function eSStrToTpRegPt(var ok: Boolean; const s: string): tpRegPt;
 begin
-  result := tpRegPt( StrToEnumerado2(ok, s, TGenericosString0_5) );
+  result := tpRegPt( StrToEnumerado2(ok, s, TGenericosString0_6) );
 end;
 
 function eSTpContAprToStr(const t: tpContApr): string;
@@ -1354,12 +1362,12 @@ end;
 
 function eSCodIncCPToStr(const t:tpCodIncCP ): string;
 begin
-  result := EnumeradoToStr2(t,[ '00', '01', '11', '12', '21', '22', '23', '24', '25', '26', '31',
+  result := EnumeradoToStr2(t,[ '00', '01', '11', '12', '13', '14', '15', '16','21', '22', '23', '24', '25', '26', '31',
                                 '32', '34', '35', '51', '61', '91', '92', '93', '94' ] );
 end;
 function eSStrToCodIncCP(var ok: boolean; const s: string): tpCodIncCP;
 begin
-  result := tpCodIncCP( StrToEnumerado2(ok , s,[ '00', '01', '11', '12', '21', '22', '23', '24', '25', '26', '31',
+  result := tpCodIncCP( StrToEnumerado2(ok , s,[ '00', '01', '11', '12', '13', '14', '15', '16', '21', '22', '23', '24', '25', '26', '31',
                                                  '32', '34', '35', '51', '61', '91', '92', '93', '94' ] ));
 end;
 
@@ -1392,7 +1400,7 @@ end;
 
 function eSCodIncIRRFToStr(const t:tpCodIncIRRF ): string;
 begin
-  result := EnumeradoToStr2(t,[  '00', '01', '11', '12', '13', '14', '15', '31', '32', '33', '34',
+  result := EnumeradoToStr2(t,[  '00', '01', '09','11', '12', '13', '14', '15', '31', '32', '33', '34',
                                  '35', '41', '42', '43', '44', '46', '47', '51', '52', '53',
                                  '54', '55', '61', '62', '63', '64', '70', '71',
                                  '72', '73', '74', '75', '76', '77', '78', '79', '81', '82',
@@ -1400,7 +1408,7 @@ begin
 end;
 function eSStrToCodIncIRRF(var ok: boolean; const s: string): tpCodIncIRRF;
 begin
-  result := tpCodIncIRRF( StrToEnumerado2(ok , s,[  '00', '01', '11', '12', '13', '14', '15', '31', '32', '33', '34',
+  result := tpCodIncIRRF( StrToEnumerado2(ok , s,[  '00', '01', '09','11', '12', '13', '14', '15', '31', '32', '33', '34',
                                                     '35', '41', '42', '43', '44', '46', '47', '51', '52', '53',
                                                     '54', '55', '61', '62', '63', '64', '70', '71',
                                                     '72', '73', '74', '75', '76', '77', '78', '79', '81', '82',
@@ -1870,11 +1878,11 @@ end;
 
 function eSTpAcConvToStr(const t: tpTpAcConv): string;
 begin
-  result := EnumeradoToStr2(t, TGenericosStringA_E);
+  result := EnumeradoToStr2(t, TGenericosStringA_F);
 end;
 function eSStrToTpAcConv(var ok: Boolean; const s: string): tpTpAcConv;
 begin
-  result := tpTpAcConv( StrToEnumerado2(ok , s, TGenericosStringA_E ));
+  result := tpTpAcConv( StrToEnumerado2(ok , s, TGenericosStringA_F ));
 end;
 
 function eSTpNatEstagioToStr(const t: tpNatEstagio): string;

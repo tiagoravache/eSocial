@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.esocial.gov.br/schema/evt/evtInfoEmpregador/v02_02_02" targetNamespace="http://www.esocial.gov.br/schema/evt/evtInfoEmpregador/v02_02_02" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.esocial.gov.br/schema/evt/evtInfoEmpregador/v02_03_00" targetNamespace="http://www.esocial.gov.br/schema/evt/evtInfoEmpregador/v02_03_00" elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
   <xs:element name="eSocial">
     <xs:complexType>
@@ -193,8 +193,8 @@
             <xs:documentation>Nome/Razão Social</xs:documentation>
           </xs:annotation>
           <xs:restriction base="xs:string">
-            <xs:minLength value="1"/>
-            <xs:maxLength value="115"/>
+            <xs:minLength value="2"/>
+            <xs:maxLength value="100"/>
           </xs:restriction>
         </xs:simpleType>
       </xs:element>
@@ -255,17 +255,6 @@
           </xs:annotation>
           <xs:restriction base="xs:byte">
             <xs:pattern value="\d"/>
-          </xs:restriction>
-        </xs:simpleType>
-      </xs:element>
-      <xs:element name="multTabRubricas">
-        <xs:simpleType>
-          <xs:annotation>
-            <xs:documentation>Multi tabela de rubricas?</xs:documentation>
-          </xs:annotation>
-          <xs:restriction base="xs:string">
-            <xs:length value="1"/>
-            <xs:pattern value="[N|S]"/>
           </xs:restriction>
         </xs:simpleType>
       </xs:element>
@@ -510,7 +499,7 @@
                       </xs:annotation>
                       <xs:restriction base="xs:string">
                         <xs:minLength value="2"/>
-                        <xs:maxLength value="115"/>
+                        <xs:maxLength value="100"/>
                       </xs:restriction>
                     </xs:simpleType>
                   </xs:element>
@@ -638,8 +627,8 @@
                   <xs:documentation>Nome/Razão Social</xs:documentation>
                 </xs:annotation>
                 <xs:restriction base="xs:string">
-                  <xs:minLength value="1"/>
-                  <xs:maxLength value="115"/>
+                  <xs:minLength value="2"/>
+                  <xs:maxLength value="100"/>
                 </xs:restriction>
               </xs:simpleType>
             </xs:element>

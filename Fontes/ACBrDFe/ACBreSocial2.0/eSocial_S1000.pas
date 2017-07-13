@@ -158,7 +158,6 @@ type
     FIndConstr: TpIndConstr;
     FIndDesFolha: TpIndDesFolha;
     FIndOptRegEletron: TpIndOptRegEletron;
-    FMultTabRubricas: tpSimNao;
     FIndEntEd: tpSimNao;
     FIndEtt: tpSimNao;
     FNrRegEtt: Integer;
@@ -185,7 +184,6 @@ type
     property IndConstr: TpIndConstr read FIndConstr write FIndConstr;
     property IndDesFolha: TpIndDesFolha read FIndDesFolha write FIndDesFolha;
     property IndOptRegEletron: TpIndOptRegEletron read FIndOptRegEletron write FIndOptRegEletron;
-    property MultTabRubricas: tpSimNao read FMultTabRubricas write FMultTabRubricas;
     property IndEntEd: tpSimNao read FIndEntEd write FIndEntEd;
     property IndEtt: tpSimNao read FIndEtt write FIndEtt;
     property nrRegEtt: Integer read FNrRegEtt write FNrRegEtt;
@@ -228,7 +226,7 @@ type
 
   TDadosIsencao = class(TPersistent)
    private
-    FIdeMinLei: tpSiglaMin;
+    FIdeMinLei: String;
     FNrCertif: string;
     FDtEmisCertif : TDateTime;
     FDtVencCertif: TDateTime;
@@ -237,7 +235,7 @@ type
     FDtDou: TDateTime;
     FPagDou: string;
   public
-    property IdeMinLei: tpSiglaMin read FIdeMinLei write FIdeMinLei;
+    property IdeMinLei: String read FIdeMinLei write FIdeMinLei;
     property NrCertif: string read FNrCertif write FNrCertif;
     property DtEmisCertif: TDateTime read FDtEmisCertif write FDtEmisCertif;
     property DtVencCertif: TDateTime read FDtVencCertif write FDtVencCertif;
@@ -446,7 +444,7 @@ begin
   if infoEmpregador.infoCadastro.dadosIsencaoInst() then
   begin
     Gerador.wGrupo('dadosIsencao');
-      Gerador.wCampo(tcStr, '', 'ideMinLei', 0, 0, 0, eSSiglaMinToStr(infoEmpregador.infoCadastro.DadosIsencao.IdeMinLei));
+      Gerador.wCampo(tcStr, '', 'ideMinLei', 0, 0, 0, infoEmpregador.infoCadastro.DadosIsencao.IdeMinLei);
       Gerador.wCampo(tcStr, '', 'nrCertif', 0, 0, 0, infoEmpregador.infoCadastro.DadosIsencao.NrCertif);
       Gerador.wCampo(tcDat, '', 'dtEmisCertif', 0, 0, 0, infoEmpregador.infoCadastro.DadosIsencao.DtEmisCertif);
       Gerador.wCampo(tcDat, '', 'dtVencCertif', 0, 0, 0, infoEmpregador.infoCadastro.DadosIsencao.DtVencCertif);
@@ -476,7 +474,6 @@ begin
     Gerador.wCampo(tcStr, '', 'indConstr', 0, 0, 0, eSIndConstrutoraToStr(Self.infoEmpregador.infoCadastro.IndConstr));
     Gerador.wCampo(tcStr, '', 'indDesFolha', 0, 0, 0, eSIndDesFolhaToStr(Self.infoEmpregador.infoCadastro.IndDesFolha));
     Gerador.wCampo(tcStr, '', 'indOptRegEletron', 0, 0, 0, eSIndOptRegEletronicoToStr(Self.infoEmpregador.infoCadastro.IndOptRegEletron));
-    Gerador.wCampo(tcStr, '', 'multTabRubricas', 0, 0, 0, eSSimNaoToStr(Self.infoEmpregador.infoCadastro.MultTabRubricas));
     Gerador.wCampo(tcStr, '', 'indEntEd', 0, 1, 0, eSSimNaoToStr(Self.infoEmpregador.infoCadastro.IndEntEd));
     Gerador.wCampo(tcStr, '', 'indEtt', 1, 1, 0, eSSimNaoToStr(Self.infoEmpregador.infoCadastro.IndEtt));
     Gerador.wCampo(tcInt, '', 'nrRegEtt', 0, 1, 0, Self.infoEmpregador.infoCadastro.nrRegEtt);
@@ -602,14 +599,12 @@ begin
         Gerador.wGrupo('/infoEmpregador');
       Gerador.wGrupo('/evtInfoEmpregador');
     GerarRodape;
-
     XML := Assinar(Gerador.ArquivoFormatoXML, 'evtInfoEmpregador');//Gerador.ArquivoFormatoXML;
     Validar('evtInfoEmpregador');
 
   except on e:exception do
     raise Exception.Create(e.Message);
   end;
-
   Result := (Gerador.ArquivoFormatoXML <> '');
 end;
 

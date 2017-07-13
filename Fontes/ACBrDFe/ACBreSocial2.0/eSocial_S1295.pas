@@ -44,7 +44,7 @@
 ******************************************************************************}
 {$I ACBr.inc}
 
-unit eSocial_S1299;
+unit eSocial_S1295;
 
 interface
 
@@ -55,42 +55,39 @@ uses
   ACBreSocialGerador;
 
 type
-  TS1299Collection = class;
-  TS1299CollectionItem = class;
-  TEvtFechaEvPer = class;
-  TInfoFech= class;
+  TS1295Collection = class;
+  TS1295CollectionItem = class;
+  TEvtTotConting = class;
 
-  TS1299Collection = class(TOwnedCollection)
+  TS1295Collection = class(TOwnedCollection)
   private
-    function GetItem(Index: Integer): TS1299CollectionItem;
-    procedure SetItem(Index: Integer; Value: TS1299CollectionItem);
+    function GetItem(Index: Integer): TS1295CollectionItem;
+    procedure SetItem(Index: Integer; Value: TS1295CollectionItem);
   public
-    function Add: TS1299CollectionItem;
-    property Items[Index: Integer]: TS1299CollectionItem read GetItem write SetItem; default;
+    function Add: TS1295CollectionItem;
+    property Items[Index: Integer]: TS1295CollectionItem read GetItem write SetItem; default;
   end;
 
-  TS1299CollectionItem = class(TCollectionItem)
+  TS1295CollectionItem = class(TCollectionItem)
   private
     FTipoEvento: TTipoEvento;
-    FEvtFechaEvPer: TEvtFechaEvPer;
-    procedure setEvtFechaEvPer(const Value: TEvtFechaEvPer);
+    FEvtTotConting: TEvtTotConting;
+    procedure setEvtTotConting(const Value: TEvtTotConting);
   public
     constructor Create(AOwner: TComponent); reintroduce;
     destructor Destroy; override;
   published
     property TipoEvento: TTipoEvento read FTipoEvento;
-    property EvtFechaEvPer: TEvtFechaEvPer read FEvtFechaEvPer write setEvtFechaEvPer;
+    property evtTotConting: TEvtTotConting read FEvtTotConting write setEvtTotConting;
   end;
 
-  TEvtFechaEvPer = class(TESocialEvento)
+  TEvtTotConting = class(TESocialEvento)
   private
     FIdeEvento: TIdeEvento3;
     FIdeEmpregador: TIdeEmpregador;
     FIdeRespInf : TIdeRespInf;
-    FInfoFech: TInfoFech;
 
     {Geradores específicos da classe}
-    procedure GerarInfoFech;
   public
     constructor Create(AACBreSocial: TObject);overload;
     destructor  Destroy; override;
@@ -100,29 +97,6 @@ type
     property IdeEvento: TIdeEvento3 read FIdeEvento write FIdeEvento;
     property IdeEmpregador: TIdeEmpregador read FIdeEmpregador write FIdeEmpregador;
     property IdeRespInf: TIdeRespInf read FIdeRespInf write FIdeRespInf;
-    property InfoFech: TInfoFech read FInfoFech write FInfoFech;
-  end;
-
-  TInfoFech = class
-  private
-    FevtRemun: TpSimNao;
-    FevtPgtos: TpSimNao;
-    FevtAqProd: TpSimNao;
-    FevtComProd: TpSimNao;
-    FevtContratAvNP: TpSimNao;
-    FevtInfoComplPer: TpSimNao;
-    FcompSemMovto : string;
-  public
-    constructor create;
-    destructor destroy; override;
-
-    property evtRemun: TpSimNao read FevtRemun write FevtRemun;
-    property evtPgtos: TpSimNao read FevtPgtos write FevtPgtos;
-    property evtAqProd: TpSimNao read FevtAqProd write FevtAqProd;
-    property evtComProd: TpSimNao read FevtComProd write FevtComProd;
-    property evtContratAvNP: TpSimNao read FevtContratAvNP write FevtContratAvNP;
-    property evtInfoComplPer: TpSimNao read FevtInfoComplPer write FevtInfoComplPer;
-    property compSemMovto : string read FcompSemMovto write FcompSemMovto;
   end;
 
 implementation
@@ -130,112 +104,77 @@ implementation
 uses
   eSocial_Periodicos;
 
-{ TS1299Collection }
-function TS1299Collection.Add: TS1299CollectionItem;
+{ TS1295Collection }
+function TS1295Collection.Add: TS1295CollectionItem;
 begin
-  Result := TS1299CollectionItem(inherited Add);
+  Result := TS1295CollectionItem(inherited Add);
   Result.Create(TComponent(Self.Owner));
 end;
 
-function TS1299Collection.GetItem(Index: Integer): TS1299CollectionItem;
+function TS1295Collection.GetItem(Index: Integer): TS1295CollectionItem;
 begin
-  Result := TS1299CollectionItem(inherited GetItem(Index));
+  Result := TS1295CollectionItem(inherited GetItem(Index));
 end;
 
-procedure TS1299Collection.SetItem(Index: Integer; Value: TS1299CollectionItem);
+procedure TS1295Collection.SetItem(Index: Integer; Value: TS1295CollectionItem);
 begin
   inherited SetItem(Index, Value);
 end;
 
-{TS1299CollectionItem}
-constructor TS1299CollectionItem.Create(AOwner: TComponent);
+{TS1295CollectionItem}
+constructor TS1295CollectionItem.Create(AOwner: TComponent);
 begin
-  FTipoEvento := teS1299;
-  FEvtFechaEvPer := TEvtFechaEvPer.Create(AOwner);
+  FTipoEvento := teS1295;
+  FEvtTotConting := TEvtTotConting.Create(AOwner);
 end;
 
-destructor TS1299CollectionItem.Destroy;
+destructor TS1295CollectionItem.Destroy;
 begin
-  FEvtFechaEvPer.Free;
+  FEvtTotConting.Free;
   inherited;
 end;
 
-procedure TS1299CollectionItem.setEvtFechaEvPer(const Value: TEvtFechaEvPer);
+procedure TS1295CollectionItem.setEvtTotConting(const Value: TEvtTotConting);
 begin
-  FEvtFechaEvPer.Assign(Value);
+  FEvtTotConting.Assign(Value);
 end;
 
 { TEvtSolicTotal }
-constructor TEvtFechaEvPer.Create(AACBreSocial: TObject);
+constructor TEvtTotConting.Create(AACBreSocial: TObject);
 begin
   inherited;
   FIdeEvento := TIdeEvento3.Create;
   FIdeEmpregador := TIdeEmpregador.Create;
   FIdeRespInf := TIdeRespInf.Create;
-  FInfoFech := TInfoFech.Create;
 end;
 
-destructor TEvtFechaEvPer.destroy;
+destructor TEvtTotConting.destroy;
 begin
   FIdeEvento.Free;
   FIdeEmpregador.Free;
   FIdeRespInf.Free;
-  FInfoFech.Free;
   inherited;
 end;
 
-procedure TEvtFechaEvPer.GerarInfoFech;
-begin
-  Gerador.wGrupo('infoFech');
-    Gerador.wCampo(tcStr, '', 'evtRemun', 0, 0, 0, eSSimNaoToStr(self.InfoFech.evtRemun));
-    Gerador.wCampo(tcStr, '', 'evtPgtos', 0, 0, 0, eSSimNaoToStr(self.InfoFech.evtPgtos));
-    Gerador.wCampo(tcStr, '', 'evtAqProd', 0, 0, 0, eSSimNaoToStr(self.InfoFech.evtAqProd));
-    Gerador.wCampo(tcStr, '', 'evtComProd', 0, 0, 0, eSSimNaoToStr(self.InfoFech.evtComProd));
-    Gerador.wCampo(tcStr, '', 'evtContratAvNP', 0, 0, 0, eSSimNaoToStr(self.InfoFech.evtContratAvNP));
-    Gerador.wCampo(tcStr, '', 'evtInfoComplPer', 0, 0, 0, eSSimNaoToStr(self.InfoFech.evtInfoComplPer));
-
-    if ((eSSimNaoToStr(self.InfoFech.evtRemun)        = 'N') and
-        (eSSimNaoToStr(self.InfoFech.evtPgtos)        = 'N') and
-        (eSSimNaoToStr(self.InfoFech.evtAqProd)       = 'N') and
-        (eSSimNaoToStr(self.InfoFech.evtComProd)      = 'N') and
-        (eSSimNaoToStr(self.InfoFech.evtContratAvNP)  = 'N') and
-        (eSSimNaoToStr(self.InfoFech.evtInfoComplPer) = 'N')) then
-      Gerador.wCampo(tcStr, '', 'compSemMovto', 0, 0, 0, self.InfoFech.compSemMovto);
-  Gerador.wGrupo('/infoFech');
-end;
-
-function TEvtFechaEvPer.GerarXML: boolean;
+function TEvtTotConting.GerarXML: boolean;
 begin
   try
-    GerarCabecalho('evtFechaEvPer');
-      Gerador.wGrupo('evtFechaEvPer Id="'+GerarChaveEsocial(now, self.ideEmpregador.NrInsc, 0)+'"');
+    GerarCabecalho('evtTotConting');
+      Gerador.wGrupo('evtTotConting Id="'+GerarChaveEsocial(now, self.ideEmpregador.NrInsc, 0)+'"');
         //gerarIdVersao(self);
         GerarIdeEvento3(self.IdeEvento, False);
         gerarIdeEmpregador(self.IdeEmpregador);
         GerarIdeRespInf(Self.IdeRespInf);
-        GerarInfoFech;
-      Gerador.wGrupo('/evtFechaEvPer');
+      Gerador.wGrupo('/evtTotConting');
     GerarRodape;
 
-    XML := Assinar(Gerador.ArquivoFormatoXML, 'evtFechaEvPer');
-    Validar('evtFechaEvPer');
+    XML := Assinar(Gerador.ArquivoFormatoXML, 'evtTotConting');
+    Validar('evtTotConting');
   except on e:exception do
     raise Exception.Create(e.Message);
   end;
 
   Result := (Gerador.ArquivoFormatoXML <> '')
-end;
-
-{ TInfoFech }
-
-constructor TInfoFech.create;
-begin
-  inherited;
-end;
-
-destructor TInfoFech.destroy;
-begin
-  inherited;
 end;
 
 end.

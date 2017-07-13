@@ -179,6 +179,7 @@ type
     procedure GerarInfoSimples(obj: TinfoSimples);
     procedure GerarIdeEstabLot(pIdeEstabLot : TideEstabLotCollection);
     procedure GerarQuarentena(obj: TQuarentena);
+    procedure GerarIdeRespInf(obj: TIdeRespInf);
   published
     property Gerador: TGerador  read FGerador write FGerador;
     property schema: TeSocialSchema read Fschema write Fschema;
@@ -345,7 +346,7 @@ end;
 
 procedure TeSocialEvento.GerarCabecalho(Namespace: String);
 begin
-  TACBreSocial(FACBreSocial).SSL.NameSpaceURI := 'http://www.esocial.gov.br/schema/evt/'+Namespace+'/v02_02_02';
+  TACBreSocial(FACBreSocial).SSL.NameSpaceURI := 'http://www.esocial.gov.br/schema/evt/'+Namespace+'/v02_03_00';
   Gerador.wGrupo(ENCODING_UTF8, '', False);
   Gerador.wGrupo('eSocial xmlns="'+TACBreSocial(FACBreSocial).SSL.NameSpaceURI+'"');
 end;
@@ -685,8 +686,6 @@ begin
     if (pSucessaoVinc.Observacao <> '') then
       Gerador.wCampo(tcStr, '', 'observacao  ', 0, 0, 0, pSucessaoVinc.Observacao);
 
-    if pSucessaoVinc.afastamentoInst() then
-      GerarAfastamento(pSucessaoVinc.afastamento);
   Gerador.wGrupo('/sucessaoVinc');
 end;
 
@@ -762,7 +761,7 @@ begin
       GerarInfoRegimeTrab(pVinculo.InfoRegimeTrab);
       GerarInfoContrato(pVinculo.InfoContrato);
       GerarSucessaoVinc(pVinculo.SucessaoVinc);
-      if (pTipo = 1) then
+      if (pTipo = 1) or (pTipo = 2) then
       begin
         GerarAfastamento(pVinculo.Afastamento);
         GerarDesligamento(pVinculo.Desligamento);
@@ -796,8 +795,10 @@ begin
     if (pAliqRat.AliqRatAjust > 0)  then
       Gerador.wCampo(tcDe4, '', 'aliqRatAjust', 0, 0, 0, pAliqRat.AliqRatAjust);
 
-    GerarProcessoAdmJudRat(pAliqRat.ProcAdmJudRat);
-    GerarProcessoAdmJudFap(pAliqRat.ProcAdmJudFap);
+    if pAliqRat.procAdmJudRatInst() then
+      GerarProcessoAdmJudRat(pAliqRat.ProcAdmJudRat);
+    if pAliqRat.procAdmJudFapInst() then
+      GerarProcessoAdmJudFap(pAliqRat.ProcAdmJudFap);
   Gerador.wGrupo('/'+GroupName);
 end;
 
@@ -1065,7 +1066,7 @@ begin
   begin
     Gerador.wGrupo(GroupName);
       Gerador.wCampo(tcStr, '', 'codRubr', 0, 0, 0, objItensRemun.Items[iItensRemun].codRubr);
-      Gerador.wCampo(tcStr, '', 'ideTabRubr', 0, 0, 0, objItensRemun.Items[iItensRemun].ideTabRubr);
+      Gerador.wCampo(tcStr, '', 'ideTabRubr', 1, 1, 1, objItensRemun.Items[iItensRemun].ideTabRubr);
       Gerador.wCampo(tcDe2, '', 'qtdRubr', 0, 0, 0, objItensRemun.Items[iItensRemun].qtdRubr);
       Gerador.wCampo(tcDe2, '', 'fatorRubr', 0, 0, 0, objItensRemun.Items[iItensRemun].fatorRubr);
       Gerador.wCampo(tcDe2, '', 'vrUnit', 0, 0, 0, objItensRemun.Items[iItensRemun].vrUnit);
@@ -1189,8 +1190,8 @@ procedure TeSocialEvento.GerarProcessoGenerico(pChave: string; pProcesso: TProce
 begin
   Gerador.wGrupo(pChave);
     Gerador.wCampo(tcStr, '', 'nrProc', 0, 0, 1, pProcesso.nrProc);
-    if pProcesso.codSusp > 0 then
-      Gerador.wCampo(tcInt, '', 'codSusp', 0, 0, 1, pProcesso.codSusp);
+    if trim(pProcesso.codSusp) <> '' then
+      Gerador.wCampo(tcStr, '', 'codSusp', 0, 0, 1, pProcesso.codSusp);
   Gerador.wGrupo('/' + pChave);
 end;
 
@@ -1199,8 +1200,8 @@ begin
   Gerador.wGrupo('procAdmJudFap');
     Gerador.wCampo(tcStr, '', 'tpProc', 0, 0, 1, eSTpProcessoToStr(pProcAdmJudFap.tpProc));
     Gerador.wCampo(tcStr, '', 'nrProc', 0, 0, 1, pProcAdmJudFap.nrProc);
-    if pProcAdmJudFap.codSusp > 0 then
-      Gerador.wCampo(tcInt, '', 'codSusp', 0, 0, 1, pProcAdmJudFap.codSusp);
+    if trim(pProcAdmJudFap.codSusp) <> '' then
+      Gerador.wCampo(tcStr, '', 'codSusp', 0, 0, 1, pProcAdmJudFap.codSusp);
   Gerador.wGrupo('/procAdmJudFap');
 end;
 
@@ -1209,8 +1210,8 @@ begin
   Gerador.wGrupo('procAdmJudRat');
     Gerador.wCampo(tcStr, '', 'tpProc', 0, 0, 0, eSTpProcessoToStr(pProcAdmJudRat.tpProc));
     Gerador.wCampo(tcStr, '', 'nrProc', 0, 0, 0, pProcAdmJudRat.nrProc);
-    if pProcAdmJudRat.codSusp > 0 then
-      Gerador.wCampo(tcInt, '', 'codSusp', 0, 0, 1, pProcAdmJudRat.codSusp);
+    if trim(pProcAdmJudRat.codSusp) <> '' then
+      Gerador.wCampo(tcStr, '', 'codSusp', 0, 0, 1, pProcAdmJudRat.codSusp);
   Gerador.wGrupo('/procAdmJudRat');
 end;
 
@@ -1301,6 +1302,7 @@ begin
   for iDetPlano := 0 to objDetPlanoCollection.Count - 1 do
   begin
     Gerador.wGrupo('detPlano');
+      Gerador.wCampo(tcStr, '', 'tpDep', 0, 0, 0, objDetPlanoCollection.Items[iDetPlano].tpDep);
       Gerador.wCampo(tcStr, '', 'cpfDep', 0, 0, 0, objDetPlanoCollection.Items[iDetPlano].cpfDep);
       Gerador.wCampo(tcStr, '', 'nmDep', 0, 0, 0, objDetPlanoCollection.Items[iDetPlano].nmDep);
       Gerador.wCampo(tcDat, '', 'dtNascto', 0, 0, 0, objDetPlanoCollection.Items[iDetPlano].dtNascto);
@@ -1388,6 +1390,16 @@ begin
   Gerador.wGrupo('quarentena');
     Gerador.wCampo(tcDat, '', 'dtFimQuar', 0,0,0, obj.dtFimQuar);
   Gerador.wGrupo('/quarentena');
+end;
+
+procedure TeSocialEvento.GerarIdeRespInf(obj: TIdeRespInf);
+begin
+  Gerador.wGrupo('ideRespInf');
+    Gerador.wCampo(tcStr, '', 'nmResp', 0, 0, 0, obj.nmResp);
+    Gerador.wCampo(tcStr, '', 'cpfResp', 0, 0, 0, obj.cpfResp);
+    Gerador.wCampo(tcStr, '', 'telefone', 0, 0, 0, obj.telefone);
+    Gerador.wCampo(tcStr, '', 'email', 0, 0, 0, obj.email);
+  Gerador.wGrupo('/ideRespInf');
 end;
 
 end.

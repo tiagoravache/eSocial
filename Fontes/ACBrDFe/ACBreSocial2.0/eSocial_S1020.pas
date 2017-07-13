@@ -341,7 +341,7 @@ begin
     Gerador.wGrupo('procJudTerceiro');
       Gerador.wCampo(tcStr, '', 'codTerc', 0, 0, 0, objProcJudTer.codTerc);
       Gerador.wCampo(tcStr, '', 'nrProcJud', 0, 0, 0, objProcJudTer.nrProcJud);
-      if objProcJudTer.codSusp > 0 then
+      if trim(objProcJudTer.codSusp) <> '' then
         Gerador.wCampo(tcInt, '', 'codSusp', 0, 0, 0, objProcJudTer.codSusp);
     Gerador.wGrupo('/procJudTerceiro');
   end;

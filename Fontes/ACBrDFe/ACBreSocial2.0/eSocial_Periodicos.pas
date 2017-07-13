@@ -49,7 +49,7 @@ interface
 uses
   SysUtils, Classes, ACBrUtil, eSocial_Conversao, eSocial_S1200, eSocial_S1202,
   eSocial_S1207, eSocial_S1210, eSocial_S1220, eSocial_S1250, eSocial_S1260,
-  eSocial_S1270, eSocial_S1280, eSocial_S1298, eSocial_S1299, eSocial_S1300;
+  eSocial_S1270, eSocial_S1280, eSocial_S1295, eSocial_S1298, eSocial_S1299, eSocial_S1300;
 
 type
 
@@ -64,6 +64,7 @@ type
     FS1260: TS1260Collection;
     FS1270: TS1270Collection;
     FS1280: TS1280Collection;
+    FS1295: TS1295Collection;
     FS1298: TS1298Collection;
     FS1299: TS1299Collection;
     FS1300: TS1300Collection;
@@ -76,6 +77,7 @@ type
     procedure setS1260(const Value: TS1260Collection);
     procedure setS1270(const Value: TS1270Collection);
     procedure setS1280(const Value: TS1280Collection);
+    procedure setS1295(const Value: TS1295Collection);
     procedure setS1298(const Value: TS1298Collection);
     procedure setS1299(const Value: TS1299Collection);
     procedure setS1300(const Value: TS1300Collection);
@@ -97,6 +99,7 @@ type
     property S1260: TS1260Collection read FS1260 write setS1260;
     property S1270: TS1270Collection read FS1270 write setS1270;
     property S1280: TS1280Collection read FS1280 write setS1280;
+    property S1295: TS1295Collection read FS1295 write setS1295;
     property S1298: TS1298Collection read FS1298 write setS1298;
     property S1299: TS1299Collection read FS1299 write setS1299;
     property S1300: TS1300Collection read FS1300 write setS1300;
@@ -120,6 +123,7 @@ begin
   FS1260.Clear;
   FS1270.Clear;
   FS1280.Clear;
+  FS1295.Clear;
   FS1298.Clear;
   FS1299.Clear;
   FS1300.Clear;
@@ -137,6 +141,7 @@ begin
   FS1260 := TS1260Collection.Create(AOwner, TS1260CollectionItem);
   FS1270 := TS1270Collection.Create(AOwner, TS1270CollectionItem);
   FS1280 := TS1280Collection.Create(AOwner, TS1280CollectionItem);
+  FS1295 := TS1295Collection.Create(AOwner, TS1295CollectionItem);
   FS1298 := TS1298Collection.Create(AOwner, TS1298CollectionItem);
   FS1299 := TS1299Collection.Create(AOwner, TS1299CollectionItem);
   FS1300 := TS1300Collection.Create(AOwner, TS1300CollectionItem);
@@ -153,6 +158,7 @@ begin
   FS1260.Free;
   FS1270.Free;
   FS1280.Free;
+  FS1295.Free;
   FS1298.Free;
   FS1299.Free;
   FS1300.Free;
@@ -189,6 +195,9 @@ begin
 
   for I := 0 to Self.S1280.Count - 1 do
     Self.S1280.Items[i].EvtInfoComplPer.GerarXML;
+
+  for I := 0 to Self.S1295.Count - 1 do
+    Self.S1295.Items[i].evtTotConting.GerarXML;
 
   for I := 0 to Self.S1298.Count - 1 do
     Self.S1298.Items[i].EvtReabreEvPer.GerarXML;
@@ -232,6 +241,9 @@ begin
 
   for I := 0 to Self.S1280.Count - 1 do
     Self.S1280.Items[i].EvtInfoComplPer.SaveToFile(Path+'\'+TipoEventoToStr(Self.S1280.Items[i].TipoEvento)+'-'+IntToStr(i));
+
+  for I := 0 to Self.S1295.Count - 1 do
+    Self.S1295.Items[i].evtTotConting.SaveToFile(Path+'\'+TipoEventoToStr(Self.S1295.Items[i].TipoEvento)+'-'+IntToStr(i));
 
   for I := 0 to Self.S1298.Count - 1 do
     Self.S1298.Items[i].EvtReabreEvPer.SaveToFile(Path+'\'+TipoEventoToStr(Self.S1298.Items[i].TipoEvento)+'-'+IntToStr(i));
@@ -286,6 +298,11 @@ end;
 procedure TPeriodicos.setS1280(const Value: TS1280Collection);
 begin
   FS1280.Assign(Value);
+end;
+
+procedure TPeriodicos.setS1295(const Value: TS1295Collection);
+begin
+  FS1295.Assign(Value);
 end;
 
 procedure TPeriodicos.setS1298(const Value: TS1298Collection);

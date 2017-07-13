@@ -126,14 +126,14 @@ type
 
   TInfoSuspCollectionItem = class(TCollectionItem)
   private
-   FCodSusp: Integer;
+   FCodSusp: String;
    FIndSusp: tpIndSusp;
    FDTDecisao: TDate;
    FIndDeposito: tpSimNao;
   public
     constructor create; reintroduce;
 
-    property codSusp: Integer read FCodSusp write FCodSusp;
+    property codSusp: String read FCodSusp write FCodSusp;
     property indSusp: tpIndSusp read FIndSusp write FIndSusp;
     property dtDecisao: TDate read FDTDecisao write FDTDecisao;
     property indDeposito: tpSimNao read FIndDeposito write FIndDeposito;
@@ -201,8 +201,6 @@ type
 
 implementation
 
-uses
-  eSocial_Tabelas;
 
 { TS1070Collection }
 
@@ -382,7 +380,7 @@ begin
     for i := 0 to InfoProcesso.dadosProc.infoSusp.Count - 1 do
     begin
       Gerador.wGrupo('infoSusp');
-        Gerador.wCampo(tcInt, '', 'codSusp', 0, 0, 0, InfoProcesso.dadosProc.infoSusp.GetItem(i).codSusp);
+        Gerador.wCampo(tcStr, '', 'codSusp', 0, 0, 0, InfoProcesso.dadosProc.infoSusp.GetItem(i).codSusp);
         Gerador.wCampo(tcStr, '', 'indSusp', 0, 0, 0, eSIndSuspToStr(InfoProcesso.dadosProc.infoSusp.GetItem(i).indSusp));
         Gerador.wCampo(tcDat, '', 'dtDecisao', 0, 0, 0, InfoProcesso.dadosProc.infoSusp.GetItem(i).dtDecisao);
         Gerador.wCampo(tcStr, '', 'indDeposito', 0, 0, 0, eSSimNaoToStr(InfoProcesso.dadosProc.infoSusp.GetItem(i).indDeposito));
@@ -450,7 +448,6 @@ begin
   except on e:exception do
     raise Exception.Create(e.Message);
   end;
-
   Result := (Gerador.ArquivoFormatoXML <> '')
 end;
 
